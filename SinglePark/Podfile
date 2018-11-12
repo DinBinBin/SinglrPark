@@ -1,0 +1,29 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+use_frameworks!
+
+target 'SinglePark' do
+platform :ios, '8.0'
+#
+pod 'AFNetworking'               #网络请求
+#
+pod 'MJRefresh'             #下拉刷新
+#
+pod 'MBProgressHUD'         #加载提示
+#
+pod 'MJExtension'              #model格式化
+#
+pod 'Masonry'                       #自动布局
+#
+pod 'SDWebImage'                #图片加载
+#
+pod 'YYCache'                             #缓存
+#
+pod 'AMap2DMap'                           #2D地图SDK (2D和3D不能同时使⽤用)
+#
+pod 'AMapSearch'                          #搜索服务SDK
+#
+pod 'AMapLocation'                #无IDFA版定位 SDK
+pod 'YYCategories'
+pod 'KSYMediaPlayer_iOS'
+end
