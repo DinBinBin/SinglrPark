@@ -52,8 +52,10 @@
 - (UIButton *)headBtn{
     if (_headBtn == nil) {
         _headBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        
+        _headBtn.tag = 1;
         [_headBtn setImage:[UIImage imageNamed:@"4"] forState:UIControlStateNormal];
+        [_headBtn addTarget:self action:@selector(clickVideoBtn:) forControlEvents:UIControlEventTouchUpInside];
+        
     }
     return _headBtn;
 }
@@ -61,7 +63,10 @@
 - (UIButton *)goodBtn{
     if (_goodBtn == nil) {
         _goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _goodBtn.tag  = 2;
         [_goodBtn setImage:[UIImage imageNamed:@"chase"] forState:UIControlStateNormal];
+        [_goodBtn addTarget:self action:@selector(clickVideoBtn:) forControlEvents:UIControlEventTouchUpInside];
+
     }
     return _goodBtn;
 }
@@ -70,7 +75,9 @@
 - (UIButton *)commentBtn{
     if (_commentBtn == nil) {
         _commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _commentBtn.tag = 3;
         [_commentBtn setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
+        [_commentBtn addTarget:self action:@selector(clickVideoBtn:) forControlEvents:UIControlEventTouchUpInside];
 
     }
     return _commentBtn;
@@ -80,19 +87,37 @@
 - (UIButton *)titleBtn{
     if (_titleBtn == nil) {
         _titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _titleBtn.tag = 4;
         [_titleBtn setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
+        [_titleBtn addTarget:self action:@selector(clickVideoBtn:) forControlEvents:UIControlEventTouchUpInside];
 
     }
     return _titleBtn;
 }
 
+- (void)setModel:(SPVideoModel *)model{
+    if (_model != model) {
+        [self.goodBtn setTitle:@"13" forState:UIControlStateNormal];
+        [self.commentBtn setTitle:@"13" forState:UIControlStateNormal];
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+        //设置图片和文字的间距，这里可自行调整
+        CGFloat margin = 5;
+        
+        self.goodBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.goodBtn.titleLabel.height-margin/2, 0, 0, -self.goodBtn.titleLabel.width);
+        self.goodBtn.titleEdgeInsets = UIEdgeInsetsMake(self.goodBtn.imageView.height+margin/2, -self.goodBtn.imageView.width-margin, 0, 0);
+    
+        self.commentBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.commentBtn.titleLabel.height-margin/2, 0, 0, -self.commentBtn.titleLabel.width);
+        self.commentBtn.titleEdgeInsets = UIEdgeInsetsMake(self.commentBtn.imageView.height+margin/2, -self.commentBtn.imageView.width-margin, 0, 0);
+        [self.headBtn setCornerRadius];
+    }
 }
-*/
+
+
+- (void)clickVideoBtn:(UIButton *)btn{
+    if (self.TranslucentBlock) {
+        self.TranslucentBlock(btn.tag);
+    }
+}
+
 
 @end

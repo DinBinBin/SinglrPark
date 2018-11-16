@@ -23,6 +23,7 @@
 #define JDWLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #define kSFTimeoutInterval 30.0f
 #define ND [NSUserDefaults standardUserDefaults]
+#define KEYWINDOW       [UIApplication sharedApplication].keyWindow
 
 // 提示符时间长度
 #define kHUDTime 2.5

@@ -35,9 +35,7 @@
 		8110C5DC2120027D00D013FC /* SPFoundVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8110C5DB2120027D00D013FC /* SPFoundVC.m */; };
 		81181555217F67CC002069AA /* SPMineCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81181554217F67CC002069AA /* SPMineCardController.m */; };
 		811815582181FEA5002069AA /* SPChasingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 811815572181FEA5002069AA /* SPChasingController.m */; };
-		8118155B2181FECF002069AA /* SPChasingOneTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8118155A2181FECF002069AA /* SPChasingOneTabCell.m */; };
 		8118155E2181FEDF002069AA /* SPChasingTwoTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8118155D2181FEDF002069AA /* SPChasingTwoTabCell.m */; };
-		811815612181FEEF002069AA /* SPChasingThredTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 811815602181FEEF002069AA /* SPChasingThredTabCell.m */; };
 		8118156621820EBB002069AA /* JDWNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 8118156221820EBA002069AA /* JDWNetworkCache.m */; };
 		8118156721820EBB002069AA /* JDWNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8118156521820EBB002069AA /* JDWNetworkHelper.m */; };
 		811DB240216B9D8900ABB889 /* SPHeadPersonTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 811DB23F216B9D8900ABB889 /* SPHeadPersonTabCell.m */; };
@@ -100,6 +98,12 @@
 		81FB4C462165F79E0090142A /* SPCoverTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FB4C452165F79E0090142A /* SPCoverTabCell.m */; };
 		81FB4C492165F8B60090142A /* SPPlayVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FB4C482165F8B60090142A /* SPPlayVideoController.m */; };
 		D0221C4323ECBD8A376F4DE9 /* Pods_SinglePark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18771F1749CBF4B39C200A0C /* Pods_SinglePark.framework */; };
+		E654A9A4219D7B0300447D12 /* SPVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E654A9A3219D7B0300447D12 /* SPVideoModel.m */; };
+		E68CBB43219EB32F0010C2D6 /* JDWForceRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB42219EB32F0010C2D6 /* JDWForceRefreshView.m */; };
+		E68CBB46219EB4170010C2D6 /* SPCommentTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB45219EB4170010C2D6 /* SPCommentTabView.m */; };
+		E68CBB49219EB5370010C2D6 /* SPVideoCommentTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB48219EB5370010C2D6 /* SPVideoCommentTabCell.m */; };
+		E68CBB4D219EC1640010C2D6 /* SPChasingTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB4C219EC1640010C2D6 /* SPChasingTabCell.m */; };
+		E68CBB53219EC1BA0010C2D6 /* SPThirdTabwCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB52219EC1BA0010C2D6 /* SPThirdTabwCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -165,12 +169,8 @@
 		81181554217F67CC002069AA /* SPMineCardController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMineCardController.m; sourceTree = "<group>"; };
 		811815562181FEA5002069AA /* SPChasingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPChasingController.h; sourceTree = "<group>"; };
 		811815572181FEA5002069AA /* SPChasingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPChasingController.m; sourceTree = "<group>"; };
-		811815592181FECF002069AA /* SPChasingOneTabCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPChasingOneTabCell.h; sourceTree = "<group>"; };
-		8118155A2181FECF002069AA /* SPChasingOneTabCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPChasingOneTabCell.m; sourceTree = "<group>"; };
 		8118155C2181FEDF002069AA /* SPChasingTwoTabCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPChasingTwoTabCell.h; sourceTree = "<group>"; };
 		8118155D2181FEDF002069AA /* SPChasingTwoTabCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPChasingTwoTabCell.m; sourceTree = "<group>"; };
-		8118155F2181FEEF002069AA /* SPChasingThredTabCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPChasingThredTabCell.h; sourceTree = "<group>"; };
-		811815602181FEEF002069AA /* SPChasingThredTabCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPChasingThredTabCell.m; sourceTree = "<group>"; };
 		8118156221820EBA002069AA /* JDWNetworkCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDWNetworkCache.m; sourceTree = "<group>"; };
 		8118156321820EBB002069AA /* JDWNetworkCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDWNetworkCache.h; sourceTree = "<group>"; };
 		8118156421820EBB002069AA /* JDWNetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDWNetworkHelper.h; sourceTree = "<group>"; };
@@ -282,6 +282,18 @@
 		81FB4C472165F8B60090142A /* SPPlayVideoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPlayVideoController.h; sourceTree = "<group>"; };
 		81FB4C482165F8B60090142A /* SPPlayVideoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPlayVideoController.m; sourceTree = "<group>"; };
 		B392D9C4D3BB1CA08B9C3B07 /* Pods-SinglePark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinglePark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark.debug.xcconfig"; sourceTree = "<group>"; };
+		E654A9A2219D7B0300447D12 /* SPVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPVideoModel.h; sourceTree = "<group>"; };
+		E654A9A3219D7B0300447D12 /* SPVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPVideoModel.m; sourceTree = "<group>"; };
+		E68CBB41219EB32F0010C2D6 /* JDWForceRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDWForceRefreshView.h; sourceTree = "<group>"; };
+		E68CBB42219EB32F0010C2D6 /* JDWForceRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDWForceRefreshView.m; sourceTree = "<group>"; };
+		E68CBB44219EB4170010C2D6 /* SPCommentTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCommentTabView.h; sourceTree = "<group>"; };
+		E68CBB45219EB4170010C2D6 /* SPCommentTabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPCommentTabView.m; sourceTree = "<group>"; };
+		E68CBB47219EB5370010C2D6 /* SPVideoCommentTabCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPVideoCommentTabCell.h; sourceTree = "<group>"; };
+		E68CBB48219EB5370010C2D6 /* SPVideoCommentTabCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPVideoCommentTabCell.m; sourceTree = "<group>"; };
+		E68CBB4B219EC1640010C2D6 /* SPChasingTabCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPChasingTabCell.h; sourceTree = "<group>"; };
+		E68CBB4C219EC1640010C2D6 /* SPChasingTabCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPChasingTabCell.m; sourceTree = "<group>"; };
+		E68CBB51219EC1BA0010C2D6 /* SPThirdTabwCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPThirdTabwCell.h; sourceTree = "<group>"; };
+		E68CBB52219EC1BA0010C2D6 /* SPThirdTabwCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPThirdTabwCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -479,6 +491,12 @@
 				8127A6D221735A7B0033434C /* TranslucentView.m */,
 				8127A6D321735A7C0033434C /* VideoInfoModel.h */,
 				8127A6D021735A7B0033434C /* VideoInfoModel.m */,
+				E68CBB41219EB32F0010C2D6 /* JDWForceRefreshView.h */,
+				E68CBB42219EB32F0010C2D6 /* JDWForceRefreshView.m */,
+				E68CBB44219EB4170010C2D6 /* SPCommentTabView.h */,
+				E68CBB45219EB4170010C2D6 /* SPCommentTabView.m */,
+				E68CBB47219EB5370010C2D6 /* SPVideoCommentTabCell.h */,
+				E68CBB48219EB5370010C2D6 /* SPVideoCommentTabCell.m */,
 			);
 			path = "视频详情";
 			sourceTree = "<group>";
@@ -708,18 +726,13 @@
 		81E739EE2167390B00B8B7F4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E68CBB4A219EC1350010C2D6 /* 追迅 */,
 				81E739EF2167392300B8B7F4 /* SPMessageTabCell.h */,
 				81E739F02167392300B8B7F4 /* SPMessageTabCell.m */,
 				811DB244216CE5E300ABB889 /* JDWPlatformNewsTabCell.h */,
 				811DB245216CE5E300ABB889 /* JDWPlatformNewsTabCell.m */,
 				813CB050217C9A8200E4E67B /* SPCommentTablCell.h */,
 				813CB051217C9A8200E4E67B /* SPCommentTablCell.m */,
-				811815592181FECF002069AA /* SPChasingOneTabCell.h */,
-				8118155A2181FECF002069AA /* SPChasingOneTabCell.m */,
-				8118155C2181FEDF002069AA /* SPChasingTwoTabCell.h */,
-				8118155D2181FEDF002069AA /* SPChasingTwoTabCell.m */,
-				8118155F2181FEEF002069AA /* SPChasingThredTabCell.h */,
-				811815602181FEEF002069AA /* SPChasingThredTabCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -798,6 +811,8 @@
 			children = (
 				81FB4C412165F4D20090142A /* SPCoverModel.h */,
 				81FB4C422165F4D20090142A /* SPCoverModel.m */,
+				E654A9A2219D7B0300447D12 /* SPVideoModel.h */,
+				E654A9A3219D7B0300447D12 /* SPVideoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -813,6 +828,19 @@
 				18771F1749CBF4B39C200A0C /* Pods_SinglePark.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E68CBB4A219EC1350010C2D6 /* 追迅 */ = {
+			isa = PBXGroup;
+			children = (
+				8118155C2181FEDF002069AA /* SPChasingTwoTabCell.h */,
+				8118155D2181FEDF002069AA /* SPChasingTwoTabCell.m */,
+				E68CBB4B219EC1640010C2D6 /* SPChasingTabCell.h */,
+				E68CBB4C219EC1640010C2D6 /* SPChasingTabCell.m */,
+				E68CBB51219EC1BA0010C2D6 /* SPThirdTabwCell.h */,
+				E68CBB52219EC1BA0010C2D6 /* SPThirdTabwCell.m */,
+			);
+			path = "追迅";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -962,12 +990,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E654A9A4219D7B0300447D12 /* SPVideoModel.m in Sources */,
 				8127A6BB217354760033434C /* SPPersonalController.h in Sources */,
+				E68CBB4D219EC1640010C2D6 /* SPChasingTabCell.m in Sources */,
 				811DB6CE21687A9D00204139 /* UIView+JDW.m in Sources */,
 				8127A6C1217355E40033434C /* SPSetController.m in Sources */,
 				811DB243216CE11900ABB889 /* SPMessageModel.m in Sources */,
 				8110C5C32120019F00D013FC /* UIColor+ZExtension.m in Sources */,
-				8118155B2181FECF002069AA /* SPChasingOneTabCell.m in Sources */,
 				811DB246216CE5E300ABB889 /* JDWPlatformNewsTabCell.m in Sources */,
 				81C13994217B0531003C91B2 /* SPBlacklistController.m in Sources */,
 				8110C5CE212001CE00D013FC /* SGTabBarController.m in Sources */,
@@ -975,7 +1004,6 @@
 				8110C5CF212001CE00D013FC /* SGBaseModel.m in Sources */,
 				81ECE79021357A09004FDDE8 /* SPWelcomeController.m in Sources */,
 				8118156721820EBB002069AA /* JDWNetworkHelper.m in Sources */,
-				811815612181FEEF002069AA /* SPChasingThredTabCell.m in Sources */,
 				811DB6CB2168741200204139 /* SPCardVideoTabCell.m in Sources */,
 				8127A6DF21735B450033434C /* UIView+KJFrame.m in Sources */,
 				8127A6C4217357880033434C /* SPPursuitController.m in Sources */,
@@ -983,9 +1011,11 @@
 				8110C5932120017F00D013FC /* ProjectHelp.m in Sources */,
 				8127A6D621735A7C0033434C /* TranslucentView.m in Sources */,
 				813CB04C217C736400E4E67B /* SPPursuitHeadTabCell.m in Sources */,
+				E68CBB53219EC1BA0010C2D6 /* SPThirdTabwCell.m in Sources */,
 				811DB6D421687D2900204139 /* SPPersonalController.m in Sources */,
 				8118156621820EBB002069AA /* JDWNetworkCache.m in Sources */,
 				8110C5D92120026E00D013FC /* SPMessageVC.m in Sources */,
+				E68CBB43219EB32F0010C2D6 /* JDWForceRefreshView.m in Sources */,
 				813CB049217C734900E4E67B /* SPPursuitListView.m in Sources */,
 				81C13988217AFB10003C91B2 /* SPPrivacyController.m in Sources */,
 				8127A6DE21735B440033434C /* HSPopAnimation.m in Sources */,
@@ -1004,6 +1034,7 @@
 				8127A6E021735B450033434C /* KJPushAnimator.m in Sources */,
 				8110C5BA2120019F00D013FC /* UIBarButtonItem+ZExtension.m in Sources */,
 				81C13982217AFA0E003C91B2 /* SPAcceptNoticeController.m in Sources */,
+				E68CBB49219EB5370010C2D6 /* SPVideoCommentTabCell.m in Sources */,
 				81E739FB2167462A00B8B7F4 /* SPBusinessCardController.m in Sources */,
 				818977C7211FE7D600928071 /* ViewController.m in Sources */,
 				8110C5BF2120019F00D013FC /* UIImage+YBCExtension.m in Sources */,
@@ -1037,6 +1068,7 @@
 				811815582181FEA5002069AA /* SPChasingController.m in Sources */,
 				813290B6214A8DD700679CC2 /* SPPerfectController.m in Sources */,
 				81ECE7962135815E004FDDE8 /* SPRegisterController.m in Sources */,
+				E68CBB46219EB4170010C2D6 /* SPCommentTabView.m in Sources */,
 				8110C5B42120019F00D013FC /* MBProgressHUD+MRLC.m in Sources */,
 				81FB4C402165F0E30090142A /* SPCoverListView.m in Sources */,
 				8110C5DC2120027D00D013FC /* SPFoundVC.m in Sources */,

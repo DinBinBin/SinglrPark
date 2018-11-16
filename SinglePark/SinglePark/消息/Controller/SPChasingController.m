@@ -7,9 +7,9 @@
 //
 
 #import "SPChasingController.h"
-#import "SPChasingOneTabCell.h"
+#import "SPChasingTabCell.h"
 #import "SPChasingTwoTabCell.h"
-#import "SPChasingThredTabCell.h"
+#import "SPThirdTabwCell.h"
 
 @interface SPChasingController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *messageTabView;
@@ -76,14 +76,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SPMessageModel *model = self.fixedarr[indexPath.row];
     if ([model.head floatValue] == 1) {
-        SPChasingOneTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.chasingOne forIndexPath:indexPath];
+        SPChasingTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.chasingOne forIndexPath:indexPath];
         return cell;
     }else if ([model.head floatValue] == 2){
         SPChasingTwoTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.chasingTwo forIndexPath:indexPath];
         return cell;
 
     }else{
-        SPChasingThredTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.chasingThred forIndexPath:indexPath];
+        SPThirdTabwCell *cell = [tableView dequeueReusableCellWithIdentifier:self.chasingThred forIndexPath:indexPath];
         return cell;
 
     }
@@ -102,9 +102,9 @@
         self.chasingOne = @"chasingOne";
         self.chasingTwo = @"chasingTwo";
         self.chasingThred = @"chasingThred";
-        [_messageTabView registerClass:[SPChasingOneTabCell  class] forCellReuseIdentifier:self.chasingOne];
+        [_messageTabView registerClass:[SPChasingTabCell  class] forCellReuseIdentifier:self.chasingOne];
         [_messageTabView registerClass:[SPChasingTwoTabCell  class] forCellReuseIdentifier:self.chasingTwo];
-        [_messageTabView registerClass:[SPChasingThredTabCell  class] forCellReuseIdentifier:self.chasingThred];
+        [_messageTabView registerClass:[SPThirdTabwCell  class] forCellReuseIdentifier:self.chasingThred];
         [self.view addSubview:_messageTabView];
     }
     return _messageTabView;

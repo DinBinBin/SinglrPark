@@ -1,14 +1,14 @@
 //
-//  SPChasingThredTabCell.m
+//  SPThirdTabwCell.m
 //  SinglePark
 //
-//  Created by DBB on 2018/10/25.
+//  Created by 斌斌戴 on 2018/11/16.
 //  Copyright © 2018年 DBB. All rights reserved.
 //
 
-#import "SPChasingThredTabCell.h"
+#import "SPThirdTabwCell.h"
 
-@implementation SPChasingThredTabCell
+@implementation SPThirdTabwCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

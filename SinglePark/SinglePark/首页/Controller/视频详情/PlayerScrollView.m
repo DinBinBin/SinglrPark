@@ -9,9 +9,10 @@
 #import "PlayerScrollView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "TranslucentView.h"
+#import "JDWForceRefreshView.h"
 
 
-@interface PlayerScrollView ()<UIScrollViewDelegate,UIGestureRecognizerDelegate>
+@interface PlayerScrollView ()<UIScrollViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate>
 
 /**
   上中下的遮罩层
@@ -48,7 +49,6 @@
         
 //        TranslucentView.h
         
-        
         //创建播放器
         _player =[[KSYMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:@""]];
         [_player.view setFrame: self.bounds];  // player's frame must match parent's
@@ -80,8 +80,31 @@
 
 - (void)setUI{
     TranslucentView *view = [[TranslucentView alloc] initWithFrame:CGRectMake(kScreenWidth-70, kScreenHeight*2-300-KsafeTabIPhonex-49, 60, 240)];
+    
+    SPVideoModel *model = [[SPVideoModel alloc] initWithDataDic:@{@"commentStr":@"444",
+                                                                  @"headUrl":@"1233",
+                                                                  @"goodnumber":@"1222"}];
+    view.model = model;
 //    view.backgroundColor = [UIColor whiteColor];
     [self addSubview:view];
+    view.TranslucentBlock = ^(NSInteger row) {
+        if (row == 1) { //头像
+            
+        }else if (row == 2){//点赞/】
+            [MBProgressHUD showAutoMessage:@"点赞"];
+            
+        }else if (row == 3){  // 评论
+            JDWForceRefreshView *forceview = [[JDWForceRefreshView alloc] initWithFrame:KEYWINDOW.bounds];
+            [KEYWINDOW addSubview:forceview];
+
+        }else if (row == 4){ //举报
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
+            //        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+            actionSheet.delegate = self;
+            [actionSheet showInView:self];
+        }
+    };
+    
     //单击的手势
     UITapGestureRecognizer *tapRecognize = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
     tapRecognize.numberOfTapsRequired = 1;
@@ -90,8 +113,6 @@
     [tapRecognize delaysTouchesBegan];
     [tapRecognize cancelsTouchesInView];
     [self addGestureRecognizer:tapRecognize];
-    
-    
 }
 
 
@@ -123,7 +144,6 @@
     //准备播放视频
     
     [_player setBufferSizeMax:1];
-
      [_player setShouldAutoplay:true];
      [_player setShouldLoop:YES];
     _player.view.backgroundColor = [UIColor clearColor];
@@ -211,7 +231,7 @@
 
     
 }
-#pragma mark 在播放视频之前，此通知方法会先调用，然后再调用下面的方法
+#pragma mark 在播放视频之前，此通知方法会先调用，%ld后再调(long)用下面的方法
 - (void)handlePlayerNotify:(NSNotification *)noti{
     [self.player.view setHidden:NO];
 }
@@ -294,6 +314,13 @@
 
 
 
+#pragma mark-------UIActionSheetDelegate  UIActionSheet 遵循的协议
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) { // 举报
+        
+        
+    }
+}
 
 
 
