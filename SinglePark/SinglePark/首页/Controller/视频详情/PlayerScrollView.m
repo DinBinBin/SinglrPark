@@ -94,8 +94,8 @@
             [MBProgressHUD showAutoMessage:@"点赞"];
             
         }else if (row == 3){  // 评论
-            JDWForceRefreshView *forceview = [[JDWForceRefreshView alloc] initWithFrame:KEYWINDOW.bounds];
-            [KEYWINDOW addSubview:forceview];
+//            JDWForceRefreshView *forceview = [[JDWForceRefreshView alloc] initWithFrame:KEYWINDOW.bounds];
+//            [KEYWINDOW addSubview:forceview];
 
         }else if (row == 4){ //举报
             UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
