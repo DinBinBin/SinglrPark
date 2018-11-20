@@ -115,6 +115,7 @@
         _listTabView.dataSource = self;
         _listTabView.delegate = self;
         _listTabView.backgroundColor = PTBackColor;
+        _listTabView.tableFooterView = [UIView new];
         self.coverStr = @"coverId";
         [_listTabView registerClass:[SPCardTabCell class] forCellReuseIdentifier:self.coverStr];
         self.coverStr2 = @"coverId2";

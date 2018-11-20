@@ -137,6 +137,7 @@
         _listTabView.dataSource = self;
         _listTabView.delegate = self;
         _listTabView.backgroundColor = PTBackColor;
+        _listTabView.tableFooterView = [UIView new];
         self.coverStr = @"coverStrhead";
         [_listTabView registerClass:[SPHeadPersonTabCell class] forCellReuseIdentifier:self.coverStr];
         [self.view addSubview:_listTabView];

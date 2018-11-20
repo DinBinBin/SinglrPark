@@ -116,4 +116,36 @@
 }
 
 
+////增加删除
+//
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+//    //第二组可以左滑删除
+//    if (indexPath.row >= self.promptArr.count) {
+//        return YES;
+//    }
+//
+//    return NO;
+//}
+//
+//// 定义编辑样式
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return UITableViewCellEditingStyleDelete;
+//}
+//
+//// 进入编辑模式，按下出现的编辑按钮后,进行删除操作
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//
+//        if (indexPath.row >= self.promptArr.count) { // 删除
+//            [self.dataArr removeAllObjects];
+//            [self.listTabView reloadData];
+//        }
+//    }
+//}
+//
+//// 修改编辑按钮文字
+//- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return @"删除";
+//}
+
 @end

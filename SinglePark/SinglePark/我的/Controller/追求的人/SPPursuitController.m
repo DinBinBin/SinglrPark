@@ -51,6 +51,8 @@
         _pursuitScroll.contentSize = CGSizeMake(kScreenWidth*2, _pursuitScroll.height);
         _pursuitScroll.pagingEnabled = YES;
         _pursuitScroll.delegate = self;
+//        _pursuitScroll.bounces = NO;
+
     }
     return _pursuitScroll;
 }
