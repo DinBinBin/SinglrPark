@@ -11,11 +11,16 @@
 @interface SPChasingTabCell()
 @property (nonatomic,strong)UIView *timeView;
 @property (nonatomic,strong)UILabel *timeLab;
+
 @property (nonatomic,strong)UIControl *backCont;
 @property (nonatomic,strong)UIButton *headBtn;
 @property (nonatomic,strong)UILabel *nickeLab;
-@property (nonatomic,strong)UILabel *textLab;
-@property (nonatomic,strong)UIImageView *coverImg;
+@property (nonatomic,strong)UIImageView *seximg;
+@property (nonatomic,strong)UILabel *promptLab;
+@property (nonatomic,strong)UILabel *messageLab;
+@property (nonatomic,strong)UIButton *messageBtn;
+
+@property (nonatomic,strong)UILabel *answerLab;
 
 
 @end
@@ -24,7 +29,8 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setView];
-        
+        self.backgroundColor = PTBackColor;
+
     }
     return self;
 }
@@ -35,9 +41,15 @@
     [self.contentView addSubview:self.backCont];
     [self.backCont addSubview:self.headBtn];
     [self.backCont addSubview:self.nickeLab];
-    [self.backCont addSubview:self.textLab];
-    [self.backCont addSubview:self.coverImg];
     
+
+    [self.backCont addSubview:self.seximg];
+    [self.backCont addSubview:self.promptLab];
+    [self.backCont addSubview:self.messageLab];
+    [self.backCont addSubview:self.messageBtn];
+    [self.backCont addSubview:self.answerLab];
+    
+
     [self.timeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).offset(25);
         make.width.mas_equalTo(120);
@@ -63,28 +75,41 @@
         make.top.equalTo(self.backCont).offset(10);
         make.left.equalTo(self.contentView).offset(20);
         make.width.height.mas_equalTo(50);
-        make.bottom.equalTo(self.backCont.mas_bottom).offset(-10);
         
     }];
     
     [self.nickeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         //        make.top.equalTo(self.contentView).offset(10);
-        make.top.equalTo(self.headBtn);
+        make.top.equalTo(self.headBtn).offset(5);
         make.left.equalTo(self.headBtn.mas_right).offset(10);
     }];
     
-    [self.textLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nickeLab.mas_bottom).offset(10);
-        make.left.equalTo(self.nickeLab);
-        make.right.equalTo(self.backCont.mas_right).offset(-60);
+    [self.seximg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.nickeLab);
+        make.left.equalTo(self.nickeLab.mas_right).offset(2);
+//        make.width.height.mas_equalTo(50);
     }];
     
-    [self.coverImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.height.equalTo(self.headBtn);
-        make.width.mas_equalTo(40);
+    [self.promptLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.nickeLab);
         make.right.equalTo(self.backCont.mas_right).offset(-10);
     }];
     
+    [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headBtn);
+        make.top.equalTo(self.headBtn.mas_bottom).offset(15);
+    }];
+    
+    [self.messageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.messageLab);
+        make.right.equalTo(self.messageLab.mas_right).offset(5);
+    }];
+    
+    [self.answerLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.messageLab.mas_bottom).offset(15);
+        make.centerX.equalTo(self.backCont);
+        make.bottom.equalTo(self.backCont.mas_bottom).offset(-10);
+    }];
     
     [self.timeView.layer setCornerRadius:5];
     [self.backCont.layer setCornerRadius:5];
@@ -95,27 +120,29 @@
     
 }
 
-//- (void)setNewsmodel:(SPMessageModel *)newsmodel{
-//    if(_newsmodel != newsmodel){
-//        _newsmodel   = newsmodel;
-//
-//
-//
-//        // iOS 生成的时间戳是10位
-//        //        NSTimeInterval interval    =[_newsmodel.publishTime doubleValue] / 1000.0;
-//        //        NSDate *date               = [NSDate dateWithTimeIntervalSince1970:interval];
-//        //
-//        //        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//        //        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//        //        NSString *dateString       = [formatter stringFromDate: date];
-//        self.timeLab.text = _newsmodel.time;
-//        self.nickeLab.text = @"昵称";
-//        self.textLab.text = _newsmodel.messsage;
-//        [self.headBtn setImage:[UIImage imageNamed:_newsmodel.coverimg] forState:UIControlStateNormal];
-//        [self.coverImg setImage:[UIImage imageNamed:_newsmodel.coverimg]];
-//        [self.headBtn setCornerRadius];
-//    }
-//}
+- (void)setNewsmodel:(SPMessageModel *)newsmodel{
+    if(_newsmodel != newsmodel){
+        _newsmodel   = newsmodel;
+
+
+
+        // iOS 生成的时间戳是10位
+        //        NSTimeInterval interval    =[_newsmodel.publishTime doubleValue] / 1000.0;
+        //        NSDate *date               = [NSDate dateWithTimeIntervalSince1970:interval];
+        //
+        //        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        //        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        //        NSString *dateString       = [formatter stringFromDate: date];
+        self.timeLab.text = _newsmodel.time;
+        self.nickeLab.text = @"昵称";
+        [self.headBtn setImage:[UIImage imageNamed:_newsmodel.coverimg] forState:UIControlStateNormal];
+        [self.seximg setImage:[UIImage imageNamed:@"nv"]];
+        self.promptLab.text = _newsmodel.messsage;
+        self.answerLab.text = _newsmodel.answer;
+
+        [self.headBtn setCornerRadius];
+    }
+}
 
 
 - (UIView *)timeView{
@@ -164,28 +191,64 @@
     if (_nickeLab == nil) {
         _nickeLab = [[UILabel alloc] init];
         _nickeLab.text = @"昵称";
-        _nickeLab.font = FONT(14);
+        _nickeLab.font = FONT(16);
         _nickeLab.textColor = FirstWordColor;
     }
     return _nickeLab;
 }
 
-- (UILabel *)textLab{
-    if (_textLab == nil) {
-        _textLab = [[UILabel alloc ] init];
-        _textLab.font = FONT(12);
-        _textLab.textColor = SecondWordColor;
-        _textLab.backgroundColor = [UIColor whiteColor];
-        _textLab.numberOfLines = 2;
+- (UIImageView *)seximg{
+    if (_seximg == nil) {
+        _seximg = [[UIImageView alloc] init];
     }
-    return _textLab;
+    return _seximg;
+}
+
+- (UILabel *)promptLab{
+    if (_promptLab == nil) {
+        _promptLab = [[UILabel alloc ] init];
+        _promptLab.font = FONT(14);
+        _promptLab.textColor = SecondWordColor;
+        _promptLab.backgroundColor = [UIColor whiteColor];
+        _promptLab.numberOfLines = 2;
+    }
+    return _promptLab;
     
 }
-- (UIImageView *)coverImg{
-    if (_coverImg == nil) {
-        _coverImg = [[UIImageView alloc] init];
+
+- (UILabel *)messageLab{
+    if (_messageLab == nil) {
+        _messageLab = [[UILabel alloc ] init];
+        _messageLab.font = FONT(14);
+        _messageLab.textColor = SecondWordColor;
+        _messageLab.backgroundColor = [UIColor whiteColor];
+        _messageLab.text = @"附加消息：";
     }
-    return _coverImg;
+    return _messageLab;
+    
+}
+
+- (UIButton *)messageBtn{
+    if (_messageBtn == nil) {
+        _messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        //        WEAKSELF
+        //        STRONGSELF
+        //        [_messageBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        //
+        //
+        //        }];
+    }
+    return _messageBtn;
+}
+
+- (UILabel *)answerLab{
+    if (_answerLab == nil) {
+        _answerLab = [[UILabel alloc] init];
+        _answerLab.font = FONT(14);
+        _answerLab.textColor = SecondWordColor;
+        _answerLab.backgroundColor = [UIColor whiteColor];
+    }
+    return _answerLab;
 }
 
 @end

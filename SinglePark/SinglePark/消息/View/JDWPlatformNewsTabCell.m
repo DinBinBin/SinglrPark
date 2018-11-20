@@ -104,7 +104,7 @@
 - (UILabel *)timeLab{
     if (_timeLab == nil) {
         _timeLab = [[UILabel alloc ] init];
-        _timeLab.font = FONT(12);
+        _timeLab.font = FONT(14);
         _timeLab.textColor =[UIColor whiteColor];
         _timeLab.textAlignment = NSTextAlignmentCenter;
 //        _timeLab.backgroundColor = HexCOLOR(0xD4D4D4);
@@ -125,7 +125,7 @@
 - (UILabel *)textLab{
     if (_textLab == nil) {
         _textLab = [[UILabel alloc ] init];
-        _textLab.font = FONT(12);
+        _textLab.font = FONT(14);
         _textLab.textColor = SecondWordColor;
         _textLab.backgroundColor = [UIColor whiteColor];
         _textLab.numberOfLines = 0;

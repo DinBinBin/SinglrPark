@@ -31,32 +31,32 @@
     [self.contentView addSubview:self.timeLab];
     
     [self.promptImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).offset(15);
+        make.top.equalTo(self.contentView).offset(10);
         make.left.equalTo(self.contentView).offset(15);
-        make.width.height.mas_equalTo(50);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-15);
+        make.width.height.mas_equalTo(60);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
 
     }];
     
     [self.numberLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.promptImg);
-        make.left.equalTo(self.promptImg.mas_right).offset(-5);
-        make.width.height.mas_equalTo(25);
+        make.top.equalTo(self.promptImg).offset(-5);
+        make.left.equalTo(self.promptImg.mas_right).offset(-8);
+        make.width.height.mas_equalTo(16);
     }];
     
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.promptImg);
-        make.left.equalTo(self.promptImg.mas_right).offset(25);
+        make.top.equalTo(self.promptImg).offset(5);
+        make.left.equalTo(self.promptImg.mas_right).offset(20);
     }];
     
     [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.promptImg.mas_bottom);
+        make.bottom.equalTo(self.promptImg.mas_bottom).offset(-10);
         make.left.equalTo(self.titleLab);
 
     }];
     
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.promptImg);
+        make.top.equalTo(self.titleLab);
         make.right.equalTo(self.contentView.mas_right).offset(-20);
     }];
     
@@ -78,7 +78,7 @@
         _numberLab = [[UILabel alloc] init];
         _numberLab.text = @"10";
         _numberLab.textAlignment = NSTextAlignmentCenter;
-        _numberLab.font = FONT(10);
+        _numberLab.font = FONT(8);
         _numberLab.textColor = [UIColor whiteColor];
         _numberLab.backgroundColor = [UIColor redColor];
     }
@@ -90,7 +90,7 @@
         _titleLab = [[UILabel alloc] init];
         _titleLab.text = @"0公里";
         _titleLab.textAlignment = NSTextAlignmentCenter;
-        _titleLab.font = FONT(15);
+        _titleLab.font = FONT(16);
         _titleLab.textColor = FirstWordColor;
     }
     return _titleLab;
@@ -109,8 +109,8 @@
     if (_timeLab == nil) {
         _timeLab = [[UILabel alloc] init];
         _timeLab.text = @"12:00";
-        _timeLab.font = FONT(12);
-        _timeLab.textColor = FirstWordColor;
+        _timeLab.font = FONT(14);
+        _timeLab.textColor = SecondWordColor;
         _timeLab.textAlignment = NSTextAlignmentRight;
     }
     return _timeLab;

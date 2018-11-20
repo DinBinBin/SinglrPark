@@ -40,7 +40,7 @@
     
     NSDictionary *dic = @{@"head":@"chase",
                           @"nickName":@"追讯",
-                          @"messsage":@"哇塞，你好漂亮，我太喜欢你了，美女我们能做朋吗",
+                          @"messsage":@"拒绝了你",
                           @"coverimg":@"4",
                           @"time":@"12:00"};
     NSDictionary *dic2 = @{@"head":@"good",
@@ -55,7 +55,7 @@
                            @"time":@"12:00"};
     NSDictionary *dic4 = @{@"head":@"notice",
                            @"nickName":@"单身公园",
-                           @"messsage":@"恭喜您已通过美女认证",
+                           @"messsage":@"接受了你",
                            @"coverimg":@"4",
                            @"time":@"12:00"};
     SPMessageModel *model = [[SPMessageModel alloc] initWithDataDic:dic];
@@ -77,13 +77,16 @@
     SPMessageModel *model = self.fixedarr[indexPath.row];
     if ([model.head floatValue] == 1) {
         SPChasingTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.chasingOne forIndexPath:indexPath];
+        cell.newsmodel = model;
         return cell;
     }else if ([model.head floatValue] == 2){
         SPChasingTwoTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.chasingTwo forIndexPath:indexPath];
+        cell.newsmodel = model;
         return cell;
 
     }else{
         SPThirdTabwCell *cell = [tableView dequeueReusableCellWithIdentifier:self.chasingThred forIndexPath:indexPath];
+        cell.newsmodel = model;
         return cell;
 
     }

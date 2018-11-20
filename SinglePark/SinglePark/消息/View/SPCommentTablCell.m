@@ -64,19 +64,19 @@
     [self.headBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.backCont).offset(10);
         make.left.equalTo(self.contentView).offset(20);
-        make.width.height.mas_equalTo(50);
+        make.width.height.mas_equalTo(55);
         make.bottom.equalTo(self.backCont.mas_bottom).offset(-10);
 
     }];
     
     [self.nickeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         //        make.top.equalTo(self.contentView).offset(10);
-        make.top.equalTo(self.headBtn);
+        make.top.equalTo(self.headBtn).offset(2);
         make.left.equalTo(self.headBtn.mas_right).offset(10);
     }];
 
     [self.textLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nickeLab.mas_bottom).offset(10);
+        make.top.equalTo(self.nickeLab.mas_bottom).offset(8);
         make.left.equalTo(self.nickeLab);
         make.right.equalTo(self.backCont.mas_right).offset(-60);
     }];
@@ -132,7 +132,7 @@
 - (UILabel *)timeLab{
     if (_timeLab == nil) {
         _timeLab = [[UILabel alloc ] init];
-        _timeLab.font = FONT(12);
+        _timeLab.font = FONT(14);
         _timeLab.textColor =[UIColor whiteColor];
         _timeLab.textAlignment = NSTextAlignmentCenter;
         //        _timeLab.backgroundColor = HexCOLOR(0xD4D4D4);
@@ -167,7 +167,7 @@
     if (_nickeLab == nil) {
         _nickeLab = [[UILabel alloc] init];
         _nickeLab.text = @"昵称";
-        _nickeLab.font = FONT(14);
+        _nickeLab.font = FONT(16);
         _nickeLab.textColor = FirstWordColor;
     }
     return _nickeLab;
@@ -176,7 +176,7 @@
 - (UILabel *)textLab{
     if (_textLab == nil) {
         _textLab = [[UILabel alloc ] init];
-        _textLab.font = FONT(12);
+        _textLab.font = FONT(14);
         _textLab.textColor = SecondWordColor;
         _textLab.backgroundColor = [UIColor whiteColor];
         _textLab.numberOfLines = 2;

@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPChasingTabCell : UITableViewCell
+@property (nonatomic,strong)SPMessageModel *newsmodel;
 
 @end
 

@@ -87,12 +87,13 @@
     view.model = model;
 //    view.backgroundColor = [UIColor whiteColor];
     [self addSubview:view];
+    WEAKSELF
     view.TranslucentBlock = ^(NSInteger row) {
+        STRONGSELF
         if (row == 1) { //头像
             
         }else if (row == 2){//点赞/】
-            [MBProgressHUD showAutoMessage:@"点赞"];
-            
+            [strongSelf goodluck];
         }else if (row == 3){  // 评论
             JDWForceRefreshView *forceview = [[JDWForceRefreshView alloc] initWithFrame:KEYWINDOW.bounds];
             [KEYWINDOW addSubview:forceview];
@@ -113,6 +114,14 @@
     [tapRecognize delaysTouchesBegan];
     [tapRecognize cancelsTouchesInView];
     [self addGestureRecognizer:tapRecognize];
+    
+    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleDoubleTap:)];
+    doubleTapGesture.numberOfTapsRequired =2;
+    doubleTapGesture.numberOfTouchesRequired =1;
+    [self addGestureRecognizer:doubleTapGesture];
+    //只有当doubleTapGesture识别失败的时候(即识别出这不是双击操作)，singleTapGesture才能开始识别
+    [tapRecognize requireGestureRecognizerToFail:doubleTapGesture];
+
 }
 
 
@@ -311,8 +320,11 @@
     NSLog(@"---单击手势-------");
 }
 
-
-
+//双击手势
+-(void)handleDoubleTap:(UIGestureRecognizer *)sender{
+    [self goodluck];
+    NSLog(@"24242424");
+}
 
 #pragma mark-------UIActionSheetDelegate  UIActionSheet 遵循的协议
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -323,6 +335,10 @@
 }
 
 
+- (void)goodluck{
+    [MBProgressHUD showAutoMessage:@"点赞"];
+
+}
 
 
 @end
