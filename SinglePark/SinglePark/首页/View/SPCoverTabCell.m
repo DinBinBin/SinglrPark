@@ -52,6 +52,7 @@
     [self.sexImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.nickeLab);
         make.left.equalTo(self.nickeLab.mas_right).offset(2);
+        make.width.height.mas_equalTo(15);
     }];
     [self.headBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.nickeLab.mas_bottom).offset(3);
