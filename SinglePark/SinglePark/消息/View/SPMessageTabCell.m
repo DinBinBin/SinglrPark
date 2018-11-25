@@ -100,7 +100,7 @@
     if (_messageLab == nil) {
         _messageLab = [[UILabel alloc] init];
         _messageLab.text = @"昵称";
-        _messageLab.font = FONT(14);
+        _messageLab.font = FONT(15);
         _messageLab.textColor = SecondWordColor;
     }
     return _messageLab;

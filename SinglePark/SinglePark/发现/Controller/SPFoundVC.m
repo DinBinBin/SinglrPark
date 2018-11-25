@@ -35,7 +35,7 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
     cell.imageView.image = [UIImage imageNamed:@""];
     cell.textLabel.text = @"向CEO吐槽";
-    cell.textLabel.font = FONT(14);
+    cell.textLabel.font = FONT(16);
     cell.textLabel.textColor = FirstWordColor;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

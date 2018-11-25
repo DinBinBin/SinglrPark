@@ -62,7 +62,7 @@
 - (UIView *)backView{
     if (_backView == nil) {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = PTBackColor;
+        _backView.backgroundColor = [[UIColor clearColor]colorWithAlphaComponent:0.8];
     }
     return _backView;
 }
@@ -73,7 +73,7 @@
         _titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.font = FONT(15);
         _titleLab.textColor = [UIColor whiteColor];
-        _titleLab.backgroundColor = SecondWordColor;
+//        _titleLab.backgroundColor = SecondWordColor;
     }
     return _titleLab;
 }

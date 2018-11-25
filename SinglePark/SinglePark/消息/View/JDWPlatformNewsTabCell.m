@@ -125,7 +125,7 @@
 - (UILabel *)textLab{
     if (_textLab == nil) {
         _textLab = [[UILabel alloc ] init];
-        _textLab.font = FONT(14);
+        _textLab.font = FONT(15);
         _textLab.textColor = SecondWordColor;
         _textLab.backgroundColor = [UIColor whiteColor];
         _textLab.numberOfLines = 0;

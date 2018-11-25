@@ -44,7 +44,7 @@
     NSDictionary *dic1 = @{@"head":@"4",
                            @"occupation":@"距离----",
                            @"nickName":@"昵称----",
-                           @"sex":@"1",
+                           @"sex":@"nv",
                            @"singer":@"伴着我的歌声是你心碎的幻想，你用你的眼泪抚摸我的寂寞",
                            @"didian":@"广东深圳",
                            @"number":@[@"4",@"4",@"4"]
@@ -79,16 +79,18 @@
     if (indexPath.section == 0) {
         SPMineHeadTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr forIndexPath:indexPath];
         cell.model =  self.personmodel;
-        cell.backgroundColor = [UIColor clearColor];
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else if (indexPath.section == 1) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         cell.textLabel.text = arr[indexPath.row];
-        cell.textLabel.font = FONT(14);
-        cell.textLabel.textColor = SecondWordColor;
+        cell.textLabel.font = FONT(16);
+        cell.textLabel.textColor = FirstWordColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.imageView.image = [UIImage imageNamed:imgarr[indexPath.row]];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
         if (indexPath.row < arr.count-1) {
             return cell;
@@ -99,10 +101,11 @@
     }else {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         cell.textLabel.text = arr[indexPath.row];
-        cell.textLabel.font = FONT(14);
-        cell.textLabel.textColor = SecondWordColor;
+        cell.textLabel.font = FONT(16);
+        cell.textLabel.textColor = FirstWordColor;
         cell.imageView.image = [UIImage imageNamed:imgarr[indexPath.row]];
-       
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
         return cell;
         
     }

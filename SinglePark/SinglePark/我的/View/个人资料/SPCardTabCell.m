@@ -52,11 +52,11 @@
     [self.headBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).offset(10);
         make.left.equalTo(self.contentView).offset(20);
-        make.width.height.mas_equalTo(50);
+        make.width.height.mas_equalTo(60);
     }];
     
     [self.nickeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.headBtn);
+        make.top.equalTo(self.headBtn).offset(5);
         make.left.equalTo(self.headBtn.mas_right).offset(10);
     }];
     
@@ -67,7 +67,7 @@
     
     [self.occupation mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nickeLab);
-        make.bottom.equalTo(self.headBtn.mas_bottom);
+        make.bottom.equalTo(self.headBtn.mas_bottom).offset(-5);
     }];
     
     [self.didian mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -87,7 +87,7 @@
         make.height.mas_equalTo(50);
         make.bottom.equalTo(self.backView.mas_bottom);
     }];
-    [self.backView.layer setCornerRadius:5];
+    [self.backView.layer setCornerRadius:8];
     self.backView.clipsToBounds = YES;
 }
 
@@ -96,7 +96,8 @@
 - (UIView *)backView{
     if (_backView == nil) {
         _backView = [[UIView alloc] init];
-        _backView.backgroundColor = [UIColor whiteColor];
+        _backView.backgroundColor = [[UIColor whiteColor]colorWithAlphaComponent:0.8];
+
     }
     return _backView;
 }
@@ -118,7 +119,7 @@
     if (_nickeLab == nil) {
         _nickeLab = [[UILabel alloc] init];
         _nickeLab.text = @"昵称";
-        _nickeLab.font = FONT(14);
+        _nickeLab.font = FONT(16);
         _nickeLab.textColor = FirstWordColor;
     }
     return _nickeLab;
@@ -175,7 +176,7 @@
     if (_model != model) {
         _model = model;
         [self.headBtn setImage:[UIImage imageNamed:_model.head] forState:UIControlStateNormal];
-        [self.headBtn.layer setCornerRadius:25];
+        [self.headBtn.layer setCornerRadius:30];
         self.headBtn.clipsToBounds = YES;
 
         self.nickeLab.text = _model.nickName;

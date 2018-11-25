@@ -207,7 +207,7 @@
 - (UILabel *)promptLab{
     if (_promptLab == nil) {
         _promptLab = [[UILabel alloc ] init];
-        _promptLab.font = FONT(14);
+        _promptLab.font = FONT(15);
         _promptLab.textColor = SecondWordColor;
         _promptLab.backgroundColor = [UIColor whiteColor];
         _promptLab.numberOfLines = 2;

@@ -72,7 +72,7 @@
     if (_placeHolderLabel == nil) {
         _placeHolderLabel = [[UILabel alloc] init];
         _placeHolderLabel.numberOfLines = 0;
-        _placeHolderLabel.font = FONT(14);
+        _placeHolderLabel.font = FONT(16);
         _placeHolderLabel.textColor = SecondWordColor;
         _placeHolderLabel.text = self.str;
         _placeHolderLabel.backgroundColor =[UIColor clearColor];
