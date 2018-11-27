@@ -39,16 +39,17 @@
     [self.whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom);
         make.width.left.equalTo(self);
-        make.height.mas_equalTo(200);
+        make.top.equalTo(self).offset(200+kNavigationHeight+KAddIPhonex);
     }];
     
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.width.equalTo(self.whiteView);
         make.top.equalTo(self.whiteView).offset(5);
+        make.height.mas_equalTo(25);
     }];
     
     [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.titleLab.mas_bottom);
+        make.centerY.equalTo(self.titleLab);
         make.right.equalTo(self.whiteView.mas_right).offset(-20);
     }];
     
@@ -64,14 +65,14 @@
 - (UIView *)whiteView{
     if (_whiteView == nil) {
         _whiteView = [[UIView alloc ] init];
-        _whiteView.backgroundColor = PTBackColor;
+        _whiteView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.2];
     }
     return _whiteView;
 }
 - (UILabel *)titleLab{
     if (_titleLab == nil) {
         _titleLab = [[UILabel alloc] init];
-        _titleLab.font = FONT(12);
+        _titleLab.font = Font14;
         _titleLab.text = @"344条评论";
         _titleLab.textColor = [UIColor whiteColor];
         _titleLab.textAlignment = NSTextAlignmentCenter;
@@ -82,7 +83,8 @@
 - (UIButton *)sureBtn{
     if (_sureBtn == nil) {
         _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sureBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [_sureBtn setTitle:@"X" forState:UIControlStateNormal];
+        _sureBtn.backgroundColor = [UIColor redColor];
         _sureBtn.titleLabel.font = FONT(15);
         WEAKSELF
         STRONGSELF

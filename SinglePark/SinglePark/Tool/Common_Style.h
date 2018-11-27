@@ -90,7 +90,7 @@ value;\
 /** 用于 第二种文字 */
 #define SecondWordColor      HexCOLOR(0x999999)
 /** 用于 字体12 */
-#define Font12              FONT(12)
+#define Font16              FONT(16)
 /** 用于 字体14 */
 #define Font14              FONT(14)
 /** 用于 背景红*/

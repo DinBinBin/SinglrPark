@@ -64,7 +64,7 @@
     if (_goodBtn == nil) {
         _goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _goodBtn.tag  = 2;
-        [_goodBtn setImage:[UIImage imageNamed:@"chase"] forState:UIControlStateNormal];
+        [_goodBtn setImage:[UIImage imageNamed:@"emptylike"] forState:UIControlStateNormal];
         [_goodBtn addTarget:self action:@selector(clickVideoBtn:) forControlEvents:UIControlEventTouchUpInside];
 
     }
@@ -76,7 +76,7 @@
     if (_commentBtn == nil) {
         _commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _commentBtn.tag = 3;
-        [_commentBtn setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
+        [_commentBtn setImage:[UIImage imageNamed:@"commentVideo"] forState:UIControlStateNormal];
         [_commentBtn addTarget:self action:@selector(clickVideoBtn:) forControlEvents:UIControlEventTouchUpInside];
 
     }
@@ -88,7 +88,7 @@
     if (_titleBtn == nil) {
         _titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _titleBtn.tag = 4;
-        [_titleBtn setImage:[UIImage imageNamed:@"message"] forState:UIControlStateNormal];
+        [_titleBtn setImage:[UIImage imageNamed:@"Report"] forState:UIControlStateNormal];
         [_titleBtn addTarget:self action:@selector(clickVideoBtn:) forControlEvents:UIControlEventTouchUpInside];
 
     }
@@ -101,13 +101,13 @@
         [self.commentBtn setTitle:@"13" forState:UIControlStateNormal];
 
         //设置图片和文字的间距，这里可自行调整
-        CGFloat margin = 5;
+        CGFloat margin = 10;
         
-        self.goodBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.goodBtn.titleLabel.height-margin/2, 0, 0, -self.goodBtn.titleLabel.width);
-        self.goodBtn.titleEdgeInsets = UIEdgeInsetsMake(self.goodBtn.imageView.height+margin/2, -self.goodBtn.imageView.width-margin, 0, 0);
+        self.goodBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.goodBtn.titleLabel.height-margin, 5, 0, 0);
+        self.goodBtn.titleEdgeInsets = UIEdgeInsetsMake(self.goodBtn.imageView.height+margin, -self.goodBtn.imageView.width/2-5-self.goodBtn.titleLabel.width/2, 0, 0);
     
-        self.commentBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.commentBtn.titleLabel.height-margin/2, 0, 0, -self.commentBtn.titleLabel.width);
-        self.commentBtn.titleEdgeInsets = UIEdgeInsetsMake(self.commentBtn.imageView.height+margin/2, -self.commentBtn.imageView.width-margin, 0, 0);
+        self.commentBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.commentBtn.titleLabel.height-margin, 5, 0, 0);
+        self.commentBtn.titleEdgeInsets = UIEdgeInsetsMake(self.commentBtn.imageView.height+margin, -self.commentBtn.imageView.width/2-5-self.commentBtn.titleLabel.width/2, 0, 0);
         [self.headBtn setCornerRadius];
     }
 }

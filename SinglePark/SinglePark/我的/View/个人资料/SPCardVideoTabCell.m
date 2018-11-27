@@ -82,7 +82,7 @@
 - (UIImageView *)coverImg{
     if (_coverImg == nil) {
         _coverImg = [[UIImageView alloc] init];
-        _coverImg.image = [UIImage imageNamed:@"4"];
+        _coverImg.image = [UIImage imageNamed:@"video+"];
     }
     return _coverImg;
 }

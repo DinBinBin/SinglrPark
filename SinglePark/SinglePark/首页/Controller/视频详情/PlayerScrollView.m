@@ -95,8 +95,11 @@
         }else if (row == 2){//点赞/】
             [strongSelf goodluck];
         }else if (row == 3){  // 评论
-//            JDWForceRefreshView *forceview = [[JDWForceRefreshView alloc] initWithFrame:KEYWINDOW.bounds];
-//            [KEYWINDOW addSubview:forceview];
+            JDWForceRefreshView *forceview = [[JDWForceRefreshView alloc] initWithFrame:KEYWINDOW.bounds];
+            forceview.ClicKSure = ^{
+                [forceview removeFromSuperview];
+            };
+            [KEYWINDOW addSubview:forceview];
 
         }else if (row == 4){ //举报
             UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
