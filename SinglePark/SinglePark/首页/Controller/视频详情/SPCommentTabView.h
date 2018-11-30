@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SPMessageModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong)NSMutableArray *dataArr;
 
+@property (nonatomic,copy)void (^AnswerComment)(SPMessageModel *model);
 @end
 
 

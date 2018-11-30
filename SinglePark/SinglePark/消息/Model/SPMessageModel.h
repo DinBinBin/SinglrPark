@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy)NSString *answer;
 
 
-
+@property (nonatomic,copy)NSString *gooder;
 @end
 
 NS_ASSUME_NONNULL_END

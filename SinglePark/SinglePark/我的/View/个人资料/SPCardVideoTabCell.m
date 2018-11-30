@@ -11,7 +11,6 @@
 
 
 @property (nonatomic,strong)UIView *backView;
-@property (nonatomic,strong)UILabel *titleLab;
 @property (nonatomic,strong)UIImageView *coverImg;
 @property (nonatomic,strong)UIImageView *promptImg;
 
@@ -30,7 +29,7 @@
 
 - (void)setUI{
     [self.contentView addSubview:self.backView];
-    [self.backView addSubview:self.titleLab];
+    [self.coverImg addSubview:self.titleLab];
     [self.backView addSubview:self.coverImg];
     [self.coverImg addSubview:self.promptImg];
     
@@ -56,6 +55,10 @@
         [self.promptImg mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.coverImg);
         }];
+    
+    [self.backView.layer setCornerRadius:8];
+    self.backView.clipsToBounds = YES;
+
 }
 
 // 懒加载

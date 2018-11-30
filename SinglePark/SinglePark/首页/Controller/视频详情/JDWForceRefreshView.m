@@ -15,6 +15,7 @@
 @property (nonatomic,strong)SPCommentTabView *commentTabView;
 @property (nonatomic,strong)UIButton *sureBtn;
 
+@property (nonatomic,strong)NSMutableArray *dataArr;
 
 @end
 
@@ -23,9 +24,23 @@
 
 - (id)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        SPMessageModel *model = [[SPMessageModel alloc] initWithDataDic:@{@"head":@"4",
+                                                                          @"nickName":@"c昵称",
+                                                                          @"messsage":@"我评论了一条信息",
+                                                                          @"time":@"12：12",
+                                                                          @"gooder":@"34"
+                                                                          }];
+        
+        
+        self.dataArr = [NSMutableArray array];
+        [self.dataArr addObject:model];
+        [self.dataArr addObject:model];
+        [self.dataArr addObject:model];
+        [self.dataArr addObject:model];
+        [self.dataArr addObject:model];
         [self setUI];
         self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.4];
-
+        
     }
     return self;
 }
@@ -60,6 +75,8 @@
     }];
         
     [self.whiteView setCornerRadius:8];
+    
+    self.commentTabView.dataArr = self.dataArr;
 }
 
 - (UIView *)whiteView{
@@ -101,8 +118,22 @@
 - (SPCommentTabView *)commentTabView{
     if (_commentTabView == nil) {
         _commentTabView = [[SPCommentTabView alloc ] init];
+        _commentTabView.AnswerComment = ^(SPMessageModel * _Nonnull model) {
+            
+            
+        };
     }
     return _commentTabView;
+}
+
+- (void)answer{
+    
+    
+}
+
+- (void)comment{
+    
+    
 }
 
 

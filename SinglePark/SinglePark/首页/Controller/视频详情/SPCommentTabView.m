@@ -77,4 +77,19 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.dataArr.count) {
+        SPMessageModel *model = self.dataArr[indexPath.row];
+        if (self.AnswerComment) {
+            self.AnswerComment(model);
+        }
+    }
+}
+
+- (void)setDataArr:(NSMutableArray *)dataArr{
+    if (_dataArr != dataArr) {
+        _dataArr = dataArr;
+        [self.commentTab reloadData];
+    }
+}
 @end

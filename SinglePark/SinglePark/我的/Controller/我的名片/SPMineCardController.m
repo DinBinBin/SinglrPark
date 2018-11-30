@@ -12,7 +12,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 
-@interface SPMineCardController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface SPMineCardController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate>
 @property (nonatomic,strong)UITableView *listTabView;
 @property (nonatomic,copy)NSString *coverStr;
 @property (nonatomic,copy)NSString *coverStr2;
@@ -90,10 +90,13 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row>=2) {
-        
+    if (indexPath.section>=1) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"本地视频",@"立即拍摄",nil];
+        //        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+        actionSheet.delegate = self;
+        [actionSheet showInView:self.view];
+
     }
-    
 }
 
 - (CGFloat )tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -220,6 +223,7 @@
 {
     
     //    NSLog(@"%@",info );
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
     
    UIImage  *img = [self scaleToSize:[info objectForKey:@"UIImagePickerControllerEditedImage"] size:CGSizeMake(300, 300)];
@@ -233,5 +237,38 @@
     
 
 }
+
+
+
+#pragma mark-------UIActionSheetDelegate  UIActionSheet 遵循的协议
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        [self goPhoto];
+
+    }else if(buttonIndex == 1){
+        [self goCamera];
+    }
+}
+
+#pragma mark ----- 视频选择
+- (void)goPhoto{
+    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    ipc.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;//sourcetype有三种分别是camera，photoLibrary和photoAlbum
+    NSArray *availableMedia = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];//Camera所支持的Media格式都有哪些,共有两个分别是@"public.image",@"public.movie"
+    ipc.mediaTypes = [NSArray arrayWithObject:availableMedia[1]];//设置媒体类型为public.movie
+    [self presentViewController:ipc animated:YES completion:nil];
+    ipc.delegate = self;//设置委托
+}
+
+- (void)goCamera{
+    UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
+    ipc.sourceType = UIImagePickerControllerSourceTypeCamera;//sourcetype有三种分别是camera，photoLibrary和photoAlbum
+    NSArray *availableMedia = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];//Camera所支持的Media格式都有哪些,共有两个分别是@"public.image",@"public.movie"
+    ipc.mediaTypes = [NSArray arrayWithObject:availableMedia[1]];//设置媒体类型为public.movie
+    [self presentViewController:ipc animated:YES completion:nil];
+    ipc.videoMaximumDuration = 30000.0f;//30秒
+    ipc.delegate = self;//设置委托
+}
+
 
 @end
