@@ -38,7 +38,6 @@
 //    [self setUI];
     [DBAccountInfo sharedInstance].model = [JDWUserInfoDB userInfo];
     
-    
 //        if(token){
 //            SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
 //            self.window.rootViewController = sgTabBar;
