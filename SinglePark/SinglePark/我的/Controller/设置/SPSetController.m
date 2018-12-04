@@ -12,6 +12,8 @@
 #import "SPAcceptNoticeController.h"
 #import "SPCurrencyController.h"
 #import "SPPrivacyController.h"
+#import "SGNavigationController.h"
+#import "SPWelcomeController.h"
 
 @interface SPSetController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -112,7 +114,8 @@
         }
     }else if (indexPath.section == 3){ // 退出登录
 
-        
+        SGNavigationController *nav = [[SGNavigationController alloc] initWithRootViewController:[[SPWelcomeController alloc] init]];
+        KEYWINDOW.rootViewController = nav;
     }
     
 }

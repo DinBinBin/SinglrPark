@@ -287,6 +287,10 @@
     [JDWNetworkHelper POST:PTURL_API_SENDMSG parameters:parsms success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            [MBProgressHUD showMessage:CodeSend];
+            
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
         }
     } failure:^(NSError *error) {
         [MBProgressHUD showAutoMessage:Networkerror];
