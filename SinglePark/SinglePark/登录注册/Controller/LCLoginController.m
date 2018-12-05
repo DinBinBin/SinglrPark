@@ -102,11 +102,12 @@
         WEAKSELF
         STRONGSELF
         [_codeBtn addTimerForVerifyWithInterval:60 start:^{
-            [self getcode];
+            [strongSelf getcode];
         } complete:^{
             [strongSelf.codeBtn setTitle:@"重新获取" forState:UIControlStateNormal];
             strongSelf.codeBtn.enabled   = YES;
         }];
+        
         [_codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         _codeBtn.layer.cornerRadius = 5;
         _codeBtn.titleLabel.font = FONT(15);
@@ -144,7 +145,7 @@
     if (_passwordField == nil) {
         _passwordField = [[UITextField alloc] initWithFrame:CGRectMake(Width(100),0,200, 50)];
         _passwordField.font = FONT(15);
-        _passwordField.placeholder = @"请输入您的登录密码";
+        _passwordField.placeholder = @"请输入您的验证码";
         [_passwordField setValue:WordColor forKeyPath:@"_placeholderLabel.textColor"];
 //        _passwordField.secureTextEntry = YES;
     }
@@ -209,36 +210,51 @@
 
 // 登录
 - (void)next{
-//    NSDictionary *parsms = @{@"userName":self.userModel.userName,
-//                             @"password":[NSString stringWithFormat:@"%@",self.passwordField.text]};
-    
-//    [KYRequest requestWithURL:PTURL_API_LOGIN requestType:KYRequestTypePost params:parsms needHud:NO success:^(NSDictionary *data) {
+
+//    NSDictionary *params = @{@"phone" : _mobileField.text,
+//                             @"captcha" : _passwordField.text,
+//                             @"type" : @"phone"
+//                             };
 //
-////        保存登录状态 记录登录
-//        if ([data[@"code"] floatValue] == 0) {
+//    [JDWNetworkHelper POST:SPURL_API_Login parms:params success:^(id responseObject) {
+//        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+//
+//        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+//            //保存token
 //            NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
-//            [userdef setObject:data[@"data"][@"token"] forKey:isLogin];
-//            [DBAccountInfo sharedInstance].token = data[@"data"][@"token"];
+//            [userdef setObject:responseDic[@"data"][@"token"] forKey:isLogin];
+//            [DBAccountInfo sharedInstance].token = responseDic[@"data"][@"token"];
 //            [DBAccountInfo sharedInstance].islogin = YES;
+    
+            //登录跳转
+            SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+            [UIApplication sharedApplication].statusBarHidden = NO;
+            ptAppDelegate.window.rootViewController = sgTabBar ;
+    
+    [JDWNetworkHelper POST:@"http://api.cn.ronghub.com/user/getToken"
+                     parms:@{@"userId" : @"123456",@"name" : @"test1",@"portraitUri" : @""}
+                   success:^(id responseObject) {
+                       
+                       NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+                       
+                       JDWLog(@"");
+                       
+                   }
+                   failure:^(NSError *error) {
+                                                                                  
+                       JDWLog(@"%@",error.localizedDescription);
+
+                   }];
+            
 //
-//            NSDictionary *parsms2 = @{@"token":[DBAccountInfo sharedInstance].token};
-////           用户信息记录
-//            [KYRequest requestWithURL:PTURL_API_Mine requestType:KYRequestTypePost params:parsms2 needHud:NO success:^(NSDictionary *data) {
-//
-//                if ([data[@"code"] floatValue] == 0) {
-    SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
-    [UIApplication sharedApplication].statusBarHidden = NO;
-    ptAppDelegate.window.rootViewController = sgTabBar ;
-//                }
-//            } fail:nil];
-//
-//            //        返回上一个界面
 //        }else{
-//            [MBProgressHUD showAutoMessage:data[@"msg"]];
 //
+//            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
 //        }
-//    } fail:^(NSError *error, NSString *msg, NSDictionary *data) {
-//        [MBProgressHUD showAutoMessage:Networkerror];
+//
+//    } failure:^(NSError *error) {
+//
+//        [MBProgressHUD showMessage:Networkerror];
 //
 //    }];
 }
@@ -282,18 +298,18 @@
 }
 
 - (void)getcode{
+    
     NSDictionary *parsms = @{@"phone":self.mobileField.text,
                             @"type":@"2"};
     [JDWNetworkHelper POST:PTURL_API_SENDMSG parameters:parsms success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            [MBProgressHUD showMessage:CodeSend];
             
         }else{
             [MBProgressHUD showMessage:responseDic[@"messages"]];
         }
     } failure:^(NSError *error) {
-        [MBProgressHUD showAutoMessage:Networkerror];
+        [MBProgressHUD showMessage:Networkerror];
     }];
 }
 @end

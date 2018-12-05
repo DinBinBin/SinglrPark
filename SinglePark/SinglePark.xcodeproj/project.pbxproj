@@ -7,6 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		796D9C9821B7ACB30045F0B4 /* SPConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */; };
+		79CDC04421B67AD60018D1C7 /* SPChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CDC04321B67AD60018D1C7 /* SPChatListViewController.m */; };
+		79E032AB21B62D12000581EC /* SFDealNullTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E032A921B62D12000581EC /* SFDealNullTool.m */; };
+		79E032AD21B64C40000581EC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032AC21B64C40000581EC /* AssetsLibrary.framework */; };
+		79E032AF21B64C4B000581EC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032AE21B64C4B000581EC /* AudioToolbox.framework */; };
+		79E032B121B64C56000581EC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032B021B64C56000581EC /* AVFoundation.framework */; };
+		79E032B321B64C5F000581EC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032B221B64C5F000581EC /* CFNetwork.framework */; };
+		79E032B521B64C68000581EC /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032B421B64C68000581EC /* CoreAudio.framework */; };
+		79E032B721B64C72000581EC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032B621B64C72000581EC /* CoreGraphics.framework */; };
+		79E032B921B64C7D000581EC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032B821B64C7D000581EC /* CoreLocation.framework */; };
+		79E032BB21B64C86000581EC /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032BA21B64C86000581EC /* CoreMedia.framework */; };
+		79E032BD21B64C8F000581EC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032BC21B64C8F000581EC /* CoreTelephony.framework */; };
+		79E032BF21B64C98000581EC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032BE21B64C98000581EC /* CoreVideo.framework */; };
+		79E032C121B64CA3000581EC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032C021B64CA3000581EC /* ImageIO.framework */; };
+		79E032C321B64CCF000581EC /* libc++abi.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032C221B64CCF000581EC /* libc++abi.tbd */; };
+		79E032C521B64CD7000581EC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032C421B64CD7000581EC /* libsqlite3.tbd */; };
+		79E032C721B64D3E000581EC /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032C621B64D3D000581EC /* libxml2.tbd */; };
+		79E032C921B64D51000581EC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032C821B64D51000581EC /* libz.tbd */; };
+		79E032CB21B64D5B000581EC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032CA21B64D5B000581EC /* MapKit.framework */; };
+		79E032CD21B64D64000581EC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032CC21B64D63000581EC /* OpenGLES.framework */; };
+		79E032CF21B64D6E000581EC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032CE21B64D6E000581EC /* QuartzCore.framework */; };
+		79E032D121B64D77000581EC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032D021B64D77000581EC /* SystemConfiguration.framework */; };
+		79E032D321B64D7F000581EC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032D221B64D7F000581EC /* UIKit.framework */; };
+		79E032D521B64D89000581EC /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032D421B64D89000581EC /* Photos.framework */; };
+		79E032D721B64D92000581EC /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032D621B64D92000581EC /* SafariServices.framework */; };
 		8110C588212000E300D013FC /* SGBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8110C587212000E300D013FC /* SGBaseController.m */; };
 		8110C58B2120013000D013FC /* LCLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8110C58A2120013000D013FC /* LCLoginController.m */; };
 		8110C58F2120017500D013FC /* DBAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8110C58E2120017500D013FC /* DBAccountInfo.m */; };
@@ -64,7 +89,6 @@
 		8127A6E421735E1F0033434C /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8127A6E321735E1F0033434C /* libsqlite3.0.tbd */; };
 		8127A6E621735E2F0033434C /* libz.1.2.8.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8127A6E521735E2F0033434C /* libz.1.2.8.tbd */; };
 		8127A6E821735E430033434C /* libbz2.1.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8127A6E721735E430033434C /* libbz2.1.0.tbd */; };
-		8127A6EA21735E580033434C /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8127A6E921735E580033434C /* libc++.tbd */; };
 		813290B6214A8DD700679CC2 /* SPPerfectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 813290B5214A8DD700679CC2 /* SPPerfectController.m */; };
 		813290C8214A9D6700679CC2 /* SPSupplementController.m in Sources */ = {isa = PBXBuildFile; fileRef = 813290C7214A9D6700679CC2 /* SPSupplementController.m */; };
 		813CB049217C734900E4E67B /* SPPursuitListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 813CB048217C734900E4E67B /* SPPursuitListView.m */; };
@@ -109,6 +133,36 @@
 /* Begin PBXFileReference section */
 		18771F1749CBF4B39C200A0C /* Pods_SinglePark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SinglePark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280479056BE1971DEC21CD90 /* Pods-SinglePark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinglePark.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark.release.xcconfig"; sourceTree = "<group>"; };
+		796D9C9621B7ACB30045F0B4 /* SPConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConversationViewController.h; sourceTree = "<group>"; };
+		796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConversationViewController.m; sourceTree = "<group>"; };
+		79CDC03A21B652330018D1C7 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		79CDC04021B6595C0018D1C7 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
+		79CDC04221B67AD60018D1C7 /* SPChatListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPChatListViewController.h; sourceTree = "<group>"; };
+		79CDC04321B67AD60018D1C7 /* SPChatListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPChatListViewController.m; sourceTree = "<group>"; };
+		79E032A921B62D12000581EC /* SFDealNullTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFDealNullTool.m; sourceTree = "<group>"; };
+		79E032AA21B62D12000581EC /* SFDealNullTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFDealNullTool.h; sourceTree = "<group>"; };
+		79E032AC21B64C40000581EC /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		79E032AE21B64C4B000581EC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		79E032B021B64C56000581EC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		79E032B221B64C5F000581EC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		79E032B421B64C68000581EC /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		79E032B621B64C72000581EC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		79E032B821B64C7D000581EC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		79E032BA21B64C86000581EC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		79E032BC21B64C8F000581EC /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		79E032BE21B64C98000581EC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		79E032C021B64CA3000581EC /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		79E032C221B64CCF000581EC /* libc++abi.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++abi.tbd"; path = "usr/lib/libc++abi.tbd"; sourceTree = SDKROOT; };
+		79E032C421B64CD7000581EC /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		79E032C621B64D3D000581EC /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		79E032C821B64D51000581EC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		79E032CA21B64D5B000581EC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		79E032CC21B64D63000581EC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		79E032CE21B64D6E000581EC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		79E032D021B64D77000581EC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		79E032D221B64D7F000581EC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		79E032D421B64D89000581EC /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		79E032D621B64D92000581EC /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		8110C585211FFF0000D013FC /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		8110C586212000E200D013FC /* SGBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGBaseController.h; sourceTree = "<group>"; };
 		8110C587212000E300D013FC /* SGBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGBaseController.m; sourceTree = "<group>"; };
@@ -301,7 +355,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8127A6EA21735E580033434C /* libc++.tbd in Frameworks */,
+				79E032D721B64D92000581EC /* SafariServices.framework in Frameworks */,
+				79E032D521B64D89000581EC /* Photos.framework in Frameworks */,
+				79E032D321B64D7F000581EC /* UIKit.framework in Frameworks */,
+				79E032D121B64D77000581EC /* SystemConfiguration.framework in Frameworks */,
+				79E032CF21B64D6E000581EC /* QuartzCore.framework in Frameworks */,
+				79E032CD21B64D64000581EC /* OpenGLES.framework in Frameworks */,
+				79E032CB21B64D5B000581EC /* MapKit.framework in Frameworks */,
+				79E032C921B64D51000581EC /* libz.tbd in Frameworks */,
+				79E032C721B64D3E000581EC /* libxml2.tbd in Frameworks */,
+				79E032C521B64CD7000581EC /* libsqlite3.tbd in Frameworks */,
+				79E032C321B64CCF000581EC /* libc++abi.tbd in Frameworks */,
+				79E032C121B64CA3000581EC /* ImageIO.framework in Frameworks */,
+				79E032BF21B64C98000581EC /* CoreVideo.framework in Frameworks */,
+				79E032BD21B64C8F000581EC /* CoreTelephony.framework in Frameworks */,
+				79E032BB21B64C86000581EC /* CoreMedia.framework in Frameworks */,
+				79E032B921B64C7D000581EC /* CoreLocation.framework in Frameworks */,
+				79E032B721B64C72000581EC /* CoreGraphics.framework in Frameworks */,
+				79E032B521B64C68000581EC /* CoreAudio.framework in Frameworks */,
+				79E032B321B64C5F000581EC /* CFNetwork.framework in Frameworks */,
+				79E032B121B64C56000581EC /* AVFoundation.framework in Frameworks */,
+				79E032AF21B64C4B000581EC /* AudioToolbox.framework in Frameworks */,
+				79E032AD21B64C40000581EC /* AssetsLibrary.framework in Frameworks */,
 				8127A6E821735E430033434C /* libbz2.1.0.tbd in Frameworks */,
 				8127A6E621735E2F0033434C /* libz.1.2.8.tbd in Frameworks */,
 				8127A6E421735E1F0033434C /* libsqlite3.0.tbd in Frameworks */,
@@ -334,6 +409,8 @@
 				8110C5912120017F00D013FC /* ProjectHelp.m */,
 				8110C5922120017F00D013FC /* SGEnum.h */,
 				8110C58C2120017400D013FC /* Common_Style.h */,
+				79E032AA21B62D12000581EC /* SFDealNullTool.h */,
+				79E032A921B62D12000581EC /* SFDealNullTool.m */,
 				8110C58D2120017400D013FC /* DBAccountInfo.h */,
 				8110C58E2120017500D013FC /* DBAccountInfo.m */,
 			);
@@ -704,6 +781,10 @@
 			children = (
 				8110C5D72120026E00D013FC /* SPMessageVC.h */,
 				8110C5D82120026E00D013FC /* SPMessageVC.m */,
+				79CDC04221B67AD60018D1C7 /* SPChatListViewController.h */,
+				79CDC04321B67AD60018D1C7 /* SPChatListViewController.m */,
+				796D9C9621B7ACB30045F0B4 /* SPConversationViewController.h */,
+				796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */,
 				81E739F22167403B00B8B7F4 /* SPSystemController.h */,
 				81E739F32167403B00B8B7F4 /* SPSystemController.m */,
 				813CB04D217C99AB00E4E67B /* SPCommentController.h */,
@@ -820,6 +901,30 @@
 		B0E1090DEEA358D966377F50 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				79CDC04021B6595C0018D1C7 /* libc++.1.tbd */,
+				79CDC03A21B652330018D1C7 /* libstdc++.6.0.9.tbd */,
+				79E032D621B64D92000581EC /* SafariServices.framework */,
+				79E032D421B64D89000581EC /* Photos.framework */,
+				79E032D221B64D7F000581EC /* UIKit.framework */,
+				79E032D021B64D77000581EC /* SystemConfiguration.framework */,
+				79E032CE21B64D6E000581EC /* QuartzCore.framework */,
+				79E032CC21B64D63000581EC /* OpenGLES.framework */,
+				79E032CA21B64D5B000581EC /* MapKit.framework */,
+				79E032C821B64D51000581EC /* libz.tbd */,
+				79E032C621B64D3D000581EC /* libxml2.tbd */,
+				79E032C421B64CD7000581EC /* libsqlite3.tbd */,
+				79E032C221B64CCF000581EC /* libc++abi.tbd */,
+				79E032C021B64CA3000581EC /* ImageIO.framework */,
+				79E032BE21B64C98000581EC /* CoreVideo.framework */,
+				79E032BC21B64C8F000581EC /* CoreTelephony.framework */,
+				79E032BA21B64C86000581EC /* CoreMedia.framework */,
+				79E032B821B64C7D000581EC /* CoreLocation.framework */,
+				79E032B621B64C72000581EC /* CoreGraphics.framework */,
+				79E032B421B64C68000581EC /* CoreAudio.framework */,
+				79E032B221B64C5F000581EC /* CFNetwork.framework */,
+				79E032B021B64C56000581EC /* AVFoundation.framework */,
+				79E032AE21B64C4B000581EC /* AudioToolbox.framework */,
+				79E032AC21B64C40000581EC /* AssetsLibrary.framework */,
 				8127A6E921735E580033434C /* libc++.tbd */,
 				8127A6E721735E430033434C /* libbz2.1.0.tbd */,
 				8127A6E521735E2F0033434C /* libz.1.2.8.tbd */,
@@ -941,10 +1046,20 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark-resources.sh",
 				"${PODS_ROOT}/AMap2DMap/MAMapKit.framework/AMap.bundle",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RongCloud.bundle",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/en.lproj",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/zh-Hans.lproj",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/Emoji.plist",
+				"${PODS_ROOT}/RongCloudIM/RongCloudIM/RCConfig.plist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AMap.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RongCloud.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/en.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/zh-Hans.lproj",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Emoji.plist",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCConfig.plist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1028,6 +1143,7 @@
 				81EFA388218DA66F00C8E8B6 /* JDWUserInfoDB.m in Sources */,
 				8110C5C12120019F00D013FC /* NSAttributedString+ZExtension.m in Sources */,
 				811DB6D7216881FB00204139 /* SPPursuitView.m in Sources */,
+				796D9C9821B7ACB30045F0B4 /* SPConversationViewController.m in Sources */,
 				8118155E2181FEDF002069AA /* SPChasingTwoTabCell.m in Sources */,
 				8127A6D421735A7C0033434C /* PlayerScrollView.m in Sources */,
 				8110C5B82120019F00D013FC /* NSString+ZExtension.m in Sources */,
@@ -1049,7 +1165,9 @@
 				813290C8214A9D6700679CC2 /* SPSupplementController.m in Sources */,
 				818977D2211FE7D800928071 /* main.m in Sources */,
 				8110C5BC2120019F00D013FC /* UIView+ZExtension.m in Sources */,
+				79E032AB21B62D12000581EC /* SFDealNullTool.m in Sources */,
 				81C13991217B03C5003C91B2 /* SPProtectionController.m in Sources */,
+				79CDC04421B67AD60018D1C7 /* SPChatListViewController.m in Sources */,
 				8110C588212000E300D013FC /* SGBaseController.m in Sources */,
 				8110C5BE2120019F00D013FC /* UITextField+KYExtension.m in Sources */,
 				8110C5D0212001CE00D013FC /* SGNavigationController.m in Sources */,
@@ -1260,6 +1378,86 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"bz2\"",
+					"-l\"c++\"",
+					"-l\"iconv\"",
+					"-l\"opencore-amrnb\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AFNetworking\"",
+					"-framework",
+					"\"AMapFoundationKit\"",
+					"-framework",
+					"\"AMapLocationKit\"",
+					"-framework",
+					"\"AMapSearchKit\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreAudio\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreVideo\"",
+					"-framework",
+					"\"ExternalAccessory\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"KSYMediaPlayer\"",
+					"-framework",
+					"\"MAMapKit\"",
+					"-framework",
+					"\"MBProgressHUD\"",
+					"-framework",
+					"\"MJExtension\"",
+					"-framework",
+					"\"MJRefresh\"",
+					"-framework",
+					"\"MapKit\"",
+					"-framework",
+					"\"Masonry\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"RongIMKit\"",
+					"-framework",
+					"\"RongIMLib\"",
+					"-framework",
+					"\"SDWebImage\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"VideoToolbox\"",
+					"-framework",
+					"\"YYCache\"",
+					"-framework",
+					"\"YYCategories\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SinglePark.AP;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -203,29 +203,29 @@
     SPPerfectController *perfect = [[SPPerfectController alloc] init];
     [self.navigationController pushViewController:perfect animated:YES];
 
-//    NSDictionary *parsms = @{@"phone":self.mobileField.text,
-//                             @"captcha":self.passwordField.text,
-//                             @"type":@"phone"};
-//    [JDWNetworkHelper POST:PTURL_API_LOGINREGIST parameters:parsms success:^(id responseObject) {
-//        NSDictionary *responseDic = (NSDictionary *)responseObject;
-//        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-//
-//            DBAccountInfo *account = [DBAccountInfo sharedInstance];
-//            account.model = [[SPPersonModel alloc] initWithDataDic:responseDic[@"data"]];
-//            [JDWUserInfoDB saveUserInfo:account.model];
-//            SPPerfectController *perfect = [[SPPerfectController alloc] init];
-//            [self.navigationController pushViewController:perfect animated:YES];
-//        }else{
-//            if ([responseDic[@"messages"] isKindOfClass: [NSNull class]]) {
-//                [MBProgressHUD showAutoMessage:@"请求失败"];
-//
-//            }else{
-//                [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
-//            }
-//        }
-//    } failure:^(NSError *error) {
-//        [MBProgressHUD showAutoMessage:Networkerror];
-//    }];
+    NSDictionary *parsms = @{@"phone":self.mobileField.text,
+                             @"captcha":self.passwordField.text,
+                             @"type":@"phone"};
+    [JDWNetworkHelper POST:PTURL_API_LOGINREGIST parameters:parsms success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+
+            DBAccountInfo *account = [DBAccountInfo sharedInstance];
+            account.model = [[SPPersonModel alloc] initWithDataDic:responseDic[@"data"]];
+            [JDWUserInfoDB saveUserInfo:account.model];
+            SPPerfectController *perfect = [[SPPerfectController alloc] init];
+            [self.navigationController pushViewController:perfect animated:YES];
+        }else{
+            if ([responseDic[@"messages"] isKindOfClass: [NSNull class]]) {
+                [MBProgressHUD showAutoMessage:@"请求失败"];
+
+            }else{
+                [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+            }
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
     
 }
 

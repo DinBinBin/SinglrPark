@@ -59,3 +59,5 @@ NSString * const HWDownloadAllowsCellularAccessChangeNotification = @"HWDownload
 /************************* 网络 *************************/
 NSString * const HWNetworkingReachabilityDidChangeNotification = @"HWNetworkingReachabilityDidChangeNotification";
 
+/** 融云appkey */
+NSString * const RYAPPKey = @"sfci50a7s36wi";

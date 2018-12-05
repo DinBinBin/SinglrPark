@@ -44,6 +44,11 @@ Copyright © 2014 AutoNavi. All Rights Reserved.
 Copyright © 2014 AutoNavi. All Rights Reserved.
 
 
+## KSYMediaPlayer_iOS
+
+Copyright 2015 kingsoft Ltd. All rights reserved.
+
+
 ## MBProgressHUD
 
 Copyright © 2009-2016 Matej Bukovinski
@@ -133,6 +138,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+## RongCloudIM
+
+Copyright 2014 Rong Cloud
 
 ## SDWebImage
 

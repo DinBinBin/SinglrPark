@@ -10,10 +10,12 @@
 #import "SGTabBarController.h"
 #import "SPWelcomeController.h"
 #import "SGNavigationController.h"
+#import <RongIMKit/RongIMKit.h>
 
-@interface AppDelegate ()
+#define  RYUserToken1000 @"AjTYNx3b/+s2xWSS2JY4BKxnGDTFFrRJfvWcZPs7rYutDT/fvqtighn9ixKpJpsl/3FGJyBJltMzzsIKnel3bQ=="
+#define  RYUserToken1001 @"8aDnTVlww4leOYuTEhYX4q2QImwLq/9Snm4W+9UbcP3+iHOGBOqqYcITkmdM4ZQYWMG6hqGz/AnTP0YEtcnShA=="
+@interface AppDelegate ()<RCIMUserInfoDataSource,RCIMReceiveMessageDelegate>
 @property(nonatomic,copy)NSString *versionStr;
-
 @end
 
 @implementation AppDelegate
@@ -48,6 +50,10 @@
 //        }
 
 //    }
+    
+    /** 注册融云 */
+    [self registRYAPIWith:application];
+    
     return YES;
     
 }
@@ -57,6 +63,77 @@
         self.window.rootViewController = sgTabBar;
 }
 
+/** 注册融云相关信息 */
+- (void)registRYAPIWith:(UIApplication *)application{
+    
+    [[RCIM sharedRCIM] initWithAppKey:RYAPPKey];
+    
+    [RCIM sharedRCIM].receiveMessageDelegate = self;
+    
+    
+    [RCIM sharedRCIM].userInfoDataSource = self;
+    
+    // 登陆
+    [[RCIM sharedRCIM] connectWithToken:RYUserToken1000 success:^(NSString *userId) {
+        JDWLog(@"登陆成功userid＝%@",userId);
+    } error:^(RCConnectErrorCode status) {
+        JDWLog(@"登陆的错误码为:%ld", (long)status);
+    } tokenIncorrect:^{
+        JDWLog(@"token错误");
+    }];
+    
+    // 消息推送
+    if ([application
+         respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings
+                                                settingsForTypes:(UIUserNotificationTypeBadge |
+                                                                  UIUserNotificationTypeSound |
+                                                                  UIUserNotificationTypeAlert)
+                                                categories:nil];
+        [application registerUserNotificationSettings:settings];
+    }
+    
+    
+}
+
+// 接收消息通知
+- (void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left {
+    JDWLog(@"message:%@",message);
+
+}
+
+
+#pragma mark - RCIMUserInfoDataSource
+- (void)getUserInfoWithUserId:(NSString *)userId
+                   completion:(void (^)(RCUserInfo *))completion{
+    
+    if ([userId isEqualToString:@"1001"]) {
+        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"测试1" portrait:@"http://imgsrc.baidu.com/forum/w=580/sign=5566fdc475094b36db921be593cd7c00/f92ae850352ac65c74f36568f8f2b21192138a60.jpg"];
+        return completion(userInfo);
+    }else if ([userId isEqualToString:@"1000"]){
+        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"我小时候就很美" portrait:@"http://img181.poco.cn/mypoco/myphoto/20110509/19/56595788201105091919176805863526146_007.jpg"];
+        completion(userInfo);
+    }
+}
+
+/**
+ *  将得到的devicetoken 传给融云用于离线状态接收push ，您的app后台要上传推送证书
+ *
+ *  @param application <#application description#>
+ *  @param deviceToken <#deviceToken description#>
+ */
+- (void)application:(UIApplication *)application
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSString *token =
+    [[[[deviceToken description] stringByReplacingOccurrencesOfString:@"<"
+                                                           withString:@""]
+      stringByReplacingOccurrencesOfString:@">"
+      withString:@""]
+     stringByReplacingOccurrencesOfString:@" "
+     withString:@""];
+    
+    [[RCIMClient sharedRCIMClient] setDeviceToken:token];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -11,6 +11,7 @@
 #import "SPSystemController.h"
 #import "SPCommentController.h"
 #import "SPChasingController.h"
+#import "SPChatListViewController.h"
 
 @interface SPMessageVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *messageTabView;
@@ -51,12 +52,18 @@
                           @"nickName":@"单身公园",
                           @"messsage":@"恭喜您已通过美女认证",
                            @"time":@"12:00"};
+    NSDictionary *dic5 = @{@"head":@"notice",
+                           @"nickName":@"聊天窗口",
+                           @"messsage":@"好友聊天都在这里哦",
+                           @"time":@"12:00"};
     SPMessageModel *model = [[SPMessageModel alloc] initWithDataDic:dic];
     SPMessageModel *model2 = [[SPMessageModel alloc] initWithDataDic:dic2];
     SPMessageModel *model3 = [[SPMessageModel alloc] initWithDataDic:dic3];
     SPMessageModel *model4 = [[SPMessageModel alloc] initWithDataDic:dic4];
+    SPMessageModel *model5 = [[SPMessageModel alloc] initWithDataDic:dic5];
 
-    self.fixedarr  = [NSMutableArray arrayWithObjects:model4,model3,model,model2, nil];
+
+    self.fixedarr  = [NSMutableArray arrayWithObjects:model4,model3,model,model2,model5, nil];
     [self.messageTabView reloadData];
     
 }
@@ -82,6 +89,7 @@
         systme.titleStr = @"评论";
         [self.navigationController   pushViewController:systme animated:YES];
 
+
     }else if (indexPath.row == 2){
         SPChasingController *systme = [[SPChasingController alloc ] init];
         [self.navigationController   pushViewController:systme animated:YES];
@@ -92,7 +100,8 @@
         [self.navigationController   pushViewController:systme animated:YES];
 
     }else if (indexPath.row == 4){
-
+        SPChatListViewController *chat = [[SPChatListViewController alloc] init];
+        [self.navigationController pushViewController:chat animated:YES];
     }
 }
 
