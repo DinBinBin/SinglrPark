@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		796D9C9821B7ACB30045F0B4 /* SPConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */; };
+		796D9C9B21B9113F0045F0B4 /* SPJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9A21B9113F0045F0B4 /* SPJobViewController.m */; };
+		796D9C9E21B916FE0045F0B4 /* SQPrintJsonLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */; };
+		796D9CA221B91FC70045F0B4 /* SPJobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9CA121B91FC70045F0B4 /* SPJobModel.m */; };
 		79CDC04421B67AD60018D1C7 /* SPChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CDC04321B67AD60018D1C7 /* SPChatListViewController.m */; };
 		79E032AB21B62D12000581EC /* SFDealNullTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E032A921B62D12000581EC /* SFDealNullTool.m */; };
 		79E032AD21B64C40000581EC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032AC21B64C40000581EC /* AssetsLibrary.framework */; };
@@ -135,6 +138,12 @@
 		280479056BE1971DEC21CD90 /* Pods-SinglePark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinglePark.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark.release.xcconfig"; sourceTree = "<group>"; };
 		796D9C9621B7ACB30045F0B4 /* SPConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConversationViewController.h; sourceTree = "<group>"; };
 		796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConversationViewController.m; sourceTree = "<group>"; };
+		796D9C9921B9113F0045F0B4 /* SPJobViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPJobViewController.h; sourceTree = "<group>"; };
+		796D9C9A21B9113F0045F0B4 /* SPJobViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPJobViewController.m; sourceTree = "<group>"; };
+		796D9C9C21B916FE0045F0B4 /* SQPrintJsonLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQPrintJsonLog.h; sourceTree = "<group>"; };
+		796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQPrintJsonLog.m; sourceTree = "<group>"; };
+		796D9CA021B91FC70045F0B4 /* SPJobModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPJobModel.h; sourceTree = "<group>"; };
+		796D9CA121B91FC70045F0B4 /* SPJobModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPJobModel.m; sourceTree = "<group>"; };
 		79CDC03A21B652330018D1C7 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		79CDC04021B6595C0018D1C7 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		79CDC04221B67AD60018D1C7 /* SPChatListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPChatListViewController.h; sourceTree = "<group>"; };
@@ -398,6 +407,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		796D9C9F21B91FA60045F0B4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				796D9CA021B91FC70045F0B4 /* SPJobModel.h */,
+				796D9CA121B91FC70045F0B4 /* SPJobModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8110C57B211FFE8E00D013FC /* Tool */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +431,8 @@
 				79E032A921B62D12000581EC /* SFDealNullTool.m */,
 				8110C58D2120017400D013FC /* DBAccountInfo.h */,
 				8110C58E2120017500D013FC /* DBAccountInfo.m */,
+				796D9C9C21B916FE0045F0B4 /* SQPrintJsonLog.h */,
+				796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -420,8 +440,8 @@
 		8110C57C211FFE8E00D013FC /* 登录注册 */ = {
 			isa = PBXGroup;
 			children = (
+				796D9C9F21B91FA60045F0B4 /* Model */,
 				813290C4214A8F3C00679CC2 /* Controller */,
-				813290C5214A8F3C00679CC2 /* Model */,
 				813290C3214A8F3B00679CC2 /* View */,
 			);
 			path = "登录注册";
@@ -641,15 +661,10 @@
 				813290B5214A8DD700679CC2 /* SPPerfectController.m */,
 				813290C6214A9D6700679CC2 /* SPSupplementController.h */,
 				813290C7214A9D6700679CC2 /* SPSupplementController.m */,
+				796D9C9921B9113F0045F0B4 /* SPJobViewController.h */,
+				796D9C9A21B9113F0045F0B4 /* SPJobViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		813290C5214A8F3C00679CC2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		813CB045217C71E200E4E67B /* Mine */ = {
@@ -1111,6 +1126,7 @@
 				811DB6CE21687A9D00204139 /* UIView+JDW.m in Sources */,
 				8127A6C1217355E40033434C /* SPSetController.m in Sources */,
 				811DB243216CE11900ABB889 /* SPMessageModel.m in Sources */,
+				796D9C9B21B9113F0045F0B4 /* SPJobViewController.m in Sources */,
 				8110C5C32120019F00D013FC /* UIColor+ZExtension.m in Sources */,
 				811DB246216CE5E300ABB889 /* JDWPlatformNewsTabCell.m in Sources */,
 				81C13994217B0531003C91B2 /* SPBlacklistController.m in Sources */,
@@ -1134,6 +1150,7 @@
 				813CB049217C734900E4E67B /* SPPursuitListView.m in Sources */,
 				81C13988217AFB10003C91B2 /* SPPrivacyController.m in Sources */,
 				8127A6DE21735B440033434C /* HSPopAnimation.m in Sources */,
+				796D9CA221B91FC70045F0B4 /* SPJobModel.m in Sources */,
 				81C1398B217AFB29003C91B2 /* SPAboutController.m in Sources */,
 				81E739F42167403B00B8B7F4 /* SPSystemController.m in Sources */,
 				81AED57021494EBE00A0636D /* SPInvitationCodeController.m in Sources */,
@@ -1174,6 +1191,7 @@
 				81E739EB2167327200B8B7F4 /* JDWFillEditController.m in Sources */,
 				81C13985217AFAAA003C91B2 /* SPCurrencyController.m in Sources */,
 				8110C5BD2120019F00D013FC /* NSDateFormatter+Category.m in Sources */,
+				796D9C9E21B916FE0045F0B4 /* SQPrintJsonLog.m in Sources */,
 				8110C5C22120019F00D013FC /* UIButton+ZExtension.m in Sources */,
 				813CB04F217C99AB00E4E67B /* SPCommentController.m in Sources */,
 				81FB4C462165F79E0090142A /* SPCoverTabCell.m in Sources */,

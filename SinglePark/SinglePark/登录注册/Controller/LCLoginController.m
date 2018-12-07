@@ -210,53 +210,48 @@
 
 // 登录
 - (void)next{
-
-//    NSDictionary *params = @{@"phone" : _mobileField.text,
-//                             @"captcha" : _passwordField.text,
-//                             @"type" : @"phone"
-//                             };
-//
-//    [JDWNetworkHelper POST:SPURL_API_Login parms:params success:^(id responseObject) {
-//        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
-//
-//        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-//            //保存token
-//            NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
-//            [userdef setObject:responseDic[@"data"][@"token"] forKey:isLogin];
-//            [DBAccountInfo sharedInstance].token = responseDic[@"data"][@"token"];
-//            [DBAccountInfo sharedInstance].islogin = YES;
     
+    if (self.mobileField.text.length == 0) {
+        [MBProgressHUD showMessage:@"请输入您的手机号"];
+        return;
+    }
+    
+    if (self.passwordField.text.length == 0) {
+        [MBProgressHUD showMessage:@"请输入您的验证码"];
+        return;
+    }
+
+    NSDictionary *params = @{@"phone" : _mobileField.text,
+                             @"captcha" : _passwordField.text,
+                             @"type" : @"phone"
+                             };
+    
+    [JDWNetworkHelper POST:SPURL_API_Login parameters:params success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            //保存token
+            NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
+            [userdef setObject:responseDic[@"data"][@"token"] forKey:isLogin];
+            [DBAccountInfo sharedInstance].token = responseDic[@"data"][@"token"];
+            [DBAccountInfo sharedInstance].islogin = YES;
+            
             //登录跳转
             SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
             [UIApplication sharedApplication].statusBarHidden = NO;
             ptAppDelegate.window.rootViewController = sgTabBar ;
-    
-    [JDWNetworkHelper POST:@"http://api.cn.ronghub.com/user/getToken"
-                     parms:@{@"userId" : @"123456",@"name" : @"test1",@"portraitUri" : @""}
-                   success:^(id responseObject) {
-                       
-                       NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
-                       
-                       JDWLog(@"");
-                       
-                   }
-                   failure:^(NSError *error) {
-                                                                                  
-                       JDWLog(@"%@",error.localizedDescription);
-
-                   }];
             
-//
-//        }else{
-//
-//            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
-//        }
-//
-//    } failure:^(NSError *error) {
-//
-//        [MBProgressHUD showMessage:Networkerror];
-//
-//    }];
+            
+            
+        }else{
+            
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+
+    }];
+
 }
 
 // 游客

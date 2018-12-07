@@ -140,8 +140,7 @@ typedef NSURLSessionTask JDWURLSessionTask;
 #pragma mark - 设置AFHTTPSessionManager相关属性
 
 
-+ (JDWURLSessionTask *)POST:(NSString *)URL parms:(NSDictionary *)parms success:(HttpRequestSuccess)success failure:(HttpRequestFailed)failure;
-+ (JDWURLSessionTask *)GET:(NSString *)URL parms:(NSDictionary *)parameters success:(HttpRequestSuccess)success failure:(HttpRequestFailed)failure;
+
 // wecenter 文件上传
 +(void)POSTOneAmrWithUrl:(NSString *)url imageWithName:(NSString *)fileName dic:(NSDictionary *)dic AmrDatas:(NSData *)amr success:(void (^)(id response))success failure:(void (^)(NSError *error))failure;
 // wecenter 文件下载

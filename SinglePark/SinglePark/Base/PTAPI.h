@@ -23,7 +23,8 @@
 #define PTURL_API_UserChage [NSString stringWithFormat:@"%@/user/modify",BASE_HttpURL]
 //用户信息获取
 #define PTURL_API_UserGet [NSString stringWithFormat:@"%@/user",BASE_HttpURL]
-
+//职业列表
+#define SPURL_API_Job [NSString stringWithFormat:@"%@/job/list",BASE_HttpURL]
 
 
 //登录接口

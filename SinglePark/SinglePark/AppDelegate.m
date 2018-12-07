@@ -113,6 +113,9 @@
     }else if ([userId isEqualToString:@"1000"]){
         RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"我小时候就很美" portrait:@"http://img181.poco.cn/mypoco/myphoto/20110509/19/56595788201105091919176805863526146_007.jpg"];
         completion(userInfo);
+    }else if ([userId isEqualToString:@"1002"]){
+        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"今晚吃鸡" portrait:@"http://img181.poco.cn/mypoco/myphoto/20110509/19/56595788201105091919176805863526146_007.jpg"];
+        completion(userInfo);
     }
 }
 

@@ -202,7 +202,7 @@
 - (void)registerclick{
     SPPerfectController *perfect = [[SPPerfectController alloc] init];
     [self.navigationController pushViewController:perfect animated:YES];
-
+/*
     NSDictionary *parsms = @{@"phone":self.mobileField.text,
                              @"captcha":self.passwordField.text,
                              @"type":@"phone"};
@@ -226,7 +226,7 @@
     } failure:^(NSError *error) {
         [MBProgressHUD showAutoMessage:Networkerror];
     }];
-    
+   */
 }
 
 

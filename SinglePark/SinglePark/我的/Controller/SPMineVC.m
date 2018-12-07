@@ -114,6 +114,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0 ) {
          SPPersonalController *business = [[SPPersonalController alloc] init];
         [self.navigationController  pushViewController:business animated:YES];
