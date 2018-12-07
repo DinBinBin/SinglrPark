@@ -25,7 +25,7 @@ pod 'AMapSearch'                          #搜索服务SDK
 #
 pod 'AMapLocation'                #无IDFA版定位 SDK
 pod 'YYCategories'
-pod 'KSYMediaPlayer_iOS'
+#pod 'KSYMediaPlayer_iOS'
 
 pod 'RongCloudIM/IMKit', '~> 2.8.3'  #融云
 end

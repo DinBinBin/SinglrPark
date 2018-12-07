@@ -44,11 +44,6 @@ Copyright © 2014 AutoNavi. All Rights Reserved.
 Copyright © 2014 AutoNavi. All Rights Reserved.
 
 
-## KSYMediaPlayer_iOS
-
-Copyright 2015 kingsoft Ltd. All rights reserved.
-
-
 ## MBProgressHUD
 
 Copyright © 2009-2016 Matej Bukovinski
