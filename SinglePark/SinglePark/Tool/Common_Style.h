@@ -71,6 +71,9 @@ id value = [[xxooxx objectForKey:key] isKindOfClass:[Class class]] ? [xxooxx obj
 value;\
 })
 
+#define kDocumentDirectoryPath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+
+
 #define WBNSNumberWithString(A)   @([A integerValue])
 
 //颜色宏

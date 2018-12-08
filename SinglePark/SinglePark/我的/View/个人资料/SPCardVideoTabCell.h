@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPCardVideoTabCell : UITableViewCell
 @property (nonatomic,strong)UILabel *titleLab;
+@property (nonatomic,strong)UIImageView *coverImg;
 
 @end
 

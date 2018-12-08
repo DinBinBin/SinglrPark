@@ -10,6 +10,7 @@
 #import "SPCardTabCell.h"
 #import "SPCardVideoTabCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
 
 
 @interface SPMineCardController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate>
@@ -18,6 +19,12 @@
 @property (nonatomic,copy)NSString *coverStr2;
 @property (nonatomic,strong)NSMutableArray *dataArr;
 @property (nonatomic,strong)SPPersonModel *personmodel;
+@property (nonatomic,copy)NSString *coverPath;  //  照片路径
+
+@property (nonatomic,strong)NSMutableArray *imgarr;
+@property (nonatomic,assign)NSInteger selectrow;
+
+
 @end
 
 @implementation SPMineCardController
@@ -25,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的名片";
+    self.imgarr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectCover)];
 
     [self.listTabView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -81,6 +89,12 @@
         
     }else{
         SPCardVideoTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr2 forIndexPath:indexPath];
+        NSString *strimg = self.imgarr[indexPath.section];
+        if (strimg.length>0) {
+            cell.coverImg.image = [UIImage imageNamed:strimg];
+
+        }
+        cell.titleLab.text = @"你和我";
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -91,6 +105,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section>=1) {
+        self.selectrow = indexPath.section;
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"本地视频",@"立即拍摄",nil];
         //        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
         actionSheet.delegate = self;
@@ -156,7 +171,7 @@
         UIImagePickerControllerSourceType sourceType = type;
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];//初始化
         picker.delegate = self;
-        picker.allowsEditing = YES;//设置可编辑
+//        picker.allowsEditing = YES;//设置可编辑
         picker.sourceType = sourceType;
         NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
         attrs[NSForegroundColorAttributeName] = TextMianColor;
@@ -221,16 +236,27 @@
 #pragma mark - imagePicker delegate
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    
+    if ([picker.mediaTypes[0] isEqualToString:@"public.movie"]) { //视频
+        NSURL *sourceURL = [info objectForKey:UIImagePickerControllerMediaURL];
+        NSURL *newVideoUrl ; //一般.mp4
+        NSString *tempPath = [self TempFilePathWithExtension:@"mp4"];
+//        self.videopath = tempPath;
+        newVideoUrl = [NSURL fileURLWithPath:tempPath];
+        
+        [self convertVideoQuailtyWithInputURL:sourceURL outputURL:newVideoUrl completeHandler:nil];
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    }else{
     //    NSLog(@"%@",info );
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
-   UIImage  *img = [self scaleToSize:[info objectForKey:@"UIImagePickerControllerEditedImage"] size:CGSizeMake(300, 300)];
-    self.listTabView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"5"]];
+        UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
+
+//   UIImage  *img = [self scaleToSize:[info objectForKey:@"UIImagePickerControllerEditedImage"] size:CGSizeMake(300, 500)];
+    self.listTabView.backgroundView = [[UIImageView alloc] initWithImage:img];
 
     [self commitHeadimg:img];
     
+    }
 }
 
 - (void)commitHeadimg:(UIImage *)img{
@@ -270,5 +296,86 @@
     ipc.delegate = self;//设置委托
 }
 
+// 压缩路径获取图片第一帧
+- (void) convertVideoQuailtyWithInputURL:(NSURL*)inputURL
+                               outputURL:(NSURL*)outputURL
+                         completeHandler:(void (^)(AVAssetExportSession*))handler
+{
+//    [MBProgressHUD showLoadToView:nil];
+    
+    AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:inputURL options:nil];
+    
+    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetMediumQuality];
+    //  NSLog(resultPath);
+    exportSession.outputURL = outputURL;
+    exportSession.outputFileType = AVFileTypeMPEG4;
+    exportSession.shouldOptimizeForNetworkUse= YES;
+    
+    //    图片第一帧
+    AVAssetImageGenerator *assetGen = [[AVAssetImageGenerator alloc] initWithAsset:avAsset];
+    assetGen.appliesPreferredTrackTransform = YES;
+    CMTime time = CMTimeMakeWithSeconds(0.0, 600);
+    NSError *error = nil;
+    CMTime actualTime;
+    CGImageRef image = [assetGen copyCGImageAtTime:time actualTime:&actualTime error:&error];
+    UIImage *videoImage = [[UIImage alloc] initWithCGImage:image];
+    
+    [self saveImage:videoImage title:[NSString stringWithFormat:@"%ld",self.selectrow]];
+    CGImageRelease(image);
+    
+    //coverPath
+    
+    
+    //    [exportSession exportAsynchronouslyWithCompletionHandler:^(void)
+    //     {
+    //         switch (exportSession.status) {
+    //             case AVAssetExportSessionStatusCancelled:
+    //                 NSLog(@"AVAssetExportSessionStatusCancelled");
+    //                 break;
+    //             case AVAssetExportSessionStatusUnknown:
+    //                 NSLog(@"AVAssetExportSessionStatusUnknown");
+    //                 break;
+    //             case AVAssetExportSessionStatusWaiting:
+    //                 NSLog(@"AVAssetExportSessionStatusWaiting");
+    //                 break;
+    //             case AVAssetExportSessionStatusExporting:
+    //                 NSLog(@"AVAssetExportSessionStatusExporting");
+    //                 break;
+    //             case AVAssetExportSessionStatusCompleted:
+    //                 NSLog(@"AVAssetExportSessionStatusCompleted");
+    ////                 self.videopath = [outputURL path]; //路径
+    ////                 [self selectView:2 isphoto:YES];
+    //                 break;
+    //             case AVAssetExportSessionStatusFailed:
+    //                 NSLog(@"AVAssetExportSessionStatusFailed");
+    //                 break;
+    //         }
+    //     }];
+}
 
+- (void)saveImage:(UIImage *)image title:(NSString *)str{
+    NSString *filePath = [kDocumentDirectoryPath stringByAppendingPathComponent:@"VideoImg"];
+    
+    self.coverPath = [filePath stringByAppendingPathComponent:
+                      [NSString stringWithFormat:@"%@.png",str]];  // 保存文件的名称
+    self.imgarr[self.selectrow] = self.coverPath;
+    [self.listTabView reloadData];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:NO attributes:nil error:&error];
+    };
+    BOOL result =[UIImagePNGRepresentation(image)writeToFile:self.coverPath   atomically:YES]; // 保存成功会返回YES
+    if (result == YES) {
+        NSLog(@"保存成功");
+    }
+    
+}
+
+-(NSString *) TempFilePathWithExtension:(NSString*) extension{
+    NSString* fileName = [NSUUID UUID].UUIDString;
+    NSString* path = NSTemporaryDirectory();
+    path = [path stringByAppendingPathComponent:fileName];
+    path = [path stringByAppendingPathExtension:extension];
+    return path;
+}
 @end

@@ -11,7 +11,6 @@
 
 
 @property (nonatomic,strong)UIView *backView;
-@property (nonatomic,strong)UIImageView *coverImg;
 @property (nonatomic,strong)UIImageView *promptImg;
 
 

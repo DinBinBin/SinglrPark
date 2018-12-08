@@ -87,8 +87,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row - self.promptArr.count >= 0) {
-        SPBusinessCardController *business = [[SPBusinessCardController alloc] init];
-        business.model = self.dataArr[indexPath.row - self.promptArr.count];
+//        SPBusinessCardController *business = [[SPBusinessCardController alloc] init];
+//        business.model = self.dataArr[indexPath.row - self.promptArr.count];
     }
     
 }
