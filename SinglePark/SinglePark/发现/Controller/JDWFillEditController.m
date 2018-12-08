@@ -212,7 +212,26 @@
         [MBProgressHUD showMessage:@"请输入您要反馈的意见"];
         return;
     }
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    NSDictionary *parameters = @{@"content" : self.textView.text,
+                                 @"images" : @[self.img]
+                                 };
+    
+    WEAKSELF
+    [JDWNetworkHelper POST:SPURL_API_Feedback parameters:parameters success:^(id responseObject) {
+        STRONGSELF
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+//        strongSelf.dataSource =  [SPJobModel mj_objectArrayWithKeyValuesArray:responseDic[@"data"]];
+        
+        [MBProgressHUD showMessage:@"您的意见已反馈成功，感谢你的宝贵意见！"];
+        
+        [strongSelf.navigationController popViewControllerAnimated:YES];
+
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        JDWLog(@"%@",error.localizedDescription);
+    }];
+    
     
 }
 

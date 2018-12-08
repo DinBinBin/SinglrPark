@@ -12,7 +12,6 @@
 #import "AppDelegate.h"
 #import "SPTourisController.h"
 
-
 @interface LCLoginController ()
 
 @property (nonatomic,strong)UIView *fieleView;
@@ -210,7 +209,18 @@
 
 // 登录
 - (void)next{
+    //保存token
+    NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
+    [userdef setObject:token forKey:isLogin];
+    [DBAccountInfo sharedInstance].token = token;
+    [DBAccountInfo sharedInstance].islogin = YES;
     
+    //登录跳转
+    SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+    [UIApplication sharedApplication].statusBarHidden = NO;
+    ptAppDelegate.window.rootViewController = sgTabBar ;
+    
+    /*
     if (self.mobileField.text.length == 0) {
         [MBProgressHUD showMessage:@"请输入您的手机号"];
         return;
@@ -251,7 +261,7 @@
         [MBProgressHUD showMessage:Networkerror];
 
     }];
-
+*/
 }
 
 // 游客
