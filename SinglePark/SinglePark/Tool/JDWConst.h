@@ -55,3 +55,10 @@ UIKIT_EXTERN NSString * const HWDownloadAllowsCellularAccessChangeNotification; 
 /************************* 网络 *************************/
 UIKIT_EXTERN NSString * const HWNetworkingReachabilityDidChangeNotification;    // 网络改变改变通知
 
+
+#pragma mark - 第三方信息
+
+UIKIT_EXTERN NSString *const RYAPPKey;
+
+
+

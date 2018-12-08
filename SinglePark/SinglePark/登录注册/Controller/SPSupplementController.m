@@ -9,8 +9,9 @@
 #import "SPSupplementController.h"
 #import "SGTabBarController.h"
 #import "AppDelegate.h"
+#import "SPJobViewController.h"
 
-@interface SPSupplementController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SPSupplementController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,SPJobDelegate>
 @property (nonatomic,strong)UITableView *perfectTabView;
 @property (nonatomic,strong)UIButton *headBtn;
 @property (nonatomic,strong)UITextField *ageField;
@@ -86,6 +87,7 @@
         _occupationField = [[UITextField alloc] initWithFrame:CGRectMake(100, 0, kScreenWidth-220, 50)];
         _occupationField.font = FONT(15);
         _occupationField.placeholder = @"请输入您的职业";
+        _occupationField.delegate = self;
         [_occupationField setValue:FONT(14) forKeyPath:@"_placeholderLabel.font"];
         [_occupationField setValue:WordColor forKeyPath:@"_placeholderLabel.textColor"];
     }
@@ -214,6 +216,26 @@
     
     return cell;
 }
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (textField == self.occupationField) {
+        SPJobViewController *vc = [[SPJobViewController alloc] init];
+        vc.delegate = self;
+        [self.navigationController pushViewController:vc animated:YES];
+        return NO;
+    }
+    
+    return YES;
+}
+
+#pragma mark - SPJobDelegate
+- (void)selectJobName:(NSString *)name {
+    self.occupationField.text = name;
+}
+
+#pragma mark - click
+
 - (void)next{
     SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
     [UIApplication sharedApplication].statusBarHidden = NO;

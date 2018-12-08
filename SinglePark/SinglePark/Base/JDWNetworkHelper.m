@@ -122,6 +122,7 @@
 
             failure ? failure(error) : nil;
             JDWLog(@"error = %@",error);
+            
         }];
         
     }
@@ -257,11 +258,12 @@
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
         //添加请求授权字段token
-        if ([DBAccountInfo sharedInstance].model.token) {
-            [manager.requestSerializer setValue:[DBAccountInfo sharedInstance].model.token forHTTPHeaderField:@"Authorization"];
-        }else {
-            NSLog(@"未获取到token字段");
-        }
+//        if ([DBAccountInfo sharedInstance].model.token) {
+//            [manager.requestSerializer setValue:[DBAccountInfo sharedInstance].model.token forHTTPHeaderField:@"Authorization"];
+//        }else {
+//            NSLog(@"未获取到token字段");
+//        }
+        [manager.requestSerializer setValue:@"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcHBXaXRoWWV0aCIsImlhdCI6MTU0NDE0NDc1NCwiZXhwIjoxNTQ0NzQ5NTU0LCJpZCI6OSwidHlwZSI6InBob25lIiwidmVyc2lvbiI6Mn0.c0122c1834404a9c89fc0c0c8e7219f594c176a0e803a12ac964b49dce3ed886" forHTTPHeaderField:@"Authorization"];
 
         return manager;
     }
@@ -302,70 +304,6 @@
     
     return manager;
 }
-
-+ (JDWURLSessionTask *)POST:(NSString *)URL parms:(NSDictionary *)parms success:(HttpRequestSuccess)success failure:(HttpRequestFailed)failure{
-    //        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-    AFHTTPSessionManager *manager = [self createAFHTTPSessionManagerWecenter];
-    
-    return [manager POST:URL parameters:parms progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        
-//        获取cookie 保存
-        
-//        NSDictionary *fields = ((NSHTTPURLResponse*)task.response).allHeaderFields;
-//        NSURL *url = [NSURL URLWithString:kweBaseURL_Https];
-//        //获取cookie方法1
-//        JDWUser *user  = [JDWUserInfoDB userInfo];
-//        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//
-//
-//        NSArray *cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:fields forURL:url];
-//        for (NSHTTPCookie *cookie in cookies) {
-//            NSLog(@"cookie,name:= %@,valuie = %@",cookie.name,cookie.value);
-//            if (![cookie.value isEqualToString:@"deleted"]) {
-//                [dic setObject:cookie.value forKey:cookie.name];
-//            }
-//
-//        }
-//        user.cookies = dic;
-//        [JDWUserInfoDB saveUserInfo:user];
-     
-        
-
-        success(responseObject);
-        JDWLog(@"responseObject = %@",responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        
-        failure ? failure(error) : nil;
-        JDWLog(@"error = %@",error);
-    }];
-    
-}
-
-+ (JDWURLSessionTask *)GET:(NSString *)URL parms:(NSDictionary *)parameters success:(HttpRequestSuccess)success failure:(HttpRequestFailed)failure
-{
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    AFHTTPSessionManager *manager = [self createAFHTTPSessionManagerWecenter];
-    return [manager GET:URL parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        
-        success(responseObject);
-        JDWLog(@"responseObject = %@",responseObject);
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        
-        failure ? failure(error) : nil;
-        JDWLog(@"error = %@",error);
-    }];
-}
-
 
 
 // wecenter 上传附件

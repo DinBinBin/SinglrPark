@@ -15,7 +15,7 @@
 
 //发送手机验证码接口
 #define PTURL_API_SENDMSG [NSString stringWithFormat:@"%@/captcha",BASE_HttpURL]
-//登录接口,注册
+//注册/邀请码
 #define PTURLinvitation [NSString stringWithFormat:@"%@/code",BASE_HttpURL]
 //注册接口
 #define PTURL_API_LOGINREGIST [NSString stringWithFormat:@"%@/register",BASE_HttpURL]
@@ -23,11 +23,13 @@
 #define PTURL_API_UserChage [NSString stringWithFormat:@"%@/user/modify",BASE_HttpURL]
 //用户信息获取
 #define PTURL_API_UserGet [NSString stringWithFormat:@"%@/user",BASE_HttpURL]
+//职业列表
+#define SPURL_API_Job [NSString stringWithFormat:@"%@/job/list",BASE_HttpURL]
 
 
+//登录接口
+#define SPURL_API_Login [NSString stringWithFormat:@"%@/login",BASE_HttpURL]
 
-//登录接口,注册
-#define PTURL_API_REGIST [NSString stringWithFormat:@"%@/captcha",BASE_HttpURL]
 //首页接口
 #define PTURL_API_Index [NSString stringWithFormat:@"%@/app/index/index.do",BASE_HttpURL]
 
