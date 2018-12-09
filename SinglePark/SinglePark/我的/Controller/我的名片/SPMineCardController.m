@@ -22,6 +22,8 @@
 @property (nonatomic,copy)NSString *coverPath;  //  照片路径
 
 @property (nonatomic,strong)NSMutableArray *imgarr;
+@property (nonatomic,strong)NSMutableArray *titleArr;
+
 @property (nonatomic,assign)NSInteger selectrow;
 
 
@@ -32,15 +34,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的名片";
+    
     self.imgarr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
+    self.titleArr = [NSMutableArray arrayWithObjects:@"个人形象片",@"关于我&关于他",@"",@"",@"",@"", nil];
+
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectCover)];
 
     [self.listTabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
     [self getdata];
+    
+    self.hideNavigationLine = YES;
 }
-
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    self.hideNavigationLine = YES;
+}
 - (void)getdata{
     //    NSDictionary *parms = @{@"":@""};
     NSDictionary *dic = @{@"head":@"4",
@@ -50,8 +60,6 @@
                           @"videoCover":@"5"};
     SPCoverModel *model = [[SPCoverModel alloc] initWithDataDic:dic];
     self.dataArr = [NSMutableArray array];
-    [self.dataArr addObject:model];
-    [self.dataArr addObject:model];
     [self.dataArr addObject:model];
     [self.dataArr addObject:model];
     
@@ -94,7 +102,7 @@
             cell.coverImg.image = [UIImage imageNamed:strimg];
 
         }
-        cell.titleLab.text = @"你和我";
+        cell.titleLab.text = self.titleArr[indexPath.row];
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -132,8 +140,8 @@
         [_listTabView registerClass:[SPCardTabCell class] forCellReuseIdentifier:self.coverStr];
         self.coverStr2 = @"coverId2";
         [_listTabView registerClass:[SPCardVideoTabCell class] forCellReuseIdentifier:self.coverStr2];
-        
-        _listTabView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"5"]];
+        _listTabView.tableFooterView = [UIView new];
+        _listTabView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigbackground"]];
         [self.view addSubview:_listTabView];
     }
     return _listTabView;
@@ -378,4 +386,7 @@
     path = [path stringByAppendingPathExtension:extension];
     return path;
 }
+
+
+
 @end

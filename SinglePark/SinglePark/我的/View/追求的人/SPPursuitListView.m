@@ -9,12 +9,16 @@
 #import "SPPursuitListView.h"
 #import "SPPursuitHeadTabCell.h"
 #import "SPBusinessCardController.h"
+#import "SPPursuitNoneTabCell.h"
 
 
 @interface SPPursuitListView()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
 @property (nonatomic,copy)NSString *pursuitStr;
+@property (nonatomic,copy)NSString *pursuitNO;
+
 @property (nonatomic,strong)NSMutableArray *dataArr;
+@property (nonatomic,strong)UIButton *hunterBtn;
 
 @end
 
@@ -51,11 +55,29 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (self.typede == PursuitTypeNone) {
+        return 2;
+    }
     return self.promptArr.count + self.dataArr.count;
 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.typede == PursuitTypeNone) {
+        if (indexPath.row == 0) {
+            SPPursuitNoneTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pursuitNO forIndexPath:indexPath];
+            cell.backgroundColor = [UIColor clearColor];
+
+            return cell;
+        }
+        UITableViewCell *cell = [[UITableViewCell alloc] init];
+        cell.backgroundColor = [UIColor clearColor];
+
+        [cell.contentView addSubview:self.hunterBtn];
+        return cell;
+    }
+    
+    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
     cell.textLabel.font = FONT(14);
     cell.textLabel.textColor = FirstWordColor;
@@ -104,7 +126,12 @@
         _listTabView.backgroundColor = PTBackColor;
         _listTabView.tableFooterView = [[UIView alloc] init];
         self.pursuitStr = @"pursuitStr";
+        self.pursuitNO = @"pursuitNO";
         [_listTabView registerClass:[SPPursuitHeadTabCell class] forCellReuseIdentifier:self.pursuitStr];
+        [_listTabView registerClass:[SPPursuitNoneTabCell class] forCellReuseIdentifier:self.pursuitNO];
+        _listTabView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _listTabView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigbackground"]];
+
         [self addSubview:_listTabView];
     }
     return _listTabView;
@@ -147,5 +174,24 @@
 //- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    return @"删除";
 //}
+
+- (void)setTypede:(PursuitType)typede{
+    if (_typede !=typede) {
+        _typede = typede;
+    }
+    [self.listTabView reloadData];
+    return;
+}
+
+- (UIButton *)hunterBtn{
+    if (_hunterBtn == nil) {
+        _hunterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _hunterBtn.frame = CGRectMake(10, 0, kScreenWidth-20, 44);
+        [_hunterBtn setCornerRadius:5];
+        _hunterBtn.backgroundColor = ThemeColor;
+        [_hunterBtn setTitle:@"逛逛公园" forState:UIControlStateNormal];
+    }
+    return  _hunterBtn;
+}
 
 @end

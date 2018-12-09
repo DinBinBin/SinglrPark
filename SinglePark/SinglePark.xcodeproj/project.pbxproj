@@ -105,6 +105,7 @@
 		818977CC211FE7D800928071 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818977CB211FE7D800928071 /* Assets.xcassets */; };
 		818977CF211FE7D800928071 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818977CD211FE7D800928071 /* LaunchScreen.storyboard */; };
 		818977D2211FE7D800928071 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 818977D1211FE7D800928071 /* main.m */; };
+		81A3D4A721BD2C0200FF0E00 /* SPPursuitNoneTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A3D4A621BD2C0200FF0E00 /* SPPursuitNoneTabCell.m */; };
 		81AED57021494EBE00A0636D /* SPInvitationCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AED56F21494EBE00A0636D /* SPInvitationCodeController.m */; };
 		81C13982217AFA0E003C91B2 /* SPAcceptNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81C13981217AFA0E003C91B2 /* SPAcceptNoticeController.m */; };
 		81C13985217AFAAA003C91B2 /* SPCurrencyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81C13984217AFAAA003C91B2 /* SPCurrencyController.m */; };
@@ -307,6 +308,8 @@
 		818977CE211FE7D800928071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		818977D0211FE7D800928071 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		818977D1211FE7D800928071 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		81A3D4A521BD2C0200FF0E00 /* SPPursuitNoneTabCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPursuitNoneTabCell.h; sourceTree = "<group>"; };
+		81A3D4A621BD2C0200FF0E00 /* SPPursuitNoneTabCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPursuitNoneTabCell.m; sourceTree = "<group>"; };
 		81AED56E21494EBE00A0636D /* SPInvitationCodeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPInvitationCodeController.h; sourceTree = "<group>"; };
 		81AED56F21494EBE00A0636D /* SPInvitationCodeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPInvitationCodeController.m; sourceTree = "<group>"; };
 		81C13980217AFA0E003C91B2 /* SPAcceptNoticeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAcceptNoticeController.h; sourceTree = "<group>"; };
@@ -682,6 +685,8 @@
 			children = (
 				813CB047217C734900E4E67B /* SPPursuitListView.h */,
 				813CB048217C734900E4E67B /* SPPursuitListView.m */,
+				81A3D4A521BD2C0200FF0E00 /* SPPursuitNoneTabCell.h */,
+				81A3D4A621BD2C0200FF0E00 /* SPPursuitNoneTabCell.m */,
 				813CB04A217C736400E4E67B /* SPPursuitHeadTabCell.h */,
 				813CB04B217C736400E4E67B /* SPPursuitHeadTabCell.m */,
 			);
@@ -1192,6 +1197,7 @@
 				81C13991217B03C5003C91B2 /* SPProtectionController.m in Sources */,
 				79CDC04421B67AD60018D1C7 /* SPChatListViewController.m in Sources */,
 				8110C588212000E300D013FC /* SGBaseController.m in Sources */,
+				81A3D4A721BD2C0200FF0E00 /* SPPursuitNoneTabCell.m in Sources */,
 				8110C5BE2120019F00D013FC /* UITextField+KYExtension.m in Sources */,
 				8110C5D0212001CE00D013FC /* SGNavigationController.m in Sources */,
 				81E739EB2167327200B8B7F4 /* JDWFillEditController.m in Sources */,

@@ -104,8 +104,8 @@
 - (UIButton *)reduceBtn{
     if (_reduceBtn == nil) {
         _reduceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_reduceBtn setTitle:@"X" forState:UIControlStateNormal];
-//        [_reduceBtn setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+//        [_reduceBtn setTitle:@"X" forState:UIControlStateNormal];
+        [_reduceBtn setImage:[UIImage imageNamed:@"deleteSP"] forState:UIControlStateNormal];
         [_reduceBtn addTarget:self action:@selector(reduce) forControlEvents:UIControlEventTouchUpInside];
     }
     return _reduceBtn;
