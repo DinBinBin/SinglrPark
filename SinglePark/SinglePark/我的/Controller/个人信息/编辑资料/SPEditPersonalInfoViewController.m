@@ -9,7 +9,7 @@
 #import "SPEditPersonalInfoViewController.h"
 #import "SPMineHeadCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
+#import "SPEditNickNameViewController.h"
 
 @interface SPEditPersonalInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSMutableArray *detailArr;
 @property (nonatomic, strong) UIImage *img;
 @property (nonatomic, strong) NSIndexPath *indexPath;
-
+@property (nonatomic, strong) SPPersonModel *model;
 @end
 
 @implementation SPEditPersonalInfoViewController
@@ -65,7 +65,30 @@
         STRONGSELF
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-
+            [strongSelf.detailArr removeAllObjects];
+            SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
+            strongSelf.model = model;
+            NSString *sex;
+            if ([model.sex isEqualToString:@"0"]) {
+                sex = @"未填写";
+            }else if ([model.sex isEqualToString:@"1"]){
+                sex = @"男";
+            }else{
+                sex = @"女";
+            }
+            strongSelf.detailArr = [NSMutableArray arrayWithArray:@[
+                                                                    @[model.avatar ?: @"logo",model.nickName ?: @"宇宙超无敌美少女"],
+                                                                    @[sex,model.birthday ?: @"未填写"],
+                                                                    @[model.job.firstObject?:@"未填写",model.unit ?: @"未填写"],
+                                                                    @[model.university ?:@"未填写",model.education ?:@"未填写"],
+                                                                    @[model.province_id ?:@"未填写"],
+                                                                    @[model.height ?:@"未填写",model.weight ?:@"未填写"],
+                                                                    @[model.income ?:@"未填写"],
+                                                                    @[model.signature ?:@"未填写"],
+                                                                    @[model.referrer ?:@"logo",model.invitationCode ?:@"未填写"]
+                                                                    ]];
+            [strongSelf.tableView reloadData];
+            //保存用户信息
             [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
             [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
         }else{
@@ -129,10 +152,36 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             [self selectCover];
+        }else{
+            SPEditNickNameViewController *vc = [[SPEditNickNameViewController alloc] init];
+            NSString *sex;
+            if ([_model.sex isEqualToString:@"0"]) {
+                sex = @"未填写";
+            }else if ([_model.sex isEqualToString:@"1"]){
+                sex = @"男";
+            }else{
+                sex = @"女";
+            }
+            WEAKSELF
+            vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+                STRONGSELF
+                strongSelf.detailArr = [NSMutableArray arrayWithArray:@[
+                                                                        @[strongSelf.model.avatar ?: @"logo",str],
+                                                                        @[sex,strongSelf.model.birthday ?: @"未填写"],
+                                                                        @[strongSelf.model.job.firstObject?:@"未填写",strongSelf.model.unit ?: @"未填写"],
+                                                                        @[strongSelf.model.university ?:@"未填写",strongSelf.model.education ?:@"未填写"],
+                                                                        @[strongSelf.model.province_id ?:@"未填写"],
+                                                                        @[strongSelf.model.height ?:@"未填写",strongSelf.model.weight ?:@"未填写"],
+                                                                        @[strongSelf.model.income ?:@"未填写"],
+                                                                        @[strongSelf.model.signature ?:@"未填写"],
+                                                                        @[strongSelf.model.referrer ?:@"logo",strongSelf.model.invitationCode ?:@"未填写"]
+                                                                        ]];
+                [strongSelf.tableView reloadData];
+            };
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
     
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

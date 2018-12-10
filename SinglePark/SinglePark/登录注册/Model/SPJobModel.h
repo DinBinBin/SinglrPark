@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPJobModel : SGBaseModel
 @property (nonatomic, copy) NSString *created_at;
-@property (nonatomic, assign) int userID;
+@property (nonatomic, assign) int userId;
 @property (nonatomic, copy) NSString *name;
 @end
 
