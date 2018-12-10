@@ -267,7 +267,7 @@
     [JDWNetworkHelper POST:PTURL_API_UserGet parameters:nil success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            [[DBAccountInfo sharedInstance].model setAttributes:responseDic[@"data"]];
+            [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
             [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
         }else{
         }

@@ -10,6 +10,9 @@
 
 @implementation SPCityModel
 
-
+-(NSDictionary*)attributeMapDictionary{
+    return @{@"userID": @"id"};
+    
+}
 
 @end

@@ -62,7 +62,7 @@
                           @"nickName":@"昵称----",
                           @"sex":@"nv",
                           @"videoCover":@"5"};
-    SPCoverModel *model = [[SPCoverModel alloc] initWithDataDic:dic];
+    SPCoverModel *model = [SPCoverModel modelWithJSON:dic];
     self.dataArr = [NSMutableArray array];
     [self.dataArr addObject:model];
     [self.dataArr addObject:model];

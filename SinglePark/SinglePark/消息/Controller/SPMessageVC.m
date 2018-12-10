@@ -56,11 +56,11 @@
                            @"nickName":@"聊天窗口",
                            @"messsage":@"好友聊天都在这里哦",
                            @"time":@"12:00"};
-    SPMessageModel *model = [[SPMessageModel alloc] initWithDataDic:dic];
-    SPMessageModel *model2 = [[SPMessageModel alloc] initWithDataDic:dic2];
-    SPMessageModel *model3 = [[SPMessageModel alloc] initWithDataDic:dic3];
-    SPMessageModel *model4 = [[SPMessageModel alloc] initWithDataDic:dic4];
-    SPMessageModel *model5 = [[SPMessageModel alloc] initWithDataDic:dic5];
+    SPMessageModel *model = [SPMessageModel modelWithJSON:dic];
+    SPMessageModel *model2 = [SPMessageModel modelWithJSON:dic2];
+    SPMessageModel *model3 = [SPMessageModel modelWithJSON:dic3];
+    SPMessageModel *model4 = [SPMessageModel modelWithJSON:dic4];
+    SPMessageModel *model5 = [SPMessageModel modelWithJSON:dic5];
 
 
     self.fixedarr  = [NSMutableArray arrayWithObjects:model4,model3,model,model2,model5, nil];

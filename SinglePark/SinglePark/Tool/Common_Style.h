@@ -46,9 +46,16 @@
 /// 设置颜色 示例：UIColorHex(0x26A7E8)
 #define UIColorHex(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-#define kTabbarHeight       49.0
-#define kStatusBarHeight    20.0
-#define kNavigationHeight   64.0
+
+#define isIPhoneXAll ([[UIApplication sharedApplication] statusBarFrame].size.height == 44)
+
+#define kScreenBounds [UIScreen mainScreen].bounds
+#define kScreenW [UIScreen mainScreen].bounds.size.width
+#define kScreenH [UIScreen mainScreen].bounds.size.height
+#define kNavigationHeight (isIPhoneXAll ? 88.f : 64.f) // 导航栏高度
+#define kStatusBarHeight (isIPhoneXAll ? 44.f : 20.f) //状态栏高度
+#define kTabbarHeight (isIPhoneXAll ? (49.f+34.f) : 49.f) // tabBar高度
+#define kIndicatorH (isIPhoneXAll ? 34.f : 0.f)  // home indicator高度
 
 #define ptAppDelegate        ((AppDelegate*)[[UIApplication sharedApplication]delegate])
 

@@ -39,7 +39,7 @@
                            @"didian":@"广东深圳",
                            @"number":@[@"4",@"4",@"4"]
                            };
-    SPPersonModel *model = [[SPPersonModel alloc] initWithDataDic:dic1];
+    SPPersonModel *model = [SPPersonModel modelWithJSON:dic1];
     [self.dataArr addObject:model];
     [self.dataArr addObject:model];
     [self.dataArr addObject:model];

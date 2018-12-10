@@ -175,7 +175,7 @@
 - (void)setModel:(SPPersonModel *)model{
     if (_model != model) {
         _model = model;
-        [self.headBtn setImage:[UIImage imageNamed:_model.head] forState:UIControlStateNormal];
+        [self.headBtn setImage:[UIImage imageNamed:_model.avatar] forState:UIControlStateNormal];
         [self.headBtn.layer setCornerRadius:30];
         self.headBtn.clipsToBounds = YES;
 

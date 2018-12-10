@@ -147,7 +147,11 @@
 //                return ;
 //            }
             SPSupplementController *supple = [[SPSupplementController alloc] init];
-            supple.img = strongSelf.img;
+            if (strongSelf.img) {
+                supple.img = strongSelf.img;
+            }else{
+                supple.img = [UIImage imageNamed:@"logo"];
+            }
             [strongSelf.navigationController pushViewController:supple animated:YES];
 
             
@@ -352,7 +356,9 @@
         
     } else {
         return NO;
-    }}
+    }
+    
+}
 
 - (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)size
 {

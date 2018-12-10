@@ -58,10 +58,10 @@
                            @"messsage":@"接受了你",
                            @"coverimg":@"4",
                            @"time":@"12:00"};
-    SPMessageModel *model = [[SPMessageModel alloc] initWithDataDic:dic];
-    SPMessageModel *model2 = [[SPMessageModel alloc] initWithDataDic:dic2];
-    SPMessageModel *model3 = [[SPMessageModel alloc] initWithDataDic:dic3];
-    SPMessageModel *model4 = [[SPMessageModel alloc] initWithDataDic:dic4];
+    SPMessageModel *model = [SPMessageModel modelWithJSON:dic];
+    SPMessageModel *model2 = [SPMessageModel modelWithJSON:dic2];
+    SPMessageModel *model3 = [SPMessageModel modelWithJSON:dic3];
+    SPMessageModel *model4 = [SPMessageModel modelWithJSON:dic4];
 
     self.fixedarr  = [NSMutableArray arrayWithObjects:model4,model3,model,model2, nil];
     [self.messageTabView reloadData];

@@ -42,7 +42,7 @@
                            @"didian":@"广东深圳",
                            @"number":@[@"4",@"4",@"4"]
                            };
-    self.personmodel = [[SPPersonModel alloc] initWithDataDic:dic1];
+    self.personmodel = [SPPersonModel modelWithJSON:dic1];
     [self.listTabView reloadData];
     
 }

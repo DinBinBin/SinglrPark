@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		793B5CA921BA0C9000710AD7 /* SPAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CA821BA0C9000710AD7 /* SPAreaViewController.m */; };
 		793B5CAC21BA0ED900710AD7 /* SPCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CAB21BA0ED900710AD7 /* SPCityModel.m */; };
-		793B5CB321BA51C600710AD7 /* SPEditPersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CB221BA51C600710AD7 /* SPEditPersonalInfoViewController.m */; };
 		793B5CB721BA66AF00710AD7 /* SPMineHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */; };
 		793B5CB821BA66AF00710AD7 /* SPMineHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 793B5CB621BA66AF00710AD7 /* SPMineHeadCell.xib */; };
 		796D9C9821B7ACB30045F0B4 /* SPConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */; };
 		796D9C9B21B9113F0045F0B4 /* SPJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9A21B9113F0045F0B4 /* SPJobViewController.m */; };
 		796D9C9E21B916FE0045F0B4 /* SQPrintJsonLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */; };
 		796D9CA221B91FC70045F0B4 /* SPJobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9CA121B91FC70045F0B4 /* SPJobModel.m */; };
+		79CAF65721BE095800B48780 /* SPEditPersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CAF65621BE095800B48780 /* SPEditPersonalInfoViewController.m */; };
 		79CDC04421B67AD60018D1C7 /* SPChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CDC04321B67AD60018D1C7 /* SPChatListViewController.m */; };
 		79E032AB21B62D12000581EC /* SFDealNullTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E032A921B62D12000581EC /* SFDealNullTool.m */; };
 		79E032AD21B64C40000581EC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032AC21B64C40000581EC /* AssetsLibrary.framework */; };
@@ -148,8 +148,6 @@
 		793B5CAA21BA0ED900710AD7 /* SPCityModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCityModel.h; sourceTree = "<group>"; };
 		793B5CAB21BA0ED900710AD7 /* SPCityModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPCityModel.m; sourceTree = "<group>"; };
 		793B5CAD21BA0F8500710AD7 /* SPSelectDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSelectDelegate.h; sourceTree = "<group>"; };
-		793B5CB121BA51C600710AD7 /* SPEditPersonalInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEditPersonalInfoViewController.h; sourceTree = "<group>"; };
-		793B5CB221BA51C600710AD7 /* SPEditPersonalInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEditPersonalInfoViewController.m; sourceTree = "<group>"; };
 		793B5CB421BA66AF00710AD7 /* SPMineHeadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMineHeadCell.h; sourceTree = "<group>"; };
 		793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMineHeadCell.m; sourceTree = "<group>"; };
 		793B5CB621BA66AF00710AD7 /* SPMineHeadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SPMineHeadCell.xib; sourceTree = "<group>"; };
@@ -161,6 +159,8 @@
 		796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQPrintJsonLog.m; sourceTree = "<group>"; };
 		796D9CA021B91FC70045F0B4 /* SPJobModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPJobModel.h; sourceTree = "<group>"; };
 		796D9CA121B91FC70045F0B4 /* SPJobModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPJobModel.m; sourceTree = "<group>"; };
+		79CAF65521BE095800B48780 /* SPEditPersonalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEditPersonalInfoViewController.h; sourceTree = "<group>"; };
+		79CAF65621BE095800B48780 /* SPEditPersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEditPersonalInfoViewController.m; sourceTree = "<group>"; };
 		79CDC03A21B652330018D1C7 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		79CDC04021B6595C0018D1C7 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		79CDC04221B67AD60018D1C7 /* SPChatListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPChatListViewController.h; sourceTree = "<group>"; };
@@ -438,6 +438,15 @@
 				793B5CAD21BA0F8500710AD7 /* SPSelectDelegate.h */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		79CAF65421BE095800B48780 /* 编辑资料 */ = {
+			isa = PBXGroup;
+			children = (
+				79CAF65521BE095800B48780 /* SPEditPersonalInfoViewController.h */,
+				79CAF65621BE095800B48780 /* SPEditPersonalInfoViewController.m */,
+			);
+			path = "编辑资料";
 			sourceTree = "<group>";
 		};
 		8110C57B211FFE8E00D013FC /* Tool */ = {
@@ -903,13 +912,12 @@
 		81E739F82167460100B8B7F4 /* 个人信息 */ = {
 			isa = PBXGroup;
 			children = (
+				79CAF65421BE095800B48780 /* 编辑资料 */,
 				813CB045217C71E200E4E67B /* Mine */,
 				81E739F92167462A00B8B7F4 /* SPBusinessCardController.h */,
 				81E739FA2167462A00B8B7F4 /* SPBusinessCardController.m */,
 				811DB6D221687D2900204139 /* SPPersonalController.h */,
 				811DB6D321687D2900204139 /* SPPersonalController.m */,
-				793B5CB121BA51C600710AD7 /* SPEditPersonalInfoViewController.h */,
-				793B5CB221BA51C600710AD7 /* SPEditPersonalInfoViewController.m */,
 			);
 			path = "个人信息";
 			sourceTree = "<group>";
@@ -1132,6 +1140,7 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
+				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1143,6 +1152,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1211,6 +1221,7 @@
 				818977C7211FE7D600928071 /* ViewController.m in Sources */,
 				8110C5BF2120019F00D013FC /* UIImage+YBCExtension.m in Sources */,
 				8110C5D32120024900D013FC /* SPMainVC.m in Sources */,
+				79CAF65721BE095800B48780 /* SPEditPersonalInfoViewController.m in Sources */,
 				8110C5B52120019F00D013FC /* UIBarButtonItem+Category.m in Sources */,
 				8110C58F2120017500D013FC /* DBAccountInfo.m in Sources */,
 				81181555217F67CC002069AA /* SPMineCardController.m in Sources */,
@@ -1219,7 +1230,6 @@
 				8110C5D62120025D00D013FC /* SPMineVC.m in Sources */,
 				81E739F12167392300B8B7F4 /* SPMessageTabCell.m in Sources */,
 				813290C8214A9D6700679CC2 /* SPSupplementController.m in Sources */,
-				793B5CB321BA51C600710AD7 /* SPEditPersonalInfoViewController.m in Sources */,
 				818977D2211FE7D800928071 /* main.m in Sources */,
 				8110C5BC2120019F00D013FC /* UIView+ZExtension.m in Sources */,
 				79E032AB21B62D12000581EC /* SFDealNullTool.m in Sources */,

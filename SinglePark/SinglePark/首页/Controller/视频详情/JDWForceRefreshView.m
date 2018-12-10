@@ -24,12 +24,12 @@
 
 - (id)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        SPMessageModel *model = [[SPMessageModel alloc] initWithDataDic:@{@"head":@"4",
-                                                                          @"nickName":@"c昵称",
-                                                                          @"messsage":@"我评论了一条信息",
-                                                                          @"time":@"12：12",
-                                                                          @"gooder":@"34"
-                                                                          }];
+        SPMessageModel *model = [SPMessageModel modelWithJSON:@{@"head":@"4",
+                                                                @"nickName":@"c昵称",
+                                                                @"messsage":@"我评论了一条信息",
+                                                                @"time":@"12：12",
+                                                                @"gooder":@"34"
+                                                                }];
         
         
         self.dataArr = [NSMutableArray array];

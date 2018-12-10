@@ -9,6 +9,42 @@
 #import "SGBaseModel.h"
 
 @implementation SGBaseModel
+
+/// 将 JSON (NSData,NSString,NSDictionary) 转换为 Model
++ (instancetype)modelWithJSON:(id)json { return [self yy_modelWithJSON:json]; }
+
+/// json-array 转 模型-数组
++ (NSArray *)modelArrayWithJSON:(id)json {
+    return [NSArray yy_modelArrayWithClass:[self class] json:json];
+}
+
+/// 字典转模型
++ (instancetype)modelWithDictionary:(NSDictionary *)dictionary{
+    return [self yy_modelWithDictionary:dictionary];
+}
+
+- (id)toJSONObject { return [self yy_modelToJSONObject]; }
+- (NSData *)toJSONData { return [self yy_modelToJSONData]; }
+- (NSString *)toJSONString { return [self yy_modelToJSONString]; }
+
+
+
+/// Coding/Copying/hash/equal
+- (void)encodeWithCoder:(NSCoder *)aCoder { [self yy_modelEncodeWithCoder:aCoder]; }
+- (id)initWithCoder:(NSCoder *)aDecoder { return [self yy_modelInitWithCoder:aDecoder]; }
+- (id)copyWithZone:(NSZone *)zone { return [self yy_modelCopy]; }
+- (NSUInteger)hash { return [self yy_modelHash]; }
+- (BOOL)isEqual:(id)object { return [self yy_modelIsEqual:object]; }
+
+/// Properties optional
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key { }
+
+/// desc
+- (NSString *)description { return [self yy_modelDescription]; }
+
+
+
+/*
 -(id)initWithDataDic:(NSDictionary*)data{
     if (self = [super init]) {
         [self setAttributes:data];
@@ -163,10 +199,6 @@
 }
 
 
-+ (NSDictionary *)mj_replacedKeyFromPropertyName
-{
-    return @{@"ID": @"id"};
-}
 
 #ifdef _FOR_DEBUG_
 -(BOOL) respondsToSelector:(SEL)aSelector {
@@ -174,5 +206,5 @@
     return [super respondsToSelector:aSelector];
 }
 #endif
-
+*/
 @end

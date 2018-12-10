@@ -94,7 +94,7 @@
 - (void)setModel:(SPPersonModel *)model{
     if (_model != model) {
         _model = model;
-        self.headimg.image = [UIImage imageNamed:_model.head];
+        self.headimg.image = [UIImage imageNamed:_model.avatar];
         self.nickeLab.text = _model.nickName;
         self.sexImg.image = [UIImage imageNamed:_model.sex];
 //        self.occupation.text = _model.occupation;

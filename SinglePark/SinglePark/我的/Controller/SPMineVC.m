@@ -9,9 +9,10 @@
 #import "SPMineVC.h"
 #import "SPMineHeadTabCell.h"
 #import "SPMineCardController.h"
-#import "SPEditPersonalInfoViewController.h"
 #import "SPSetController.h"
 #import "SPPursuitController.h"
+#import "SPEditPersonalInfoViewController.h"
+
 
 @interface SPMineVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -41,7 +42,7 @@
     self.imgArr = @[@[@""],@[@"u2988",@"u2986"],@[@"u2984"]];
   
     
-    NSDictionary *dic1 = @{@"head":@"4",
+    NSDictionary *dic1 = @{@"avatar":@"4",
                            @"occupation":@"距离----",
                            @"nickName":@"昵称----",
                            @"sex":@"nv",
@@ -49,7 +50,7 @@
                            @"didian":@"广东深圳",
                            @"number":@[@"4",@"4",@"4"]
                            };
-    self.personmodel = [[SPPersonModel alloc] initWithDataDic:dic1];
+    self.personmodel = [SPPersonModel modelWithJSON:dic1];
     [self.listTabView reloadData];
     
 }

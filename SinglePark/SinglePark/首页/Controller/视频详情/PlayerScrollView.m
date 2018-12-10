@@ -81,9 +81,9 @@
 - (void)setUI{
     TranslucentView *view = [[TranslucentView alloc] initWithFrame:CGRectMake(kScreenWidth-70, kScreenHeight*2-300-KsafeTabIPhonex-49, 60, 240)];
     
-    SPVideoModel *model = [[SPVideoModel alloc] initWithDataDic:@{@"commentStr":@"444",
-                                                                  @"headUrl":@"1233",
-                                                                  @"goodnumber":@"1222"}];
+SPVideoModel *model = [SPVideoModel modelWithJSON:@{@"commentStr":@"444",
+                                                    @"headUrl":@"1233",
+                                                    @"goodnumber":@"1222"}];
     view.model = model;
 //    view.backgroundColor = [UIColor whiteColor];
     [self addSubview:view];

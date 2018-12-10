@@ -13,7 +13,7 @@
 //效率考虑
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.head forKey:@"head"];
+    [aCoder encodeObject:self.avatar forKey:@"avatar"];
     [aCoder encodeObject:self.nickName forKey:@"nickName"];
     [aCoder encodeObject:self.sex forKey:@"sex"];
     [aCoder encodeObject:self.occupation forKey:@"occupation"];
@@ -30,7 +30,7 @@
 {
     self = [super init];
     if (self) {
-        self.head = [aDecoder decodeObjectForKey:@"head"];
+        self.avatar = [aDecoder decodeObjectForKey:@"avatar"];
         self.nickName = [aDecoder decodeObjectForKey:@"nickName"];
         self.sex = [aDecoder decodeObjectForKey:@"sex"];
         self.occupation = [aDecoder decodeObjectForKey:@"occupation"];
@@ -42,6 +42,8 @@
     }
     return self;
 }
+
+
 
 
 @end

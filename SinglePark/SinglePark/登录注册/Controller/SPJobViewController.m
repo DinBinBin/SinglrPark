@@ -53,9 +53,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] init];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     
     cell.textLabel.text = self.dataSource[indexPath.row].name;
@@ -80,7 +80,7 @@
         _tableView.dataSource = self;
         _tableView.backgroundColor = PTBackColor;
         _tableView.tableFooterView = [[UIView alloc] init];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+//        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     }
     return _tableView;
 }

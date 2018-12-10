@@ -11,14 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPPersonModel : SGBaseModel
-@property (nonatomic,copy)NSString *head;
+@property (nonatomic,copy)NSString *avatar;
 @property (nonatomic,copy)NSString *nickName;
 @property (nonatomic,copy)NSString *sex;
 @property (nonatomic,copy)NSString *occupation;
 @property (nonatomic,copy)NSString *singer;
 @property (nonatomic,copy)NSString *didian;
 @property (nonatomic,strong)NSArray *number;
-
 
 
 

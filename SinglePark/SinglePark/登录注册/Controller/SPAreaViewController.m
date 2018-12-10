@@ -96,7 +96,7 @@
     
     if (!self.next) {
         self.next = YES;
-        [self requestNextData:self.dataArr[indexPath.row].ID];
+        [self requestNextData:self.dataArr[indexPath.row].userID];
     }else {
         if (self.delegate && [self.delegate respondsToSelector:@selector(selectAreaName:)]) {
             [self.delegate selectAreaName:self.dataArr[indexPath.row].name];
