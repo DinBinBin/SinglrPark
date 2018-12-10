@@ -25,6 +25,9 @@
 #define PTURL_API_UserGet [NSString stringWithFormat:@"%@/user",BASE_HttpURL]
 //职业列表
 #define SPURL_API_Job [NSString stringWithFormat:@"%@/job/list",BASE_HttpURL]
+//所有城市列表
+#define SPURL_API_City [NSString stringWithFormat:@"%@/city/list",BASE_HttpURL]
+
 
 
 //登录接口

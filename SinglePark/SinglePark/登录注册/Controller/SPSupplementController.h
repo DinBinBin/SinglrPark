@@ -8,12 +8,6 @@
 
 #import "SGBaseController.h"
 
-@protocol SPJobDelegate <NSObject>
-
-- (void)selectJobName:(NSString *)name;
-
-@end
-
 @interface SPSupplementController : SGBaseController
-
+@property (nonatomic, strong) UIImage *img;
 @end

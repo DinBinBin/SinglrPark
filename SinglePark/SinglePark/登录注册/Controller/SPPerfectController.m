@@ -57,6 +57,7 @@
         _headBtn.frame = CGRectMake(self.view.right-120,5, 100, 40);
         [_headBtn addTarget:self action:@selector(selectCover) forControlEvents:UIControlEventTouchUpInside];
         [_headBtn setImage:[UIImage imageNamed:@"logo"] forState:UIControlStateNormal];
+        
     }
     return _headBtn;
 }
@@ -146,6 +147,7 @@
 //                return ;
 //            }
             SPSupplementController *supple = [[SPSupplementController alloc] init];
+            supple.img = strongSelf.img;
             [strongSelf.navigationController pushViewController:supple animated:YES];
 
             
@@ -214,6 +216,8 @@
             make.bottom.equalTo(cell.contentView.mas_bottom).offset(-10);
             make.width.height.mas_equalTo(Width(80));
         }];
+        self.headBtn.layer.cornerRadius = Width(80)/2;
+        self.headBtn.layer.masksToBounds = YES;
         
     }else if (indexPath.section == 1){
         UILabel *promptcellLab = [[UILabel alloc] init];

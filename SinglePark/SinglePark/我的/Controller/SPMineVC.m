@@ -9,7 +9,7 @@
 #import "SPMineVC.h"
 #import "SPMineHeadTabCell.h"
 #import "SPMineCardController.h"
-#import "SPPersonalController.h"
+#import "SPEditPersonalInfoViewController.h"
 #import "SPSetController.h"
 #import "SPPursuitController.h"
 
@@ -116,7 +116,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0 ) {
-         SPPersonalController *business = [[SPPersonalController alloc] init];
+         SPEditPersonalInfoViewController *business = [[SPEditPersonalInfoViewController alloc] init];
         [self.navigationController  pushViewController:business animated:YES];
 
     }else if (indexPath.section == 1){

@@ -10,8 +10,9 @@
 #import "SGTabBarController.h"
 #import "AppDelegate.h"
 #import "SPJobViewController.h"
+#import "SPAreaViewController.h"
 
-@interface SPSupplementController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,SPJobDelegate>
+@interface SPSupplementController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,SPSelectDelegate>
 @property (nonatomic,strong)UITableView *perfectTabView;
 @property (nonatomic,strong)UIButton *headBtn;
 @property (nonatomic,strong)UITextField *ageField;
@@ -99,6 +100,7 @@
         _regionField = [[UITextField alloc] initWithFrame:CGRectMake(100, 0, kScreenWidth-220, 50)];
         _regionField.font = FONT(15);
         _regionField.placeholder = @"请输入您的地区";
+        _regionField.delegate = self;
         [_regionField setValue:FONT(14) forKeyPath:@"_placeholderLabel.font"];
         [_regionField setValue:WordColor forKeyPath:@"_placeholderLabel.textColor"];
     }
@@ -151,6 +153,9 @@
             make.bottom.equalTo(cell.contentView.mas_bottom).offset(-10);
             make.width.height.mas_equalTo(Width(80));
         }];
+        self.headBtn.layer.cornerRadius = Width(80)/2;
+        self.headBtn.layer.masksToBounds = YES;
+        [self.headBtn setImage:self.img forState:UIControlStateNormal];
         
     }else if (indexPath.section == 1){
         UILabel *promptcellLab = [[UILabel alloc] init];
@@ -217,10 +222,15 @@
     return cell;
 }
 
-#pragma mark - UITextFieldDelegate
+#pragma mark - SPSelectDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.occupationField) {
         SPJobViewController *vc = [[SPJobViewController alloc] init];
+        vc.delegate = self;
+        [self.navigationController pushViewController:vc animated:YES];
+        return NO;
+    }else if (textField == self.regionField) {
+        SPAreaViewController *vc = [[SPAreaViewController alloc] init];
         vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
         return NO;
@@ -232,6 +242,10 @@
 #pragma mark - SPJobDelegate
 - (void)selectJobName:(NSString *)name {
     self.occupationField.text = name;
+}
+
+- (void)selectAreaName:(NSString *)areaName {
+    self.regionField.text = areaName;
 }
 
 #pragma mark - click

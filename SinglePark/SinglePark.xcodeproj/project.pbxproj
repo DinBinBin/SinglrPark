@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		793B5CA921BA0C9000710AD7 /* SPAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CA821BA0C9000710AD7 /* SPAreaViewController.m */; };
+		793B5CAC21BA0ED900710AD7 /* SPCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CAB21BA0ED900710AD7 /* SPCityModel.m */; };
+		793B5CB321BA51C600710AD7 /* SPEditPersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CB221BA51C600710AD7 /* SPEditPersonalInfoViewController.m */; };
+		793B5CB721BA66AF00710AD7 /* SPMineHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */; };
+		793B5CB821BA66AF00710AD7 /* SPMineHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 793B5CB621BA66AF00710AD7 /* SPMineHeadCell.xib */; };
 		796D9C9821B7ACB30045F0B4 /* SPConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */; };
 		796D9C9B21B9113F0045F0B4 /* SPJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9A21B9113F0045F0B4 /* SPJobViewController.m */; };
 		796D9C9E21B916FE0045F0B4 /* SQPrintJsonLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */; };
@@ -136,6 +141,16 @@
 /* Begin PBXFileReference section */
 		18771F1749CBF4B39C200A0C /* Pods_SinglePark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SinglePark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280479056BE1971DEC21CD90 /* Pods-SinglePark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinglePark.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark.release.xcconfig"; sourceTree = "<group>"; };
+		793B5CA721BA0C9000710AD7 /* SPAreaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAreaViewController.h; sourceTree = "<group>"; };
+		793B5CA821BA0C9000710AD7 /* SPAreaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPAreaViewController.m; sourceTree = "<group>"; };
+		793B5CAA21BA0ED900710AD7 /* SPCityModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCityModel.h; sourceTree = "<group>"; };
+		793B5CAB21BA0ED900710AD7 /* SPCityModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPCityModel.m; sourceTree = "<group>"; };
+		793B5CAD21BA0F8500710AD7 /* SPSelectDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSelectDelegate.h; sourceTree = "<group>"; };
+		793B5CB121BA51C600710AD7 /* SPEditPersonalInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEditPersonalInfoViewController.h; sourceTree = "<group>"; };
+		793B5CB221BA51C600710AD7 /* SPEditPersonalInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEditPersonalInfoViewController.m; sourceTree = "<group>"; };
+		793B5CB421BA66AF00710AD7 /* SPMineHeadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMineHeadCell.h; sourceTree = "<group>"; };
+		793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMineHeadCell.m; sourceTree = "<group>"; };
+		793B5CB621BA66AF00710AD7 /* SPMineHeadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SPMineHeadCell.xib; sourceTree = "<group>"; };
 		796D9C9621B7ACB30045F0B4 /* SPConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConversationViewController.h; sourceTree = "<group>"; };
 		796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConversationViewController.m; sourceTree = "<group>"; };
 		796D9C9921B9113F0045F0B4 /* SPJobViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPJobViewController.h; sourceTree = "<group>"; };
@@ -412,6 +427,9 @@
 			children = (
 				796D9CA021B91FC70045F0B4 /* SPJobModel.h */,
 				796D9CA121B91FC70045F0B4 /* SPJobModel.m */,
+				793B5CAA21BA0ED900710AD7 /* SPCityModel.h */,
+				793B5CAB21BA0ED900710AD7 /* SPCityModel.m */,
+				793B5CAD21BA0F8500710AD7 /* SPSelectDelegate.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -564,6 +582,9 @@
 				811DB6D6216881FB00204139 /* SPPursuitView.m */,
 				811DB23E216B9D8900ABB889 /* SPHeadPersonTabCell.h */,
 				811DB23F216B9D8900ABB889 /* SPHeadPersonTabCell.m */,
+				793B5CB421BA66AF00710AD7 /* SPMineHeadCell.h */,
+				793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */,
+				793B5CB621BA66AF00710AD7 /* SPMineHeadCell.xib */,
 			);
 			path = "个人资料";
 			sourceTree = "<group>";
@@ -663,6 +684,8 @@
 				813290C7214A9D6700679CC2 /* SPSupplementController.m */,
 				796D9C9921B9113F0045F0B4 /* SPJobViewController.h */,
 				796D9C9A21B9113F0045F0B4 /* SPJobViewController.m */,
+				793B5CA721BA0C9000710AD7 /* SPAreaViewController.h */,
+				793B5CA821BA0C9000710AD7 /* SPAreaViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -877,6 +900,8 @@
 				81E739FA2167462A00B8B7F4 /* SPBusinessCardController.m */,
 				811DB6D221687D2900204139 /* SPPersonalController.h */,
 				811DB6D321687D2900204139 /* SPPersonalController.m */,
+				793B5CB121BA51C600710AD7 /* SPEditPersonalInfoViewController.h */,
+				793B5CB221BA51C600710AD7 /* SPEditPersonalInfoViewController.m */,
 			);
 			path = "个人信息";
 			sourceTree = "<group>";
@@ -1029,6 +1054,7 @@
 				8127A6CD21735A580033434C /* README.md in Resources */,
 				8127A6CB21735A580033434C /* LICENSE in Resources */,
 				818977CA211FE7D600928071 /* Main.storyboard in Resources */,
+				793B5CB821BA66AF00710AD7 /* SPMineHeadCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1132,6 +1158,7 @@
 				81C13994217B0531003C91B2 /* SPBlacklistController.m in Sources */,
 				8110C5CE212001CE00D013FC /* SGTabBarController.m in Sources */,
 				811DB240216B9D8900ABB889 /* SPHeadPersonTabCell.m in Sources */,
+				793B5CA921BA0C9000710AD7 /* SPAreaViewController.m in Sources */,
 				8110C5CF212001CE00D013FC /* SGBaseModel.m in Sources */,
 				81ECE79021357A09004FDDE8 /* SPWelcomeController.m in Sources */,
 				8118156721820EBB002069AA /* JDWNetworkHelper.m in Sources */,
@@ -1142,6 +1169,7 @@
 				8110C5932120017F00D013FC /* ProjectHelp.m in Sources */,
 				8127A6D621735A7C0033434C /* TranslucentView.m in Sources */,
 				813CB04C217C736400E4E67B /* SPPursuitHeadTabCell.m in Sources */,
+				793B5CB721BA66AF00710AD7 /* SPMineHeadCell.m in Sources */,
 				E68CBB53219EC1BA0010C2D6 /* SPThirdTabwCell.m in Sources */,
 				811DB6D421687D2900204139 /* SPPersonalController.m in Sources */,
 				8118156621820EBB002069AA /* JDWNetworkCache.m in Sources */,
@@ -1180,6 +1208,7 @@
 				8110C5D62120025D00D013FC /* SPMineVC.m in Sources */,
 				81E739F12167392300B8B7F4 /* SPMessageTabCell.m in Sources */,
 				813290C8214A9D6700679CC2 /* SPSupplementController.m in Sources */,
+				793B5CB321BA51C600710AD7 /* SPEditPersonalInfoViewController.m in Sources */,
 				818977D2211FE7D800928071 /* main.m in Sources */,
 				8110C5BC2120019F00D013FC /* UIView+ZExtension.m in Sources */,
 				79E032AB21B62D12000581EC /* SFDealNullTool.m in Sources */,
@@ -1210,6 +1239,7 @@
 				8110C5DC2120027D00D013FC /* SPFoundVC.m in Sources */,
 				818977C4211FE7D600928071 /* AppDelegate.m in Sources */,
 				8110C58B2120013000D013FC /* LCLoginController.m in Sources */,
+				793B5CAC21BA0ED900710AD7 /* SPCityModel.m in Sources */,
 				81FB4C432165F4D20090142A /* SPCoverModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
