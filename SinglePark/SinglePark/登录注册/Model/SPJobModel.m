@@ -12,7 +12,7 @@
 
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"userID": @"id"};
+    return @{@"userId": @"id"};
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {

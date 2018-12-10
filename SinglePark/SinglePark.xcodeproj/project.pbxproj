@@ -16,6 +16,8 @@
 		796D9C9E21B916FE0045F0B4 /* SQPrintJsonLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */; };
 		796D9CA221B91FC70045F0B4 /* SPJobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9CA121B91FC70045F0B4 /* SPJobModel.m */; };
 		79CAF65721BE095800B48780 /* SPEditPersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CAF65621BE095800B48780 /* SPEditPersonalInfoViewController.m */; };
+		79CAF65A21BE44D700B48780 /* SPEditNickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CAF65921BE44D700B48780 /* SPEditNickNameViewController.m */; };
+		79CAF65D21BE6E5600B48780 /* SPEditSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CAF65C21BE6E5600B48780 /* SPEditSectionViewController.m */; };
 		79CDC04421B67AD60018D1C7 /* SPChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CDC04321B67AD60018D1C7 /* SPChatListViewController.m */; };
 		79E032AB21B62D12000581EC /* SFDealNullTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 79E032A921B62D12000581EC /* SFDealNullTool.m */; };
 		79E032AD21B64C40000581EC /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79E032AC21B64C40000581EC /* AssetsLibrary.framework */; };
@@ -171,6 +173,10 @@
 		796D9CA121B91FC70045F0B4 /* SPJobModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPJobModel.m; sourceTree = "<group>"; };
 		79CAF65521BE095800B48780 /* SPEditPersonalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEditPersonalInfoViewController.h; sourceTree = "<group>"; };
 		79CAF65621BE095800B48780 /* SPEditPersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEditPersonalInfoViewController.m; sourceTree = "<group>"; };
+		79CAF65821BE44D700B48780 /* SPEditNickNameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEditNickNameViewController.h; sourceTree = "<group>"; };
+		79CAF65921BE44D700B48780 /* SPEditNickNameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEditNickNameViewController.m; sourceTree = "<group>"; };
+		79CAF65B21BE6E5600B48780 /* SPEditSectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEditSectionViewController.h; sourceTree = "<group>"; };
+		79CAF65C21BE6E5600B48780 /* SPEditSectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEditSectionViewController.m; sourceTree = "<group>"; };
 		79CDC03A21B652330018D1C7 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		79CDC04021B6595C0018D1C7 /* libc++.1.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.1.tbd"; path = "usr/lib/libc++.1.tbd"; sourceTree = SDKROOT; };
 		79CDC04221B67AD60018D1C7 /* SPChatListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPChatListViewController.h; sourceTree = "<group>"; };
@@ -475,6 +481,10 @@
 			children = (
 				79CAF65521BE095800B48780 /* SPEditPersonalInfoViewController.h */,
 				79CAF65621BE095800B48780 /* SPEditPersonalInfoViewController.m */,
+				79CAF65821BE44D700B48780 /* SPEditNickNameViewController.h */,
+				79CAF65921BE44D700B48780 /* SPEditNickNameViewController.m */,
+				79CAF65B21BE6E5600B48780 /* SPEditSectionViewController.h */,
+				79CAF65C21BE6E5600B48780 /* SPEditSectionViewController.m */,
 			);
 			path = "编辑资料";
 			sourceTree = "<group>";
@@ -1323,6 +1333,7 @@
 				81FB4C492165F8B60090142A /* SPPlayVideoController.m in Sources */,
 				8127A6D521735A7C0033434C /* VideoInfoModel.m in Sources */,
 				811DB6D121687B4200204139 /* SPPersonModel.m in Sources */,
+				79CAF65D21BE6E5600B48780 /* SPEditSectionViewController.m in Sources */,
 				8110C5BB2120019F00D013FC /* UIScrollView+ZExtension.m in Sources */,
 				813CB052217C9A8200E4E67B /* SPCommentTablCell.m in Sources */,
 				811815582181FEA5002069AA /* SPChasingController.m in Sources */,
@@ -1335,6 +1346,7 @@
 				818977C4211FE7D600928071 /* AppDelegate.m in Sources */,
 				8110C58B2120013000D013FC /* LCLoginController.m in Sources */,
 				E64643E321BE57400066E0F3 /* IMEmotionEntity.m in Sources */,
+				79CAF65A21BE44D700B48780 /* SPEditNickNameViewController.m in Sources */,
 				793B5CAC21BA0ED900710AD7 /* SPCityModel.m in Sources */,
 				E64643E521BE57400066E0F3 /* MoreButtonView.m in Sources */,
 				E64643DF21BE57400066E0F3 /* CollectionViewFlowLayout.m in Sources */,

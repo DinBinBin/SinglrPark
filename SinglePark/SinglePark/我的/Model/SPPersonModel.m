@@ -10,6 +10,14 @@
 
 @implementation SPPersonModel
 
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"userId": @"id",
+             @"nickName" : @"nick_name",
+             @"occupation" : @"job",
+             };
+}
+
+/*
 //效率考虑
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
@@ -43,7 +51,7 @@
     return self;
 }
 
-
+*/
 
 
 @end

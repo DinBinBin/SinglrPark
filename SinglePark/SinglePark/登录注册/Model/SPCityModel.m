@@ -10,9 +10,7 @@
 
 @implementation SPCityModel
 
--(NSDictionary*)attributeMapDictionary{
-    return @{@"userID": @"id"};
-    
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"userId": @"id"};
 }
-
 @end
