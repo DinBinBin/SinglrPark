@@ -12,7 +12,6 @@
 #import "AppDelegate.h"
 #import "SPTourisController.h"
 
-
 @interface LCLoginController ()
 
 @property (nonatomic,strong)UIView *fieleView;
@@ -210,7 +209,8 @@
 
 // 登录
 - (void)next{
-    NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcHBXaXRoWWV0aCIsImlhdCI6MTU0NDE0NDc1NCwiZXhwIjoxNTQ0NzQ5NTU0LCJpZCI6OSwidHlwZSI6InBob25lIiwidmVyc2lvbiI6Mn0.c0122c1834404a9c89fc0c0c8e7219f594c176a0e803a12ac964b49dce3ed886";
+
+    //保存token
     NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
     [userdef setObject:token forKey:isLogin];
     [DBAccountInfo sharedInstance].token = token;
@@ -222,6 +222,7 @@
     ptAppDelegate.window.rootViewController = sgTabBar ;
     
     /* 完整流程，请别删除
+
     if (self.mobileField.text.length == 0) {
         [MBProgressHUD showMessage:@"请输入您的手机号"];
         return;

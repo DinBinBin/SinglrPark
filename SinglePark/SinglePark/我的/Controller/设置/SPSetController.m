@@ -63,7 +63,7 @@
     NSArray *arr = self.titleArr[indexPath.section];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
     cell.textLabel.text = arr[indexPath.row];
-    cell.textLabel.font = FONT(14);
+    cell.textLabel.font = Font16;
     cell.textLabel.textColor = FirstWordColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

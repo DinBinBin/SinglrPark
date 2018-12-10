@@ -61,7 +61,7 @@
    
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(18, 5, kScreenWidth-36, 55)];
     
-    lab.font = Font14;
+    lab.font = Font16;
     lab.textColor = SecondWordColor;
     lab.numberOfLines = 0;
     [labview addSubview:lab];

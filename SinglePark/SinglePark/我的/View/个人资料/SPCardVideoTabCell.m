@@ -11,7 +11,6 @@
 
 
 @property (nonatomic,strong)UIView *backView;
-@property (nonatomic,strong)UIImageView *coverImg;
 @property (nonatomic,strong)UIImageView *promptImg;
 
 
@@ -28,36 +27,39 @@
 }
 
 - (void)setUI{
-    [self.contentView addSubview:self.backView];
+    [self.contentView addSubview:self.coverImg];
     [self.coverImg addSubview:self.titleLab];
-    [self.backView addSubview:self.coverImg];
+//    [self.backView addSubview:self.coverImg];
     [self.coverImg addSubview:self.promptImg];
     
     
-    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+//    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.contentView).offset(10);
+//        make.right.equalTo(self.contentView.mas_right).offset(-10);
+//        make.top.equalTo(self.contentView);
+//        make.height.mas_equalTo(kScreenWidth-20);
+//        make.bottom.equalTo(self.contentView.mas_bottom);
+//    }];
+    
+
+        
+    [self.coverImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView);
         make.left.equalTo(self.contentView).offset(10);
         make.right.equalTo(self.contentView.mas_right).offset(-10);
-        make.top.equalTo(self.contentView);
-        make.height.mas_equalTo(kScreenWidth-20);
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.equalTo(self.backView).offset(5);
-    }];
-        
-    [self.coverImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleLab.mas_bottom).offset(5);
-        make.left.width.equalTo(self.backView);
-        make.bottom.equalTo(self.backView.mas_bottom);
+        make.left.top.equalTo(self.coverImg).offset(5);
     }];
     
         [self.promptImg mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.coverImg);
         }];
     
-    [self.backView.layer setCornerRadius:8];
-    self.backView.clipsToBounds = YES;
+    [self.coverImg.layer setCornerRadius:8];
+    self.coverImg.clipsToBounds = YES;
 
 }
 

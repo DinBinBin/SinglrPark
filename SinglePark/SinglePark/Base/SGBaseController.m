@@ -151,5 +151,26 @@
     return NO;
 }
 
-
+//方法二.当设置navigationBar的背景图片或背景色时，使用该方法都可移除黑线，且不会使translucent属性失效
+-(void)setHideNavigationLine:(BOOL)hideNavigationLine
+{
+    _hideNavigationLine = hideNavigationLine;
+    UIImageView* blackLineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    //隐藏黑线（在viewWillAppear时隐藏，在viewWillDisappear时显示）
+    blackLineImageView.hidden = _hideNavigationLine;
+}
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view
+{
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0)
+    {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return nil;
+}
 @end

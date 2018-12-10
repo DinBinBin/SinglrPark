@@ -263,7 +263,7 @@
 //        }else {
 //            NSLog(@"未获取到token字段");
 //        }
-        [manager.requestSerializer setValue:@"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcHBXaXRoWWV0aCIsImlhdCI6MTU0NDE0NDc1NCwiZXhwIjoxNTQ0NzQ5NTU0LCJpZCI6OSwidHlwZSI6InBob25lIiwidmVyc2lvbiI6Mn0.c0122c1834404a9c89fc0c0c8e7219f594c176a0e803a12ac964b49dce3ed886" forHTTPHeaderField:@"Authorization"];
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
 
         return manager;
     }

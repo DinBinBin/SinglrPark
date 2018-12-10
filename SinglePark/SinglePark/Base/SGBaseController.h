@@ -16,6 +16,8 @@
  */
 @property(nonatomic,assign) BOOL keyBoardNotice;
 @property (nonatomic, assign) BOOL canDragBack;
+@property (nonatomic, assign) BOOL hideNavigationLine;;
+
 - (BOOL)checkLoginImmediately;
 
 @end

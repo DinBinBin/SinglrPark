@@ -12,6 +12,8 @@
 
 //http://jiu.wuchenge.com/api/doc/index.html
 
+static NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcHBXaXRoWWV0aCIsImlhdCI6MTU0NDI3Mjc4MCwiZXhwIjoxNTQ0ODc3NTgwLCJpZCI6OSwidHlwZSI6InBob25lIiwidmVyc2lvbiI6M30.e4eff97f9ba373b28118e1ad0d44b9b0b89add44545cbb3fcb0e6f0657ee1dc7";
+
 
 //发送手机验证码接口
 #define PTURL_API_SENDMSG [NSString stringWithFormat:@"%@/captcha",BASE_HttpURL]
@@ -27,6 +29,11 @@
 #define SPURL_API_Job [NSString stringWithFormat:@"%@/job/list",BASE_HttpURL]
 //所有城市列表
 #define SPURL_API_City [NSString stringWithFormat:@"%@/city/list",BASE_HttpURL]
+
+
+
+//意见反馈
+#define SPURL_API_Feedback [NSString stringWithFormat:@"%@/feedback/create",BASE_HttpURL]
 
 
 

@@ -45,7 +45,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
     cell.textLabel.text = self.titleArr[indexPath.row];
-    cell.textLabel.font = FONT(14);
+    cell.textLabel.font = Font16;
     cell.textLabel.textColor = FirstWordColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -58,7 +58,7 @@
         cell.textLabel.text = nil;
         UILabel *lab = [[UILabel alloc] init];
         [cell.contentView addSubview:lab];
-        lab.font = Font14;
+        lab.font = Font16;
         lab.textColor = SecondWordColor;
         lab.numberOfLines = 0;
         lab.text = self.titleArr[indexPath.row];

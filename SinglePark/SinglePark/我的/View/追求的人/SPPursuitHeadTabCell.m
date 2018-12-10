@@ -68,7 +68,7 @@
     if (_nickeLab == nil) {
         _nickeLab = [[UILabel alloc] init];
         _nickeLab.text = @"昵称";
-        _nickeLab.font = FONT(14);
+        _nickeLab.font = Font16;
         _nickeLab.textColor = FirstWordColor;
     }
     return _nickeLab;

@@ -103,12 +103,14 @@
 		813CB04C217C736400E4E67B /* SPPursuitHeadTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 813CB04B217C736400E4E67B /* SPPursuitHeadTabCell.m */; };
 		813CB04F217C99AB00E4E67B /* SPCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 813CB04E217C99AB00E4E67B /* SPCommentController.m */; };
 		813CB052217C9A8200E4E67B /* SPCommentTablCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 813CB051217C9A8200E4E67B /* SPCommentTablCell.m */; };
+		81615D3021B173E200152DB4 /* SPChasingherController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81615D2F21B173E200152DB4 /* SPChasingherController.m */; };
 		818977C4211FE7D600928071 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 818977C3211FE7D600928071 /* AppDelegate.m */; };
 		818977C7211FE7D600928071 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818977C6211FE7D600928071 /* ViewController.m */; };
 		818977CA211FE7D600928071 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818977C8211FE7D600928071 /* Main.storyboard */; };
 		818977CC211FE7D800928071 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 818977CB211FE7D800928071 /* Assets.xcassets */; };
 		818977CF211FE7D800928071 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 818977CD211FE7D800928071 /* LaunchScreen.storyboard */; };
 		818977D2211FE7D800928071 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 818977D1211FE7D800928071 /* main.m */; };
+		81A3D4A721BD2C0200FF0E00 /* SPPursuitNoneTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81A3D4A621BD2C0200FF0E00 /* SPPursuitNoneTabCell.m */; };
 		81AED57021494EBE00A0636D /* SPInvitationCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81AED56F21494EBE00A0636D /* SPInvitationCodeController.m */; };
 		81C13982217AFA0E003C91B2 /* SPAcceptNoticeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81C13981217AFA0E003C91B2 /* SPAcceptNoticeController.m */; };
 		81C13985217AFAAA003C91B2 /* SPCurrencyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81C13984217AFAAA003C91B2 /* SPCurrencyController.m */; };
@@ -309,6 +311,8 @@
 		813CB04E217C99AB00E4E67B /* SPCommentController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPCommentController.m; sourceTree = "<group>"; };
 		813CB050217C9A8200E4E67B /* SPCommentTablCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCommentTablCell.h; sourceTree = "<group>"; };
 		813CB051217C9A8200E4E67B /* SPCommentTablCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPCommentTablCell.m; sourceTree = "<group>"; };
+		81615D2E21B173E200152DB4 /* SPChasingherController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPChasingherController.h; sourceTree = "<group>"; };
+		81615D2F21B173E200152DB4 /* SPChasingherController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPChasingherController.m; sourceTree = "<group>"; };
 		818977BF211FE7D600928071 /* SinglePark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinglePark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818977C2211FE7D600928071 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		818977C3211FE7D600928071 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -319,6 +323,8 @@
 		818977CE211FE7D800928071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		818977D0211FE7D800928071 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		818977D1211FE7D800928071 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		81A3D4A521BD2C0200FF0E00 /* SPPursuitNoneTabCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPursuitNoneTabCell.h; sourceTree = "<group>"; };
+		81A3D4A621BD2C0200FF0E00 /* SPPursuitNoneTabCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPursuitNoneTabCell.m; sourceTree = "<group>"; };
 		81AED56E21494EBE00A0636D /* SPInvitationCodeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPInvitationCodeController.h; sourceTree = "<group>"; };
 		81AED56F21494EBE00A0636D /* SPInvitationCodeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPInvitationCodeController.m; sourceTree = "<group>"; };
 		81C13980217AFA0E003C91B2 /* SPAcceptNoticeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAcceptNoticeController.h; sourceTree = "<group>"; };
@@ -702,6 +708,8 @@
 			children = (
 				813CB047217C734900E4E67B /* SPPursuitListView.h */,
 				813CB048217C734900E4E67B /* SPPursuitListView.m */,
+				81A3D4A521BD2C0200FF0E00 /* SPPursuitNoneTabCell.h */,
+				81A3D4A621BD2C0200FF0E00 /* SPPursuitNoneTabCell.m */,
 				813CB04A217C736400E4E67B /* SPPursuitHeadTabCell.h */,
 				813CB04B217C736400E4E67B /* SPPursuitHeadTabCell.m */,
 			);
@@ -923,6 +931,8 @@
 				8127A6B7217343C00033434C /* 视频详情 */,
 				8110C5D12120024900D013FC /* SPMainVC.h */,
 				8110C5D22120024900D013FC /* SPMainVC.m */,
+				81615D2E21B173E200152DB4 /* SPChasingherController.h */,
+				81615D2F21B173E200152DB4 /* SPChasingherController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1171,6 +1181,7 @@
 				813CB04C217C736400E4E67B /* SPPursuitHeadTabCell.m in Sources */,
 				793B5CB721BA66AF00710AD7 /* SPMineHeadCell.m in Sources */,
 				E68CBB53219EC1BA0010C2D6 /* SPThirdTabwCell.m in Sources */,
+				81615D3021B173E200152DB4 /* SPChasingherController.m in Sources */,
 				811DB6D421687D2900204139 /* SPPersonalController.m in Sources */,
 				8118156621820EBB002069AA /* JDWNetworkCache.m in Sources */,
 				8110C5D92120026E00D013FC /* SPMessageVC.m in Sources */,
@@ -1215,6 +1226,7 @@
 				81C13991217B03C5003C91B2 /* SPProtectionController.m in Sources */,
 				79CDC04421B67AD60018D1C7 /* SPChatListViewController.m in Sources */,
 				8110C588212000E300D013FC /* SGBaseController.m in Sources */,
+				81A3D4A721BD2C0200FF0E00 /* SPPursuitNoneTabCell.m in Sources */,
 				8110C5BE2120019F00D013FC /* UITextField+KYExtension.m in Sources */,
 				8110C5D0212001CE00D013FC /* SGNavigationController.m in Sources */,
 				81E739EB2167327200B8B7F4 /* JDWFillEditController.m in Sources */,
