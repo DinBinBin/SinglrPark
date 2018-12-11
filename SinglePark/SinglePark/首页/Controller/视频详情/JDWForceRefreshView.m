@@ -53,13 +53,13 @@
     [self.whiteView addSubview:self.titleLab];
     [self.whiteView addSubview:self.commentTabView];
     [self.whiteView addSubview:self.sureBtn];
-    [self.whiteView addSubview:self.inputToolbar];
+    [self addSubview:self.inputToolbar];
 
 
     [self.whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_bottom).offset(-KIsiPhoneX-49);
+        make.bottom.equalTo(self.mas_bottom).offset(-KsafeTabIPhonex);
         make.width.left.equalTo(self);
-        make.top.equalTo(self).offset(300+kNavigationHeight);
+        make.top.equalTo(self).offset(200+kNavigationHeight);
     }];
     
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -82,7 +82,7 @@
     [self.inputToolbar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.commentTabView.mas_bottom);
         make.width.equalTo(self);
-        make.height.mas_equalTo(49);
+        make.height.mas_equalTo(53);
 
     }];
     
@@ -144,13 +144,19 @@
     if (_inputToolbar == nil) {
         _inputToolbar = [InputToolbar shareInstance];
         _inputToolbar.width = kScreenWidth;
-        _inputToolbar.height = 49;
+        _inputToolbar.height = 53;
         _inputToolbar.textViewMaxVisibleLine = 4;
         _inputToolbar.sendContent = ^(NSObject *content) {  //发送文字
         };
-        
+        WEAKSELF
+        STRONGSELF
         _inputToolbar.inputToolbarFrameChange = ^(CGFloat height, CGFloat orignY) {
-            NSLog(@"wrwer");
+            [strongSelf.inputToolbar mas_remakeConstraints:^(MASConstraintMaker *make) {
+                NSLog(@"%f  ==%f",orignY,height);
+                make.bottom.equalTo(strongSelf.mas_bottom).offset(-orignY);
+                make.width.equalTo(strongSelf);
+                make.height.mas_equalTo(height);
+            }];
         };
         [_inputToolbar resetInputToolbar];
         
@@ -171,7 +177,13 @@
 
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    self.inputToolbar.isFirstResponder = NO;
+        self.inputToolbar.isBecomeFirstResponder = NO;
+        [self.inputToolbar mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.commentTabView.mas_bottom);
+            make.width.equalTo(self);
+            make.height.mas_equalTo(53);
+        }];
+  
 }
 
 @end

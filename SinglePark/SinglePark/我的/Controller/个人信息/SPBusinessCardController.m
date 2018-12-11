@@ -9,6 +9,7 @@
 #import "SPBusinessCardController.h"
 #import "SPCardTabCell.h"
 #import "SPCardVideoTabCell.h"
+#import "SPChasingherController.h"
 
 @interface SPBusinessCardController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -134,6 +135,10 @@
         [_hunterBtn setCornerRadius:5];
         _hunterBtn.backgroundColor = ThemeColor;
         [_hunterBtn setTitle:@"追她" forState:UIControlStateNormal];
+        [_hunterBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+            SPChasingherController *chasing = [[SPChasingherController alloc] init];
+            [self.navigationController pushViewController:chasing animated:YES];
+        }];
     }
     return  _hunterBtn;
 }

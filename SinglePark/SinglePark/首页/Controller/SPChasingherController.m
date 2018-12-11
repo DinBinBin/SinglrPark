@@ -7,20 +7,24 @@
 //
 
 #import "SPChasingherController.h"
-
+#import "VoiceButtonView.h"
 
 @interface SPChasingherController ()
 
-//@property (nonatomic,strong)UIimage *mainScrollView;
+@property (nonatomic,strong)UIView *backview;
+@property (nonatomic,strong)VoiceButtonView *voiceview;
+
 @end
 
 @implementation SPChasingherController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [uii];
-    // Do any additional setup after loading the view.
+    self.title = @"追她";
+    
+
 }
+
 
 
 @end
