@@ -10,4 +10,7 @@
 
 @interface SPSupplementController : SGBaseController
 @property (nonatomic, strong) UIImage *img;
+@property (nonatomic, copy) NSString *nickName;
+@property (nonatomic,assign)NSInteger sex;
+
 @end

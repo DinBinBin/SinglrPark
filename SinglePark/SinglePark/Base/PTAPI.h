@@ -12,7 +12,7 @@
 
 //http://jiu.wuchenge.com/api/doc/index.html
 
-static NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcHBXaXRoWWV0aCIsImlhdCI6MTU0NDI3Mjc4MCwiZXhwIjoxNTQ0ODc3NTgwLCJpZCI6OSwidHlwZSI6InBob25lIiwidmVyc2lvbiI6M30.e4eff97f9ba373b28118e1ad0d44b9b0b89add44545cbb3fcb0e6f0657ee1dc7";
+static NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcHBXaXRoWWV0aCIsImlhdCI6MTU0NDUxNTkyOCwiZXhwIjoxNTQ1MTIwNzI4LCJpZCI6MTQsInR5cGUiOiJwaG9uZSIsInZlcnNpb24iOjF9.06abf4777e515a6208ff65d3e50b69b63a74cf6561ab19cf5b3986243efec3d2";
 
 
 //发送手机验证码接口

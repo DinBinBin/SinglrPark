@@ -11,8 +11,8 @@
 		793B5CAC21BA0ED900710AD7 /* SPCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CAB21BA0ED900710AD7 /* SPCityModel.m */; };
 		793B5CB721BA66AF00710AD7 /* SPMineHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */; };
 		793B5CB821BA66AF00710AD7 /* SPMineHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 793B5CB621BA66AF00710AD7 /* SPMineHeadCell.xib */; };
+		793D628321BFB2D400589445 /* MFDatePickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 793D628221BFB2D400589445 /* MFDatePickView.m */; };
 		796D9C9821B7ACB30045F0B4 /* SPConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */; };
-		796D9C9B21B9113F0045F0B4 /* SPJobViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9A21B9113F0045F0B4 /* SPJobViewController.m */; };
 		796D9C9E21B916FE0045F0B4 /* SQPrintJsonLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */; };
 		796D9CA221B91FC70045F0B4 /* SPJobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9CA121B91FC70045F0B4 /* SPJobModel.m */; };
 		79CAF65721BE095800B48780 /* SPEditPersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79CAF65621BE095800B48780 /* SPEditPersonalInfoViewController.m */; };
@@ -153,10 +153,10 @@
 		793B5CB421BA66AF00710AD7 /* SPMineHeadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMineHeadCell.h; sourceTree = "<group>"; };
 		793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMineHeadCell.m; sourceTree = "<group>"; };
 		793B5CB621BA66AF00710AD7 /* SPMineHeadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SPMineHeadCell.xib; sourceTree = "<group>"; };
+		793D628121BFB2D400589445 /* MFDatePickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFDatePickView.h; sourceTree = "<group>"; };
+		793D628221BFB2D400589445 /* MFDatePickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFDatePickView.m; sourceTree = "<group>"; };
 		796D9C9621B7ACB30045F0B4 /* SPConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConversationViewController.h; sourceTree = "<group>"; };
 		796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConversationViewController.m; sourceTree = "<group>"; };
-		796D9C9921B9113F0045F0B4 /* SPJobViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPJobViewController.h; sourceTree = "<group>"; };
-		796D9C9A21B9113F0045F0B4 /* SPJobViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPJobViewController.m; sourceTree = "<group>"; };
 		796D9C9C21B916FE0045F0B4 /* SQPrintJsonLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQPrintJsonLog.h; sourceTree = "<group>"; };
 		796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQPrintJsonLog.m; sourceTree = "<group>"; };
 		796D9CA021B91FC70045F0B4 /* SPJobModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPJobModel.h; sourceTree = "<group>"; };
@@ -425,6 +425,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		793D628021BFB2C700589445 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				793D628121BFB2D400589445 /* MFDatePickView.h */,
+				793D628221BFB2D400589445 /* MFDatePickView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		795561A9EC2DBAFA373ED75D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -483,9 +492,9 @@
 		8110C57C211FFE8E00D013FC /* 登录注册 */ = {
 			isa = PBXGroup;
 			children = (
+				793D628021BFB2C700589445 /* View */,
 				796D9C9F21B91FA60045F0B4 /* Model */,
 				813290C4214A8F3C00679CC2 /* Controller */,
-				813290C3214A8F3B00679CC2 /* View */,
 			);
 			path = "登录注册";
 			sourceTree = "<group>";
@@ -683,13 +692,6 @@
 			path = "转场动画";
 			sourceTree = "<group>";
 		};
-		813290C3214A8F3B00679CC2 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		813290C4214A8F3C00679CC2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -707,8 +709,6 @@
 				813290B5214A8DD700679CC2 /* SPPerfectController.m */,
 				813290C6214A9D6700679CC2 /* SPSupplementController.h */,
 				813290C7214A9D6700679CC2 /* SPSupplementController.m */,
-				796D9C9921B9113F0045F0B4 /* SPJobViewController.h */,
-				796D9C9A21B9113F0045F0B4 /* SPJobViewController.m */,
 				793B5CA721BA0C9000710AD7 /* SPAreaViewController.h */,
 				793B5CA821BA0C9000710AD7 /* SPAreaViewController.m */,
 			);
@@ -1182,7 +1182,6 @@
 				811DB6CE21687A9D00204139 /* UIView+JDW.m in Sources */,
 				8127A6C1217355E40033434C /* SPSetController.m in Sources */,
 				811DB243216CE11900ABB889 /* SPMessageModel.m in Sources */,
-				796D9C9B21B9113F0045F0B4 /* SPJobViewController.m in Sources */,
 				8110C5C32120019F00D013FC /* UIColor+ZExtension.m in Sources */,
 				811DB246216CE5E300ABB889 /* JDWPlatformNewsTabCell.m in Sources */,
 				81C13994217B0531003C91B2 /* SPBlacklistController.m in Sources */,
@@ -1260,6 +1259,7 @@
 				81FB4C492165F8B60090142A /* SPPlayVideoController.m in Sources */,
 				8127A6D521735A7C0033434C /* VideoInfoModel.m in Sources */,
 				811DB6D121687B4200204139 /* SPPersonModel.m in Sources */,
+				793D628321BFB2D400589445 /* MFDatePickView.m in Sources */,
 				79CAF65D21BE6E5600B48780 /* SPEditSectionViewController.m in Sources */,
 				8110C5BB2120019F00D013FC /* UIScrollView+ZExtension.m in Sources */,
 				813CB052217C9A8200E4E67B /* SPCommentTablCell.m in Sources */,

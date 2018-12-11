@@ -29,7 +29,7 @@
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(12);
         make.right.equalTo(self.view).offset(-12);
-        make.height.mas_equalTo(100);
+        make.height.mas_equalTo(50);
         make.top.mas_equalTo(10);
     }];
     [self.placeHolderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -73,7 +73,7 @@
         _residueLabel = [[UILabel alloc] init];
         _residueLabel.backgroundColor = [UIColor clearColor];
         _residueLabel.font = FONT(12);
-        _residueLabel.text = @"400/400";
+        _residueLabel.text = @"8/8";
         _residueLabel.textColor = SecondWordColor;
     }
     return _residueLabel;
@@ -115,9 +115,9 @@
     
     NSInteger existTextNum = [nsTextCotent length];
     
-    NSInteger remainTextNum = 400 - existTextNum;
+    NSInteger remainTextNum = 8 - existTextNum;
     
-    self.residueLabel.text = [NSString stringWithFormat:@"%ld/400",remainTextNum];
+    self.residueLabel.text = [NSString stringWithFormat:@"%ld/8",remainTextNum];
     
 }
 
@@ -131,7 +131,7 @@
         [textView resignFirstResponder];
         return YES;
     }
-    if (range.location >= 400)
+    if (range.location >= 8)
     {
         return NO;
     }else

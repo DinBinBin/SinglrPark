@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<SPCityModel *> *dataArr;
 @property (nonatomic, assign) BOOL next;
+@property (nonatomic, copy) NSString *name;
 @end
 
 @implementation SPAreaViewController
@@ -35,13 +36,21 @@
 
 - (void)requestData {
     WEAKSELF
+    [MBProgressHUD showLoadToView:self.view];
     [JDWNetworkHelper POST:SPURL_API_City parameters:nil success:^(id responseObject) {
-        [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view];
         STRONGSELF
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
-        strongSelf.dataArr =  [SPCityModel mj_objectArrayWithKeyValuesArray:responseDic[@"data"]];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+            strongSelf.dataArr =  [SPCityModel mj_objectArrayWithKeyValuesArray:responseDic[@"data"]];
+            
+            [strongSelf.tableView reloadData];
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+
+        }
         
-        [strongSelf.tableView reloadData];
         
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUD];
@@ -87,7 +96,8 @@
     }
     
     cell.textLabel.text = self.dataArr[indexPath.row].name;
-    
+    cell.textLabel.font = Font14;
+    cell.textLabel.textColor = SecondWordColor;
     return cell;
 }
 
@@ -96,10 +106,12 @@
     
     if (!self.next) {
         self.next = YES;
+        self.name = self.dataArr[indexPath.row].name;
         [self requestNextData:self.dataArr[indexPath.row].userId];
     }else {
         if (self.delegate && [self.delegate respondsToSelector:@selector(selectAreaName:)]) {
-            [self.delegate selectAreaName:self.dataArr[indexPath.row].name];
+            self.name = [NSString stringWithFormat:@"%@ %@",self.name,self.dataArr[indexPath.row].name];
+            [self.delegate selectAreaName:self.name];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }

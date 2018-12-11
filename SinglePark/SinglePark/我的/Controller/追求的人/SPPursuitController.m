@@ -26,8 +26,10 @@
     [self.view addSubview:self.pursuitScroll];
     [self.pursuitScroll addSubview:self.pursuitMe];
     [self.pursuitScroll addSubview:self.mePursuit];
-
+    
+    [self hideNavigationLine];
 }
+
 
 - (UISegmentedControl *)segmentControl{
     if(_segmentControl == nil){

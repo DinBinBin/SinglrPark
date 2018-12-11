@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SPAreaViewController : SGBaseController<SPSelectDelegate>
+@interface SPAreaViewController : SGBaseController
 @property (nonatomic, weak) id<SPSelectDelegate> delegate;
 
 @end

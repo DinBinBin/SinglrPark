@@ -9,10 +9,12 @@
 #import "SPSupplementController.h"
 #import "SGTabBarController.h"
 #import "AppDelegate.h"
-#import "SPJobViewController.h"
 #import "SPAreaViewController.h"
+#import "SPEditSectionViewController.h"
+#import "MFDatePickView.h"
 
-@interface SPSupplementController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,SPSelectDelegate>
+
+@interface SPSupplementController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,SPSelectDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic,strong)UITableView *perfectTabView;
 @property (nonatomic,strong)UIButton *headBtn;
 @property (nonatomic,strong)UITextField *ageField;
@@ -22,6 +24,10 @@
 @property (nonatomic,strong)UIButton *nextStepBtn;
 @property (nonatomic,strong)UILabel *promptLab;
 
+/** 年龄数据 */
+@property (nonatomic, strong) NSMutableArray *dataArray;
+/** 添加遮罩 */
+@property (nonatomic, strong) UIView *alertBackgroundView;
 @end
 
 @implementation SPSupplementController
@@ -79,6 +85,9 @@
         _ageField.placeholder = @"请输入您的年龄";
         [_ageField setValue:FONT(14) forKeyPath:@"_placeholderLabel.font"];
         [_ageField setValue:WordColor forKeyPath:@"_placeholderLabel.textColor"];
+        _ageField.delegate = self;
+        [self setupDatePick];
+
     }
     return _ageField;
 }
@@ -114,12 +123,14 @@
         _nextStepBtn.layer.cornerRadius = 5;
         _nextStepBtn.clipsToBounds = YES;
         _nextStepBtn.backgroundColor = ThemeColor;
-
+        [_nextStepBtn addTarget:self action:@selector(finishClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _nextStepBtn;
 }
 
-#pragma mark ----Tab delegate
+
+
+#pragma mark - Tab delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
@@ -223,10 +234,85 @@
 }
 
 #pragma mark - SPSelectDelegate
+
+
+#pragma mark - SPJobDelegate
+- (void)selectAreaName:(NSString *)areaName {
+    self.regionField.text = areaName;
+}
+#pragma mark - 时间选择器
+-(void)setupDatePick{
+    
+    
+    
+    MFDatePickView *datePickView = [[MFDatePickView alloc]initWithFrame:CGRectMake(0, 408, kScreenW, 216 + 44)];
+    datePickView.pickType = MFDatePick;
+    datePickView.cancelBtnDidClickBlock = ^(){
+        
+        [self.ageField resignFirstResponder];
+        [self.alertBackgroundView removeFromSuperview];
+
+    };
+    datePickView.doneBtnDidClickBlock = ^(NSString *str){
+        
+        [self.ageField resignFirstResponder];
+        [self.alertBackgroundView removeFromSuperview];
+        self.ageField.text = str;
+        
+    };
+    datePickView.selectDateBlock = ^(NSDate *date){
+        
+        //把当前的日期给文本框赋值
+        //获取当前选中的日期
+        
+        NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+        fmt.dateFormat = @"yyyy-MM-dd";
+        
+        self.ageField.text = [fmt stringFromDate:date];;
+        
+    };
+    //日期键盘
+    self.ageField.inputView = datePickView;
+    
+}
+
+/**
+ *  根据生日计算年龄
+ *
+ *  @param birthday 生日
+ */
+- (NSString *)getAgeWith:(NSDate*)birthday{
+    
+    //日历
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    
+    NSUInteger unitFlags = NSCalendarUnitYear;
+    
+    NSDateComponents *components = [gregorian components:unitFlags fromDate:birthday toDate:[NSDate  date] options:0];
+    
+    return [NSString stringWithFormat:@"%ld岁",[components year]+1];
+}
+
+
+
+
+//点击遮罩
+-(void)tap{
+    
+    [self.ageField resignFirstResponder];
+    
+}
+
+#pragma mark - textField代理方法
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     if (textField == self.occupationField) {
-        SPJobViewController *vc = [[SPJobViewController alloc] init];
-        vc.delegate = self;
+        SPEditSectionViewController *vc = [[SPEditSectionViewController alloc] init];
+        vc.type = SPJobEditType;
+        WEAKSELF
+        vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+            STRONGSELF
+            strongSelf.occupationField.text = str;
+        };
         [self.navigationController pushViewController:vc animated:YES];
         return NO;
     }else if (textField == self.regionField) {
@@ -239,24 +325,63 @@
     return YES;
 }
 
-#pragma mark - SPJobDelegate
-- (void)selectJobName:(NSString *)name {
-    self.occupationField.text = name;
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    
+    if (textField == self.ageField) {
+        WEAKSELF
+        STRONGSELF
+        UIView  *alertBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
+        self.alertBackgroundView = alertBackgroundView;
+        alertBackgroundView.backgroundColor = UIColorFromHEX(0x000000, 0.5);
+        [[UIApplication sharedApplication].keyWindow addSubview:alertBackgroundView];
+        alertBackgroundView.alpha = 0;
+        [UIView animateWithDuration:0.25 animations:^{
+            strongSelf.alertBackgroundView.alpha = 1;
+        }];
+        //添加手势
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+        
+        tap.delegate = self;
+        
+        //2.添加手势
+        [self.alertBackgroundView addGestureRecognizer:tap];
+        
+        
+    }
 }
 
-- (void)selectAreaName:(NSString *)areaName {
-    self.regionField.text = areaName;
-}
+
+
 
 #pragma mark - click
-
-- (void)next{
-    SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
-    [UIApplication sharedApplication].statusBarHidden = NO;
-    ptAppDelegate.window.rootViewController = sgTabBar ;
-
+- (void)finishClick {
+    NSDictionary *parsms = @{
+                             @"nick_name":self.nickName,
+                             @"sex":[NSString stringWithFormat:@"%ld",(long)self.sex],
+                             @"birthday":self.ageField.text,
+                             @"job":@[self.occupationField.text],
+                             };
+    WEAKSELF
+    STRONGSELF
+    [MBProgressHUD showLoadToView:self.view];
+    [JDWNetworkHelper POST:PTURL_API_UserChage parameters:parsms success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            //登录跳转
+            SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+            [UIApplication sharedApplication].statusBarHidden = NO;
+            ptAppDelegate.window.rootViewController = sgTabBar ;
+        }else{
+            [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
 }
-
 
 - (void)rednegotiate{
 

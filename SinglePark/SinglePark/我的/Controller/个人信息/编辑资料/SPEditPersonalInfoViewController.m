@@ -10,8 +10,10 @@
 #import "SPMineHeadCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "SPEditNickNameViewController.h"
+#import "SPEditSectionViewController.h"
+#import "SPAreaViewController.h"
 
-@interface SPEditPersonalInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface SPEditPersonalInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,SPSelectDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *titleArr;
 @property (nonatomic, strong) NSMutableArray *detailArr;
@@ -61,44 +63,53 @@
 
 - (void)requestData {
     WEAKSELF
+    STRONGSELF
+    [MBProgressHUD showLoadToView:self.view];
     [JDWNetworkHelper POST:PTURL_API_UserGet parameters:nil success:^(id responseObject) {
-        STRONGSELF
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
             [strongSelf.detailArr removeAllObjects];
             SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
             strongSelf.model = model;
-            NSString *sex;
-            if ([model.sex isEqualToString:@"0"]) {
-                sex = @"未填写";
-            }else if ([model.sex isEqualToString:@"1"]){
-                sex = @"男";
-            }else{
-                sex = @"女";
-            }
-            strongSelf.detailArr = [NSMutableArray arrayWithArray:@[
-                                                                    @[model.avatar ?: @"logo",model.nickName ?: @"宇宙超无敌美少女"],
-                                                                    @[sex,model.birthday ?: @"未填写"],
-                                                                    @[model.job.firstObject?:@"未填写",model.unit ?: @"未填写"],
-                                                                    @[model.university ?:@"未填写",model.education ?:@"未填写"],
-                                                                    @[model.province_id ?:@"未填写"],
-                                                                    @[model.height ?:@"未填写",model.weight ?:@"未填写"],
-                                                                    @[model.income ?:@"未填写"],
-                                                                    @[model.signature ?:@"未填写"],
-                                                                    @[model.referrer ?:@"logo",model.invitationCode ?:@"未填写"]
-                                                                    ]];
-            [strongSelf.tableView reloadData];
+            [strongSelf reloadDataSource];
             //保存用户信息
             [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
             [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
         }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+
         }
+        [MBProgressHUD hideHUDForView:strongSelf.view];
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:strongSelf.view];
         [MBProgressHUD showMessage:Networkerror];
         [MBProgressHUD showAutoMessage:Networkerror];
     }];
     
     
+}
+
+- (void)reloadDataSource {
+    NSString *sex;
+    if ([_model.sex isEqualToString:@"0"]) {
+        sex = @"未填写";
+    }else if ([_model.sex isEqualToString:@"1"]){
+        sex = @"男";
+    }else{
+        sex = @"女";
+    }
+    self.detailArr = [NSMutableArray arrayWithArray:@[
+                                                      @[self.model.avatar ?: @"logo",self.model.nickName ?: @"未填写"],
+                                                        @[sex,self.model.birthday ?: @"未填写"],
+                                                        @[self.model.occupation?:@"未填写",self.model.unit ?: @"未填写"],
+                                                        @[self.model.university ?:@"未填写",self.model.education ?:@"未填写"],
+                                                        @[self.model.province_id ?:@"未填写"],
+                                                        @[self.model.height ?:@"未填写",self.model.weight ?:@"未填写"],
+                                                        @[self.model.income ?:@"未填写"],
+                                                        @[self.model.signature ?:@"未填写"],
+                                                        @[self.model.referrer ?:@"logo",self.model.invitationCode ?:@"未填写"]
+                                                    ]];
+    [self.tableView reloadData];
 }
 
 #pragma mark - UITableViewDataSource
@@ -134,10 +145,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
     }
     
-    cell.textLabel.font = FONT(14);
+    cell.textLabel.font = Font14;
     cell.textLabel.textColor = SecondWordColor;
     cell.detailTextLabel.textColor = FirstWordColor;
-    cell.detailTextLabel.font = FONT(14);
+    cell.detailTextLabel.font = Font14;
     cell.textLabel.text = self.titleArr[indexPath.section][indexPath.row];
     cell.detailTextLabel.text = self.detailArr[indexPath.section][indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -148,40 +159,98 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
+    WEAKSELF
+    STRONGSELF
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             [self selectCover];
-        }else{
-            SPEditNickNameViewController *vc = [[SPEditNickNameViewController alloc] init];
-            NSString *sex;
-            if ([_model.sex isEqualToString:@"0"]) {
-                sex = @"未填写";
-            }else if ([_model.sex isEqualToString:@"1"]){
-                sex = @"男";
-            }else{
-                sex = @"女";
-            }
-            WEAKSELF
+        }else{//修改昵称
+            SPEditNickNameViewController *vc = [[SPEditNickNameViewController alloc] init];            
             vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                STRONGSELF
-                strongSelf.detailArr = [NSMutableArray arrayWithArray:@[
-                                                                        @[strongSelf.model.avatar ?: @"logo",str],
-                                                                        @[sex,strongSelf.model.birthday ?: @"未填写"],
-                                                                        @[strongSelf.model.job.firstObject?:@"未填写",strongSelf.model.unit ?: @"未填写"],
-                                                                        @[strongSelf.model.university ?:@"未填写",strongSelf.model.education ?:@"未填写"],
-                                                                        @[strongSelf.model.province_id ?:@"未填写"],
-                                                                        @[strongSelf.model.height ?:@"未填写",strongSelf.model.weight ?:@"未填写"],
-                                                                        @[strongSelf.model.income ?:@"未填写"],
-                                                                        @[strongSelf.model.signature ?:@"未填写"],
-                                                                        @[strongSelf.model.referrer ?:@"logo",strongSelf.model.invitationCode ?:@"未填写"]
-                                                                        ]];
-                [strongSelf.tableView reloadData];
+                strongSelf.model.nickName = str;
+                [strongSelf reloadDataSource];
             };
             [self.navigationController pushViewController:vc animated:YES];
         }
+    }else{
+        SPEditSectionViewController *vc = [[SPEditSectionViewController alloc] init];
+        
+        if(indexPath.section == 1){
+            
+            if (indexPath.row == 0) {//修改性别
+                vc.type = SPSexEditType;
+                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+                    strongSelf.model.sex = str;
+                    [strongSelf reloadDataSource];
+                };
+            }else{//修改年龄
+                vc.type = SPAgeEditType;
+                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+                    strongSelf.model.birthday = str;
+                    [strongSelf reloadDataSource];
+                };
+            }
+            
+        }else if (indexPath.section == 2) {
+            if (indexPath.row == 0) {//修改职业
+                vc.type = SPJobEditType;
+                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+                    strongSelf.model.occupation = str;
+                    [strongSelf reloadDataSource];
+                };
+            }else{//修改所在单位
+                vc.type = SPUnitEditType;
+                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+                    strongSelf.model.unit = str;
+                    [strongSelf reloadDataSource];
+                };
+            }
+        }else if (indexPath.section == 3) {
+            if (indexPath.row == 0) {//毕业学校
+                vc.type = SPUniversityEditType;
+                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+                    strongSelf.model.university = str;
+                    [strongSelf reloadDataSource];
+                };
+            }else{//学历
+                vc.type = SPEducationEditType;
+                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+                    strongSelf.model.education = str;
+                    [strongSelf reloadDataSource];
+                };
+            }
+        }else if (indexPath.section == 4) {
+            SPAreaViewController *area = [[SPAreaViewController alloc] init];
+            area.delegate = self;
+            [self.navigationController pushViewController:area animated:YES];
+            return;
+        }else if (indexPath.section == 5) {
+            if (indexPath.row == 0) {
+                vc.type = SPHeightEditType;
+                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+                    strongSelf.model.height = str;
+                    [strongSelf reloadDataSource];
+                };
+            }else{
+                vc.type = SPWeightEditType;
+                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+                    strongSelf.model.weight = str;
+                    [strongSelf reloadDataSource];
+                };
+            }
+        }else if (indexPath.section == 6) {
+            vc.type = SPIncomeEditType;
+            vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+                strongSelf.model.income = str;
+                [strongSelf reloadDataSource];
+            };
+        }
+        
+        [self.navigationController pushViewController:vc animated:YES];
+
     }
-    
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -200,6 +269,13 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     return [[UIView alloc] init];
+}
+
+#pragma mark - SPJobDelegate
+
+- (void)selectAreaName:(NSString *)areaName {
+    self.model.province_id = areaName;
+    [self reloadDataSource];
 }
 
 #pragma mark - click
