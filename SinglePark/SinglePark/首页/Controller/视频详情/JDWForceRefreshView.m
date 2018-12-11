@@ -8,6 +8,7 @@
 
 #import "JDWForceRefreshView.h"
 #import "SPCommentTabView.h"
+#import "InputToolbar.h"
 
 @interface JDWForceRefreshView()
 @property (nonatomic,strong)UIView *whiteView;
@@ -16,6 +17,8 @@
 @property (nonatomic,strong)UIButton *sureBtn;
 
 @property (nonatomic,strong)NSMutableArray *dataArr;
+@property (nonatomic,strong)InputToolbar *inputToolbar;
+@property (nonatomic,assign)CGFloat inputToolbarY;
 
 @end
 
@@ -50,11 +53,13 @@
     [self.whiteView addSubview:self.titleLab];
     [self.whiteView addSubview:self.commentTabView];
     [self.whiteView addSubview:self.sureBtn];
+    [self.whiteView addSubview:self.inputToolbar];
+
 
     [self.whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_bottom);
+        make.bottom.equalTo(self.mas_bottom).offset(-KIsiPhoneX-49);
         make.width.left.equalTo(self);
-        make.top.equalTo(self).offset(200+kNavigationHeight+KAddIPhonex);
+        make.top.equalTo(self).offset(300+kNavigationHeight);
     }];
     
     [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -71,8 +76,16 @@
     [self.commentTabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.width.equalTo(self.whiteView);
         make.top.equalTo(self.titleLab.mas_bottom).offset(5);
-        make.bottom.equalTo(self.whiteView.mas_bottom);
+        make.bottom.equalTo(self.whiteView.mas_bottom).offset(-50);
     }];
+    
+    [self.inputToolbar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.commentTabView.mas_bottom);
+        make.width.equalTo(self);
+        make.height.mas_equalTo(49);
+
+    }];
+    
         
     [self.whiteView setCornerRadius:8];
     
@@ -126,6 +139,26 @@
     return _commentTabView;
 }
 
+
+- (InputToolbar *)inputToolbar{
+    if (_inputToolbar == nil) {
+        _inputToolbar = [InputToolbar shareInstance];
+        _inputToolbar.width = kScreenWidth;
+        _inputToolbar.height = 49;
+        _inputToolbar.textViewMaxVisibleLine = 4;
+        _inputToolbar.sendContent = ^(NSObject *content) {  //发送文字
+        };
+        
+        _inputToolbar.inputToolbarFrameChange = ^(CGFloat height, CGFloat orignY) {
+            NSLog(@"wrwer");
+        };
+        [_inputToolbar resetInputToolbar];
+        
+    }
+    return _inputToolbar;
+}
+
+
 - (void)answer{
     
     
@@ -136,5 +169,9 @@
     
 }
 
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    self.inputToolbar.isFirstResponder = NO;
+}
 
 @end
