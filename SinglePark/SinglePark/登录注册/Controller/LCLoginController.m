@@ -213,7 +213,7 @@
     //保存token
     NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
     [userdef setObject:token forKey:isLogin];
-    [DBAccountInfo sharedInstance].token = token;
+    [DBAccountInfo sharedInstance].model.token = token;
     [DBAccountInfo sharedInstance].islogin = YES;
     
     //登录跳转

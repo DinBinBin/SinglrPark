@@ -75,7 +75,7 @@
 
 - (UITextField *)userNameField{
     if (_userNameField == nil) {
-        _userNameField = [[UITextField alloc] initWithFrame:CGRectMake(100, 0, kScreenWidth-220, 50)];
+        _userNameField = [[UITextField alloc] initWithFrame:CGRectMake(100, 0, kScreenWidth-150, 50)];
         _userNameField.font = FONT(14);
         _userNameField.placeholder = @"请输入您的昵称";
         _userNameField.delegate = self;
@@ -129,55 +129,56 @@
         WEAKSELF
         STRONGSELF
         [_nextStepBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-//            if (!strongSelf.img) {
-//                [MBProgressHUD showMessage:@"请选择头像"];
-//                return ;
-//
-//            }
-//            if (strongSelf.userNameField.text.length==0) {
-//                [MBProgressHUD showMessage:@"请输入昵称"];
-//                return ;
-//            }
-//            if (strongSelf.userNameField.text.length>8) {
-//                [MBProgressHUD showMessage:@"昵称不能超过8个字称"];
-//                return ;
-//            }
-//            if (strongSelf.sex == 0) {
-//                [MBProgressHUD showMessage:@"请选择性别"];
-//                return ;
-//            }
+
+            if (strongSelf.userNameField.text.length==0) {
+                [MBProgressHUD showMessage:@"请输入昵称"];
+                return ;
+            }
+            if (strongSelf.userNameField.text.length>8) {
+                [MBProgressHUD showMessage:@"昵称不能超过8个字称"];
+                return ;
+            }
+            if (strongSelf.sex == 0) {
+                [MBProgressHUD showMessage:@"请选择性别"];
+                return ;
+            }
+            
             SPSupplementController *supple = [[SPSupplementController alloc] init];
             if (strongSelf.img) {
                 supple.img = strongSelf.img;
             }else{
                 supple.img = [UIImage imageNamed:@"logo"];
             }
+            supple.nickName = strongSelf.userNameField.text;
+            supple.sex = strongSelf.sex;
             [strongSelf.navigationController pushViewController:supple animated:YES];
+            /*
+            NSData *dataimg = UIImageJPEGRepresentation(strongSelf.img, 1.0f);
+            NSString *encodedImageStr = [dataimg base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 
+            NSDictionary *parsms = @{
+                                     @"nick_name":strongSelf.userNameField.text,
+                                     @"sex":[NSString stringWithFormat:@"%ld",strongSelf.sex]
+//                                     @"avatar":encodedImageStr
+                                     };
+            [MBProgressHUD showLoadToView:strongSelf.view];
             
-//            NSData *dataimg = UIImageJPEGRepresentation(strongSelf.img, 1.0f);
-//            NSString *encodedImageStr = [dataimg base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-//
-//            NSDictionary *parsms = @{
-////                                     @"nick_name":strongSelf.userNameField.text,
-//                                     @"sex":[NSString stringWithFormat:@"%ld",strongSelf.sex]
-////                                     @"avatar":encodedImageStr
-//                                     };
-//            [JDWNetworkHelper POST:PTURL_API_UserChage parameters:parsms success:^(id responseObject) {
-//                        NSDictionary *responseDic = (NSDictionary *)responseObject;
-//                if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-//                    SPSupplementController *supple = [[SPSupplementController alloc] init];
-//                    [strongSelf.navigationController pushViewController:supple animated:YES];
-//                }else{
-//                    [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
-//                }
-//                SPSupplementController *supple = [[SPSupplementController alloc] init];
-//                [strongSelf.navigationController pushViewController:supple animated:YES];
-//
-//            } failure:^(NSError *error) {
-//                [MBProgressHUD showAutoMessage:Networkerror];
-//            }];
+            [JDWNetworkHelper POST:PTURL_API_UserChage parameters:parsms success:^(id responseObject) {
+                [MBProgressHUD hideHUDForView:strongSelf.view];
+                NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+                if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+                    
+                }else{
+                    [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+                }
+
+            } failure:^(NSError *error) {
+                [MBProgressHUD hideHUDForView:strongSelf.view];
+                [MBProgressHUD showAutoMessage:Networkerror];
+            }];
+             */
         }];
+             
         _nextStepBtn.layer.cornerRadius = 5;
         _nextStepBtn.clipsToBounds = YES;
         _nextStepBtn.backgroundColor = ThemeColor;
@@ -394,11 +395,35 @@
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    if (range.length == 0) {
-        if (textField.text.length >= 8) {
-            [MBProgressHUD showAutoMessage:@"昵称不能超过8个字"];
-            return NO;
+    //最大长度
+    NSInteger kMaxLength = 8;
+    
+    
+    NSString *toBeString = textField.text;
+    NSString *lang = [[UIApplication sharedApplication]textInputMode].primaryLanguage; //ios7之前使用[UITextInputMode currentInputMode].primaryLanguage
+    if ([lang isEqualToString:@"zh-Hans"]) { //中文输入
+        UITextRange *selectedRange = [textField markedTextRange];
+        //获取高亮部分
+        UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+        
+        if (!position) {// 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+            
+            if (toBeString.length > kMaxLength) {
+                textField.text = [toBeString substringToIndex:kMaxLength];
+                [textField resignFirstResponder];
+            }
         }
+        
+        else{//有高亮选择的字符串，则暂不对文字进行统计和限制
+        }
+    }else{//中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        
+        if (toBeString.length > kMaxLength) {
+            
+            textField.text = [toBeString substringToIndex:kMaxLength];
+            
+        }
+        
     }
     
     return YES;

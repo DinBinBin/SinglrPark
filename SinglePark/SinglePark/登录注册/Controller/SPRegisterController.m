@@ -144,7 +144,7 @@
     if (_passwordField == nil) {
         _passwordField = [[UITextField alloc] initWithFrame:CGRectMake(100,0,200, 50)];
         _passwordField.font = FONT(15);
-        _passwordField.placeholder = @"请输入您的登录密码";
+        _passwordField.placeholder = @"请输入您的验证码";
         [_passwordField setValue:WordColor forKeyPath:@"_placeholderLabel.textColor"];
 //        _passwordField.secureTextEntry = YES;
     }
@@ -206,12 +206,14 @@
     NSDictionary *parsms = @{@"phone":self.mobileField.text,
                              @"captcha":self.passwordField.text,
                              @"type":@"phone"};
+    [MBProgressHUD showLoadToView:self.view];
     [JDWNetworkHelper POST:PTURL_API_LOGINREGIST parameters:parsms success:^(id responseObject) {
-        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        [MBProgressHUD hideHUDForView:self.view];
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
 
             DBAccountInfo *account = [DBAccountInfo sharedInstance];
-            account.model = [[SPPersonModel alloc] initWithDataDic:responseDic[@"data"]];
+            account.model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
             [JDWUserInfoDB saveUserInfo:account.model];
             SPPerfectController *perfect = [[SPPerfectController alloc] init];
             [self.navigationController pushViewController:perfect animated:YES];
@@ -224,9 +226,10 @@
             }
         }
     } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showAutoMessage:Networkerror];
     }];
-   */
+ */
 }
 
 
