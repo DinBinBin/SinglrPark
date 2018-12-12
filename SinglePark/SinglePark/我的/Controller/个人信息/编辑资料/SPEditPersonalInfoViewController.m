@@ -12,14 +12,20 @@
 #import "SPEditNickNameViewController.h"
 #import "SPEditSectionViewController.h"
 #import "SPAreaViewController.h"
+#import "MFDatePickView.h"
 
-@interface SPEditPersonalInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,SPSelectDelegate>
+
+@interface SPEditPersonalInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,SPSelectDelegate,UITextFieldDelegate,UIGestureRecognizerDelegate>
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *titleArr;
 @property (nonatomic, strong) NSMutableArray *detailArr;
 @property (nonatomic, strong) UIImage *img;
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, strong) SPPersonModel *model;
+/** 添加遮罩 */
+@property (nonatomic, strong) UIView *alertBackgroundView;
+@property (nonatomic, strong) UITextField *fakeTextField;
 @end
 
 @implementation SPEditPersonalInfoViewController
@@ -30,7 +36,7 @@
 
     self.titleArr = @[
                       @[@"头像",@"昵称"],
-                      @[@"性别",@"年龄"],
+                      @[@"性别",@"生日"],
                       @[@"职业",@"所在单位"],
                       @[@"毕业学校",@"学历"],
                       @[@"地区"],
@@ -71,6 +77,12 @@
             [strongSelf.detailArr removeAllObjects];
             SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
             strongSelf.model = model;
+
+            //职业
+            if (self.model.job.count > 0) {
+                self.model.occupation = self.model.job.firstObject;
+            }
+            
             [strongSelf reloadDataSource];
             //保存用户信息
             [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
@@ -91,13 +103,14 @@
 
 - (void)reloadDataSource {
     NSString *sex;
-    if ([_model.sex isEqualToString:@"0"]) {
+    if (_model.sex == 0) {
         sex = @"未填写";
-    }else if ([_model.sex isEqualToString:@"1"]){
+    }else if (_model.sex == 1){
         sex = @"男";
     }else{
         sex = @"女";
     }
+    
     self.detailArr = [NSMutableArray arrayWithArray:@[
                                                       @[self.model.avatar ?: @"logo",self.model.nickName ?: @"未填写"],
                                                         @[sex,self.model.birthday ?: @"未填写"],
@@ -181,15 +194,19 @@
             if (indexPath.row == 0) {//修改性别
                 vc.type = SPSexEditType;
                 vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                    strongSelf.model.sex = str;
+                    if ([str isEqualToString:@"男"]) {
+                        strongSelf.model.sex = 1;
+
+                    }else{
+                        strongSelf.model.sex = 2;
+                    }
                     [strongSelf reloadDataSource];
                 };
-            }else{//修改年龄
-                vc.type = SPAgeEditType;
-                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                    strongSelf.model.birthday = str;
-                    [strongSelf reloadDataSource];
-                };
+            }else{//修改生日日期
+                
+                [self.view addSubview:self.fakeTextField];
+                [self.fakeTextField becomeFirstResponder];
+                return;
             }
             
         }else if (indexPath.section == 2) {
@@ -279,6 +296,32 @@
 }
 
 #pragma mark - click
+- (void)back {
+    [super back];
+    
+    NSDictionary *parsms = @{
+                             @"nick_name":self.model.nickName,
+                             @"sex":@(self.model.sex),
+                             @"birthday":self.model.birthday,
+                             @"job":@[self.model.occupation],
+                             };
+    WEAKSELF
+    STRONGSELF
+    [MBProgressHUD showLoadToView:self.view];
+    [JDWNetworkHelper POST:PTURL_API_UserChage parameters:parsms success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+//            [MBProgressHUD showMessage:@"修改成功"];
+        }else{
+            [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+}
 //上传头像
 - (void)selectCover{
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -388,6 +431,81 @@
     
 }
 
+#pragma mark - UITextFieldDelegate
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    
+    if (textField == self.fakeTextField) {
+        WEAKSELF
+        STRONGSELF
+        UIView  *alertBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH)];
+        self.alertBackgroundView = alertBackgroundView;
+        alertBackgroundView.backgroundColor = UIColorFromHEX(0x000000, 0.5);
+        [[UIApplication sharedApplication].keyWindow addSubview:alertBackgroundView];
+        alertBackgroundView.alpha = 0;
+        [UIView animateWithDuration:0.25 animations:^{
+            strongSelf.alertBackgroundView.alpha = 1;
+        }];
+        //添加手势
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+        
+        tap.delegate = self;
+        
+        //2.添加手势
+        [self.alertBackgroundView addGestureRecognizer:tap];
+        
+        
+    }
+}
+
+
+
+#pragma mark - 时间选择器
+-(void)setupDatePick{
+    WEAKSELF
+    STRONGSELF
+    MFDatePickView *datePickView = [[MFDatePickView alloc]initWithFrame:CGRectMake(0, 408, kScreenW, 216 + 44)];
+    datePickView.pickType = MFDatePick;
+    datePickView.cancelBtnDidClickBlock = ^(){
+        
+        [strongSelf.fakeTextField resignFirstResponder];
+        [strongSelf.alertBackgroundView removeFromSuperview];
+        
+    };
+    datePickView.doneBtnDidClickBlock = ^(NSString *str){
+        
+        [strongSelf.fakeTextField resignFirstResponder];
+        [strongSelf.alertBackgroundView removeFromSuperview];
+        strongSelf.model.birthday = str;
+        [strongSelf reloadDataSource];
+        
+    };
+    datePickView.selectDateBlock = ^(NSDate *date){
+        
+        //把当前的日期给文本框赋值
+        //获取当前选中的日期
+        
+        NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+        fmt.dateFormat = @"yyyy-MM-dd";
+        
+        self.model.birthday = [fmt stringFromDate:date];;
+        [strongSelf reloadDataSource];
+
+    };
+    //日期键盘
+    self.fakeTextField.inputView = datePickView;
+    
+}
+
+
+//点击遮罩
+-(void)tap{
+    
+    [self.fakeTextField resignFirstResponder];
+    [self.alertBackgroundView removeFromSuperview];
+}
+
+
 #pragma mark - Lazy
 -(UITableView *)tableView {
     if (!_tableView) {
@@ -396,9 +514,17 @@
         _tableView.dataSource = self;
         _tableView.backgroundColor = PTBackColor;
         _tableView.tableFooterView = [[UIView alloc] init];
-//        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     }
     return _tableView;
+}
+
+- (UITextField *)fakeTextField {
+    if (!_fakeTextField) {
+        _fakeTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, -100, 50, 50)];
+        _fakeTextField.delegate = self;
+        [self setupDatePick];
+    }
+    return _fakeTextField;
 }
 
 

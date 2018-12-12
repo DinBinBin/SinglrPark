@@ -38,7 +38,7 @@
             [self.dataSource removeAllObjects];
             [self.dataSource addObject:@"保密"];
             for (int a = 18; a < 41; a++) {
-                NSString *age = [NSString stringWithFormat:@"%d",a];
+                NSString *age = [NSString stringWithFormat:@"%d岁",a];
                 [self.dataSource addObject:age];
             }
             [self.dataSource addObject:@"40以上"];

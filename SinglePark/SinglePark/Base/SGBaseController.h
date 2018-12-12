@@ -19,5 +19,6 @@
 @property (nonatomic, assign) BOOL hideNavigationLine;;
 
 - (BOOL)checkLoginImmediately;
+- (void)back;
 
 @end

@@ -27,7 +27,13 @@
     [self.pursuitScroll addSubview:self.pursuitMe];
     [self.pursuitScroll addSubview:self.mePursuit];
     
-    [self hideNavigationLine];
+    self.hideNavigationLine = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+
 }
 
 

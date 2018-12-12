@@ -28,7 +28,7 @@
 }
 
 - (void)getdata{
-    self.titleArr = @[@"logo",@"去评分",@"服务协议",@"关于/联系我们",@"当前版本"];
+    self.titleArr = @[@"去评分",@"服务协议",@"关于/联系我们",@"当前版本"];
 
     [self.listTabView reloadData];
     
@@ -94,6 +94,14 @@
         _listTabView.delegate = self;
         _listTabView.backgroundColor = PTBackColor;
         _listTabView.tableFooterView = [[UIView alloc] init];
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 150)];
+        UIView *customerView = [[[NSBundle mainBundle] loadNibNamed:@"SPCurrencyHeaderView" owner:nil options:nil] firstObject];
+        customerView.backgroundColor = PTBackColor;
+        [headerView addSubview:customerView];
+        [customerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(headerView);
+        }];
+        _listTabView.tableHeaderView = headerView;
         [self.view addSubview:_listTabView];
     }
     return _listTabView;

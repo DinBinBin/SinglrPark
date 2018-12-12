@@ -96,7 +96,7 @@
         _model = model;
         self.headimg.image = [UIImage imageNamed:_model.avatar];
         self.nickeLab.text = _model.nickName;
-        self.sexImg.image = [UIImage imageNamed:_model.sex];
+        self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
 //        self.occupation.text = _model.occupation;
         [self.headimg.layer setCornerRadius:25];
         self.headimg.clipsToBounds = YES;

@@ -29,43 +29,59 @@
 }
 
 - (void)getdata{
-    self.titleArr = @[@"logo",@"追求功能",@"如果您关闭了“追求”功能，您将无法得知别人是否喜欢你；",@"清除缓存"];
+    
+    self.titleArr = @[@[@"追求功能"],
+                      @[@"清除缓存",@"清除聊天记录"]];
     
     [self.listTabView reloadData];
     
 }
 #pragma mark ----UITableViewDataSource
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.titleArr.count;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.titleArr.count;
+    NSArray *arr = self.titleArr[section];
+    return arr.count;
 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
-    cell.textLabel.text = self.titleArr[indexPath.row];
     cell.textLabel.font = Font16;
     cell.textLabel.textColor = FirstWordColor;
     cell.textLabel.numberOfLines = 0;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (indexPath.row == 0) {
+    cell.textLabel.text = self.titleArr[indexPath.section][indexPath.row];
+
+    if (indexPath.section == 0) {
+        UISwitch *mySwitch = [UISwitch new];
+        mySwitch.onTintColor = ThemeColor;
+        mySwitch.on = YES;
+        cell.accessoryView = mySwitch;
 
         return cell;
-    }else if (indexPath.row == 1) {
-        
-        
-        return cell;
-    }else if (indexPath.row == 2) {
-        return cell;
-        
-    }else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.width = kScreenWidth;
-        return cell;
-        
+    }else{
+        if (indexPath.row == 0) {
+            
+            
+            return cell;
+        }else if (indexPath.row == 1) {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            return cell;
+            
+        }else {
+            
+            cell.textLabel.width = kScreenWidth;
+            return cell;
+            
+        }
     }
+    
+    
+    
 }
 
 
@@ -75,6 +91,30 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return 60;
+    }
+    
+    return 0.01;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, kScreenW, 50)];
+        label.text = @"如果您关闭了“追求”功能，您将无法得知别人是否喜欢你；";
+        label.font = Font14;
+        label.textColor = SecondWordColor;
+        
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 60)];
+        headerView.backgroundColor = PTBackColor;
+        [headerView addSubview:label];
+        
+        return headerView;
+    }
+    
+    return nil;
+}
 
 
 - (UITableView *)listTabView{
@@ -84,6 +124,14 @@
         _listTabView.delegate = self;
         _listTabView.backgroundColor = PTBackColor;
         _listTabView.tableFooterView = [[UIView alloc] init];
+        UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 150)];
+        UIView *customerView = [[[NSBundle mainBundle] loadNibNamed:@"SPCurrencyHeaderView" owner:nil options:nil] firstObject];
+        customerView.backgroundColor = PTBackColor;
+        [headerView addSubview:customerView];
+        [customerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(headerView);
+        }];
+        _listTabView.tableHeaderView = headerView;
         [self.view addSubview:_listTabView];
     }
     return _listTabView;

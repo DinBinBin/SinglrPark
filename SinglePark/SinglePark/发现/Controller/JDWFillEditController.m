@@ -214,16 +214,19 @@
     }
     
     NSDictionary *parameters = @{@"content" : self.textView.text,
-                                 @"images" : @[self.img]
+                                 @"images" : @[self.img ?:@""]
                                  };
     
     WEAKSELF
     [JDWNetworkHelper POST:SPURL_API_Feedback parameters:parameters success:^(id responseObject) {
         STRONGSELF
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
-//        strongSelf.dataSource =  [SPJobModel mj_objectArrayWithKeyValuesArray:responseDic[@"data"]];
-        
-        [MBProgressHUD showMessage:@"您的意见已反馈成功，感谢你的宝贵意见！"];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            [MBProgressHUD showMessage:@"您的意见已反馈成功，感谢你的宝贵意见！"];
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
         
         [strongSelf.navigationController popViewControllerAnimated:YES];
 

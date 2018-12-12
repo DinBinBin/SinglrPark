@@ -45,12 +45,19 @@
     
     if (indexPath.section == 0) {
         cell.textLabel.text = @"接收新消息通知";
-
+        UISwitch *mySwitch = [UISwitch new];
+        mySwitch.onTintColor = ThemeColor;
+        mySwitch.on = YES;
+        cell.accessoryView = mySwitch;
         return cell;
  
         
     }else {
         cell.textLabel.text = @"通知显示消息详情";
+        UISwitch *mySwitch = [UISwitch new];
+        mySwitch.onTintColor = ThemeColor;
+        mySwitch.on = YES;
+        cell.accessoryView = mySwitch;
         return cell;
         
     }
@@ -61,7 +68,7 @@
    
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(18, 5, kScreenWidth-36, 55)];
     
-    lab.font = Font16;
+    lab.font = Font14;
     lab.textColor = SecondWordColor;
     lab.numberOfLines = 0;
     [labview addSubview:lab];

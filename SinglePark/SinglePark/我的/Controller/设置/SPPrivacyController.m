@@ -50,8 +50,10 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.row == 0) {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-
+        UISwitch *mySwitch = [UISwitch new];
+        mySwitch.onTintColor = ThemeColor;
+        mySwitch.on = YES;
+        cell.accessoryView = mySwitch;
         return cell;
     }else if (indexPath.row == 1) {
         cell.accessoryType = UITableViewCellAccessoryNone;
