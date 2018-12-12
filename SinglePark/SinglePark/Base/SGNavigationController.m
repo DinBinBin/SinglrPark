@@ -18,9 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationBar.barStyle = UIBarStyleBlack;
-    UIView *line = [ProjectHelp point:CGPointMake(0, self.navigationBar.height-0.5) width:kScreenWidth height:0.5];
-    line.backgroundColor = HexCOLOR(0xdddddd);
-    [self.navigationBar addSubview:line];
+//    UIView *line = [ProjectHelp point:CGPointMake(0, self.navigationBar.height-0.5) width:kScreenWidth height:0.5];
+//    line.backgroundColor = HexCOLOR(0xdddddd);
+//    [self.navigationBar addSubview:line];
     
 }
 

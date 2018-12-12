@@ -144,6 +144,22 @@
 		E64643E621BE57400066E0F3 /* UITextView+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = E646434F21BE57400066E0F3 /* UITextView+Category.m */; };
 		E64643E721BE57400066E0F3 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = E646435121BE57400066E0F3 /* UIView+Extension.m */; };
 		E64643E821BE57400066E0F3 /* VoiceButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = E646435321BE57400066E0F3 /* VoiceButtonView.m */; };
+		E64FB1F021C0B97300374D58 /* LGAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E64FB1CD21C0B97300374D58 /* LGAudioPlayer.m */; };
+		E64FB1F121C0B97300374D58 /* LGSoundRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E64FB1D021C0B97300374D58 /* LGSoundRecorder.m */; };
+		E64FB1F221C0B97300374D58 /* toast_cancelsend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64FB1D221C0B97300374D58 /* toast_cancelsend@2x.png */; };
+		E64FB1F321C0B97300374D58 /* toast_microphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64FB1D321C0B97300374D58 /* toast_microphone@2x.png */; };
+		E64FB1F421C0B97300374D58 /* toast_timeshort@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64FB1D421C0B97300374D58 /* toast_timeshort@2x.png */; };
+		E64FB1F521C0B97300374D58 /* toast_vol_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64FB1D521C0B97300374D58 /* toast_vol_1@2x.png */; };
+		E64FB1F621C0B97300374D58 /* toast_vol_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64FB1D621C0B97300374D58 /* toast_vol_2@2x.png */; };
+		E64FB1F721C0B97300374D58 /* toast_vol_3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64FB1D721C0B97300374D58 /* toast_vol_3@2x.png */; };
+		E64FB1F821C0B97300374D58 /* toast_vol_4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64FB1D821C0B97300374D58 /* toast_vol_4@2x.png */; };
+		E64FB1F921C0B97300374D58 /* toast_vol_5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64FB1D921C0B97300374D58 /* toast_vol_5@2x.png */; };
+		E64FB1FA21C0B97300374D58 /* toast_vol_6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64FB1DA21C0B97300374D58 /* toast_vol_6@2x.png */; };
+		E64FB1FB21C0B97300374D58 /* toast_vol_7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E64FB1DB21C0B97300374D58 /* toast_vol_7@2x.png */; };
+		E64FB1FC21C0B97300374D58 /* amrFileCodec.m in Sources */ = {isa = PBXBuildFile; fileRef = E64FB1DF21C0B97300374D58 /* amrFileCodec.m */; };
+		E64FB1FD21C0B97300374D58 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E64FB1E821C0B97300374D58 /* libopencore-amrnb.a */; };
+		E64FB1FE21C0B97300374D58 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E64FB1E921C0B97300374D58 /* libopencore-amrwb.a */; };
+		E64FB20021C0B97300374D58 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E64FB1EF21C0B97300374D58 /* libmp3lame.a */; };
 		E654A9A4219D7B0300447D12 /* SPVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E654A9A3219D7B0300447D12 /* SPVideoModel.m */; };
 		E68CBB43219EB32F0010C2D6 /* JDWForceRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB42219EB32F0010C2D6 /* JDWForceRefreshView.m */; };
 		E68CBB46219EB4170010C2D6 /* SPCommentTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB45219EB4170010C2D6 /* SPCommentTabView.m */; };
@@ -402,6 +418,31 @@
 		E646435121BE57400066E0F3 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		E646435221BE57400066E0F3 /* VoiceButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceButtonView.h; sourceTree = "<group>"; };
 		E646435321BE57400066E0F3 /* VoiceButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceButtonView.m; sourceTree = "<group>"; };
+		E64FB1CA21C0B97300374D58 /* LGAudioKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGAudioKit.h; sourceTree = "<group>"; };
+		E64FB1CC21C0B97300374D58 /* LGAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGAudioPlayer.h; sourceTree = "<group>"; };
+		E64FB1CD21C0B97300374D58 /* LGAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGAudioPlayer.m; sourceTree = "<group>"; };
+		E64FB1CF21C0B97300374D58 /* LGSoundRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSoundRecorder.h; sourceTree = "<group>"; };
+		E64FB1D021C0B97300374D58 /* LGSoundRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSoundRecorder.m; sourceTree = "<group>"; };
+		E64FB1D221C0B97300374D58 /* toast_cancelsend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toast_cancelsend@2x.png"; sourceTree = "<group>"; };
+		E64FB1D321C0B97300374D58 /* toast_microphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toast_microphone@2x.png"; sourceTree = "<group>"; };
+		E64FB1D421C0B97300374D58 /* toast_timeshort@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toast_timeshort@2x.png"; sourceTree = "<group>"; };
+		E64FB1D521C0B97300374D58 /* toast_vol_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toast_vol_1@2x.png"; sourceTree = "<group>"; };
+		E64FB1D621C0B97300374D58 /* toast_vol_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toast_vol_2@2x.png"; sourceTree = "<group>"; };
+		E64FB1D721C0B97300374D58 /* toast_vol_3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toast_vol_3@2x.png"; sourceTree = "<group>"; };
+		E64FB1D821C0B97300374D58 /* toast_vol_4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toast_vol_4@2x.png"; sourceTree = "<group>"; };
+		E64FB1D921C0B97300374D58 /* toast_vol_5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toast_vol_5@2x.png"; sourceTree = "<group>"; };
+		E64FB1DA21C0B97300374D58 /* toast_vol_6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toast_vol_6@2x.png"; sourceTree = "<group>"; };
+		E64FB1DB21C0B97300374D58 /* toast_vol_7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toast_vol_7@2x.png"; sourceTree = "<group>"; };
+		E64FB1DE21C0B97300374D58 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
+		E64FB1DF21C0B97300374D58 /* amrFileCodec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = amrFileCodec.m; sourceTree = "<group>"; };
+		E64FB1E221C0B97300374D58 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		E64FB1E321C0B97300374D58 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		E64FB1E521C0B97300374D58 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
+		E64FB1E621C0B97300374D58 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
+		E64FB1E821C0B97300374D58 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		E64FB1E921C0B97300374D58 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		E64FB1EE21C0B97300374D58 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
+		E64FB1EF21C0B97300374D58 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		E654A9A2219D7B0300447D12 /* SPVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPVideoModel.h; sourceTree = "<group>"; };
 		E654A9A3219D7B0300447D12 /* SPVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPVideoModel.m; sourceTree = "<group>"; };
 		E68CBB41219EB32F0010C2D6 /* JDWForceRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDWForceRefreshView.h; sourceTree = "<group>"; };
@@ -422,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79E032D721B64D92000581EC /* SafariServices.framework in Frameworks */,
+				E64FB1FD21C0B97300374D58 /* libopencore-amrnb.a in Frameworks */,
 				79E032D521B64D89000581EC /* Photos.framework in Frameworks */,
 				79E032D321B64D7F000581EC /* UIKit.framework in Frameworks */,
 				79E032D121B64D77000581EC /* SystemConfiguration.framework in Frameworks */,
@@ -429,6 +471,7 @@
 				79E032CD21B64D64000581EC /* OpenGLES.framework in Frameworks */,
 				79E032CB21B64D5B000581EC /* MapKit.framework in Frameworks */,
 				79E032C921B64D51000581EC /* libz.tbd in Frameworks */,
+				E64FB20021C0B97300374D58 /* libmp3lame.a in Frameworks */,
 				79E032C721B64D3E000581EC /* libxml2.tbd in Frameworks */,
 				79E032C521B64CD7000581EC /* libsqlite3.tbd in Frameworks */,
 				79E032C321B64CCF000581EC /* libc++abi.tbd in Frameworks */,
@@ -436,6 +479,7 @@
 				79E032BF21B64C98000581EC /* CoreVideo.framework in Frameworks */,
 				79E032BD21B64C8F000581EC /* CoreTelephony.framework in Frameworks */,
 				79E032BB21B64C86000581EC /* CoreMedia.framework in Frameworks */,
+				E64FB1FE21C0B97300374D58 /* libopencore-amrwb.a in Frameworks */,
 				79E032B921B64C7D000581EC /* CoreLocation.framework in Frameworks */,
 				79E032B721B64C72000581EC /* CoreGraphics.framework in Frameworks */,
 				79E032B521B64C68000581EC /* CoreAudio.framework in Frameworks */,
@@ -501,6 +545,8 @@
 		8110C57B211FFE8E00D013FC /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				E64FB1C921C0B97300374D58 /* Class */,
+				E64FB1ED21C0B97300374D58 /* lame */,
 				E646433E21BE57400066E0F3 /* KeyBoard */,
 				81EFA389218DA89800C8E8B6 /* JDWConst.h */,
 				81EFA38A218DA89800C8E8B6 /* JDWConst.m */,
@@ -1069,6 +1115,117 @@
 			path = Class;
 			sourceTree = "<group>";
 		};
+		E64FB1C921C0B97300374D58 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1CA21C0B97300374D58 /* LGAudioKit.h */,
+				E64FB1CB21C0B97300374D58 /* LGSoundPlayer */,
+				E64FB1CE21C0B97300374D58 /* LGSoundRecorder */,
+				E64FB1D121C0B97300374D58 /* Resource */,
+				E64FB1DC21C0B97300374D58 /* Vendor */,
+			);
+			path = Class;
+			sourceTree = "<group>";
+		};
+		E64FB1CB21C0B97300374D58 /* LGSoundPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1CC21C0B97300374D58 /* LGAudioPlayer.h */,
+				E64FB1CD21C0B97300374D58 /* LGAudioPlayer.m */,
+			);
+			path = LGSoundPlayer;
+			sourceTree = "<group>";
+		};
+		E64FB1CE21C0B97300374D58 /* LGSoundRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1CF21C0B97300374D58 /* LGSoundRecorder.h */,
+				E64FB1D021C0B97300374D58 /* LGSoundRecorder.m */,
+			);
+			path = LGSoundRecorder;
+			sourceTree = "<group>";
+		};
+		E64FB1D121C0B97300374D58 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1D221C0B97300374D58 /* toast_cancelsend@2x.png */,
+				E64FB1D321C0B97300374D58 /* toast_microphone@2x.png */,
+				E64FB1D421C0B97300374D58 /* toast_timeshort@2x.png */,
+				E64FB1D521C0B97300374D58 /* toast_vol_1@2x.png */,
+				E64FB1D621C0B97300374D58 /* toast_vol_2@2x.png */,
+				E64FB1D721C0B97300374D58 /* toast_vol_3@2x.png */,
+				E64FB1D821C0B97300374D58 /* toast_vol_4@2x.png */,
+				E64FB1D921C0B97300374D58 /* toast_vol_5@2x.png */,
+				E64FB1DA21C0B97300374D58 /* toast_vol_6@2x.png */,
+				E64FB1DB21C0B97300374D58 /* toast_vol_7@2x.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		E64FB1DC21C0B97300374D58 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1DD21C0B97300374D58 /* AMR */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		E64FB1DD21C0B97300374D58 /* AMR */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1DE21C0B97300374D58 /* amrFileCodec.h */,
+				E64FB1DF21C0B97300374D58 /* amrFileCodec.m */,
+				E64FB1E021C0B97300374D58 /* include */,
+				E64FB1E721C0B97300374D58 /* lib */,
+			);
+			path = AMR;
+			sourceTree = "<group>";
+		};
+		E64FB1E021C0B97300374D58 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1E121C0B97300374D58 /* opencore-amrnb */,
+				E64FB1E421C0B97300374D58 /* opencore-amrwb */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		E64FB1E121C0B97300374D58 /* opencore-amrnb */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1E221C0B97300374D58 /* interf_dec.h */,
+				E64FB1E321C0B97300374D58 /* interf_enc.h */,
+			);
+			path = "opencore-amrnb";
+			sourceTree = "<group>";
+		};
+		E64FB1E421C0B97300374D58 /* opencore-amrwb */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1E521C0B97300374D58 /* dec_if.h */,
+				E64FB1E621C0B97300374D58 /* if_rom.h */,
+			);
+			path = "opencore-amrwb";
+			sourceTree = "<group>";
+		};
+		E64FB1E721C0B97300374D58 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1E821C0B97300374D58 /* libopencore-amrnb.a */,
+				E64FB1E921C0B97300374D58 /* libopencore-amrwb.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		E64FB1ED21C0B97300374D58 /* lame */ = {
+			isa = PBXGroup;
+			children = (
+				E64FB1EE21C0B97300374D58 /* lame.h */,
+				E64FB1EF21C0B97300374D58 /* libmp3lame.a */,
+			);
+			path = lame;
+			sourceTree = "<group>";
+		};
 		E68CBB4A219EC1350010C2D6 /* 追迅 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1143,12 +1300,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E64FB1FB21C0B97300374D58 /* toast_vol_7@2x.png in Resources */,
 				818977CF211FE7D800928071 /* LaunchScreen.storyboard in Resources */,
+				E64FB1F821C0B97300374D58 /* toast_vol_4@2x.png in Resources */,
 				818977CC211FE7D800928071 /* Assets.xcassets in Resources */,
+				E64FB1F321C0B97300374D58 /* toast_microphone@2x.png in Resources */,
+				E64FB1FA21C0B97300374D58 /* toast_vol_6@2x.png in Resources */,
+				E64FB1F621C0B97300374D58 /* toast_vol_2@2x.png in Resources */,
+				E64FB1F421C0B97300374D58 /* toast_timeshort@2x.png in Resources */,
 				8127A6CD21735A580033434C /* README.md in Resources */,
 				8127A6CB21735A580033434C /* LICENSE in Resources */,
+				E64FB1F521C0B97300374D58 /* toast_vol_1@2x.png in Resources */,
+				E64FB1F721C0B97300374D58 /* toast_vol_3@2x.png in Resources */,
+				E64FB1F921C0B97300374D58 /* toast_vol_5@2x.png in Resources */,
 				818977CA211FE7D600928071 /* Main.storyboard in Resources */,
 				793B5CB821BA66AF00710AD7 /* SPMineHeadCell.xib in Resources */,
+				E64FB1F221C0B97300374D58 /* toast_cancelsend@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1265,6 +1432,7 @@
 				8127A6C4217357880033434C /* SPPursuitController.m in Sources */,
 				8110C5B62120019F00D013FC /* NSNumber+ZExtension.m in Sources */,
 				8110C5932120017F00D013FC /* ProjectHelp.m in Sources */,
+				E64FB1FC21C0B97300374D58 /* amrFileCodec.m in Sources */,
 				8127A6D621735A7C0033434C /* TranslucentView.m in Sources */,
 				813CB04C217C736400E4E67B /* SPPursuitHeadTabCell.m in Sources */,
 				793B5CB721BA66AF00710AD7 /* SPMineHeadCell.m in Sources */,
@@ -1274,6 +1442,7 @@
 				8118156621820EBB002069AA /* JDWNetworkCache.m in Sources */,
 				8110C5D92120026E00D013FC /* SPMessageVC.m in Sources */,
 				E68CBB43219EB32F0010C2D6 /* JDWForceRefreshView.m in Sources */,
+				E64FB1F021C0B97300374D58 /* LGAudioPlayer.m in Sources */,
 				813CB049217C734900E4E67B /* SPPursuitListView.m in Sources */,
 				81C13988217AFB10003C91B2 /* SPPrivacyController.m in Sources */,
 				8127A6DE21735B440033434C /* HSPopAnimation.m in Sources */,
@@ -1283,6 +1452,7 @@
 				81AED57021494EBE00A0636D /* SPInvitationCodeController.m in Sources */,
 				81ECE79321358143004FDDE8 /* SPTourisController.m in Sources */,
 				811DB6C8216873E200204139 /* SPCardTabCell.m in Sources */,
+				E64FB1F121C0B97300374D58 /* LGSoundRecorder.m in Sources */,
 				81EFA38B218DA89800C8E8B6 /* JDWConst.m in Sources */,
 				81EFA388218DA66F00C8E8B6 /* JDWUserInfoDB.m in Sources */,
 				8110C5C12120019F00D013FC /* NSAttributedString+ZExtension.m in Sources */,
@@ -1508,6 +1678,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinglePark/Tool/Class/Vendor/AMR/lib",
+					"$(PROJECT_DIR)/SinglePark/Tool/lame",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = SinglePark.AP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1536,6 +1711,11 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SinglePark/Tool/Class/Vendor/AMR/lib",
+					"$(PROJECT_DIR)/SinglePark/Tool/lame",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
