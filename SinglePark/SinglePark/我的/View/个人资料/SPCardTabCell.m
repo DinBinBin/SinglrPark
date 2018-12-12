@@ -180,7 +180,7 @@
         self.headBtn.clipsToBounds = YES;
 
         self.nickeLab.text = _model.nickName;
-        self.sexImg.image = [UIImage imageNamed:_model.sex];
+        self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
         self.occupation.text = _model.occupation;
         self.didian.text = _model.didian;
         self.singer.text = _model.singer?_model.singer:nil;

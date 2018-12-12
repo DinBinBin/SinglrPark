@@ -10,12 +10,12 @@
 
 @implementation SPPersonModel
 
-+ (NSDictionary *)modelContainerPropertyGenericClass {
++ (NSDictionary *)modelCustomPropertyMapper {
     return @{@"userId": @"id",
              @"nickName" : @"nick_name",
-             @"occupation" : @"job",
              };
 }
+
 
 /*
 //效率考虑

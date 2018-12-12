@@ -8,6 +8,7 @@
 
 #import "SPMainVC.h"
 #import "SPCoverListView.h"
+#import "JDWPopMenuView.h"
 
 @interface SPMainVC ()<UIScrollViewDelegate>
 @property(nonatomic,strong) UISegmentedControl *segmentControl;
@@ -67,7 +68,16 @@
 
 // 弹出筛选条件
 - (void)selectTerm{
-    
+    [JDWPopMenuView showWithItems:@[@{@"title":@"只看女生"},
+                                    @{@"title":@"只看男生"},
+                                    @{@"title":@"查看全部"},
+                                    @{@"title":@"取消"}
+                                    ]
+                            width:104
+                 triangleLocation:CGPointMake(kScreenW-40, kNavigationHeight)
+                           action:^(NSInteger index) {
+                               NSLog(@"点击了第%ld行",index);
+                           }];
     
 }
 

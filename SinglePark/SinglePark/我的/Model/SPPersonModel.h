@@ -14,8 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)int userId;
 @property (nonatomic,copy)NSString *avatar;//用户头像
 @property (nonatomic,copy)NSString *nickName;
-@property (nonatomic,copy)NSString *sex;
-@property (nonatomic,copy)NSString *birthday;
+@property (nonatomic,assign)int sex;//0:未设置；1:男；2:女
+@property (nonatomic,copy)NSString *birthday; //生日日期
+@property (nonatomic,copy)NSString *age; //年龄
 @property (nonatomic,copy)NSString *occupation; //职业
 @property (nonatomic,copy)NSArray *job; //职业数组
 

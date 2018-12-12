@@ -11,6 +11,8 @@
 		793B5CAC21BA0ED900710AD7 /* SPCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CAB21BA0ED900710AD7 /* SPCityModel.m */; };
 		793B5CB721BA66AF00710AD7 /* SPMineHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */; };
 		793B5CB821BA66AF00710AD7 /* SPMineHeadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 793B5CB621BA66AF00710AD7 /* SPMineHeadCell.xib */; };
+		793B68AF21C0F4AC00289128 /* SPCurrencyHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 793B68AE21C0F4AC00289128 /* SPCurrencyHeaderView.xib */; };
+		793B68B321C100F100289128 /* JDWPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B68B121C100F100289128 /* JDWPopMenuView.m */; };
 		793D628321BFB2D400589445 /* MFDatePickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 793D628221BFB2D400589445 /* MFDatePickView.m */; };
 		796D9C9821B7ACB30045F0B4 /* SPConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */; };
 		796D9C9E21B916FE0045F0B4 /* SQPrintJsonLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */; };
@@ -180,6 +182,9 @@
 		793B5CB421BA66AF00710AD7 /* SPMineHeadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMineHeadCell.h; sourceTree = "<group>"; };
 		793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMineHeadCell.m; sourceTree = "<group>"; };
 		793B5CB621BA66AF00710AD7 /* SPMineHeadCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SPMineHeadCell.xib; sourceTree = "<group>"; };
+		793B68AE21C0F4AC00289128 /* SPCurrencyHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SPCurrencyHeaderView.xib; sourceTree = "<group>"; };
+		793B68B121C100F100289128 /* JDWPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDWPopMenuView.m; sourceTree = "<group>"; };
+		793B68B221C100F100289128 /* JDWPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDWPopMenuView.h; sourceTree = "<group>"; };
 		793D628121BFB2D400589445 /* MFDatePickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFDatePickView.h; sourceTree = "<group>"; };
 		793D628221BFB2D400589445 /* MFDatePickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFDatePickView.m; sourceTree = "<group>"; };
 		796D9C9621B7ACB30045F0B4 /* SPConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConversationViewController.h; sourceTree = "<group>"; };
@@ -502,6 +507,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		793B68B021C100D900289128 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				793B68B221C100F100289128 /* JDWPopMenuView.h */,
+				793B68B121C100F100289128 /* JDWPopMenuView.m */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		793D628021BFB2C700589445 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -548,6 +562,7 @@
 		8110C57B211FFE8E00D013FC /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				793B68B021C100D900289128 /* Components */,
 				E64FB1C921C0B97300374D58 /* Class */,
 				E64FB1ED21C0B97300374D58 /* lame */,
 				E646433E21BE57400066E0F3 /* KeyBoard */,
@@ -971,6 +986,7 @@
 				811DB23D216B9D6700ABB889 /* 我的资料 */,
 				8127A6B821734BBB0033434C /* SPMineHeadTabCell.h */,
 				8127A6B921734BBB0033434C /* SPMineHeadTabCell.m */,
+				793B68AE21C0F4AC00289128 /* SPCurrencyHeaderView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1318,6 +1334,7 @@
 				E64FB1F521C0B97300374D58 /* toast_vol_1@2x.png in Resources */,
 				E64FB1F721C0B97300374D58 /* toast_vol_3@2x.png in Resources */,
 				E64FB1F921C0B97300374D58 /* toast_vol_5@2x.png in Resources */,
+				793B68AF21C0F4AC00289128 /* SPCurrencyHeaderView.xib in Resources */,
 				818977CA211FE7D600928071 /* Main.storyboard in Resources */,
 				793B5CB821BA66AF00710AD7 /* SPMineHeadCell.xib in Resources */,
 				E64FB1F221C0B97300374D58 /* toast_cancelsend@2x.png in Resources */,
@@ -1493,6 +1510,7 @@
 				79E032AB21B62D12000581EC /* SFDealNullTool.m in Sources */,
 				81C13991217B03C5003C91B2 /* SPProtectionController.m in Sources */,
 				79CDC04421B67AD60018D1C7 /* SPChatListViewController.m in Sources */,
+				793B68B321C100F100289128 /* JDWPopMenuView.m in Sources */,
 				8110C588212000E300D013FC /* SGBaseController.m in Sources */,
 				81A3D4A721BD2C0200FF0E00 /* SPPursuitNoneTabCell.m in Sources */,
 				8110C5BE2120019F00D013FC /* UITextField+KYExtension.m in Sources */,

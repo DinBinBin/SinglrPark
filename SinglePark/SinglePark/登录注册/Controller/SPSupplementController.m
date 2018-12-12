@@ -24,8 +24,6 @@
 @property (nonatomic,strong)UIButton *nextStepBtn;
 @property (nonatomic,strong)UILabel *promptLab;
 
-/** 年龄数据 */
-@property (nonatomic, strong) NSMutableArray *dataArray;
 /** 添加遮罩 */
 @property (nonatomic, strong) UIView *alertBackgroundView;
 @end
@@ -82,7 +80,7 @@
     if (_ageField == nil) {
         _ageField = [[UITextField alloc] initWithFrame:CGRectMake(100, 0, kScreenWidth-220, 50)];
         _ageField.font = FONT(14);
-        _ageField.placeholder = @"请输入您的年龄";
+        _ageField.placeholder = @"请输入您的生日日期";
         [_ageField setValue:FONT(14) forKeyPath:@"_placeholderLabel.font"];
         [_ageField setValue:WordColor forKeyPath:@"_placeholderLabel.textColor"];
         _ageField.delegate = self;
@@ -179,7 +177,7 @@
             make.bottom.equalTo(cell.contentView.mas_bottom);
         }];
         if (indexPath.row == 0) {
-            promptcellLab.text = @"年龄：";
+            promptcellLab.text = @"生日：";
             [cell.contentView addSubview:self.ageField];
             [self.ageField   mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(promptcellLab.mas_right).offset(10);
@@ -276,31 +274,12 @@
     
 }
 
-/**
- *  根据生日计算年龄
- *
- *  @param birthday 生日
- */
-- (NSString *)getAgeWith:(NSDate*)birthday{
-    
-    //日历
-    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    
-    NSUInteger unitFlags = NSCalendarUnitYear;
-    
-    NSDateComponents *components = [gregorian components:unitFlags fromDate:birthday toDate:[NSDate  date] options:0];
-    
-    return [NSString stringWithFormat:@"%ld岁",[components year]+1];
-}
-
-
-
 
 //点击遮罩
 -(void)tap{
     
     [self.ageField resignFirstResponder];
-    
+    [self.alertBackgroundView removeFromSuperview];
 }
 
 #pragma mark - textField代理方法
@@ -358,7 +337,7 @@
 - (void)finishClick {
     NSDictionary *parsms = @{
                              @"nick_name":self.nickName,
-                             @"sex":[NSString stringWithFormat:@"%ld",(long)self.sex],
+                             @"sex":@(self.sex),
                              @"birthday":self.ageField.text,
                              @"job":@[self.occupationField.text],
                              };
