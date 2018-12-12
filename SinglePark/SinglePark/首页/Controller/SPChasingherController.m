@@ -42,9 +42,9 @@
     [self.backview addSubview:self.timeLab];
 
     [self.backview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(50);
-        make.left.equalTo(self.view).offset(10);
-        make.left.equalTo(self.view.mas_right).offset(-10);
+        make.bottom.equalTo(self.view.mas_bottom).offset(Height(-100)-KsafeTabIPhonex);
+        make.left.equalTo(self.view).offset(40);
+        make.right.equalTo(self.view.mas_right).offset(-40);
         make.height.mas_equalTo(200);
     }];
     
@@ -64,14 +64,14 @@
     
     [self.voiceimg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.promptImg.mas_bottom).offset(20);
-        make.centerX.equalTo(self.backview);
+        make.centerX.equalTo(self.backview.mas_centerX);
         make.height.width.mas_equalTo(50);
         
     }];
     
     [self.voiceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.voiceimg.mas_bottom).offset(20);
-        make.centerX.equalTo(self.voiceimg).offset(30);
+        make.centerX.equalTo(self.voiceimg);
         make.width.mas_equalTo(200);
         
     }];
@@ -91,6 +91,7 @@
     if (_backview == nil) {
         _backview = [[UIImageView alloc] init];
         _backview.userInteractionEnabled = YES;
+        _backview.backgroundColor = [UIColor redColor];
     }
     return _backview;
 }
@@ -116,7 +117,8 @@
 - (UIButton *)voiceimg{
     if (_voiceimg == nil) {
         _voiceimg = [UIButton buttonWithType:UIButtonTypeCustom];
-        
+        [_voiceimg setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+
     }
     return _voiceimg;
 }
@@ -124,8 +126,10 @@
 - (UIButton *)voiceBtn{
     if (_voiceBtn == nil) {
         _voiceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _voiceBtn.backgroundColor = ThemeColor;
         [_voiceBtn setTitle:@"按住 说话" forState:UIControlStateNormal];
-        [_voiceBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [_voiceBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
         [_voiceBtn addTarget:self action:@selector(startRecordVoice) forControlEvents:UIControlEventTouchDown];
         [_voiceBtn addTarget:self action:@selector(cancelRecordVoice) forControlEvents:UIControlEventTouchUpOutside];
         [_voiceBtn addTarget:self action:@selector(confirmRecordVoice) forControlEvents:UIControlEventTouchUpInside];
@@ -136,12 +140,25 @@
     return _voiceBtn;
 }
 
+- (UILabel *)timeLab{
+    if (_timeLab == nil) {
+        _timeLab = [[UILabel alloc] init];
+        _timeLab.text = @"不超过一分钟";
+        _timeLab.font = FONT(16);
+        _timeLab.textColor = SecondWordColor;
+        _timeLab.textAlignment = NSTextAlignmentCenter;
+    }
+    return _timeLab;
+}
+
 #pragma mark - Private Methods
 
 /**
  *  开始录音
  */
 - (void)startRecordVoice{
+    self.voiceBtn.backgroundColor = SecondWordColor;
+    [self.voiceBtn setTitle:@"松开 结束" forState:UIControlStateNormal];
     __block BOOL isAllow = 0;
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     if ([audioSession respondsToSelector:@selector(requestRecordPermission:)]) {
@@ -177,6 +194,7 @@
     
     
     if ([[LGSoundRecorder shareInstance] soundRecordTime] == 0) {
+        NSLog(@"-------%@",[[LGSoundRecorder shareInstance] soundRecordTime]);
         [self cancelRecordVoice];
         return;//60s自动发送后，松开手走这里
     }
@@ -219,6 +237,9 @@
  *  取消录音
  */
 - (void)cancelRecordVoice {
+    self.voiceBtn.backgroundColor = ThemeColor;
+    [self.voiceBtn setTitle:@"按住 说话" forState:UIControlStateNormal];
+
     [[LGSoundRecorder shareInstance] soundRecordFailed:self.view];
 }
 
@@ -226,6 +247,8 @@
  *  录音时间短
  */
 - (void)showShotTimeSign {
+    self.voiceBtn.backgroundColor = ThemeColor;
+    [self.voiceBtn setTitle:@"按住 说话" forState:UIControlStateNormal];
     [[LGSoundRecorder shareInstance] showShotTimeSign:self.view];
 }
 
@@ -311,6 +334,13 @@
 
 
 - (void)sendSound {
+    self.originalDataPath = [[LGSoundRecorder shareInstance] soundFilePath];
+    [self.voiceimg setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    self.voiceBtn.backgroundColor = [UIColor clearColor];
+    [self.voiceBtn setTitle:@"已发送，请等待回音" forState:UIControlStateNormal];
+    [self.voiceBtn setTitleColor:FirstWordColor forState:UIControlStateNormal];
 
+    self.voiceBtn.enabled = NO;
+    
 }
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "LGSoundRecorder.h"
-#import "MBProgressHUD.h"
+#import "MBProgress.h"
 #include "amrFileCodec.h"
 
 #pragma clang diagnostic ignored "-Wdeprecated"
@@ -16,7 +16,7 @@
 
 @interface LGSoundRecorder()
 
-@property (nonatomic, strong) MBProgressHUD *HUD;
+@property (nonatomic, strong) MBProgress *HUD;
 @property (nonatomic, strong) NSString *recordPath;
 @property (nonatomic, strong) AVAudioRecorder *recorder;
 @property (nonatomic, strong) NSTimer *levelTimer;
@@ -114,7 +114,7 @@
 	
 	_textLable.frame = CGRectMake(0, CGRectGetMaxY(_imageViewAnimation.frame) + 20, 130, 25);
 	_textLable.text = @"手指松开，取消发送";
-	_textLable.backgroundColor = [UIColor redColor];
+//    _textLable.backgroundColor = [UIColor redColor];
 	_textLable.layer.masksToBounds = YES;
 	_textLable.layer.cornerRadius = 3;
 }
@@ -162,70 +162,70 @@
 		view = [[[UIApplication sharedApplication] windows] lastObject];
 	}
 	if (_HUD == nil) {
-		_HUD = [[MBProgressHUD alloc] initWithView:view];
-		_HUD.opacity = 0.4;
-		
-		CGFloat left = 22;
-		CGFloat top = 0;
-		top = 18;
-		
-		UIView *cv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 130, 120)];
-		
-		UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(left, top, 37, 70)];
-		_talkPhone = imageView;
-		_talkPhone.image = GetImage(@"toast_microphone");
-		[cv addSubview:_talkPhone];
-		left += CGRectGetWidth(_talkPhone.frame) + 16;
-		
-		top+=7;
-		imageView = [[UIImageView alloc] initWithFrame:CGRectMake(left, top, 29, 64)];
-		_imageViewAnimation = imageView;
-		[cv addSubview:_imageViewAnimation];
-		
-		imageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 24, 52, 61)];
-		_cancelTalk = imageView;
-		_cancelTalk.image = GetImage(@"toast_cancelsend");
-		[cv addSubview:_cancelTalk];
-		_cancelTalk.hidden = YES;
-		
-		imageView = [[UIImageView alloc] initWithFrame:CGRectMake(56, 24, 18, 60)];
-		self.shotTime = imageView;
-		_shotTime.image = GetImage(@"toast_timeshort");
-		[cv addSubview:_shotTime];
-		_shotTime.hidden = YES;
-		
-		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, 14, 70, 71)];
-		self.countDownLabel = label;
-		self.countDownLabel.backgroundColor = [UIColor clearColor];
-		self.countDownLabel.textColor = [UIColor whiteColor];
-		self.countDownLabel.textAlignment = NSTextAlignmentCenter;
-		self.countDownLabel.font = [UIFont systemFontOfSize:60.0];
-		[cv addSubview:self.countDownLabel];
-		self.countDownLabel.hidden = YES;
-		
-		left = 0;
-		top += CGRectGetHeight(_imageViewAnimation.frame) + 20;
-		
-		label = [[UILabel alloc] initWithFrame:CGRectMake(left, top, 130, 14)];
-		self.textLable = label;
-		_textLable.backgroundColor = [UIColor clearColor];
-		_textLable.textColor = [UIColor whiteColor];
-		_textLable.textAlignment = NSTextAlignmentCenter;
-		_textLable.font = [UIFont systemFontOfSize:14.0];
-		_textLable.text = @"手指上滑，取消发送";
-		[cv addSubview:_textLable];
-		
-		_HUD.customView = cv;
-		
-		// Set custom view mode
-		_HUD.mode = MBProgressHUDModeCustomView;
+        _HUD = [[MBProgress alloc] initWithView:view];
+        _HUD.opacity = 0.4;
+
+        CGFloat left = 22;
+        CGFloat top = 0;
+        top = 18;
+
+        UIView *cv = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 130, 120)];
+
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(left, top, 37, 70)];
+        _talkPhone = imageView;
+        _talkPhone.image = [UIImage imageNamed:@"toast_microphone"];
+        [cv addSubview:_talkPhone];
+        left += CGRectGetWidth(_talkPhone.frame) + 16;
+
+        top+=7;
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(left, top, 29, 64)];
+        _imageViewAnimation = imageView;
+        [cv addSubview:_imageViewAnimation];
+
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(30, 24, 52, 61)];
+        _cancelTalk = imageView;
+        _cancelTalk.image = [UIImage imageNamed:@"toast_cancelsend"];
+        [cv addSubview:_cancelTalk];
+        _cancelTalk.hidden = YES;
+
+        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(56, 24, 18, 60)];
+        self.shotTime = imageView;
+        _shotTime.image = [UIImage imageNamed:@"toast_timeshort"];
+        [cv addSubview:_shotTime];
+        _shotTime.hidden = YES;
+
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, 14, 70, 71)];
+        self.countDownLabel = label;
+        self.countDownLabel.backgroundColor = [UIColor clearColor];
+        self.countDownLabel.textColor = [UIColor whiteColor];
+        self.countDownLabel.textAlignment = NSTextAlignmentCenter;
+        self.countDownLabel.font = [UIFont systemFontOfSize:60.0];
+        [cv addSubview:self.countDownLabel];
+        self.countDownLabel.hidden = YES;
+
+        left = 0;
+        top += CGRectGetHeight(_imageViewAnimation.frame) + 20;
+
+        label = [[UILabel alloc] initWithFrame:CGRectMake(left, top, 130, 14)];
+        self.textLable = label;
+        _textLable.backgroundColor = [UIColor clearColor];
+        _textLable.textColor = [UIColor whiteColor];
+        _textLable.textAlignment = NSTextAlignmentCenter;
+        _textLable.font = [UIFont systemFontOfSize:14.0];
+        _textLable.text = @"手指上滑，取消发送";
+        [cv addSubview:label];
+
+        // Set custom view mode
+        _HUD.mode = MBProgressModeCustomView;
+        _HUD.customView = cv;
+   
 	}
-	if ([view isKindOfClass:[UIWindow class]]) {
-		[view addSubview:_HUD];
-	} else {
-		[view.window addSubview:_HUD];
-	}
-	[_HUD show:YES];
+//    if ([view isKindOfClass:[UIWindow class]]) {
+        [view addSubview:_HUD];
+//    } else {
+//        [view.window addSubview:_HUD];
+//    }
+    [_HUD show:YES];
 }
 
 - (void)removeHUD {

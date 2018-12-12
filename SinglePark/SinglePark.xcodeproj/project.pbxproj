@@ -160,6 +160,7 @@
 		E64FB1FD21C0B97300374D58 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E64FB1E821C0B97300374D58 /* libopencore-amrnb.a */; };
 		E64FB1FE21C0B97300374D58 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E64FB1E921C0B97300374D58 /* libopencore-amrwb.a */; };
 		E64FB20021C0B97300374D58 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E64FB1EF21C0B97300374D58 /* libmp3lame.a */; };
+		E64FB20321C1078600374D58 /* MBProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E64FB20221C1078600374D58 /* MBProgress.m */; };
 		E654A9A4219D7B0300447D12 /* SPVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E654A9A3219D7B0300447D12 /* SPVideoModel.m */; };
 		E68CBB43219EB32F0010C2D6 /* JDWForceRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB42219EB32F0010C2D6 /* JDWForceRefreshView.m */; };
 		E68CBB46219EB4170010C2D6 /* SPCommentTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB45219EB4170010C2D6 /* SPCommentTabView.m */; };
@@ -443,6 +444,8 @@
 		E64FB1E921C0B97300374D58 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
 		E64FB1EE21C0B97300374D58 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		E64FB1EF21C0B97300374D58 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
+		E64FB20121C1078600374D58 /* MBProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgress.h; sourceTree = "<group>"; };
+		E64FB20221C1078600374D58 /* MBProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgress.m; sourceTree = "<group>"; };
 		E654A9A2219D7B0300447D12 /* SPVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPVideoModel.h; sourceTree = "<group>"; };
 		E654A9A3219D7B0300447D12 /* SPVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPVideoModel.m; sourceTree = "<group>"; };
 		E68CBB41219EB32F0010C2D6 /* JDWForceRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDWForceRefreshView.h; sourceTree = "<group>"; };
@@ -1165,6 +1168,8 @@
 		E64FB1DC21C0B97300374D58 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				E64FB20121C1078600374D58 /* MBProgress.h */,
+				E64FB20221C1078600374D58 /* MBProgress.m */,
 				E64FB1DD21C0B97300374D58 /* AMR */,
 			);
 			path = Vendor;
@@ -1423,6 +1428,7 @@
 				E64643E121BE57400066E0F3 /* EmojiCollectionViewCell.m in Sources */,
 				811DB240216B9D8900ABB889 /* SPHeadPersonTabCell.m in Sources */,
 				793B5CA921BA0C9000710AD7 /* SPAreaViewController.m in Sources */,
+				E64FB20321C1078600374D58 /* MBProgress.m in Sources */,
 				8110C5CF212001CE00D013FC /* SGBaseModel.m in Sources */,
 				81ECE79021357A09004FDDE8 /* SPWelcomeController.m in Sources */,
 				8118156721820EBB002069AA /* JDWNetworkHelper.m in Sources */,
