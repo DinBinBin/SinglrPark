@@ -340,6 +340,10 @@
                              @"sex":@(self.sex),
                              @"birthday":self.ageField.text,
                              @"job":@[self.occupationField.text],
+                             @"province_id":@([DBAccountInfo sharedInstance].model.province_id),
+                             @"city_id":@([DBAccountInfo sharedInstance].model.city_id),
+                             @"district_id":@([DBAccountInfo sharedInstance].model.district_id),
+
                              };
     WEAKSELF
     STRONGSELF

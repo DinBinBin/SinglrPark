@@ -13,6 +13,7 @@
 #import "SPEditSectionViewController.h"
 #import "SPAreaViewController.h"
 #import "MFDatePickView.h"
+#import "SPCityModel.h"
 
 
 @interface SPEditPersonalInfoViewController ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,SPSelectDelegate,UITextFieldDelegate,UIGestureRecognizerDelegate>
@@ -46,19 +47,18 @@
                       @[@"引荐人",@"我的邀请码"]
                       ];
     self.detailArr = [NSMutableArray arrayWithArray:@[
-                                                      @[@"logo",@"宇宙超无敌美少女"],
-                                                      @[@"女",@"18"],
-                                                      @[@"工程师",@"平安中心"],
-                                                      @[@"深圳大学",@"大学"],
-                                                      @[@"广东 深圳"],
-                                                      @[@"180CM",@"65KG"],
-                                                      @[@"15w"],
-                                                      @[@"存在即合理"],
-                                                      @[@"logo",@"23KJHF2"]
+                                                      @[@"",@""],
+                                                      @[@"",@""],
+                                                      @[@"",@""],
+                                                      @[@"",@""],
+                                                      @[@""],
+                                                      @[@"",@""],
+                                                      @[@""],
+                                                      @[@""],
+                                                      @[@"",@""]
                                                       ]];
     
     [self setupUI];
-    
     
     [self requestData];
 }
@@ -70,36 +70,122 @@
 - (void)requestData {
     WEAKSELF
     STRONGSELF
-    [MBProgressHUD showLoadToView:self.view];
     [JDWNetworkHelper POST:PTURL_API_UserGet parameters:nil success:^(id responseObject) {
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
             [strongSelf.detailArr removeAllObjects];
             SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
             strongSelf.model = model;
-
+            
             //职业
             if (self.model.job.count > 0) {
                 self.model.occupation = self.model.job.firstObject;
             }
             
-            [strongSelf reloadDataSource];
             //保存用户信息
             [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
             [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
+            
+            [strongSelf requestProvinceName];
         }else{
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
-
+            
         }
-        [MBProgressHUD hideHUDForView:strongSelf.view];
+        
+        
     } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:strongSelf.view];
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+}
+
+- (void)requestProvinceName {
+    WEAKSELF
+    STRONGSELF
+    NSString *strId = [NSString stringWithFormat:@"%ld",[DBAccountInfo sharedInstance].model.province_id];
+    NSString *url = [SPURL_API_CityName stringByAppendingPathComponent:strId];
+    [MBProgressHUD showLoadToView:self.view];
+
+    [JDWNetworkHelper POST:url parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            
+            [strongSelf.detailArr removeAllObjects];
+            SPCityModel *model = [SPCityModel modelWithJSON:responseDic[@"data"]];
+            NSString *name = [NSString stringWithFormat:@"%@ %@",strongSelf.model.areaName ?:@"",model.name];
+            strongSelf.model.areaName = name;
+            
+            [strongSelf requestCityName];
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+}
+
+- (void)requestCityName {
+    NSString *strId = [NSString stringWithFormat:@"%ld",[DBAccountInfo sharedInstance].model.city_id];
+    NSString *url = [SPURL_API_CityName stringByAppendingPathComponent:strId];
+    
+    WEAKSELF
+    STRONGSELF
+    [JDWNetworkHelper POST:url parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            
+            [strongSelf.detailArr removeAllObjects];
+            SPCityModel *model = [SPCityModel modelWithJSON:responseDic[@"data"]];
+            NSString *name = [NSString stringWithFormat:@"%@ %@",strongSelf.model.areaName ?:@"",model.name];
+            strongSelf.model.areaName = name;
+            
+            [strongSelf requestDistrictName];
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+    } failure:^(NSError *error) {
         [MBProgressHUD showMessage:Networkerror];
         [MBProgressHUD showAutoMessage:Networkerror];
     }];
     
+}
+- (void)requestDistrictName {
+    NSString *strId = [NSString stringWithFormat:@"%ld",[DBAccountInfo sharedInstance].model.district_id];
+    NSString *url = [SPURL_API_CityName stringByAppendingPathComponent:strId];
+    WEAKSELF
+    STRONGSELF
+    
+    [JDWNetworkHelper POST:url parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            [strongSelf.detailArr removeAllObjects];
+            SPCityModel *model = [SPCityModel modelWithJSON:responseDic[@"data"]];
+            NSString *name = [NSString stringWithFormat:@"%@ %@",strongSelf.model.areaName ?: @"",model.name];
+            strongSelf.model.areaName = name;
+            [strongSelf reloadDataSource];
+            
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD showAutoMessage:Networkerror];
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        
+    }];
     
 }
+
+
+
 
 - (void)reloadDataSource {
     NSString *sex;
@@ -116,7 +202,7 @@
                                                         @[sex,self.model.birthday ?: @"未填写"],
                                                         @[self.model.occupation?:@"未填写",self.model.unit ?: @"未填写"],
                                                         @[self.model.university ?:@"未填写",self.model.education ?:@"未填写"],
-                                                        @[self.model.province_id ?:@"未填写"],
+                                                        @[self.model.areaName ?:@"未填写"],
                                                         @[self.model.height ?:@"未填写",self.model.weight ?:@"未填写"],
                                                         @[self.model.income ?:@"未填写"],
                                                         @[self.model.signature ?:@"未填写"],
@@ -237,7 +323,7 @@
                     [strongSelf reloadDataSource];
                 };
             }
-        }else if (indexPath.section == 4) {
+        }else if (indexPath.section == 4) {//地区
             SPAreaViewController *area = [[SPAreaViewController alloc] init];
             area.delegate = self;
             [self.navigationController pushViewController:area animated:YES];
@@ -291,19 +377,28 @@
 #pragma mark - SPJobDelegate
 
 - (void)selectAreaName:(NSString *)areaName {
-    self.model.province_id = areaName;
+    self.model.areaName = areaName;
+    self.model.province_id = [DBAccountInfo sharedInstance].model.province_id;
+    self.model.city_id = [DBAccountInfo sharedInstance].model.city_id;
+    self.model.district_id = [DBAccountInfo sharedInstance].model.district_id;
+
     [self reloadDataSource];
 }
 
 #pragma mark - click
 - (void)back {
     [super back];
+
     
     NSDictionary *parsms = @{
-                             @"nick_name":self.model.nickName,
-                             @"sex":@(self.model.sex),
-                             @"birthday":self.model.birthday,
-                             @"job":@[self.model.occupation],
+                             @"nick_name":self.model.nickName ?: [DBAccountInfo sharedInstance].model.nickName,
+                             @"sex":@(self.model.sex) ?: @([DBAccountInfo sharedInstance].model.sex),
+                             @"birthday":self.model.birthday ?: [DBAccountInfo sharedInstance].model.birthday,
+                             @"job":@[self.model.occupation] ?: [DBAccountInfo sharedInstance].model.job,
+                             @"province_id":@(self.model.province_id) ?: @([DBAccountInfo sharedInstance].model.province_id),
+                             @"city_id":@(self.model.city_id) ?: @([DBAccountInfo sharedInstance].model.city_id),
+                             @"district_id":@(self.model.district_id) ?: @([DBAccountInfo sharedInstance].model.district_id),
+
                              };
     WEAKSELF
     STRONGSELF

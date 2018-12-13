@@ -67,12 +67,13 @@
         if (indexPath.row == 0) {
             SPPursuitNoneTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pursuitNO forIndexPath:indexPath];
             cell.backgroundColor = [UIColor clearColor];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
             return cell;
         }
         UITableViewCell *cell = [[UITableViewCell alloc] init];
         cell.backgroundColor = [UIColor clearColor];
-
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.contentView addSubview:self.hunterBtn];
         return cell;
     }
@@ -100,6 +101,8 @@
     }else {
         SPPursuitHeadTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pursuitStr forIndexPath:indexPath];
         cell.model = self.dataArr[indexPath.row - self.promptArr.count];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
         return cell;
         
     }
@@ -108,6 +111,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row - self.promptArr.count >= 0) {
 //        SPBusinessCardController *business = [[SPBusinessCardController alloc] init];
 //        business.model = self.dataArr[indexPath.row - self.promptArr.count];

@@ -29,7 +29,8 @@ static NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcH
 #define SPURL_API_Job [NSString stringWithFormat:@"%@/job/list",BASE_HttpURL]
 //所有城市列表
 #define SPURL_API_City [NSString stringWithFormat:@"%@/city/list",BASE_HttpURL]
-
+//城市id换名称
+#define SPURL_API_CityName [NSString stringWithFormat:@"%@/city",BASE_HttpURL]
 
 
 //意见反馈

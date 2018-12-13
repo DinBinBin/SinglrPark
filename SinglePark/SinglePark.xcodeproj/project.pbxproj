@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7934B6A721C239C8005273A5 /* SPPursuitHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7934B6A621C239C8005273A5 /* SPPursuitHomeView.m */; };
+		7934B6A921C239D1005273A5 /* SPPursuitHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7934B6A821C239D1005273A5 /* SPPursuitHomeView.xib */; };
 		793B5CA921BA0C9000710AD7 /* SPAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CA821BA0C9000710AD7 /* SPAreaViewController.m */; };
 		793B5CAC21BA0ED900710AD7 /* SPCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CAB21BA0ED900710AD7 /* SPCityModel.m */; };
 		793B5CB721BA66AF00710AD7 /* SPMineHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */; };
@@ -174,6 +176,9 @@
 /* Begin PBXFileReference section */
 		18771F1749CBF4B39C200A0C /* Pods_SinglePark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SinglePark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280479056BE1971DEC21CD90 /* Pods-SinglePark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinglePark.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark.release.xcconfig"; sourceTree = "<group>"; };
+		7934B6A521C239C8005273A5 /* SPPursuitHomeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPursuitHomeView.h; sourceTree = "<group>"; };
+		7934B6A621C239C8005273A5 /* SPPursuitHomeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPursuitHomeView.m; sourceTree = "<group>"; };
+		7934B6A821C239D1005273A5 /* SPPursuitHomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SPPursuitHomeView.xib; sourceTree = "<group>"; };
 		793B5CA721BA0C9000710AD7 /* SPAreaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAreaViewController.h; sourceTree = "<group>"; };
 		793B5CA821BA0C9000710AD7 /* SPAreaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPAreaViewController.m; sourceTree = "<group>"; };
 		793B5CAA21BA0ED900710AD7 /* SPCityModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCityModel.h; sourceTree = "<group>"; };
@@ -826,6 +831,9 @@
 				81A3D4A621BD2C0200FF0E00 /* SPPursuitNoneTabCell.m */,
 				813CB04A217C736400E4E67B /* SPPursuitHeadTabCell.h */,
 				813CB04B217C736400E4E67B /* SPPursuitHeadTabCell.m */,
+				7934B6A521C239C8005273A5 /* SPPursuitHomeView.h */,
+				7934B6A621C239C8005273A5 /* SPPursuitHomeView.m */,
+				7934B6A821C239D1005273A5 /* SPPursuitHomeView.xib */,
 			);
 			path = "追求的人";
 			sourceTree = "<group>";
@@ -1338,6 +1346,7 @@
 				818977CA211FE7D600928071 /* Main.storyboard in Resources */,
 				793B5CB821BA66AF00710AD7 /* SPMineHeadCell.xib in Resources */,
 				E64FB1F221C0B97300374D58 /* toast_cancelsend@2x.png in Resources */,
+				7934B6A921C239D1005273A5 /* SPPursuitHomeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1443,6 +1452,7 @@
 				E64643E421BE57400066E0F3 /* InputToolbar.m in Sources */,
 				8110C5CE212001CE00D013FC /* SGTabBarController.m in Sources */,
 				E64643E121BE57400066E0F3 /* EmojiCollectionViewCell.m in Sources */,
+				7934B6A721C239C8005273A5 /* SPPursuitHomeView.m in Sources */,
 				811DB240216B9D8900ABB889 /* SPHeadPersonTabCell.m in Sources */,
 				793B5CA921BA0C9000710AD7 /* SPAreaViewController.m in Sources */,
 				E64FB20321C1078600374D58 /* MBProgress.m in Sources */,

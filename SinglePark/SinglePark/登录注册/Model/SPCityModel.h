@@ -11,8 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPCityModel : SGBaseModel
-@property (nonatomic, assign) int userId;
+
+@property (nonatomic, assign) NSInteger value;
+@property (nonatomic, assign) NSInteger parent;
 @property (nonatomic, copy) NSString *name;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -13,7 +13,7 @@
 @optional
 - (void)selectJobName:(NSString *)name;
 - (void)selectAreaName:(NSString *)areaName;
-
+- (void)goVideoClick;
 @end
 
 #endif /* SPSelectDelegate_h */

@@ -10,7 +10,10 @@
 
 @implementation SPCityModel
 
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"userId": @"id"};
++ (NSDictionary<NSString *,id> *)modelCustomPropertyMapper {
+    return @{@"value": @"id",
+             @"parent": @"pid"
+             };
 }
+
 @end

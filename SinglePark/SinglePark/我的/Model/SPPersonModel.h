@@ -23,9 +23,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy)NSString *unit; //所在单位
 @property (nonatomic,copy)NSString *university; //毕业学校
 @property (nonatomic,copy)NSString *education; //学历
-@property (nonatomic,copy)NSString *province_id; //省
-@property (nonatomic,copy)NSString *city_id; //市
-@property (nonatomic,copy)NSString *district_id; //区
+@property (nonatomic,assign)NSInteger province_id; //省
+@property (nonatomic,assign)NSInteger city_id; //市
+@property (nonatomic,assign)NSInteger district_id; //区
+@property (nonatomic,copy)NSString *areaName;
 @property (nonatomic,copy)NSString *height; //身高
 @property (nonatomic,copy)NSString *weight; //体重
 @property (nonatomic,copy)NSString *income; //年收入
