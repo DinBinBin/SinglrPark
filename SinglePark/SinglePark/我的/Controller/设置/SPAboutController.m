@@ -7,6 +7,7 @@
 //
 
 #import "SPAboutController.h"
+#import "SFBaseWebViewController.h"
 
 @interface SPAboutController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -74,7 +75,11 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.row == 1) {
+        NSString *url = [SPURL_API_Document stringByAppendingPathComponent:@"1"];
+        SFBaseWebViewController *webViewVC = [SFBaseWebViewController createWebView:url title:@"服务协议"];
+        [self.navigationController pushViewController:webViewVC animated:YES];
+    }
     
 }
 

@@ -136,4 +136,18 @@ cell.layoutMargins = UIEdgeInsetsZero; \
 cell.preservesSuperviewLayoutMargins = NO; \
 }
 
+
+#define MF_SINGLETION(__clazz) \
++ (__clazz *)sharedInstance;
+
+#define MF_DEF_SINGLETION(__clazz) \
++ (__clazz *)sharedInstance \
+{\
+static dispatch_once_t once; \
+static __clazz * __singletion;\
+dispatch_once(&once,^{__singletion = [[__clazz alloc] init];});\
+return __singletion;\
+}
+
+
 #endif /* Common_Style_h */

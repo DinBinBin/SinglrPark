@@ -35,11 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy)NSString *invitationCode;//邀请码
 @property (nonatomic,copy)NSString *phone;//手机号
 @property (nonatomic,copy)NSString *recommend;//推荐指数
-@property (nonatomic,copy)NSString *latitude;//纬度
-@property (nonatomic,copy)NSString *longitude;//经度
-@property (nonatomic,assign)int config_notice;//新消息通知 1:开启；2:关闭
-@property (nonatomic,assign)int config_notice_detail;//新消息详情通知 1:开启；2:关闭
-@property (nonatomic,assign)int config_privacy;//隐私设置 1:完全公开；2:仅有视频的用户可见；3;我追的人可见；4:追我的人可见；5:仅自己可见
+@property (nonatomic,assign)double latitude;//纬度
+@property (nonatomic,assign)double longitude;//经度
+@property (nonatomic,assign)NSInteger config_notice;//新消息通知 1:开启；2:关闭
+@property (nonatomic,assign)NSInteger config_notice_detail;//新消息详情通知 1:开启；2:关闭
+@property (nonatomic,assign)NSInteger config_privacy;//隐私设置 1:完全公开；2:仅有视频的用户可见；3;我追的人可见；4:追我的人可见；5:仅自己可见
 
 
 

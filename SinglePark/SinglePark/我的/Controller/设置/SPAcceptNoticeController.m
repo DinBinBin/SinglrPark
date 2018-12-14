@@ -47,7 +47,9 @@
         cell.textLabel.text = @"接收新消息通知";
         UISwitch *mySwitch = [UISwitch new];
         mySwitch.onTintColor = ThemeColor;
-        mySwitch.on = YES;
+        mySwitch.on = [self checkUserNotificationSetting];
+        [mySwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+
         cell.accessoryView = mySwitch;
         return cell;
  
@@ -80,6 +82,39 @@
 
     }
     return labview;
+}
+
+- (BOOL)checkUserNotificationSetting {
+    if ([[UIDevice currentDevice].systemVersion floatValue]>=8.0f) {
+        UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
+        if (UIUserNotificationTypeNone == setting.types) {
+            NSLog(@"推送关闭");
+            return NO;
+        }else{
+            NSLog(@"推送打开");
+            return YES;
+        }
+    }
+    return NO;
+    
+}
+
+-(void)switchAction:(id)sender
+{
+    if (UIApplicationOpenSettingsURLString != NULL) {
+        UIApplication *application = [UIApplication sharedApplication];
+        NSURL *URL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+            if (@available(iOS 10.0, *)) {
+                [application openURL:URL options:@{} completionHandler:nil];
+            } else {
+                // Fallback on earlier versions
+            }
+        } else {
+            [application openURL:URL];
+        }
+    }
+
 }
 
 - (UITableView *)listTabView{

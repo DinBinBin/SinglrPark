@@ -1,23 +1,20 @@
 //
-//  SPProtectionController.m
+//  SPProtectionOptViewController.m
 //  SinglePark
 //
-//  Created by DBB on 2018/10/20.
-//  Copyright © 2018年 DBB. All rights reserved.
+//  Created by chensw on 2018/12/14.
+//  Copyright © 2018 DBB. All rights reserved.
 //
 
-#import "SPProtectionController.h"
 #import "SPProtectionOptViewController.h"
 
-
-@interface SPProtectionController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SPProtectionOptViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
 @property (nonatomic,strong)NSArray *titleArr;
-@property (nonatomic,assign)NSInteger selItem;
 
 @end
 
-@implementation SPProtectionController
+@implementation SPProtectionOptViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,7 +27,7 @@
 }
 
 - (void)getdata{
-    self.titleArr = @[@"完全公开模式",@"仅有视频的用户可见",@"指定用户可见",@"仅自己可见"];
+    self.titleArr = @[@"我追的人可见",@"追我的人可见"];
     
     [self.listTabView reloadData];
     
@@ -39,7 +36,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
- return    self.titleArr.count;
+    return    self.titleArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -53,7 +50,7 @@
         UIImageView *imageView = [[UIImageView alloc] initWithImage:ImageNamed(@"chase")];
         imageView.frame = CGRectMake(0, 0, 20, 20);
         cell.accessoryView = imageView;
-
+        
     }
     
     if (indexPath.row == 2) {
@@ -61,7 +58,7 @@
     }
     
     return cell;
-
+    
 }
 
 
@@ -69,13 +66,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.row == 2) {
-        SPProtectionOptViewController *vc = [[SPProtectionOptViewController alloc] init];
-        [self.navigationController pushViewController:vc animated:YES];
+        
     }else{
         [DBAccountInfo sharedInstance].model.config_privacy = indexPath.row + 1;
         [tableView reloadData];
     }
-
+    
 }
 
 - (CGFloat )tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -85,35 +81,6 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     return [[UIView alloc] init];
 }
-
-- (void)back {
-    [super back];
-    
-    
-    NSDictionary *parsms = @{
-                             @"config_privacy":@([DBAccountInfo sharedInstance].model.config_privacy),
-
-                             };
-    WEAKSELF
-    STRONGSELF
-    [MBProgressHUD showLoadToView:self.view];
-    [JDWNetworkHelper POST:PTURL_API_UserChage parameters:parsms success:^(id responseObject) {
-        [MBProgressHUD hideHUDForView:strongSelf.view];
-        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
-        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            //            [MBProgressHUD showMessage:@"修改成功"];
-        }else{
-            [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
-        }
-        
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:strongSelf.view];
-        [MBProgressHUD showAutoMessage:Networkerror];
-    }];
-    
-    
-}
-
 
 - (UITableView *)listTabView{
     if (_listTabView == nil) {
@@ -126,6 +93,7 @@
     }
     return _listTabView;
 }
+
 
 
 @end

@@ -19,6 +19,7 @@
 @property (nonatomic,copy)NSString *coverStr;
 @property (nonatomic,strong)NSArray *titleArr;
 @property (nonatomic,strong)NSArray *imgArr;
+@property (nonatomic, strong) SPPersonModel *model;
 
 @property (nonatomic,strong)SPPersonModel *personmodel;
 
@@ -35,6 +36,8 @@
     }];
     
     [self getdata];
+    
+    [self requestData];
 }
 
 - (void)getdata{
@@ -53,6 +56,34 @@
     self.personmodel = [SPPersonModel modelWithJSON:dic1];
     [self.listTabView reloadData];
     
+}
+
+- (void)requestData {
+    WEAKSELF
+    STRONGSELF
+    [MBProgressHUD showLoadToView:self.view];
+    [JDWNetworkHelper POST:PTURL_API_UserGet parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
+            strongSelf.model = model;
+            
+            //保存用户信息
+            [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
+            [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
+            
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+        [MBProgressHUD hideHUDForView:self.view];
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD showAutoMessage:Networkerror];
+        [MBProgressHUD hideHUDForView:self.view];
+    }];
 }
 #pragma mark ----UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

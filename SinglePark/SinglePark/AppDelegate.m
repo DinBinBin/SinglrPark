@@ -58,6 +58,7 @@
     
 }
 
+
 - (void)setUI{
         SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
         self.window.rootViewController = sgTabBar;

@@ -28,6 +28,8 @@
     
     [self setUI];
     [self getModel];
+    
+//    [self requestData];
 }
 
 - (void)setUI{
@@ -66,6 +68,30 @@
     self.fixedarr  = [NSMutableArray arrayWithObjects:model4,model3,model,model2, nil];
     [self.messageTabView reloadData];
     
+}
+
+- (void)requestData {
+    NSDictionary *parameters = @{@"page":@"1",@"limit":@"10"};
+    
+    [MBProgressHUD showLoadToView:self.view];
+    [JDWNetworkHelper POST:SPURL_API_Follows parameters:parameters success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view];
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            
+            
+        }else{
+            if ([responseDic[@"messages"] isKindOfClass: [NSNull class]]) {
+                [MBProgressHUD showAutoMessage:@"请求失败"];
+                
+            }else{
+                [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+            }
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
 }
 
 #pragma mark ----UITableViewDataSource

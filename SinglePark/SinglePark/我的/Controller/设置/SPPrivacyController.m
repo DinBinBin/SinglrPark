@@ -9,10 +9,13 @@
 #import "SPPrivacyController.h"
 #import "SPProtectionController.h"
 #import "SPBlacklistController.h"
+#import "MFMapManager.h"
 
-@interface SPPrivacyController ()<UITableViewDelegate,UITableViewDataSource>
+
+@interface SPPrivacyController ()<UITableViewDelegate,UITableViewDataSource,MapManagerLocationDelegate>
 @property (nonatomic,strong)UITableView *listTabView;
 @property (nonatomic,strong)NSArray *titleArr;
+@property (nonatomic, strong) CLGeocoder *location; // 地理编码
 
 @end
 
@@ -27,6 +30,10 @@
     }];
     
     [self getdata];
+    
+    self.location = [[CLGeocoder alloc] init];
+
+    
 }
 
 - (void)getdata{
@@ -53,6 +60,8 @@
         UISwitch *mySwitch = [UISwitch new];
         mySwitch.onTintColor = ThemeColor;
         mySwitch.on = YES;
+        [mySwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+
         cell.accessoryView = mySwitch;
         return cell;
     }else if (indexPath.row == 1) {
@@ -104,6 +113,42 @@
     return [[UIView alloc] init];
 }
 
+
+-(void)switchAction:(id)sender
+{
+    UISwitch *sw = (UISwitch *)sender;
+    if (sw.on) {
+        MFMapManager *manager = [MFMapManager sharedInstance];
+        manager.delegate = self;
+        [manager start];
+    }
+    
+
+    
+}
+
+- (void)mapManager:(MFMapManager *)manager didUpdateAndGetLastCLLocation:(CLLocation *)location{
+    [self.location reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (!error) {
+            CLPlacemark *pl = [placemarks firstObject];
+            NSString *areaStr = [NSString stringWithFormat:@"%@ %@ %@",pl.administrativeArea,pl.locality,pl.subLocality];
+            NSLog(@"area:%@",areaStr);
+
+            
+            
+            //位置坐标
+            
+            CLLocationCoordinate2D coordinate=location.coordinate;
+            
+            NSLog(@"您的当前位置:经度：%f,纬度：%f,海拔：%f,航向：%f,速度：%f",coordinate.longitude,coordinate.latitude,location.altitude,location.course,location.speed);
+            [DBAccountInfo sharedInstance].model.latitude = coordinate.latitude;
+            [DBAccountInfo sharedInstance].model.longitude = coordinate.longitude;
+            
+        }else{
+            NSLog(@"反地理编码错误");
+        }
+    }];
+}
 
 - (UITableView *)listTabView{
     if (_listTabView == nil) {

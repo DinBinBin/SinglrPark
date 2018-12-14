@@ -14,9 +14,8 @@
 @interface SPPursuitController ()<UIScrollViewDelegate>
 @property(nonatomic,strong) UISegmentedControl *segmentControl;
 @property (nonatomic,strong)UIScrollView *pursuitScroll;
-@property (nonatomic,strong)SPPursuitListView *pursuitMe;
-//@property (nonatomic,strong)SPPursuitListView *mePursuit;
-@property (nonatomic, strong) SPPursuitHomeView *mePursuit;
+@property (nonatomic,strong)SPPursuitListView *pursuitMe; // 追我的人
+@property (nonatomic, strong) SPPursuitHomeView *mePursuit;// 我追的人
 
 @end
 
@@ -75,7 +74,7 @@
 // 可用
 - (SPPursuitListView *)pursuitMe{
     if (_pursuitMe == nil) {
-        _pursuitMe = [[SPPursuitListView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH-kNavigationHeight)];
+        _pursuitMe = [[SPPursuitListView alloc] initWithFrame:self.pursuitScroll.bounds];
         _pursuitMe.promptArr = @[@"人数",@"人名片中显示",@"如果您关闭此项，您的个人名片中将不再显示您的追求者，默认开启。追我的人："];
         _pursuitMe.isme = YES;
         _pursuitMe.typede = PursuitTypeNone;
