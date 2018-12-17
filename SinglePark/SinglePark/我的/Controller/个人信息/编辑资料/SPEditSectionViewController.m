@@ -172,7 +172,7 @@
     
     if (self.type == SPJobEditType || self.type == SPUnitEditType || self.type == SPUniversityEditType) {
         if (indexPath.section == 0) {
-            if (self.dataSource.count > 0) {
+            if (indexPath.row == 0) {
                 
                 NSString *holderText;
 

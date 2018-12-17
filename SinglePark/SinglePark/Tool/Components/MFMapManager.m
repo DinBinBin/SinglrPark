@@ -29,7 +29,15 @@ MF_DEF_SINGLETION(MFMapManager)
         [_locationManager requestWhenInUseAuthorization];
     }
     
+    //每隔多少米定位一次（这里的设置为任何的移动）
+    _locationManager.distanceFilter=kCLLocationAccuracyKilometer;
+    //设置定位的精准度，一般精准度越高，越耗电
+    _locationManager.desiredAccuracy=kCLLocationAccuracyKilometer;
+    
     [_locationManager startUpdatingLocation];
+    
+
+    
 }
 
 /** 定位成功 */

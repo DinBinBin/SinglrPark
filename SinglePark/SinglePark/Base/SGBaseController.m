@@ -8,8 +8,11 @@
 
 #import "SGBaseController.h"
 #import "LCLoginController.h"
+#import "MFMapManager.h"
 
-@interface SGBaseController ()
+
+@interface SGBaseController ()<MapManagerLocationDelegate>
+@property (nonatomic, strong) CLGeocoder *location; // 地理编码
 
 @end
 
@@ -105,6 +108,14 @@
 //    [self navTitleColor:[UIColor whiteColor]];
     [self _creatBackBtn];
 
+    if ([CLLocationManager locationServicesEnabled]) {
+        self.location = [[CLGeocoder alloc] init];
+        MFMapManager *manager = [MFMapManager sharedInstance];
+        manager.delegate = self;
+        [manager start];
+        
+    }
+    
 
 }
 
@@ -173,4 +184,48 @@
     }
     return nil;
 }
+
+- (void)mapManager:(MFMapManager *)manager didUpdateAndGetLastCLLocation:(CLLocation *)location{
+    [self.location reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        if (!error) {
+            CLPlacemark *pl = [placemarks firstObject];
+            NSString *areaStr = [NSString stringWithFormat:@"%@ %@ %@",pl.administrativeArea,pl.locality,pl.subLocality];
+            NSLog(@"area:%@",areaStr);
+            
+            //位置坐标
+            
+            CLLocationCoordinate2D coordinate=location.coordinate;
+            
+            NSLog(@"您的当前位置:经度：%f,纬度：%f,海拔：%f,航向：%f,速度：%f",coordinate.longitude,coordinate.latitude,location.altitude,location.course,location.speed);
+            [DBAccountInfo sharedInstance].model.latitude = coordinate.latitude;
+            [DBAccountInfo sharedInstance].model.longitude = coordinate.longitude;
+            
+            [self updateUserLocationInfo];
+            
+        }else{
+            NSLog(@"反地理编码错误");
+        }
+    }];
+}
+
+
+- (void)updateUserLocationInfo {
+    NSDictionary *parsms = @{
+                             @"latitude":@([DBAccountInfo sharedInstance].model.latitude),
+                             @"longitude":@([DBAccountInfo sharedInstance].model.longitude),
+                             };
+
+    [JDWNetworkHelper POST:PTURL_API_UserChage parameters:parsms success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            //            [MBProgressHUD showMessage:@"修改成功"];
+        }else{
+//            [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+        }
+        
+    } failure:^(NSError *error) {
+
+    }];
+}
+
 @end

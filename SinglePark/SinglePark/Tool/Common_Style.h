@@ -18,8 +18,8 @@
 #define CodeSend         @"验证码已发送"
 #define KIsiPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
-#define KAddIPhonex (KIsiPhoneX?24:0)
-#define KsafeTabIPhonex (KIsiPhoneX?34:0)
+#define KAddIPhonex (isIPhoneXAll?24:0)
+#define KsafeTabIPhonex (isIPhoneXAll?34:0)
 #define JDWLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #define kSFTimeoutInterval 30.0f
 #define ND [NSUserDefaults standardUserDefaults]

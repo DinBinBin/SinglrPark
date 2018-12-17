@@ -108,11 +108,11 @@
 - (UIButton *)readBtn{
     if (_readBtn == nil) {
         _readBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _readBtn.frame = CGRectMake(self.readPrompt.right-5, self.readPrompt.top,80, 25);
+        _readBtn.frame = CGRectMake(self.readPrompt.right-5, self.readPrompt.top,100, 25);
         [_readBtn setTitle:@"《服务协议》" forState:UIControlStateNormal];
         [_readBtn setTitleColor:MyWordRed forState:UIControlStateNormal];
         _readBtn.clipsToBounds = YES;
-        _readBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        _readBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         _readBtn.titleLabel.font = FONT(Width(12));
         _readBtn.backgroundColor = [UIColor clearColor];
         [_readBtn addTarget:self action:@selector(rednegotiate) forControlEvents:UIControlEventTouchUpInside];
@@ -122,9 +122,9 @@
 }
 
 - (void)next{
-            SPRegisterController *registerc = [[SPRegisterController alloc] init];
-            [self.navigationController pushViewController:registerc animated:YES];
-    /*
+//            SPRegisterController *registerc = [[SPRegisterController alloc] init];
+//            [self.navigationController pushViewController:registerc animated:YES];
+    
     if (self.invitationField.text.length == 0) {
         [MBProgressHUD showMessage:@"请输入邀请码"];
         return;
@@ -144,7 +144,7 @@
     } failure:^(NSError *error) {
         [MBProgressHUD showAutoMessage:Networkerror];
     }];
-    */
+    
 }
 
 

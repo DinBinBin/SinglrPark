@@ -21,8 +21,6 @@
 @property (nonatomic,strong)NSArray *imgArr;
 @property (nonatomic, strong) SPPersonModel *model;
 
-@property (nonatomic,strong)SPPersonModel *personmodel;
-
 @end
 
 @implementation SPMineVC
@@ -37,7 +35,13 @@
     
     [self getdata];
     
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     [self requestData];
+
 }
 
 - (void)getdata{
@@ -53,7 +57,7 @@
                            @"didian":@"广东深圳",
                            @"number":@[@"4",@"4",@"4"]
                            };
-    self.personmodel = [SPPersonModel modelWithJSON:dic1];
+    self.model = [SPPersonModel modelWithJSON:dic1];
     [self.listTabView reloadData];
     
 }
@@ -71,6 +75,8 @@
             //保存用户信息
             [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
             [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
+            
+            [strongSelf.listTabView reloadData];
             
         }else{
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
@@ -110,7 +116,7 @@
     
     if (indexPath.section == 0) {
         SPMineHeadTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr forIndexPath:indexPath];
-        cell.model =  self.personmodel;
+        cell.model =  self.model;
         cell.backgroundColor = [UIColor whiteColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;

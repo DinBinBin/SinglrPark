@@ -15,7 +15,6 @@
 @interface SPPrivacyController ()<UITableViewDelegate,UITableViewDataSource,MapManagerLocationDelegate>
 @property (nonatomic,strong)UITableView *listTabView;
 @property (nonatomic,strong)NSArray *titleArr;
-@property (nonatomic, strong) CLGeocoder *location; // 地理编码
 
 @end
 
@@ -31,7 +30,6 @@
     
     [self getdata];
     
-    self.location = [[CLGeocoder alloc] init];
 
     
 }
@@ -117,38 +115,36 @@
 -(void)switchAction:(id)sender
 {
     UISwitch *sw = (UISwitch *)sender;
+
     if (sw.on) {
-        MFMapManager *manager = [MFMapManager sharedInstance];
-        manager.delegate = self;
-        [manager start];
-    }
-    
-
-    
-}
-
-- (void)mapManager:(MFMapManager *)manager didUpdateAndGetLastCLLocation:(CLLocation *)location{
-    [self.location reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
-        if (!error) {
-            CLPlacemark *pl = [placemarks firstObject];
-            NSString *areaStr = [NSString stringWithFormat:@"%@ %@ %@",pl.administrativeArea,pl.locality,pl.subLocality];
-            NSLog(@"area:%@",areaStr);
-
+        //判断用户定位服务是否开启
+        if ([CLLocationManager locationServicesEnabled]) {
+            MFMapManager *manager = [MFMapManager sharedInstance];
+            [manager start];
             
-            
-            //位置坐标
-            
-            CLLocationCoordinate2D coordinate=location.coordinate;
-            
-            NSLog(@"您的当前位置:经度：%f,纬度：%f,海拔：%f,航向：%f,速度：%f",coordinate.longitude,coordinate.latitude,location.altitude,location.course,location.speed);
-            [DBAccountInfo sharedInstance].model.latitude = coordinate.latitude;
-            [DBAccountInfo sharedInstance].model.longitude = coordinate.longitude;
-            
-        }else{
-            NSLog(@"反地理编码错误");
+        }else {
+            //不能定位用户的位置
+            //1.提醒用户检查当前的网络状况
+            //2.提醒用户打开定位开关
+            if (UIApplicationOpenSettingsURLString != NULL) {
+                UIApplication *application = [UIApplication sharedApplication];
+                NSURL *URL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+                    if (@available(iOS 10.0, *)) {
+                        [application openURL:URL options:@{} completionHandler:nil];
+                    } else {
+                        // Fallback on earlier versions
+                    }
+                } else {
+                    [application openURL:URL];
+                }
+            }
         }
-    }];
+    }
+
+    
 }
+
 
 - (UITableView *)listTabView{
     if (_listTabView == nil) {
