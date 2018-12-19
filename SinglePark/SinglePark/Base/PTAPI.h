@@ -40,13 +40,19 @@ static NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcH
 //追讯
 #define SPURL_API_Follows [NSString stringWithFormat:@"%@/follows/list",BASE_HttpURL]
 
+// 获取七牛token
+#define SPQiniuToken [NSString stringWithFormat:@"%@/qiniu",BASE_HttpURL]
+
+//首页接口
+#define PTURL_API_Index [NSString stringWithFormat:@"%@/home",BASE_HttpURL]
+
+
+
 
 
 //登录接口
 #define SPURL_API_Login [NSString stringWithFormat:@"%@/login",BASE_HttpURL]
 
-//首页接口
-#define PTURL_API_Index [NSString stringWithFormat:@"%@/app/index/index.do",BASE_HttpURL]
 
 //登录接口
 #define PTURL_API_LOGIN [NSString stringWithFormat:@"%@/app/login/login.do",BASE_HttpURL]

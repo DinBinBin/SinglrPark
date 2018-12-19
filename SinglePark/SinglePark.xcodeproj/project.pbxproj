@@ -141,6 +141,7 @@
 		81FB4C462165F79E0090142A /* SPCoverTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FB4C452165F79E0090142A /* SPCoverTabCell.m */; };
 		81FB4C492165F8B60090142A /* SPPlayVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FB4C482165F8B60090142A /* SPPlayVideoController.m */; };
 		D0221C4323ECBD8A376F4DE9 /* Pods_SinglePark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18771F1749CBF4B39C200A0C /* Pods_SinglePark.framework */; };
+		E6463EDE21CA170B0090294F /* SPUploadingController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6463EDD21CA170B0090294F /* SPUploadingController.m */; };
 		E64643DF21BE57400066E0F3 /* CollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E646434121BE57400066E0F3 /* CollectionViewFlowLayout.m */; };
 		E64643E021BE57400066E0F3 /* EmojiButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = E646434321BE57400066E0F3 /* EmojiButtonView.m */; };
 		E64643E121BE57400066E0F3 /* EmojiCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E646434521BE57400066E0F3 /* EmojiCollectionViewCell.m */; };
@@ -418,6 +419,8 @@
 		81FB4C472165F8B60090142A /* SPPlayVideoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPlayVideoController.h; sourceTree = "<group>"; };
 		81FB4C482165F8B60090142A /* SPPlayVideoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPlayVideoController.m; sourceTree = "<group>"; };
 		B392D9C4D3BB1CA08B9C3B07 /* Pods-SinglePark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinglePark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark.debug.xcconfig"; sourceTree = "<group>"; };
+		E6463EDC21CA170B0090294F /* SPUploadingController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPUploadingController.h; sourceTree = "<group>"; };
+		E6463EDD21CA170B0090294F /* SPUploadingController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUploadingController.m; sourceTree = "<group>"; };
 		E646434021BE57400066E0F3 /* CollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		E646434121BE57400066E0F3 /* CollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		E646434221BE57400066E0F3 /* EmojiButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiButtonView.h; sourceTree = "<group>"; };
@@ -930,6 +933,8 @@
 				793D75D421C3A96B00F93E71 /* SPProtectionOptViewController.m */,
 				81C13992217B0531003C91B2 /* SPBlacklistController.h */,
 				81C13993217B0531003C91B2 /* SPBlacklistController.m */,
+				E6463EDC21CA170B0090294F /* SPUploadingController.h */,
+				E6463EDD21CA170B0090294F /* SPUploadingController.m */,
 			);
 			path = "设置";
 			sourceTree = "<group>";
@@ -1422,10 +1427,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/HappyDNS/HappyDNS.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/Qiniu/Qiniu.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
 				"${BUILT_PRODUCTS_DIR}/YYCategories/YYCategories.framework",
@@ -1434,10 +1441,12 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HappyDNS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Qiniu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCategories.framework",
@@ -1491,6 +1500,7 @@
 				8110C5D92120026E00D013FC /* SPMessageVC.m in Sources */,
 				E68CBB43219EB32F0010C2D6 /* JDWForceRefreshView.m in Sources */,
 				E64FB1F021C0B97300374D58 /* LGAudioPlayer.m in Sources */,
+				E6463EDE21CA170B0090294F /* SPUploadingController.m in Sources */,
 				813CB049217C734900E4E67B /* SPPursuitListView.m in Sources */,
 				81C13988217AFB10003C91B2 /* SPPrivacyController.m in Sources */,
 				8127A6DE21735B440033434C /* HSPopAnimation.m in Sources */,

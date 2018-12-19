@@ -69,6 +69,22 @@
     [self.dataArr addObject:model];
     [self.dataArr addObject:model];
     [self.listTabView reloadData];
+    
+//    获取视频列表
+    NSDictionary *params = @{@"":@""};
+    [JDWNetworkHelper POST:SPQiniuToken parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+           
+            
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+    }];
+    
+    
 }
 
 #pragma mark ----UITableViewDataSource

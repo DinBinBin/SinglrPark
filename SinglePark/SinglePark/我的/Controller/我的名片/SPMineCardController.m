@@ -11,6 +11,8 @@
 #import "SPCardVideoTabCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
+#import "SPUploadingController.h"
+#import "QiniuSDK.h"
 
 
 @interface SPMineCardController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate>
@@ -263,13 +265,27 @@
     self.listTabView.backgroundView = [[UIImageView alloc] initWithImage:img];
 
     [self commitHeadimg:img];
-    
     }
+    
+    
 }
 
 - (void)commitHeadimg:(UIImage *)img{
+    NSString *filePath = [kDocumentDirectoryPath stringByAppendingPathComponent:@"VideoImg"];
     
-
+    self.coverPath = [filePath stringByAppendingPathComponent:
+                      [NSString stringWithFormat:@"%5.2f.png",[[NSDate date] timeIntervalSince1970]]];  // 保存文件的名称
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:NO attributes:nil error:&error];
+    };
+    BOOL result =[UIImagePNGRepresentation(img)writeToFile:self.coverPath   atomically:YES]; // 保存成功会返回YES
+    if (result == YES) {
+        NSLog(@"保存成功");
+        [self gettoken:self.coverPath];
+    }else{
+        [MBProgressHUD showAutoMessage:@"选取失败"];
+    }
 }
 
 
@@ -330,6 +346,8 @@
     
     [self saveImage:videoImage title:[NSString stringWithFormat:@"%ld",self.selectrow]];
     CGImageRelease(image);
+    SPUploadingController *load = [[SPUploadingController alloc]  init];
+    [self.navigationController pushViewController:load animated:YES];
     
     //coverPath
     
@@ -387,6 +405,50 @@
     return path;
 }
 
+- (void)saveImage:(UIImage *)image{
+    NSString *filePath = [kDocumentDirectoryPath stringByAppendingPathComponent:@"VideoImg"];
+    
+    self.coverPath = [filePath stringByAppendingPathComponent:
+                      [NSString stringWithFormat:@"%5.2f.png",[[NSDate date] timeIntervalSince1970]]];  // 保存文件的名称
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:NO attributes:nil error:&error];
+    };
+    BOOL result =[UIImagePNGRepresentation(image)writeToFile:self.coverPath   atomically:YES]; // 保存成功会返回YES
+    if (result == YES) {
+        NSLog(@"保存成功");
+    }
+}
+
+// 上传图片
+- (void)gettoken:(NSString *)filePath{
+    
+    [JDWNetworkHelper POST:SPQiniuToken parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+             NSString *qiniutoken = responseDic[@"data"][@"qiniu"];
+            
+            QNUploadManager *upManager = [[QNUploadManager alloc] init];
+            QNUploadOption *uploadOption = [[QNUploadOption alloc] initWithMime:nil progressHandler:^(NSString *key, float percent) {
+                NSLog(@"percent == %.2f", percent);
+            }
+                                                                         params:nil
+                                                                       checkCrc:NO
+                                                             cancellationSignal:nil];
+            [upManager putFile:filePath key:nil token:qiniutoken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                NSLog(@"info ===== %@", info);
+                NSLog(@"resp ===== %@", resp);
+                
+
+            }
+                        option:uploadOption];
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+    }];
+}
 
 
 @end

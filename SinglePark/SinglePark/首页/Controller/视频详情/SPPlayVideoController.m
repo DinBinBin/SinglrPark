@@ -31,7 +31,7 @@
             if (index == self.datasource.count - 1 ) {
                 NSLog(@"此处调用加载方法，加载最新的视频信息");
                 //                [weakSelf loadData];
-                //                [weakSelf.scrollView addNewData:weakSelf.datasource];
+                                [weakSelf.scrollView addNewData:weakSelf.datasource];
             }
             if(index == 0){
 //                [weakSelf.view ar_addAndroidRefreshWithDelegate:self];
