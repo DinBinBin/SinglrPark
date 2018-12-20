@@ -20,12 +20,16 @@
 @property (nonatomic,strong)UIImageView *backview;
 @property (nonatomic,strong)UIImageView *promptImg;
 @property (nonatomic,strong)UILabel *promptLab;
-@property (nonatomic,strong)UIButton *voiceimg;
+@property (nonatomic,strong)UIImageView *voiceimg;
 @property (nonatomic,strong)UIButton *voiceBtn;
 @property (nonatomic,strong)UILabel *timeLab;
 @property (nonatomic, weak) NSTimer *timerOf60Second;
 @property (nonatomic, strong) NSString *mp3DataPath;
 @property (nonatomic, strong) NSString *originalDataPath;
+
+
+@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) NSInteger currentInt; // 倒计时间
 
 @end
 
@@ -42,48 +46,49 @@
     [self.backview addSubview:self.timeLab];
 
     [self.backview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view.mas_bottom).offset(Height(-100)-KsafeTabIPhonex);
-        make.left.equalTo(self.view).offset(40);
-        make.right.equalTo(self.view.mas_right).offset(-40);
-        make.height.mas_equalTo(200);
+        make.bottom.equalTo(self.view.mas_bottom).offset(Height(-80)-KsafeTabIPhonex);
+        make.left.equalTo(self.view).offset((kScreenWidth-Width(260))/2);
+        make.right.equalTo(self.view.mas_right).offset(-(kScreenWidth-Width(260))/2);
+        make.height.mas_equalTo(Width(300) );
     }];
     
     [self.promptImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.backview);
+        make.top.equalTo(self.backview).offset(3);
         make.left.equalTo(self.backview).offset(20);
         make.height.width.mas_equalTo(20);
     }];
 
     
     [self.promptLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.backview);
-        make.left.equalTo(self.promptImg).offset(20);
+        make.top.equalTo(self.promptImg);
+        make.left.equalTo(self.promptImg.mas_right).offset(20);
         make.width.mas_equalTo(200);
         
     }];
     
     [self.voiceimg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.promptImg.mas_bottom).offset(20);
+        make.top.equalTo(self.promptImg.mas_bottom).offset(30);
         make.centerX.equalTo(self.backview.mas_centerX);
-        make.height.width.mas_equalTo(50);
+        make.height.width.mas_equalTo(75);
         
     }];
     
     [self.voiceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.voiceimg.mas_bottom).offset(20);
+        make.top.equalTo(self.voiceimg.mas_bottom).offset(30);
         make.centerX.equalTo(self.voiceimg);
         make.width.mas_equalTo(200);
         
     }];
     
     [self.timeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.voiceBtn.mas_bottom).offset(5);
+        make.top.equalTo(self.voiceBtn.mas_bottom).offset(30);
         make.left.equalTo(self.promptImg).offset(20);
         make.width.mas_equalTo(200);
         
     }];
 
-
+    [self.voiceimg setCornerRadius];
+    [self.voiceBtn setCornerRadius:5];
 }
 
 #pragma mark ---- 懒加载
@@ -91,7 +96,8 @@
     if (_backview == nil) {
         _backview = [[UIImageView alloc] init];
         _backview.userInteractionEnabled = YES;
-        _backview.backgroundColor = [UIColor redColor];
+//        _backview.backgroundColor = [UIColor redColor];
+        [_backview setImage:[UIImage imageNamed:@"chasingground"]];
     }
     return _backview;
 }
@@ -99,7 +105,9 @@
 - (UIImageView *)promptImg{
     if (_promptImg == nil) {
         _promptImg = [[UIImageView alloc] init];
-        
+        [_promptImg setImage:[UIImage imageNamed:@"小喇叭"]];
+
+//        小喇叭
     }
     return _promptImg;
 }
@@ -114,10 +122,10 @@
     return _promptLab;
 }
 
-- (UIButton *)voiceimg{
+- (UIImageView *)voiceimg{
     if (_voiceimg == nil) {
-        _voiceimg = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_voiceimg setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        _voiceimg = [[UIImageView alloc] init];
+        [_voiceimg setImage:[UIImage imageNamed:@"4"]];
 
     }
     return _voiceimg;
@@ -194,7 +202,7 @@
     
     
     if ([[LGSoundRecorder shareInstance] soundRecordTime] == 0) {
-        NSLog(@"-------%@",[[LGSoundRecorder shareInstance] soundRecordTime]);
+        NSLog(@"-------%f",[[LGSoundRecorder shareInstance] soundRecordTime]);
         [self cancelRecordVoice];
         return;//60s自动发送后，松开手走这里
     }
@@ -335,12 +343,45 @@
 
 - (void)sendSound {
     self.originalDataPath = [[LGSoundRecorder shareInstance] soundFilePath];
-    [self.voiceimg setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     self.voiceBtn.backgroundColor = [UIColor clearColor];
     [self.voiceBtn setTitle:@"已发送，请等待回音" forState:UIControlStateNormal];
     [self.voiceBtn setTitleColor:FirstWordColor forState:UIControlStateNormal];
 
     self.voiceBtn.enabled = NO;
+    self.currentInt = 12*60*60;
+    
+    [self updateTimer:self.timer];
+
+}
+#pragma mark - set/get
+
+- (NSTimer *)timer
+{
+    if (_timer == nil) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateTimer:) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    }
+    return _timer;
+}
+
+- (void)updateTimer:(NSTimer *)timer
+{
+    NSInteger time = self.currentInt --;
+    
+    if (time <= 0) {
+        if (time == 0) {
+        }
+        [_timer invalidate];
+        _timer = nil;
+        return ;
+    }
+    
+    NSInteger h = time/ 3600;
+    //分
+    NSInteger m = time % 3600 / 60;
+    //秒
+    NSInteger s = time % 60;
+    self.timeLab.text = [NSString stringWithFormat:@"%02ld小时%02ld分%02ld秒", (long)h, (long)m,(long)s];
     
 }
 @end

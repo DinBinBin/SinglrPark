@@ -221,7 +221,7 @@
    
 	}
 //    if ([view isKindOfClass:[UIWindow class]]) {
-        [view addSubview:_HUD];
+        [view.window addSubview:_HUD];
 //    } else {
 //        [view.window addSubview:_HUD];
 //    }
