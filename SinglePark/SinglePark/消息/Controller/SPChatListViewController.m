@@ -10,7 +10,7 @@
 #import "SPConversationViewController.h"
 
 
-@interface SPChatListViewController ()
+@interface SPChatListViewController ()<RCIMUserInfoDataSource>
 
 @end
 
@@ -46,7 +46,15 @@
     
     self.conversationListTableView.tableFooterView = [UIView new];
     self.conversationListTableView.backgroundColor = PTBackColor;
+    
+    [RCIM sharedRCIM].userInfoDataSource = self;
 
+
+}
+
+- (NSMutableArray *)willReloadTableData:(NSMutableArray *)dataSource {
+    NSLog(@"会话列表:%@",dataSource);
+    return dataSource;
 }
 
 - (void)back{
@@ -62,6 +70,22 @@
     conversationVC.targetId = model.targetId;
     conversationVC.title = @"会话窗口";
     [self.navigationController pushViewController:conversationVC animated:YES];
+}
+
+#pragma mark - RCIMUserInfoDataSource
+- (void)getUserInfoWithUserId:(NSString *)userId
+                   completion:(void (^)(RCUserInfo *))completion{
+    
+    if ([userId isEqualToString:@"1001"]) {
+        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"测试2" portrait:@"http://imgsrc.baidu.com/forum/w=580/sign=5566fdc475094b36db921be593cd7c00/f92ae850352ac65c74f36568f8f2b21192138a60.jpg"];
+        return completion(userInfo);
+    }else if ([userId isEqualToString:@"1000"]){
+        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"我小时候就很美" portrait:@"http://img181.poco.cn/mypoco/myphoto/20110509/19/56595788201105091919176805863526146_007.jpg"];
+        completion(userInfo);
+    }else if ([userId isEqualToString:@"1002"]){
+        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"今晚吃鸡" portrait:@"http://img181.poco.cn/mypoco/myphoto/20110509/19/56595788201105091919176805863526146_007.jpg"];
+        completion(userInfo);
+    }
 }
 
 @end

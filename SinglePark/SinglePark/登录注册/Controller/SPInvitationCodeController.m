@@ -122,28 +122,28 @@
 }
 
 - (void)next{
-//            SPRegisterController *registerc = [[SPRegisterController alloc] init];
-//            [self.navigationController pushViewController:registerc animated:YES];
-    
-    if (self.invitationField.text.length == 0) {
-        [MBProgressHUD showMessage:@"请输入邀请码"];
-        return;
-    }
-    NSDictionary *parsms = @{@"code":self.invitationField.text,
-                             @"type":@"2"};
-    [JDWNetworkHelper POST:PTURLinvitation parameters:parsms success:^(id responseObject) {
-        NSDictionary *responseDic = (NSDictionary *)responseObject;
-        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
             SPRegisterController *registerc = [[SPRegisterController alloc] init];
             [self.navigationController pushViewController:registerc animated:YES];
-        }else{
-            [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
-        }
-
-
-    } failure:^(NSError *error) {
-        [MBProgressHUD showAutoMessage:Networkerror];
-    }];
+    
+//    if (self.invitationField.text.length == 0) {
+//        [MBProgressHUD showMessage:@"请输入邀请码"];
+//        return;
+//    }
+//    NSDictionary *parsms = @{@"code":self.invitationField.text,
+//                             @"type":@"2"};
+//    [JDWNetworkHelper POST:PTURLinvitation parameters:parsms success:^(id responseObject) {
+//        NSDictionary *responseDic = (NSDictionary *)responseObject;
+//        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+//            SPRegisterController *registerc = [[SPRegisterController alloc] init];
+//            [self.navigationController pushViewController:registerc animated:YES];
+//        }else{
+//            [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+//        }
+//
+//
+//    } failure:^(NSError *error) {
+//        [MBProgressHUD showAutoMessage:Networkerror];
+//    }];
     
 }
 

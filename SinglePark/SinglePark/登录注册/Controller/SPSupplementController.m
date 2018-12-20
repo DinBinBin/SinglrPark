@@ -12,6 +12,7 @@
 #import "SPAreaViewController.h"
 #import "SPEditSectionViewController.h"
 #import "MFDatePickView.h"
+#import "QiniuSDK.h"
 
 
 @interface SPSupplementController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,SPSelectDelegate,UIGestureRecognizerDelegate>
@@ -23,7 +24,8 @@
 
 @property (nonatomic,strong)UIButton *nextStepBtn;
 @property (nonatomic,strong)UILabel *promptLab;
-
+@property (nonatomic, copy) NSString *coverPath;
+@property (nonatomic, copy) NSString *avatar;
 /** 添加遮罩 */
 @property (nonatomic, strong) UIView *alertBackgroundView;
 @end
@@ -41,7 +43,7 @@
         make.edges.equalTo(self.view);
     }];
     
-    
+    [self commitHeadimg:self.img];
 }
 
 - (UITableView *)perfectTabView{
@@ -331,11 +333,58 @@
 }
 
 
+- (void)commitHeadimg:(UIImage *)img{
+    NSString *filePath = [kDocumentDirectoryPath stringByAppendingPathComponent:@"VideoImg"];
+    
+    self.coverPath = [filePath stringByAppendingPathComponent:
+                      [NSString stringWithFormat:@"%5.2f.png",[[NSDate date] timeIntervalSince1970]]];  // 保存文件的名称
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:NO attributes:nil error:&error];
+    };
+    BOOL result =[UIImagePNGRepresentation(img)writeToFile:self.coverPath   atomically:YES]; // 保存成功会返回YES
+    if (result == YES) {
+        NSLog(@"保存成功");
+        [self gettoken:self.coverPath];
+    }else{
+        [MBProgressHUD showAutoMessage:@"选取失败"];
+    }
+}
+- (void)gettoken:(NSString *)filePath{
+    
+    [JDWNetworkHelper POST:SPQiniuToken parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSString *qiniutoken = responseDic[@"data"][@"qiniu"];
+            
+            QNUploadManager *upManager = [[QNUploadManager alloc] init];
+            QNUploadOption *uploadOption = [[QNUploadOption alloc] initWithMime:nil progressHandler:^(NSString *key, float percent) {
+                NSLog(@"percent == %.2f", percent);
+            }
+                                                                         params:nil
+                                                                       checkCrc:NO
+                                                             cancellationSignal:nil];
+            [upManager putFile:filePath key:nil token:qiniutoken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                NSLog(@"info ===== %@", info);
+                NSLog(@"resp ===== %@", resp);
+                self.avatar = resp[@"key"];
+                
+            }
+                        option:uploadOption];
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+    }];
+}
+
 
 
 #pragma mark - click
 - (void)finishClick {
     NSDictionary *parsms = @{
+                             @"avatar":self.avatar ?: @"",
                              @"nick_name":self.nickName,
                              @"sex":@(self.sex),
                              @"birthday":self.ageField.text,

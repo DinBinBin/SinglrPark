@@ -50,6 +50,7 @@
     if (_textView == nil) {
         _textView = [[UITextView alloc] init];
         _textView.backgroundColor = [UIColor whiteColor];
+        _textView.font = Font16;
         _textView.delegate = self;
     }
     return _textView;
@@ -99,6 +100,8 @@
 
 - (void)textViewDidChange:(UITextView *)textView{
     
+    
+    
     if([textView.text length] == 0){
         
         self.placeHolderLabel.text = self.str;
@@ -109,36 +112,61 @@
         
     }
     
-    //计算剩余字数   不需要的也可不写
     
-    NSString *nsTextCotent = textView.text;
+    //最大长度
+    NSInteger kMaxLength = 8;
     
-    NSInteger existTextNum = [nsTextCotent length];
     
-    NSInteger remainTextNum = 8 - existTextNum;
+    NSString *toBeString = textView.text;
+    NSString *lang = [[UIApplication sharedApplication]textInputMode].primaryLanguage; //ios7之前使用[UITextInputMode currentInputMode].primaryLanguage
+    if ([lang isEqualToString:@"zh-Hans"]) { //中文输入
+        UITextRange *selectedRange = [textView markedTextRange];
+        //获取高亮部分
+        UITextPosition *position = [textView positionFromPosition:selectedRange.start offset:0];
+        
+        if (!position) {// 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+            
+            if (toBeString.length > kMaxLength) {
+                textView.text = [toBeString substringToIndex:kMaxLength];
+                [textView resignFirstResponder];
+            }
+        }
+        
+        else{//有高亮选择的字符串，则暂不对文字进行统计和限制
+        }
+    }else{//中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        
+        if (toBeString.length > kMaxLength) {
+            
+            textView.text = [toBeString substringToIndex:kMaxLength];
+            
+        }
+        
+    }
     
-    self.residueLabel.text = [NSString stringWithFormat:@"%ld/8",remainTextNum];
+    self.residueLabel.text = [NSString stringWithFormat:@"%lu/8",(unsigned long)textView.text.length];
+
     
 }
 
 //设置超出最大字数（200字）即不可输入 也是textview的代理方法
 
--(BOOL)textView:(UITextView*)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString*)text
-{
-    
-    if ([text isEqualToString:@"\n"]) {     //这里"\n"对应的是键盘的 return 回收键盘之用
-        
-        [textView resignFirstResponder];
-        return YES;
-    }
-    if (range.location >= 8)
-    {
-        return NO;
-    }else
-    {
-        return YES;
-    }
-}
+//-(BOOL)textView:(UITextView*)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString*)text
+//{
+
+//    if ([text isEqualToString:@"\n"]) {     //这里"\n"对应的是键盘的 return 回收键盘之用
+//
+//        [textView resignFirstResponder];
+//        return YES;
+//    }
+//    if (range.location >= 8)
+//    {
+//        return NO;
+//    }else
+//    {
+//        return YES;
+//    }
+//}
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }

@@ -8,6 +8,8 @@
 
 #import "JDWFillEditController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "QiniuSDK.h"
+
 
 @interface JDWFillEditController ()<UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property(nonatomic,strong)UITextView *textView;
@@ -16,6 +18,8 @@
 @property (nonatomic,strong)UIButton *subitBtn;
 @property (nonatomic,strong)UIButton *reduceBtn;
 @property (nonatomic,strong)UIImage *img;
+@property (nonatomic,copy) NSString *coverPath;
+@property (nonatomic,copy) NSString *avatar;
 
 @end
 
@@ -161,6 +165,8 @@
 
 - (void)textViewDidChange:(UITextView *)textView{
     
+    
+    
     if([textView.text length] == 0){
         
         self.placeHolderLabel.text = self.str;
@@ -171,36 +177,61 @@
         
     }
     
-    //计算剩余字数   不需要的也可不写
     
-    NSString *nsTextCotent = textView.text;
+    //最大长度
+    NSInteger kMaxLength = 400;
     
-    NSInteger existTextNum = [nsTextCotent length];
     
-    NSInteger remainTextNum = 400 - existTextNum;
+    NSString *toBeString = textView.text;
+    NSString *lang = [[UIApplication sharedApplication]textInputMode].primaryLanguage; //ios7之前使用[UITextInputMode currentInputMode].primaryLanguage
+    if ([lang isEqualToString:@"zh-Hans"]) { //中文输入
+        UITextRange *selectedRange = [textView markedTextRange];
+        //获取高亮部分
+        UITextPosition *position = [textView positionFromPosition:selectedRange.start offset:0];
+        
+        if (!position) {// 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+            
+            if (toBeString.length > kMaxLength) {
+                textView.text = [toBeString substringToIndex:kMaxLength];
+                [textView resignFirstResponder];
+            }
+        }
+        
+        else{//有高亮选择的字符串，则暂不对文字进行统计和限制
+        }
+    }else{//中文输入法以外的直接对其统计限制即可，不考虑其他语种情况
+        
+        if (toBeString.length > kMaxLength) {
+            
+            textView.text = [toBeString substringToIndex:kMaxLength];
+            
+        }
+        
+    }
     
-    self.residueLabel.text = [NSString stringWithFormat:@"%ld/400",remainTextNum];
+    self.residueLabel.text = [NSString stringWithFormat:@"%lu/8",(unsigned long)textView.text.length];
+
     
 }
 
 //设置超出最大字数（200字）即不可输入 也是textview的代理方法
-
--(BOOL)textView:(UITextView*)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString*)text
-{
-    
-    if ([text isEqualToString:@"\n"]) {     //这里"\n"对应的是键盘的 return 回收键盘之用
-        
-        [textView resignFirstResponder];
-        return YES;
-    }
-    if (range.location >= 400)
-    {
-        return NO;
-    }else
-    {
-        return YES;
-    }
-}
+//
+//-(BOOL)textView:(UITextView*)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString*)text
+//{
+//
+//    if ([text isEqualToString:@"\n"]) {     //这里"\n"对应的是键盘的 return 回收键盘之用
+//
+//        [textView resignFirstResponder];
+//        return YES;
+//    }
+//    if (range.location >= 400)
+//    {
+//        return NO;
+//    }else
+//    {
+//        return YES;
+//    }
+//}
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
@@ -214,7 +245,7 @@
     }
     
     NSDictionary *parameters = @{@"content" : self.textView.text,
-                                 @"images" : @[self.img ?:@""]
+                                 @"images" : @[self.avatar ?:@""]
                                  };
     
     WEAKSELF
@@ -319,12 +350,56 @@
     
     [self addreducebtn ];
     
+    [self commitHeadimg:self.img];
 }
 
-- (void)commitHeadimg{
+
+- (void)commitHeadimg:(UIImage *)img{
+    NSString *filePath = [kDocumentDirectoryPath stringByAppendingPathComponent:@"VideoImg"];
     
-    
+    self.coverPath = [filePath stringByAppendingPathComponent:
+                      [NSString stringWithFormat:@"%5.2f.png",[[NSDate date] timeIntervalSince1970]]];  // 保存文件的名称
+    if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        NSError *error = nil;
+        [[NSFileManager defaultManager] createDirectoryAtPath:filePath withIntermediateDirectories:NO attributes:nil error:&error];
+    };
+    BOOL result =[UIImagePNGRepresentation(img)writeToFile:self.coverPath   atomically:YES]; // 保存成功会返回YES
+    if (result == YES) {
+        NSLog(@"保存成功");
+        [self gettoken:self.coverPath];
+    }else{
+        [MBProgressHUD showAutoMessage:@"选取失败"];
+    }
 }
+- (void)gettoken:(NSString *)filePath{
+    
+    [JDWNetworkHelper POST:SPQiniuToken parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSString *qiniutoken = responseDic[@"data"][@"qiniu"];
+            
+            QNUploadManager *upManager = [[QNUploadManager alloc] init];
+            QNUploadOption *uploadOption = [[QNUploadOption alloc] initWithMime:nil progressHandler:^(NSString *key, float percent) {
+                NSLog(@"percent == %.2f", percent);
+            }
+                                                                         params:nil
+                                                                       checkCrc:NO
+                                                             cancellationSignal:nil];
+            [upManager putFile:filePath key:nil token:qiniutoken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                NSLog(@"info ===== %@", info);
+                NSLog(@"resp ===== %@", resp);
+                self.avatar = resp[@"key"];
+                
+            }
+                        option:uploadOption];
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+    }];
+}
+
 
 - (void)addreducebtn{
     [self.view addSubview:self.reduceBtn];

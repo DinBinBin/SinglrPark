@@ -65,7 +65,6 @@
 - (void)requestData {
     WEAKSELF
     STRONGSELF
-    [MBProgressHUD showLoadToView:self.view];
     [JDWNetworkHelper POST:PTURL_API_UserGet parameters:nil success:^(id responseObject) {
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
@@ -83,12 +82,10 @@
             
         }
         
-        [MBProgressHUD hideHUDForView:self.view];
         
     } failure:^(NSError *error) {
         [MBProgressHUD showMessage:Networkerror];
         [MBProgressHUD showAutoMessage:Networkerror];
-        [MBProgressHUD hideHUDForView:self.view];
     }];
 }
 #pragma mark ----UITableViewDataSource
