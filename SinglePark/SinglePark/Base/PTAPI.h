@@ -37,6 +37,9 @@ static NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcH
 #define SPURL_API_Feedback [NSString stringWithFormat:@"%@/feedback/create",BASE_HttpURL]
 //协议文档
 #define SPURL_API_Document [NSString stringWithFormat:@"%@/document/detail/",BASE_HttpURL]
+
+//追她
+#define SPURL_API_follows_create [NSString stringWithFormat:@"%@/follows/create",BASE_HttpURL]
 //追讯
 #define SPURL_API_Follows [NSString stringWithFormat:@"%@/follows/list",BASE_HttpURL]
 

@@ -29,7 +29,7 @@
     [self setUI];
     [self getModel];
     
-//    [self requestData];
+    [self requestData];
 }
 
 - (void)setUI{

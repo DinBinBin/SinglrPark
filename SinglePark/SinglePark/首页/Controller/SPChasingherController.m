@@ -10,6 +10,7 @@
 #import "VoiceButtonView.h"
 #import "lame.h"
 #import "LGAudioKit.h"
+#import "QiniuSDK.h"
 
 
 #define DocumentPath  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
@@ -26,7 +27,7 @@
 @property (nonatomic, weak) NSTimer *timerOf60Second;
 @property (nonatomic, strong) NSString *mp3DataPath;
 @property (nonatomic, strong) NSString *originalDataPath;
-
+@property (nonatomic, copy) NSString *qiuNiuStr; //七牛语音路径
 
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, assign) NSInteger currentInt; // 倒计时间
@@ -221,7 +222,9 @@
         return;
     }
     
-    [self sendSound];
+//    [self sendSound];
+    self.originalDataPath = [[LGSoundRecorder shareInstance] soundFilePath];
+
     [[LGSoundRecorder shareInstance] stopSoundRecord:self.view];
     
     if (_timerOf60Second) {
@@ -231,6 +234,7 @@
     
     [self startTranscoding];
     
+
 }
 
 /**
@@ -335,6 +339,9 @@
         lame_close(lame);
         fclose(mp3);
         fclose(pcm);
+        
+        [self gettoken:self.mp3DataPath];
+
     }
     @catch (NSException *exception) {
         NSLog(@"%@",[exception description]);
@@ -348,7 +355,7 @@
 
 
 - (void)sendSound {
-    self.originalDataPath = [[LGSoundRecorder shareInstance] soundFilePath];
+//    self.originalDataPath = [[LGSoundRecorder shareInstance] soundFilePath];
     self.voiceBtn.backgroundColor = [UIColor clearColor];
     [self.voiceBtn setTitle:@"已发送，请等待回音" forState:UIControlStateNormal];
     [self.voiceBtn setTitleColor:FirstWordColor forState:UIControlStateNormal];
@@ -357,6 +364,7 @@
     self.currentInt = 12*60*60;
     
     [self updateTimer:self.timer];
+    
 
 }
 #pragma mark - set/get
@@ -390,4 +398,63 @@
     self.timeLab.text = [NSString stringWithFormat:@"%02ld小时%02ld分%02ld秒", (long)h, (long)m,(long)s];
     
 }
+
+#pragma mark - 七牛上传
+- (void)gettoken:(NSString *)filePath{
+    
+    WEAKSELF
+    STRONGSELF
+    [MBProgressHUD showLoadToView:self.view];
+    [JDWNetworkHelper POST:SPQiniuToken parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSString *qiniutoken = responseDic[@"data"][@"qiniu"];
+            
+            QNUploadManager *upManager = [[QNUploadManager alloc] init];
+            QNUploadOption *uploadOption = [[QNUploadOption alloc] initWithMime:nil progressHandler:^(NSString *key, float percent) {
+                NSLog(@"percent == %.2f", percent);
+            }
+                                                                         params:nil
+                                                                       checkCrc:NO
+                                                             cancellationSignal:nil];
+            [upManager putFile:filePath key:nil token:qiniutoken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                NSLog(@"info ===== %@", info);
+                NSLog(@"resp ===== %@", resp);
+                [strongSelf uploadQiniuPath:resp[@"key"]];
+                
+            }
+                        option:uploadOption];
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+    }];
+}
+
+- (void)uploadQiniuPath:(NSString *)token {
+    NSDictionary *dic = @{@"tos":@"7",@"voice":token};
+    [JDWNetworkHelper POST:SPURL_API_follows_create parameters:dic success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            [self sendSound];
+            
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+            [self confirmRecordVoice];
+        }
+        
+        [MBProgressHUD hideHUDForView:self.view];
+        
+    } failure:^(NSError *error) {
+        
+        [MBProgressHUD hideHUDForView:self.view];
+        [self confirmRecordVoice];
+
+        
+    }];
+}
+
+
 @end
