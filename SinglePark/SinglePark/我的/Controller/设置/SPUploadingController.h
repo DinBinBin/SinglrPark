@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPUploadingController : SGBaseController
+@property (nonatomic,copy)NSString *videopath;  // 视频路径
 
 @end
 

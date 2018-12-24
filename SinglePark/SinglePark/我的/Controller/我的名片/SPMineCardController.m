@@ -22,6 +22,7 @@
 @property (nonatomic,strong)NSMutableArray *dataArr;
 @property (nonatomic,strong)SPPersonModel *personmodel;
 @property (nonatomic,copy)NSString *coverPath;  //  照片路径
+@property (nonatomic,copy)NSString *videopath;  // 视频路径
 
 @property (nonatomic,strong)NSMutableArray *imgarr;
 @property (nonatomic,strong)NSMutableArray *titleArr;
@@ -38,7 +39,7 @@
     self.title = @"我的名片";
     
     self.imgarr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
-    self.titleArr = [NSMutableArray arrayWithObjects:@"个人形象片",@"关于我&关于他",@"",@"",@"",@"", nil];
+    self.titleArr = [NSMutableArray arrayWithObjects:@"关于我&关于他",@"关于我&关于他",@"",@"", nil];
 
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectCover)];
 
@@ -62,7 +63,6 @@
                           @"videoCover":@"5"};
     SPCoverModel *model = [SPCoverModel modelWithJSON:dic];
     self.dataArr = [NSMutableArray array];
-    [self.dataArr addObject:model];
     [self.dataArr addObject:model];
     
     
@@ -248,9 +248,14 @@
 {
     if ([picker.mediaTypes[0] isEqualToString:@"public.movie"]) { //视频
         NSURL *sourceURL = [info objectForKey:UIImagePickerControllerMediaURL];
-        NSURL *newVideoUrl ; //一般.mp4
+        self.videopath = [sourceURL path];
+        if (!sourceURL) {
+            
+            sourceURL = [info objectForKey:UIImagePickerControllerReferenceURL];
+            self.videopath = [NSString stringWithFormat:@"%@",sourceURL];
+            
+        }        NSURL *newVideoUrl ; //一般.mp4
         NSString *tempPath = [self TempFilePathWithExtension:@"mp4"];
-//        self.videopath = tempPath;
         newVideoUrl = [NSURL fileURLWithPath:tempPath];
         
         [self convertVideoQuailtyWithInputURL:sourceURL outputURL:newVideoUrl completeHandler:nil];
@@ -347,6 +352,7 @@
     [self saveImage:videoImage title:[NSString stringWithFormat:@"%ld",self.selectrow]];
     CGImageRelease(image);
     SPUploadingController *load = [[SPUploadingController alloc]  init];
+    load.videopath = self.videopath;
     [self.navigationController pushViewController:load animated:YES];
     
     //coverPath
@@ -384,7 +390,7 @@
     
     self.coverPath = [filePath stringByAppendingPathComponent:
                       [NSString stringWithFormat:@"%@.png",str]];  // 保存文件的名称
-    self.imgarr[self.selectrow] = self.coverPath;
+//    self.imgarr[self.selectrow] = self.coverPath;
     [self.listTabView reloadData];
     if (![[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         NSError *error = nil;
