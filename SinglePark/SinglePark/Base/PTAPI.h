@@ -47,9 +47,10 @@ static NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcH
 #define SPQiniuToken [NSString stringWithFormat:@"%@/qiniu",BASE_HttpURL]
 // 图片地址
 #define SPURL_API_Img(img) [@"http://images.wuchenge.com" stringByAppendingPathComponent:img]
-
 //首页接口
 #define PTURL_API_Index [NSString stringWithFormat:@"%@/home",BASE_HttpURL]
+//发布视频接口
+#define SPSendVideo [NSString stringWithFormat:@"%@/video/create",BASE_HttpURL]
 
 
 
