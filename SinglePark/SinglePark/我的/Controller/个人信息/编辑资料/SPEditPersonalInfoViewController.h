@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPEditPersonalInfoViewController : SGBaseController
-
+@property (nonatomic, copy) void (^backRequsetBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

@@ -84,10 +84,6 @@
                 self.model.occupation = self.model.job.firstObject;
             }
             
-            //保存用户信息
-            [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
-            [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
-            
             [strongSelf requestProvinceName];
         }else{
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
@@ -190,6 +186,11 @@
 
 
 - (void)reloadDataSource {
+    
+    //保存用户信息
+    [DBAccountInfo sharedInstance].model=self.model;
+    [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
+    
     NSString *sex;
     if (_model.sex == 0) {
         sex = @"未填写";
@@ -230,7 +231,7 @@
         if (indexPath.row == 0) {
             SPMineHeadCell *headCell = [[[NSBundle mainBundle] loadNibNamed:@"SPMineHeadCell" owner:nil options:nil] firstObject];
             
-            [headCell.headImageView sd_setImageWithURL:[NSURL URLWithString:[DBAccountInfo sharedInstance].model.avatar] placeholderImage:ImageNamed(@"logo")];
+            [headCell.headImageView sd_setImageWithURL:[NSURL URLWithString:self.detailArr[0][0]] placeholderImage:ImageNamed(@"logo")];
             return headCell;
         }
     }else if (indexPath.section == 8) {
@@ -390,7 +391,9 @@
 #pragma mark - click
 - (void)back {
     [super back];
-
+    if (self.backRequsetBlock) {
+        self.backRequsetBlock();
+    }
     
     NSDictionary *parsms = @{
                              @"avatar":self.model.avatar ?: [DBAccountInfo sharedInstance].model.avatar,
@@ -563,9 +566,8 @@
             [upManager putFile:filePath key:nil token:qiniutoken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 NSLog(@"info ===== %@", info);
                 NSLog(@"resp ===== %@", resp);
-                self.model.avatar = resp[@"key"];
-                [DBAccountInfo sharedInstance].model.avatar = SPURL_API_Img(self.model.avatar);
-                [self.tableView reloadData];
+                self.model.avatar = SPURL_API_Img(resp[@"key"]);
+                [self reloadDataSource];
 
             }
                         option:uploadOption];

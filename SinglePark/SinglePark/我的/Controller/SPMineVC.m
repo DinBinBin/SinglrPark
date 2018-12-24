@@ -33,33 +33,11 @@
         make.edges.equalTo(self.view);
     }];
     
-    [self getdata];
-    
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    self.titleArr = @[@[@""],@[@"我的名片",@"追求的人"],@[@"设置"]];
+    self.imgArr = @[@[@""],@[@"u2988",@"u2986"],@[@"u2984"]];
     
     [self requestData];
 
-}
-
-- (void)getdata{
-    self.titleArr = @[@[@""],@[@"我的名片",@"追求的人"],@[@"设置"]];
-    self.imgArr = @[@[@""],@[@"u2988",@"u2986"],@[@"u2984"]];
-  
-    
-    NSDictionary *dic1 = @{@"avatar":@"4",
-                           @"occupation":@"距离----",
-                           @"nickName":@"昵称----",
-                           @"sex":@"nv",
-                           @"singer":@"伴着我的歌声是你心碎的幻想，你用你的眼泪抚摸我的寂寞",
-                           @"didian":@"广东深圳",
-                           @"number":@[@"4",@"4",@"4"]
-                           };
-    self.model = [SPPersonModel modelWithJSON:dic1];
-    [self.listTabView reloadData];
-    
 }
 
 - (void)requestData {
@@ -152,6 +130,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0 ) {
          SPEditPersonalInfoViewController *business = [[SPEditPersonalInfoViewController alloc] init];
+        WEAKSELF
+        STRONGSELF
+        business.backRequsetBlock = ^{
+            [strongSelf requestData];
+        };
         [self.navigationController  pushViewController:business animated:YES];
 
     }else if (indexPath.section == 1){

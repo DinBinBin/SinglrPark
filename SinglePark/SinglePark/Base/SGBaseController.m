@@ -108,6 +108,11 @@
 //    [self navTitleColor:[UIColor whiteColor]];
     [self _creatBackBtn];
 
+    
+    
+}
+
+- (void)getLocation {
     if ([CLLocationManager locationServicesEnabled]) {
         self.location = [[CLGeocoder alloc] init];
         MFMapManager *manager = [MFMapManager sharedInstance];
@@ -115,8 +120,6 @@
         [manager start];
         
     }
-    
-
 }
 
 - (void)backNavigationViewController

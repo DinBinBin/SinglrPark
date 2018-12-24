@@ -21,4 +21,5 @@
 - (BOOL)checkLoginImmediately;
 - (void)back;
 
+- (void)getLocation;
 @end
