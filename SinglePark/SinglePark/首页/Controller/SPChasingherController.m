@@ -37,6 +37,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigbackground"]];
+    img.userInteractionEnabled = YES;
+    img.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    [self.view addSubview:img];
+
     self.title = @"追她";
     [self.view addSubview:self.backview];
     [self.backview addSubview:self.promptImg];
