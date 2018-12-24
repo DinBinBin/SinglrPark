@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, strong) SPPersonModel *model;
 @property (nonatomic, copy) NSString *coverPath;
+@property (nonatomic, copy) NSString *qiniuToken;
 /** 添加遮罩 */
 @property (nonatomic, strong) UIView *alertBackgroundView;
 @property (nonatomic, strong) UITextField *fakeTextField;
@@ -396,7 +397,7 @@
     }
     
     NSDictionary *parsms = @{
-                             @"avatar":self.model.avatar ?: [DBAccountInfo sharedInstance].model.avatar,
+                             @"avatar":self.qiniuToken ?: @"",
                              @"nick_name":self.model.nickName ?: [DBAccountInfo sharedInstance].model.nickName,
                              @"sex":@(self.model.sex) ?: @([DBAccountInfo sharedInstance].model.sex),
                              @"birthday":self.model.birthday ?: [DBAccountInfo sharedInstance].model.birthday,
@@ -528,6 +529,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
     if (indexPath.section == 0) {
         [self commitHeadimg:self.img];
+
     }
     
 }
@@ -567,6 +569,7 @@
                 NSLog(@"info ===== %@", info);
                 NSLog(@"resp ===== %@", resp);
                 self.model.avatar = SPURL_API_Img(resp[@"key"]);
+                self.qiniuToken = resp[@"key"];
                 [self reloadDataSource];
 
             }
