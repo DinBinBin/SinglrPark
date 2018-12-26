@@ -24,7 +24,9 @@
     [super viewDidLoad];
     [self setNavView];
 
-    [self refreshToken];
+    if ([DBAccountInfo sharedInstance].islogin) {
+        [self refreshToken];
+    }
 }
 
 - (void)refreshToken {
@@ -32,8 +34,16 @@
         NSDictionary *responseDic = (NSDictionary *)responseObject;
 
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            [DBAccountInfo sharedInstance].model.token = responseDic[@"error_code"][@"token"];
+            //保存token
+            
+            NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
+            [userdef removeObjectForKey:isLogin];
+            [userdef setObject:responseDic[@"data"][@"token"] forKey:isLogin];
+            [DBAccountInfo sharedInstance].model.token = responseDic[@"data"][@"token"];
             [DBAccountInfo sharedInstance].islogin = YES;
+        }else{
+            [DBAccountInfo sharedInstance].islogin = NO;
+
         }
         
     } failure:^(NSError *error) {

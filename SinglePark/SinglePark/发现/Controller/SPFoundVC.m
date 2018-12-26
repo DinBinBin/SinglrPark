@@ -8,6 +8,8 @@
 
 #import "SPFoundVC.h"
 #import "JDWFillEditController.h"
+#import "LCLoginController.h"
+
 
 @interface SPFoundVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *foundTabView;
@@ -23,6 +25,13 @@
         make.left.width.equalTo(self.view);
         make.bottom.equalTo(self.view.mas_bottom);
     }];
+    
+    if (![DBAccountInfo sharedInstance].islogin) {
+        LCLoginController *tourist = [[LCLoginController alloc] init];
+        tourist.iswelecome = NO;
+        [self.navigationController pushViewController:tourist animated:YES];
+        return;
+    }
 
 }
 

@@ -68,7 +68,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.section == 0) {
-        cell.detailTextLabel.text = @"151159124124";
+        cell.detailTextLabel.text = [DBAccountInfo sharedInstance].model.phone;
         return cell;
     }else if (indexPath.section == 1) {
         

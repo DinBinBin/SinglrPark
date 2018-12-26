@@ -12,6 +12,7 @@
 #import "SPSetController.h"
 #import "SPPursuitController.h"
 #import "SPEditPersonalInfoViewController.h"
+#import "LCLoginController.h"
 
 
 @interface SPMineVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -41,6 +42,14 @@
 }
 
 - (void)requestData {
+    
+    if (![DBAccountInfo sharedInstance].islogin) {
+        LCLoginController *tourist = [[LCLoginController alloc] init];
+        tourist.iswelecome = NO;
+        [self.navigationController pushViewController:tourist animated:YES];
+        return;
+    }
+    
     WEAKSELF
     STRONGSELF
     [JDWNetworkHelper POST:PTURL_API_UserGet parameters:nil success:^(id responseObject) {
@@ -62,7 +71,6 @@
         
         
     } failure:^(NSError *error) {
-        [MBProgressHUD showMessage:Networkerror];
         [MBProgressHUD showAutoMessage:Networkerror];
     }];
 }

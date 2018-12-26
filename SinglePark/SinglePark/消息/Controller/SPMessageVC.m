@@ -12,6 +12,7 @@
 #import "SPCommentController.h"
 #import "SPChasingController.h"
 #import "SPChatListViewController.h"
+#import "LCLoginController.h"
 
 @interface SPMessageVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *messageTabView;
@@ -35,6 +36,13 @@
     
 }
 - (void)getModel{
+    
+    if (![DBAccountInfo sharedInstance].islogin) {
+        LCLoginController *tourist = [[LCLoginController alloc] init];
+        tourist.iswelecome = NO;
+        [self.navigationController pushViewController:tourist animated:YES];
+        return;
+    }
     
         NSDictionary *dic = @{@"head":@"chase",
                           @"nickName":@"追讯",

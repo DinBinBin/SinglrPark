@@ -40,11 +40,17 @@
 //    [self setUI];
 //    [DBAccountInfo sharedInstance].model = [JDWUserInfoDB userInfo];
     
-        if([DBAccountInfo sharedInstance].model.token){
+        if([ND objectForKey:isLogin]){
+            if ([[ND objectForKey:isLogin] isEqualToString:@""]) {
+                [DBAccountInfo sharedInstance].islogin = NO;
+            }else{
+                [DBAccountInfo sharedInstance].islogin = YES;
+            }
             SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
             self.window.rootViewController = sgTabBar;
-
+            
         }else{
+            [DBAccountInfo sharedInstance].islogin = NO;
             SGNavigationController *nav = [[SGNavigationController alloc] initWithRootViewController:[[SPWelcomeController alloc] init]];
             self.window.rootViewController = nav;
         }

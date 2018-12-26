@@ -210,17 +210,6 @@
 // 登录
 - (void)next{
 
-    //保存token
-//    NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
-//    [userdef setObject:token forKey:isLogin];
-//    [DBAccountInfo sharedInstance].model.token = token;
-//    [DBAccountInfo sharedInstance].islogin = YES;
-//
-//    //登录跳转
-//    SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
-//    [UIApplication sharedApplication].statusBarHidden = NO;
-//    ptAppDelegate.window.rootViewController = sgTabBar ;
-    
     // 完整流程，请别删除
 
     if (self.mobileField.text.length == 0) {
@@ -254,7 +243,6 @@
             ptAppDelegate.window.rootViewController = sgTabBar ;
             
             
-            
         }else{
             
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
@@ -282,10 +270,16 @@
 
 
 - (void)back{
-//    if (self.iswelecome) {
+    if (self.iswelecome) {
         [self.navigationController popViewControllerAnimated:YES];
-//    }
-//    [self.navigationController popToViewController:[DBAccountInfo sharedInstance].backControl animated:YES];
+    }
+    else{
+        [self.navigationController popViewControllerAnimated:YES];
+
+        SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+        [UIApplication sharedApplication].statusBarHidden = NO;
+        ptAppDelegate.window.rootViewController = sgTabBar ;
+    }
 
 }
 
@@ -311,7 +305,7 @@
     [JDWNetworkHelper POST:PTURL_API_SENDMSG parameters:parsms success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            
+            JDWLog(@"code:%@",responseDic);
         }else{
             [MBProgressHUD showMessage:responseDic[@"messages"]];
         }

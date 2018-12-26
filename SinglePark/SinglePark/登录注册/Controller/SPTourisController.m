@@ -80,11 +80,36 @@
 }
 
 - (void)next{
-   
-//    [MBProgressHUD showAutoMessage:@"密码不正确"];
-      SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
-    [UIApplication sharedApplication].statusBarHidden = NO;
-    ptAppDelegate.window.rootViewController = sgTabBar ;
+
+//    SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+//    [UIApplication sharedApplication].statusBarHidden = NO;
+//    ptAppDelegate.window.rootViewController = sgTabBar ;
+    
+    if (self.passwordField.text.length == 0) {
+        [MBProgressHUD showMessage:@"请输入邀请码"];
+        return;
+    }
+    NSDictionary *parsms = @{@"code":self.passwordField.text,
+                             @"type":@"2"};
+    [JDWNetworkHelper POST:PTURLinvitation parameters:parsms success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            
+            [ND setObject:@"" forKey:isLogin];
+            [DBAccountInfo sharedInstance].islogin = NO;
+            
+            SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+            [UIApplication sharedApplication].statusBarHidden = NO;
+            ptAppDelegate.window.rootViewController = sgTabBar ;
+        }else{
+            [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+    
 
 }
 

@@ -84,7 +84,7 @@
     
     
     [JDWNetworkHelper POST:PTURL_API_Index parameters:params success:^(id responseObject) {
-        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
            self.dataArr = [[SPPersonModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
             

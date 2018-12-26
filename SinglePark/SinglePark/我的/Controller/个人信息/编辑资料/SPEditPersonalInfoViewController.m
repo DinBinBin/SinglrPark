@@ -333,13 +333,13 @@
             [self.navigationController pushViewController:area animated:YES];
             return;
         }else if (indexPath.section == 5) {
-            if (indexPath.row == 0) {
+            if (indexPath.row == 0) {//身高
                 vc.type = SPHeightEditType;
                 vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
                     strongSelf.model.height = str;
                     [strongSelf reloadDataSource];
                 };
-            }else{
+            }else{//体重
                 vc.type = SPWeightEditType;
                 vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
                     strongSelf.model.weight = str;
@@ -398,14 +398,15 @@
     
     NSDictionary *parsms = @{
                              @"avatar":self.qiniuToken ?: @"",
-                             @"nick_name":self.model.nickName ?: [DBAccountInfo sharedInstance].model.nickName,
-                             @"sex":@(self.model.sex) ?: @([DBAccountInfo sharedInstance].model.sex),
-                             @"birthday":self.model.birthday ?: [DBAccountInfo sharedInstance].model.birthday,
-                             @"job":@[self.model.occupation] ?: [DBAccountInfo sharedInstance].model.job,
-                             @"province_id":@(self.model.province_id) ?: @([DBAccountInfo sharedInstance].model.province_id),
-                             @"city_id":@(self.model.city_id) ?: @([DBAccountInfo sharedInstance].model.city_id),
-                             @"district_id":@(self.model.district_id) ?: @([DBAccountInfo sharedInstance].model.district_id),
-
+                             @"nick_name":self.model.nickName ?: [DBAccountInfo sharedInstance].model.nickName ?: @"未填写",
+                             @"sex":@(self.model.sex) ?: @([DBAccountInfo sharedInstance].model.sex) ?: @"未填写",
+                             @"birthday":self.model.birthday ?: [DBAccountInfo sharedInstance].model.birthday ?: @"未填写",
+                             @"job":@[self.model.occupation] ?: [DBAccountInfo sharedInstance].model.job ?: @"未填写",
+                             @"province_id":@(self.model.province_id) ?: @([DBAccountInfo sharedInstance].model.province_id) ?: @"",
+                             @"city_id":@(self.model.city_id) ?: @([DBAccountInfo sharedInstance].model.city_id) ?: @"",
+                             @"district_id":@(self.model.district_id) ?: @([DBAccountInfo sharedInstance].model.district_id) ?: @"",
+                             @"height":self.model.height ?:[DBAccountInfo sharedInstance].model.height ?: @"未填写",
+                             @"weight":self.model.weight ?: [DBAccountInfo sharedInstance].model.weight ?: @"未填写"
                              };
     WEAKSELF
     STRONGSELF
