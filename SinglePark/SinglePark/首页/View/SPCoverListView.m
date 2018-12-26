@@ -7,7 +7,6 @@
 //
 
 #import "SPCoverListView.h"
-#import "SPCoverModel.h"
 #import "SPCoverTabCell.h"
 #import "SPPlayVideoController.h"
 #import "SPPlayVideoController.h"
@@ -16,6 +15,7 @@
 @property (nonatomic,strong)UITableView *listTabView;
 @property (nonatomic,copy)NSString *coverStr;
 @property (nonatomic,strong)NSMutableArray *dataArr;
+@property (nonatomic,assign)NSInteger num;
 
 @end
 
@@ -34,6 +34,9 @@
         make.edges.equalTo(self);
     }];
     
+    self.listTabView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(getdata)];
+    self.listTabView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(getMoredata)];
+
 }
 
 
@@ -62,27 +65,41 @@
                           @"nickName":@"昵称----",
                           @"sex":@"nv",
                           @"videoCover":@"5"};
-    SPCoverModel *model = [SPCoverModel modelWithJSON:dic];
-    self.dataArr = [NSMutableArray array];
-    [self.dataArr addObject:model];
-    [self.dataArr addObject:model];
-    [self.dataArr addObject:model];
-    [self.dataArr addObject:model];
-    [self.listTabView reloadData];
+//    SPCoverModel *model = [SPCoverModel modelWithJSON:dic];
+//    [self.dataArr addObject:model];
+//    [self.dataArr addObject:model];
+//    [self.dataArr addObject:model];
+//    [self.dataArr addObject:model];
     
+    self.dataArr = [NSMutableArray array];
 //    获取视频列表
-    NSDictionary *params = @{@"":@""};
-    [JDWNetworkHelper POST:SPQiniuToken parameters:nil success:^(id responseObject) {
+    self.num = 1;
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",self.num],@"page",@"10",@"limit", nil];
+    if (self.islocal) {  //是本地
+        [params setObject:[NSString stringWithFormat:@"%f",[DBAccountInfo sharedInstance].model.longitude] forKey:@"longitude"];
+        [params setObject:[NSString stringWithFormat:@"%f",[DBAccountInfo sharedInstance].model.latitude] forKey:@"latitude"];
+
+    }
+    
+    
+    
+    [JDWNetworkHelper POST:PTURL_API_Index parameters:params success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-           
+           self.dataArr = [[SPPersonModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
             
+            [self.listTabView reloadData];
         }else{
             [MBProgressHUD showMessage:responseDic[@"messages"]];
         }
+        [self.listTabView.mj_header endRefreshing ];
     } failure:^(NSError *error) {
         [MBProgressHUD showMessage:Networkerror];
+        [self.listTabView.mj_header endRefreshing ];
+
     }];
+    
+    
     
     
 }
@@ -101,6 +118,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
+    play.selectIndex = indexPath.row;
+    play.datasource = self.dataArr;
+    play.choosetype = self.choosetype;
+    play.islocal = self.islocal;
     [[self viewController].navigationController pushViewController:play animated:YES];
 }
 
@@ -125,4 +146,60 @@
     }
     
 }
+
+
+
+// 加载数据
+- (void)getMoredata{
+    NSString *choose;
+    switch (self.choosetype) {
+        case 1:
+            choose = @"1";
+            break;
+        case 2:
+            choose = @"2";
+            
+            break;
+        case 3:
+            choose = @"3";
+            
+            break;
+        default:
+            break;
+    }
+    
+    //    获取视频列表
+    self.num++;
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",self.num],@"page",@"10",@"limit", nil];
+    if (self.islocal) {  //是本地
+        [params setObject:[NSString stringWithFormat:@"%f",[DBAccountInfo sharedInstance].model.longitude] forKey:@"longitude"];
+        [params setObject:[NSString stringWithFormat:@"%f",[DBAccountInfo sharedInstance].model.latitude] forKey:@"latitude"];
+        
+    }
+    
+    
+    
+    [JDWNetworkHelper POST:PTURL_API_Index parameters:params success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            
+           NSArray *arr = [[SPPersonModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
+            [self.dataArr addObjectsFromArray:arr];
+            [self.listTabView reloadData];
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+        [self.listTabView.mj_footer endRefreshing ];
+
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [self.listTabView.mj_footer endRefreshing ];
+
+    }];
+    
+    
+    
+    
+}
+
 @end

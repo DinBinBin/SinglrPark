@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SPCoverModel.h"
+#import "SPPersonModel.h"
 
 @interface SPCoverTabCell : UITableViewCell
 
-@property (nonatomic,strong)SPCoverModel *model;
+@property (nonatomic,strong)SPPersonModel *model;
+
 @end

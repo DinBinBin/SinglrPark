@@ -7,6 +7,7 @@
 //
 
 #import "SGBaseModel.h"
+#import "SPCoverModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -50,6 +51,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property (nonatomic,copy)NSString *token;
+
+
+
+
+//首页用到的mmodel
+@property (nonatomic,strong)SPCoverModel *videoModel;
+@property (nonatomic,strong)NSArray *first_video;
+
 @end
 
 NS_ASSUME_NONNULL_END

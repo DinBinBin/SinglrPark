@@ -21,6 +21,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @property (nonatomic,copy)NSString *gooder;
+
+
+
+
+// 视频回答
+@property (nonatomic,copy)NSString *content;
+@property (nonatomic,copy)NSString *messageId;
+@property (nonatomic,copy)NSString *video_id;
+@property (nonatomic,copy)NSString *created_at;
+@property (nonatomic,strong)NSArray *replies;
 @end
 
 NS_ASSUME_NONNULL_END

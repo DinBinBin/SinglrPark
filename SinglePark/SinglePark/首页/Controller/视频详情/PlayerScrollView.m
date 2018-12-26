@@ -21,9 +21,9 @@
 @property (nonatomic,assign)NSInteger index;
 @property (nonatomic,strong)NSMutableArray *infoModelArray;
 
-@property (nonatomic,strong)VideoInfoModel *topInfoModel,*middleInfoModel, *downInfoModel;
-
-
+@property (nonatomic,strong)SPPersonModel *topInfoModel,*middleInfoModel, *downInfoModel;
+@property (nonatomic,strong)SPVideoModel *infoVideo;
+@property (nonatomic,strong)TranslucentView *transview;
 @end
 @implementation PlayerScrollView
 
@@ -62,9 +62,9 @@
         
         self.infoModelArray =[NSMutableArray array];
         
-        self.topInfoModel =[[VideoInfoModel alloc] init];
-        self.middleInfoModel =[[VideoInfoModel alloc] init];
-        self.downInfoModel =[[VideoInfoModel alloc] init];
+        self.topInfoModel =[[SPPersonModel alloc] init];
+        self.middleInfoModel =[[SPPersonModel alloc] init];
+        self.downInfoModel =[[SPPersonModel alloc] init];
         
         //添加程序进入后台和程序进入前台的通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeVideo_puse) name:@"video_shouldPause" object:nil];
@@ -79,16 +79,11 @@
 }
 
 - (void)setUI{
-    TranslucentView *view = [[TranslucentView alloc] initWithFrame:CGRectMake(kScreenWidth-70, kScreenHeight*2-300-KsafeTabIPhonex-49, 60, 240)];
-    
-SPVideoModel *model = [SPVideoModel modelWithJSON:@{@"commentStr":@"444",
-                                                    @"headUrl":@"1233",
-                                                    @"goodnumber":@"1222"}];
-    view.model = model;
-//    view.backgroundColor = [UIColor whiteColor];
-    [self addSubview:view];
+    self.transview = [[TranslucentView alloc] initWithFrame:CGRectMake(kScreenWidth-70, kScreenHeight*2-300-KsafeTabIPhonex-49, 60, 240)];
+ 
+    [self addSubview:self.transview];
     WEAKSELF
-    view.TranslucentBlock = ^(NSInteger row) {
+    self.transview.TranslucentBlock = ^(NSInteger row) {
         STRONGSELF
         if (row == 1) { //头像
             
@@ -96,16 +91,17 @@ SPVideoModel *model = [SPVideoModel modelWithJSON:@{@"commentStr":@"444",
             [strongSelf goodluck];
         }else if (row == 3){  // 评论
             JDWForceRefreshView *forceview = [[JDWForceRefreshView alloc] initWithFrame:KEYWINDOW.bounds];
+            forceview.infoModel = strongSelf.middleInfoModel.videoModel;
             forceview.ClicKSure = ^{
                 [forceview removeFromSuperview];
             };
             [KEYWINDOW addSubview:forceview];
 
         }else if (row == 4){ //举报
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:strongSelf cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
             //        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-            actionSheet.delegate = self;
-            [actionSheet showInView:self];
+            actionSheet.delegate = strongSelf;
+            [actionSheet showInView:strongSelf];
         }
     };
     
@@ -131,28 +127,31 @@ SPVideoModel *model = [SPVideoModel modelWithJSON:@{@"commentStr":@"444",
 - (void)setMovePlayerWithInfoModelArray:(NSMutableArray *)infoModelArray withPlayIndex:(NSInteger)playIndex{
     [self.infoModelArray addObjectsFromArray:infoModelArray];
     _middleInfoModel   = self.infoModelArray[playIndex];
-    [_player setUrl:[NSURL URLWithString:_middleInfoModel.videoUrl]];
+    [_player setUrl:[NSURL URLWithString:_middleInfoModel.videoModel.video]];
     [_player prepareToPlay];
     _index = playIndex;
     
-    [self.middleImageView sd_setImageWithURL:[NSURL URLWithString:_middleInfoModel.coverImageUrl]];
+    [self.middleImageView sd_setImageWithURL:[NSURL URLWithString:[_middleInfoModel.videoModel.video stringByAppendingString:videoCover]]];
      if (self.infoModelArray.count > 1 && _index < self.infoModelArray.count - 1) {
         _downInfoModel =self.infoModelArray[_index+1];
         [self prepareImageView:self.downImageView WithModel:_downInfoModel];
          
     }
+    
+//    获取视频详情
+    [self getinfoVideo];
 }
 - (void)addNewData:(NSMutableArray *)newDataArray{
     [self.infoModelArray addObjectsFromArray:newDataArray];
 }
-- (void)prepareImageView:(UIImageView *)imageView WithModel:(VideoInfoModel *)infoModel{
-    [imageView sd_setImageWithURL:[NSURL URLWithString:infoModel.coverImageUrl]];
+- (void)prepareImageView:(UIImageView *)imageView WithModel:(SPPersonModel *)infoModel{
+    [imageView sd_setImageWithURL:[NSURL URLWithString:[infoModel.videoModel.video stringByAppendingString:videoCover]]];
 }
-- (void)prepareVideoWithInfoModel:(VideoInfoModel *)infoModel{
+- (void)prepareVideoWithInfoModel:(SPPersonModel *)infoModel{
     //重制播放器，不保留上一个视频的最后一帧https://github.com/ksvc/KSYMediaPlayer_iOS/wiki/oneInstance
     [_player reset:NO];
     //重新设置链接
-    [_player setUrl:[NSURL URLWithString:infoModel.videoUrl]];
+    [_player setUrl:[NSURL URLWithString:infoModel.videoModel.video]];
     //准备播放视频
     
     [_player setBufferSizeMax:1];
@@ -223,8 +222,8 @@ SPVideoModel *model = [SPVideoModel modelWithJSON:@{@"commentStr":@"444",
     }
     
     
-
-    
+//    获取视频详情
+    [self getinfoVideo];
 }
 
 - (void)registNotification{
@@ -332,16 +331,66 @@ SPVideoModel *model = [SPVideoModel modelWithJSON:@{@"commentStr":@"444",
 #pragma mark-------UIActionSheetDelegate  UIActionSheet 遵循的协议
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) { // 举报
-        
+        NSDictionary *params = @{@"video_id":self.middleInfoModel.videoModel.videoId,
+                                 @"content":@"一级举报"
+                                 };
+        [JDWNetworkHelper POST:SPReports parameters:params success:^(id responseObject) {
+            NSDictionary *responseDic = (NSDictionary *)responseObject;
+            if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+                [self getinfoVideo];
+                [MBProgressHUD showAutoMessage:@"已举报"];
+            }else{
+                [MBProgressHUD showMessage:responseDic[@"messages"]];
+            }
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD showMessage:Networkerror];
+        }];
         
     }
 }
 
 
 - (void)goodluck{
-    [MBProgressHUD showAutoMessage:@"点赞"];
+    
+    NSDictionary *params = @{@"video_id":self.middleInfoModel.videoModel.videoId};
+    [JDWNetworkHelper POST:SPUPVideo parameters:params success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            [self getinfoVideo];
+            [MBProgressHUD showAutoMessage:@"点赞"];
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+    }];
+    
 
 }
+
+
+// 得到视频详情
+- (void)getinfoVideo{
+    
+    self.transview.permodel = self.middleInfoModel;
+    NSDictionary *params = @{@"video_id":self.middleInfoModel.videoModel.videoId};
+    [JDWNetworkHelper POST:SPInfoVideo parameters:params success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            self.transview.model = [SPVideoModel modelWithDictionary:responseDic[@"data"]];
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+    }];
+    
+}
+
+
 
 
 @end

@@ -186,4 +186,33 @@
   
 }
 
+
+- (void)setInfoModel:(SPCoverModel *)infoModel{
+    if (_infoModel != infoModel) {
+        _infoModel = infoModel;
+        [self comments];
+        
+    }
+}
+
+// 获取评论列表
+- (void)comments{
+    NSDictionary *params = @{@"video_id":self.infoModel.videoId,
+                             };
+    [JDWNetworkHelper POST:SPComments parameters:params success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+
+
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+    }];
+    
+    
+}
+
 @end

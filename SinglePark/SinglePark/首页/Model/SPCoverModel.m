@@ -10,4 +10,9 @@
 
 @implementation SPCoverModel
 
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"videoId": @"id",
+             };
+}
+
 @end

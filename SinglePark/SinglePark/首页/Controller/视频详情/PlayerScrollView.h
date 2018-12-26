@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <KSYMediaPlayer/KSYMediaPlayer.h>
 
-#import "VideoInfoModel.h"
+#import "SPCoverModel.h"
+#import "SPPersonModel.h"
 
 
 @interface PlayerScrollView : UIScrollView
