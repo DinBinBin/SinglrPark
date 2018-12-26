@@ -10,4 +10,10 @@
 
 @interface SPPlayVideoController : SGBaseController
 
+@property (nonatomic,strong)NSMutableArray *datasource;
+@property (nonatomic,assign)ChooseType choosetype;
+@property (nonatomic,assign)BOOL  islocal;
+@property (nonatomic,assign)NSInteger  selectIndex;
+@property (nonatomic,assign)NSInteger num;
+
 @end

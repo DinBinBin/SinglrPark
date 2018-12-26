@@ -97,7 +97,6 @@
 		8127A6CC21735A580033434C /* KSYMediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8127A6C921735A580033434C /* KSYMediaPlayer.framework */; };
 		8127A6CD21735A580033434C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8127A6CA21735A580033434C /* README.md */; };
 		8127A6D421735A7C0033434C /* PlayerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8127A6CF21735A7B0033434C /* PlayerScrollView.m */; };
-		8127A6D521735A7C0033434C /* VideoInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8127A6D021735A7B0033434C /* VideoInfoModel.m */; };
 		8127A6D621735A7C0033434C /* TranslucentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8127A6D221735A7B0033434C /* TranslucentView.m */; };
 		8127A6DE21735B440033434C /* HSPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8127A6D921735B440033434C /* HSPopAnimation.m */; };
 		8127A6DF21735B450033434C /* UIView+KJFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8127A6DC21735B440033434C /* UIView+KJFrame.m */; };
@@ -137,7 +136,6 @@
 		81EFA388218DA66F00C8E8B6 /* JDWUserInfoDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 81EFA386218DA66E00C8E8B6 /* JDWUserInfoDB.m */; };
 		81EFA38B218DA89800C8E8B6 /* JDWConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 81EFA38A218DA89800C8E8B6 /* JDWConst.m */; };
 		81FB4C402165F0E30090142A /* SPCoverListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FB4C3F2165F0E30090142A /* SPCoverListView.m */; };
-		81FB4C432165F4D20090142A /* SPCoverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FB4C422165F4D20090142A /* SPCoverModel.m */; };
 		81FB4C462165F79E0090142A /* SPCoverTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FB4C452165F79E0090142A /* SPCoverTabCell.m */; };
 		81FB4C492165F8B60090142A /* SPPlayVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81FB4C482165F8B60090142A /* SPPlayVideoController.m */; };
 		D0221C4323ECBD8A376F4DE9 /* Pods_SinglePark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18771F1749CBF4B39C200A0C /* Pods_SinglePark.framework */; };
@@ -169,6 +167,7 @@
 		E64FB1FE21C0B97300374D58 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E64FB1E921C0B97300374D58 /* libopencore-amrwb.a */; };
 		E64FB20021C0B97300374D58 /* libmp3lame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E64FB1EF21C0B97300374D58 /* libmp3lame.a */; };
 		E64FB20321C1078600374D58 /* MBProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E64FB20221C1078600374D58 /* MBProgress.m */; };
+		E65429F821D2108B00B45107 /* SPCoverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E65429F621D2108A00B45107 /* SPCoverModel.m */; };
 		E654A9A4219D7B0300447D12 /* SPVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E654A9A3219D7B0300447D12 /* SPVideoModel.m */; };
 		E68CBB43219EB32F0010C2D6 /* JDWForceRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB42219EB32F0010C2D6 /* JDWForceRefreshView.m */; };
 		E68CBB46219EB4170010C2D6 /* SPCommentTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB45219EB4170010C2D6 /* SPCommentTabView.m */; };
@@ -337,10 +336,8 @@
 		8127A6CA21735A580033434C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8127A6CE21735A7B0033434C /* PlayerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerScrollView.h; sourceTree = "<group>"; };
 		8127A6CF21735A7B0033434C /* PlayerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerScrollView.m; sourceTree = "<group>"; };
-		8127A6D021735A7B0033434C /* VideoInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoInfoModel.m; sourceTree = "<group>"; };
 		8127A6D121735A7B0033434C /* TranslucentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TranslucentView.h; sourceTree = "<group>"; };
 		8127A6D221735A7B0033434C /* TranslucentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslucentView.m; sourceTree = "<group>"; };
-		8127A6D321735A7C0033434C /* VideoInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoInfoModel.h; sourceTree = "<group>"; };
 		8127A6D821735B440033434C /* UIView+KJFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+KJFrame.h"; sourceTree = "<group>"; };
 		8127A6D921735B440033434C /* HSPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSPopAnimation.m; sourceTree = "<group>"; };
 		8127A6DA21735B440033434C /* KJPushAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KJPushAnimator.h; sourceTree = "<group>"; };
@@ -412,8 +409,6 @@
 		81EFA38A218DA89800C8E8B6 /* JDWConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDWConst.m; sourceTree = "<group>"; };
 		81FB4C3E2165F0E30090142A /* SPCoverListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCoverListView.h; sourceTree = "<group>"; };
 		81FB4C3F2165F0E30090142A /* SPCoverListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPCoverListView.m; sourceTree = "<group>"; };
-		81FB4C412165F4D20090142A /* SPCoverModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCoverModel.h; sourceTree = "<group>"; };
-		81FB4C422165F4D20090142A /* SPCoverModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPCoverModel.m; sourceTree = "<group>"; };
 		81FB4C442165F79E0090142A /* SPCoverTabCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCoverTabCell.h; sourceTree = "<group>"; };
 		81FB4C452165F79E0090142A /* SPCoverTabCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPCoverTabCell.m; sourceTree = "<group>"; };
 		81FB4C472165F8B60090142A /* SPPlayVideoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPlayVideoController.h; sourceTree = "<group>"; };
@@ -468,6 +463,8 @@
 		E64FB1EF21C0B97300374D58 /* libmp3lame.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libmp3lame.a; sourceTree = "<group>"; };
 		E64FB20121C1078600374D58 /* MBProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgress.h; sourceTree = "<group>"; };
 		E64FB20221C1078600374D58 /* MBProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgress.m; sourceTree = "<group>"; };
+		E65429F621D2108A00B45107 /* SPCoverModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPCoverModel.m; sourceTree = "<group>"; };
+		E65429F721D2108A00B45107 /* SPCoverModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCoverModel.h; sourceTree = "<group>"; };
 		E654A9A2219D7B0300447D12 /* SPVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPVideoModel.h; sourceTree = "<group>"; };
 		E654A9A3219D7B0300447D12 /* SPVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPVideoModel.m; sourceTree = "<group>"; };
 		E68CBB41219EB32F0010C2D6 /* JDWForceRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDWForceRefreshView.h; sourceTree = "<group>"; };
@@ -757,8 +754,6 @@
 				8127A6CF21735A7B0033434C /* PlayerScrollView.m */,
 				8127A6D121735A7B0033434C /* TranslucentView.h */,
 				8127A6D221735A7B0033434C /* TranslucentView.m */,
-				8127A6D321735A7C0033434C /* VideoInfoModel.h */,
-				8127A6D021735A7B0033434C /* VideoInfoModel.m */,
 				E68CBB41219EB32F0010C2D6 /* JDWForceRefreshView.h */,
 				E68CBB42219EB32F0010C2D6 /* JDWForceRefreshView.m */,
 				E68CBB44219EB4170010C2D6 /* SPCommentTabView.h */,
@@ -1082,8 +1077,8 @@
 		81FB4C3D2165F0A80090142A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				81FB4C412165F4D20090142A /* SPCoverModel.h */,
-				81FB4C422165F4D20090142A /* SPCoverModel.m */,
+				E65429F721D2108A00B45107 /* SPCoverModel.h */,
+				E65429F621D2108A00B45107 /* SPCoverModel.m */,
 				E654A9A2219D7B0300447D12 /* SPVideoModel.h */,
 				E654A9A3219D7B0300447D12 /* SPVideoModel.m */,
 			);
@@ -1480,6 +1475,7 @@
 				811DB240216B9D8900ABB889 /* SPHeadPersonTabCell.m in Sources */,
 				793B5CA921BA0C9000710AD7 /* SPAreaViewController.m in Sources */,
 				E64FB20321C1078600374D58 /* MBProgress.m in Sources */,
+				E65429F821D2108B00B45107 /* SPCoverModel.m in Sources */,
 				8110C5CF212001CE00D013FC /* SGBaseModel.m in Sources */,
 				81ECE79021357A09004FDDE8 /* SPWelcomeController.m in Sources */,
 				8118156721820EBB002069AA /* JDWNetworkHelper.m in Sources */,
@@ -1561,7 +1557,6 @@
 				81FB4C462165F79E0090142A /* SPCoverTabCell.m in Sources */,
 				8127A6BA21734BBC0033434C /* SPMineHeadTabCell.m in Sources */,
 				81FB4C492165F8B60090142A /* SPPlayVideoController.m in Sources */,
-				8127A6D521735A7C0033434C /* VideoInfoModel.m in Sources */,
 				811DB6D121687B4200204139 /* SPPersonModel.m in Sources */,
 				793D628321BFB2D400589445 /* MFDatePickView.m in Sources */,
 				79CAF65D21BE6E5600B48780 /* SPEditSectionViewController.m in Sources */,
@@ -1582,7 +1577,6 @@
 				E64643E521BE57400066E0F3 /* MoreButtonView.m in Sources */,
 				793D75D221C349A900F93E71 /* SFBaseWebViewController.m in Sources */,
 				E64643DF21BE57400066E0F3 /* CollectionViewFlowLayout.m in Sources */,
-				81FB4C432165F4D20090142A /* SPCoverModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

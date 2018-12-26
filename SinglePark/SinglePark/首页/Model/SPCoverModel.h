@@ -7,12 +7,22 @@
 //
 
 #import "SGBaseModel.h"
+#import "SPPersonModel.h"
 
 @interface SPCoverModel : SGBaseModel
 @property (nonatomic,copy)NSString *head;
 @property (nonatomic,copy)NSString *distance;
 @property (nonatomic,copy)NSString *nickName;
 @property (nonatomic,copy)NSString *sex;
-@property (nonatomic,copy)NSString *videoCover;
+
+
+//数据 视频model
+@property (nonatomic,copy)NSString *created_at;
+@property (nonatomic,copy)NSString *videoId;
+@property (nonatomic,copy)NSString *user_id;
+@property (nonatomic,copy)NSString *updated_at;
+@property (nonatomic,copy)NSString *up_nums;
+@property (nonatomic,copy)NSString *video;
+
 
 @end

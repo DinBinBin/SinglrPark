@@ -25,6 +25,8 @@
 #define ND [NSUserDefaults standardUserDefaults]
 #define KEYWINDOW       [UIApplication sharedApplication].keyWindow
 
+
+
 // 提示符时间长度
 #define kHUDTime 2.5
 
@@ -32,7 +34,7 @@
 #define Height(h)       h*kScreenHeight/667
 #define Width(w)        w*kScreenWidth/375
 #define isLogin          @"isLogin"
-
+#define videoCover  @"?vframe/png/offset/1"
 #define klimitNumbers     @"0123456789"
 #define xX          @"xX"
 #define kAlphaNum   @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"

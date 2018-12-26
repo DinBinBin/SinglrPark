@@ -10,4 +10,8 @@
 
 @implementation SPMessageModel
 
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"messageId": @"id",
+             };
+}
 @end

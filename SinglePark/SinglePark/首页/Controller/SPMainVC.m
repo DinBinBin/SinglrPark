@@ -131,6 +131,7 @@
 - (SPCoverListView *)leftView{
     if (_leftView == nil) {
         _leftView = [[SPCoverListView alloc] initWithFrame:self.mainScrollView.bounds];
+        _leftView.islocal = NO;
     }
     return _leftView;
 }
@@ -138,6 +139,8 @@
 - (SPCoverListView *)rightView{
     if (_rightView == nil) {
         _rightView = [[SPCoverListView alloc] initWithFrame:CGRectMake(kScreenWidth, 0, self.mainScrollView.width, self.mainScrollView.height)];
+        _rightView.islocal = YES;
+
     }
     return _rightView;
 }

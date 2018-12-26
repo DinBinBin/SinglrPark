@@ -134,16 +134,21 @@
     return _promptImg;
 }
 
-- (void)setModel:(SPCoverModel *)model{
+- (void)setModel:(SPPersonModel *)model{
     if (_model != model) {
         _model = model;
-        self.titleLab.text = _model.distance;
-        [self.titleLab.layer setCornerRadius:6];
-        self.titleLab.clipsToBounds = YES;
-       [self.headBtn setImage:[UIImage imageNamed:_model.head] forState:UIControlStateNormal];
-        self.nickeLab.text = _model.nickName;
-        self.sexImg.image = [UIImage imageNamed:_model.sex];
-        self.coverImg.image = [UIImage imageNamed:_model.videoCover];
+        if (_model.first_video.count > 0) {
+            //        self.titleLab.text = _model.first_video.distance;
+            [self.titleLab.layer setCornerRadius:6];
+            self.titleLab.clipsToBounds = YES;
+            [self.headBtn sd_setImageWithURL:[NSURL URLWithString:_model.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"logo"]];
+            self.nickeLab.text = _model.nickName;
+            self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
+            
+            SPCoverModel *covermodel = [SPCoverModel modelWithDictionary:_model.first_video[0]];
+            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[covermodel.video stringByAppendingString:videoCover]] placeholderImage:[UIImage imageNamed:@""]];
+            
+        }
     }
 }
 

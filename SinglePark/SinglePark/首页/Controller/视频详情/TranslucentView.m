@@ -102,13 +102,18 @@
 
         //设置图片和文字的间距，这里可自行调整
         CGFloat margin = 10;
-        
+
         self.goodBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.goodBtn.titleLabel.height-margin, 5, 0, 0);
         self.goodBtn.titleEdgeInsets = UIEdgeInsetsMake(self.goodBtn.imageView.height+margin, -self.goodBtn.imageView.width/2-5-self.goodBtn.titleLabel.width/2, 0, 0);
     
         self.commentBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.commentBtn.titleLabel.height-margin, 5, 0, 0);
         self.commentBtn.titleEdgeInsets = UIEdgeInsetsMake(self.commentBtn.imageView.height+margin, -self.commentBtn.imageView.width/2-5-self.commentBtn.titleLabel.width/2, 0, 0);
+        
+//        设置头像
+        [self.headBtn sd_setImageWithURL:[NSURL URLWithString:self.permodel.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"logo"]];
         [self.headBtn setCornerRadius];
+
+
     }
 }
 

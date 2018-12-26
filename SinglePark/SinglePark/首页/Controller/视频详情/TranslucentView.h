@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SPVideoModel.h"
+#import "SPPersonModel.h"
 
 @interface TranslucentView : UIView
 
@@ -17,5 +18,7 @@
 @property (nonatomic,strong)UIButton *titleBtn;
 
 @property (nonatomic,strong)SPVideoModel *model;
+@property (nonatomic,strong)SPPersonModel *permodel;
+
 @property (nonatomic,copy)void (^TranslucentBlock)(NSInteger row);
 @end

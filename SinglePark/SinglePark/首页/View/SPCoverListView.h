@@ -11,4 +11,5 @@
 @interface SPCoverListView : UIView
 
 @property (nonatomic,assign)ChooseType choosetype;
+@property (nonatomic,assign)BOOL  islocal;
 @end

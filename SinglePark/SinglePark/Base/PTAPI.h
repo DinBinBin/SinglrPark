@@ -52,6 +52,14 @@ static NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcH
 #define PTURL_API_Index [NSString stringWithFormat:@"%@/home",BASE_HttpURL]
 //发布视频接口
 #define SPSendVideo [NSString stringWithFormat:@"%@/video/create",BASE_HttpURL]
+//视频详情
+#define SPInfoVideo [NSString stringWithFormat:@"%@/video/detail",BASE_HttpURL]
+//视频点赞
+#define SPUPVideo [NSString stringWithFormat:@"%@/video/up",BASE_HttpURL]
+//视频举报
+#define SPReports [NSString stringWithFormat:@"%@/reports/create",BASE_HttpURL]
+//视频评论列表
+#define SPComments [NSString stringWithFormat:@"%@/comments/create",BASE_HttpURL]
 
 
 
