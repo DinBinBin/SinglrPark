@@ -116,9 +116,8 @@
             NSDictionary *dciv =  [NSJSONSerialization JSONObjectWithData:responseObject options:kNilOptions error:nil];
           
             success(dciv);
-            JDWLog(@"responseObject = %@",dciv);
+            JDWLog(@"url === %@\n params === %@\n response === %@\n",URL,parameters,responseObject);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
             failure ? failure(error) : nil;
             JDWLog(@"error = %@",error);
@@ -258,12 +257,12 @@
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
         //添加请求授权字段token
-//        if ([DBAccountInfo sharedInstance].model.token) {
-//            [manager.requestSerializer setValue:[DBAccountInfo sharedInstance].model.token forHTTPHeaderField:@"Authorization"];
-//        }else {
-//            NSLog(@"未获取到token字段");
-//        }
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"Authorization"];
+        if ([DBAccountInfo sharedInstance].model.token) {
+            [manager.requestSerializer setValue:[DBAccountInfo sharedInstance].model.token forHTTPHeaderField:@"Authorization"];
+        }else {
+            NSLog(@"未获取到token字段");
+        }
+//        [manager.requestSerializer setValue:[DBAccountInfo sharedInstance].model.token forHTTPHeaderField:@"Authorization"];
 
         return manager;
     }

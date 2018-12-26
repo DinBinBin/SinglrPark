@@ -19,5 +19,12 @@ static id _instance;
     return _instance;
 }
 
+- (SPPersonModel *)model {
+    if (!_model) {
+        _model = [[SPPersonModel alloc] init];
+    }
+    return _model;
+}
+
 
 @end

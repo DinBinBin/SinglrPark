@@ -29,7 +29,7 @@
     
 //        GuideViewController *guid = [[GuideViewController alloc] init];
 //        self.window.rootViewController = guid;
-
+//
 //    if (self.versionStr==nil || [self.versionStr intValue] != [currentAppVersion intValue]) {
 //        self.versionStr = currentAppVersion;
 //        [userdef setObject:self.versionStr forKey:@"versionStr"];
@@ -38,19 +38,19 @@
 //
 //    }else{ //判断是否是登录状态
 //    [self setUI];
-    [DBAccountInfo sharedInstance].model = [JDWUserInfoDB userInfo];
+//    [DBAccountInfo sharedInstance].model = [JDWUserInfoDB userInfo];
     
-//        if(token){
-//            SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
-//            self.window.rootViewController = sgTabBar;
-//
-//        }else{
+        if([DBAccountInfo sharedInstance].model.token){
+            SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+            self.window.rootViewController = sgTabBar;
+
+        }else{
             SGNavigationController *nav = [[SGNavigationController alloc] initWithRootViewController:[[SPWelcomeController alloc] init]];
             self.window.rootViewController = nav;
-//        }
+        }
 
 //    }
-    
+
     /** 注册融云 */
     [self registRYAPIWith:application];
     

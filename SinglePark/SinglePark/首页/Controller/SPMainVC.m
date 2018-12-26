@@ -24,7 +24,21 @@
     [super viewDidLoad];
     [self setNavView];
 
+    [self refreshToken];
+}
 
+- (void)refreshToken {
+    [JDWNetworkHelper POST:SPURL_API_Refresh parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            [DBAccountInfo sharedInstance].model.token = responseDic[@"error_code"][@"token"];
+            [DBAccountInfo sharedInstance].islogin = YES;
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 

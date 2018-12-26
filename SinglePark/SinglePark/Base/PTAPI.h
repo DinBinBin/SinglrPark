@@ -14,7 +14,8 @@
 
 static NSString *token = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJTSEEyNTYifQ.eyJpc3MiOiJhcHBXaXRoWWV0aCIsImlhdCI6MTU0NTY0MDc5NCwiZXhwIjoxNTQ2MjQ1NTk0LCJpZCI6OCwidHlwZSI6InBob25lIiwidmVyc2lvbiI6Mn0.d399fb3eff1884190e1f471edd16e1a60648c9126ce0e62c3254f7d23df79931";
 
-
+//刷新token
+#define SPURL_API_Refresh [NSString stringWithFormat:@"%@/refresh",BASE_HttpURL]
 //发送手机验证码接口
 #define PTURL_API_SENDMSG [NSString stringWithFormat:@"%@/captcha",BASE_HttpURL]
 //注册/邀请码

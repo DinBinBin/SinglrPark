@@ -48,7 +48,7 @@
 
     
     [self.view addSubview:self.loginBtn];
-    [self.view addSubview:self.forgetBtn];
+//    [self.view addSubview:self.forgetBtn];
 
     [self.view addSubview:self.readPrompt];
     [self.view addSubview:self.readBtn];
@@ -167,18 +167,18 @@
     return _loginBtn;
 }
 
-- (UIButton *)forgetBtn{
-    if (_forgetBtn == nil) {
-        _forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _forgetBtn.frame = CGRectMake((kScreenWidth-250)/2, self.loginBtn.bottom+50, 250, 20);
-        [_forgetBtn setTitle:@"世界很大，我想去看看" forState:UIControlStateNormal];
-        [_forgetBtn setTitleColor:ThemeColor forState:UIControlStateNormal];
-        _forgetBtn.titleLabel.font = FONT(15);
-        [_forgetBtn addTarget:self action:@selector(forget) forControlEvents:UIControlEventTouchUpInside];
-        
-    }
-    return _forgetBtn;
-}
+//- (UIButton *)forgetBtn{
+//    if (_forgetBtn == nil) {
+//        _forgetBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _forgetBtn.frame = CGRectMake((kScreenWidth-250)/2, self.loginBtn.bottom+50, 250, 20);
+//        [_forgetBtn setTitle:@"世界很大，我想去看看" forState:UIControlStateNormal];
+//        [_forgetBtn setTitleColor:ThemeColor forState:UIControlStateNormal];
+//        _forgetBtn.titleLabel.font = FONT(15);
+//        [_forgetBtn addTarget:self action:@selector(forget) forControlEvents:UIControlEventTouchUpInside];
+//
+//    }
+//    return _forgetBtn;
+//}
 
 
 - (UILabel *)readPrompt{
@@ -211,17 +211,17 @@
 - (void)next{
 
     //保存token
-    NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
-    [userdef setObject:token forKey:isLogin];
-    [DBAccountInfo sharedInstance].model.token = token;
-    [DBAccountInfo sharedInstance].islogin = YES;
-
-    //登录跳转
-    SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
-    [UIApplication sharedApplication].statusBarHidden = NO;
-    ptAppDelegate.window.rootViewController = sgTabBar ;
+//    NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
+//    [userdef setObject:token forKey:isLogin];
+//    [DBAccountInfo sharedInstance].model.token = token;
+//    [DBAccountInfo sharedInstance].islogin = YES;
+//
+//    //登录跳转
+//    SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+//    [UIApplication sharedApplication].statusBarHidden = NO;
+//    ptAppDelegate.window.rootViewController = sgTabBar ;
     
-    /* 完整流程，请别删除
+    // 完整流程，请别删除
 
     if (self.mobileField.text.length == 0) {
         [MBProgressHUD showMessage:@"请输入您的手机号"];
@@ -263,7 +263,7 @@
         [MBProgressHUD showMessage:Networkerror];
 
     }];
-*/
+
 }
 
 // 游客
