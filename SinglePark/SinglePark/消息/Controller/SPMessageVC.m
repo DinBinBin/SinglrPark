@@ -27,6 +27,8 @@
     self.title = @"消息";
     [self setUI];
     [self getModel];
+    
+    
 }
 
 - (void)setUI{

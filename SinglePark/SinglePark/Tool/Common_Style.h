@@ -24,6 +24,7 @@
 #define kSFTimeoutInterval 30.0f
 #define ND [NSUserDefaults standardUserDefaults]
 #define KEYWINDOW       [UIApplication sharedApplication].keyWindow
+#define kNotificationCenter [NSNotificationCenter defaultCenter]
 
 
 

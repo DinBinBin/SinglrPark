@@ -32,6 +32,8 @@ NSString *const kH5JarVersionIOS = @"h5JarVersionIOS"; // 缓存包
 
 
 // ----------------------------------------NSNotificationCenter key--------------------------------------------//
+
+
 /** 弹出手势密码登录 */
 NSString *const kNotificationPresentGestureLogin = @"kNotificationPresentGestureLogin";
 NSString *const kNotificationDismissGestureLogin = @"kNotificationDismissGestureLogin";// 手势密码消失

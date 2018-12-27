@@ -31,15 +31,15 @@
 
 - (void)getdata{
     self.dataArr = [NSMutableArray array];
-    NSDictionary *dic1 = @{@"head":@"4",
+    NSDictionary *dic1 = @{@"avatar":@"4",
                            @"occupation":@"距离----",
-                           @"nickName":@"昵称----",
+                           @"nick_name":@"昵称----",
                            @"sex":@"1",
                            @"singer":@"伴着我的歌声是你心碎的幻想，你用你的眼泪抚摸我的寂寞",
                            @"didian":@"广东深圳",
                            @"number":@[@"4",@"4",@"4"]
                            };
-    SPPersonModel *model = [SPPersonModel modelWithJSON:dic1];
+    SPPersonModel *model = [SPPersonModel modelWithDictionary:dic1];
     [self.dataArr addObject:model];
     [self.dataArr addObject:model];
     [self.dataArr addObject:model];

@@ -7,10 +7,13 @@
 //
 
 #import "SPCurrencyController.h"
+#import <RongIMKit/RongIMKit.h>
+
 
 @interface SPCurrencyController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
 @property (nonatomic,strong)NSArray *titleArr;
+@property(nonatomic,assign)double  cachesize;
 
 
 @end
@@ -64,12 +67,15 @@
         return cell;
     }else{
         if (indexPath.row == 0) {
-            
+            self.cachesize = [self coundCache];
+            cell.detailTextLabel.text = [NSString   stringWithFormat:@"%.2fM",self.cachesize];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
             return cell;
         }else if (indexPath.row == 1) {
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
             
         }else {
@@ -88,7 +94,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    
-    
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [self cleanCache];
+            [self.listTabView reloadData];
+            [MBProgressHUD showMessage:@"清除成功"];
+        }else{
+            [[RCIMClient sharedRCIMClient] clearConversations:@[@(ConversationType_PRIVATE),
+                                                                @(ConversationType_DISCUSSION),
+                                                                @(ConversationType_CHATROOM),
+                                                                @(ConversationType_GROUP),
+                                                                @(ConversationType_APPSERVICE),
+                                                                @(ConversationType_SYSTEM)]];
+            [MBProgressHUD showMessage:@"清除成功"];
+
+        }
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -116,6 +137,41 @@
     return nil;
 }
 
+// 清楚本地文件
+- (void)cleanCache{
+    NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSArray *files = [[NSFileManager defaultManager] subpathsAtPath:cachPath];
+    for (NSString *fileName in files)
+    {
+        NSError *error;
+        NSString *path = [cachPath stringByAppendingPathComponent:fileName];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path])
+        {
+            [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+        }
+    }
+}
+
+
+// 计算缓存大小
+- (double)coundCache{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    double fileSize = 0.0;
+    NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSArray *files = [fileManager subpathsAtPath:cachPath];
+    for (NSString *fileName in files)
+    {
+        NSString *path = [cachPath stringByAppendingPathComponent:fileName];
+        if ([fileManager fileExistsAtPath:path])
+        {
+            NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:path error:nil];
+            fileSize += (double)([fileAttributes fileSize]);
+        }
+    }
+    
+    return fileSize/1024.0/1024.0;
+}
 
 - (UITableView *)listTabView{
     if (_listTabView == nil) {

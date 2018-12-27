@@ -174,12 +174,12 @@ static CGFloat const kCellHeight = 37;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        _leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, (kCellHeight - 20) / 2, 20, 20)];
+        _leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, (kCellHeight - 25) / 2, 25, 25)];
         [self.contentView addSubview:_leftImageView];
         
         
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_leftImageView.frame) + 15, _leftImageView.frame.origin.y, 0, 0)];
-        _titleLabel.font = [UIFont systemFontOfSize:14];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_leftImageView.frame) + 10, _leftImageView.frame.origin.y+3, 0, 0)];
+        _titleLabel.font = [UIFont systemFontOfSize:16];
         _titleLabel.textColor = [UIColor whiteColor];
         [self.contentView addSubview:_titleLabel];
         self.contentView.backgroundColor = [UIColor blackColor];

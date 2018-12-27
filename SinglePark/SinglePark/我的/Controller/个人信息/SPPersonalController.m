@@ -34,9 +34,9 @@
     
 
      
-    NSDictionary *dic1 = @{@"head":@"4",
+    NSDictionary *dic1 = @{@"avatar":@"4",
                            @"occupation":@"15115912877",
-                           @"nickName":@"昵称----",
+                           @"nick_name":@"昵称----",
                            @"sex":@"1",
                            @"singer":@"伴着我的歌声是你心碎的幻想，你用你的眼泪抚摸我的寂寞",
                            @"didian":@"广东深圳",
@@ -77,7 +77,7 @@
     }else if (indexPath.section == 1) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         cell.textLabel.text = arr[indexPath.row];
-        cell.textLabel.font = FONT(14);
+        cell.textLabel.font = Font16;
         cell.textLabel.textColor = SecondWordColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
@@ -86,22 +86,22 @@
 
         }
         cell.detailTextLabel.textColor = FirstWordColor;
-        cell.detailTextLabel.font = FONT(14);
+        cell.detailTextLabel.font = Font16;
         return cell;
     }else if(indexPath.section == 2)   {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         cell.textLabel.text = arr[indexPath.row];
-        cell.textLabel.font = FONT(14);
+        cell.textLabel.font = Font16;
         cell.textLabel.textColor = SecondWordColor;
         cell.detailTextLabel.textColor = FirstWordColor;
-        cell.detailTextLabel.font = FONT(14);
+        cell.detailTextLabel.font = Font16;
     cell.detailTextLabel.text = @"";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         cell.textLabel.text = arr[indexPath.row];
-        cell.textLabel.font = FONT(14);
+        cell.textLabel.font = Font16;
         cell.textLabel.textColor = SecondWordColor;
 
         if (indexPath.row == 0) {

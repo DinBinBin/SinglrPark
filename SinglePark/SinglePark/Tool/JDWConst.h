@@ -31,6 +31,7 @@ UIKIT_EXTERN NSString *const kH5JarVersionIOS;
 
 
 // ----------------------------------------NSNotificationCenter key--------------------------------------------//
+
 UIKIT_EXTERN NSString *const kNotificationPresentGestureLogin;
 UIKIT_EXTERN NSString *const kNotificationDismissGestureLogin;
 UIKIT_EXTERN NSString *const kNotificatiobLoginout;

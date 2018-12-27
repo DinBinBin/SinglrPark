@@ -14,6 +14,8 @@
 #import "SPPrivacyController.h"
 #import "SGNavigationController.h"
 #import "SPWelcomeController.h"
+#import <RongIMKit/RongIMKit.h>
+
 
 @interface SPSetController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -69,6 +71,7 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     if (indexPath.section == 0) {
         cell.detailTextLabel.text = [DBAccountInfo sharedInstance].model.phone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
         return cell;
     }else if (indexPath.section == 1) {
         
@@ -113,9 +116,16 @@
 
         }
     }else if (indexPath.section == 3){ // 退出登录
+        //清除token
+        [DBAccountInfo sharedInstance].token = nil;
+        [ND removeObjectForKey:isLogin];
+        //断开融云
+        [[RCIM sharedRCIM] disconnect];
+
 
         SGNavigationController *nav = [[SGNavigationController alloc] initWithRootViewController:[[SPWelcomeController alloc] init]];
         KEYWINDOW.rootViewController = nav;
+        
     }
     
 }

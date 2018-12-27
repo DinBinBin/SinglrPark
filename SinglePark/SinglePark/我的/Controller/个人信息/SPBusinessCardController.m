@@ -36,7 +36,7 @@
     //    NSDictionary *parms = @{@"":@""};
     NSDictionary *dic = @{@"avatar":@"4",
                           @"distance":@"距离----",
-                          @"nickName":@"昵称----",
+                          @"nick_name":@"昵称----",
                           @"sex":@"1",
                           @"videoCover":@"5"};
     SPCoverModel *model = [SPCoverModel modelWithJSON:dic];
@@ -49,7 +49,7 @@
     
     NSDictionary *dic1 = @{@"avatar":@"4",
                           @"occupation":@"距离----",
-                          @"nickName":@"昵称----",
+                          @"nick_name":@"昵称----",
                           @"sex":@"1",
                           @"singer":@"伴着我的歌声是你心碎的幻想，你用你的眼泪抚摸我的寂寞",
                            @"didian":@"广东深圳",

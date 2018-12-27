@@ -248,10 +248,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
     }
     
-    cell.textLabel.font = Font14;
+    cell.textLabel.font = Font16;
     cell.textLabel.textColor = SecondWordColor;
     cell.detailTextLabel.textColor = FirstWordColor;
-    cell.detailTextLabel.font = Font14;
+    cell.detailTextLabel.font = Font16;
     cell.textLabel.text = self.titleArr[indexPath.section][indexPath.row];
     cell.detailTextLabel.text = self.detailArr[indexPath.section][indexPath.row];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

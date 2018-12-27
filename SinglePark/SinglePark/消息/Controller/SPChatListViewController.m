@@ -47,18 +47,35 @@
     self.conversationListTableView.tableFooterView = [UIView new];
     self.conversationListTableView.backgroundColor = PTBackColor;
     
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 100, 50)];
+    lab.center = self.conversationListTableView.center;
+    lab.text = @"暂时没有会话";
+    lab.font = Font16;
+    lab.textColor = SecondWordColor;
+    self.emptyConversationView = lab;
+    self.emptyConversationView.hidden = YES;
+    
     [RCIM sharedRCIM].userInfoDataSource = self;
 
-
+    
 }
 
 - (NSMutableArray *)willReloadTableData:(NSMutableArray *)dataSource {
     NSLog(@"会话列表:%@",dataSource);
+    
+    
     return dataSource;
 }
 
+
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)clearChatRecord {
+    self.conversationListDataSource = nil;
+    [self.conversationListTableView reloadData];
+    
 }
 
 //重写RCConversationListViewController的onSelectedTableRow事件
