@@ -13,6 +13,7 @@ static CGFloat const kCellHeight = 37;
 
 @interface PopMenuTableViewCell : UITableViewCell
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIImageView *leftImageView;
 @end
 
 @interface JDWPopMenuView ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
@@ -52,6 +53,7 @@ static CGFloat const kCellHeight = 37;
         _tableView.dataSource = self;
         _tableView.scrollEnabled = NO;
         _tableView.rowHeight = kCellHeight;
+        _tableView.backgroundColor = [UIColor blackColor];
         [_tableView registerClass:[PopMenuTableViewCell class] forCellReuseIdentifier:@"PopMenuTableViewCell"];
         [self addSubview:_tableView];
         
@@ -115,7 +117,7 @@ static CGFloat const kCellHeight = 37;
 #pragma mark - Draw triangle
 - (void)drawRect:(CGRect)rect {
     // 设置背景色
-    [[UIColor whiteColor] set];
+    [[UIColor blackColor] set];
     //拿到当前视图准备好的画板
     CGContextRef context = UIGraphicsGetCurrentContext();
     //利用path进行绘制三角形
@@ -128,9 +130,9 @@ static CGFloat const kCellHeight = 37;
     CGContextAddLineToPoint(context, point.x + 5, point.y + 5);
     CGContextClosePath(context);
     // 设置填充色
-    [[UIColor whiteColor] setFill];
+    [[UIColor blackColor] setFill];
     // 设置边框颜色
-    [[UIColor whiteColor] setStroke];
+    [[UIColor blackColor] setStroke];
     // 绘制路径
     CGContextDrawPath(context, kCGPathFillStroke);
 }
@@ -143,7 +145,7 @@ static CGFloat const kCellHeight = 37;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PopMenuTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PopMenuTableViewCell" forIndexPath:indexPath];
     NSDictionary *dic = _tableData[indexPath.row];
-//    cell.leftImageView.image = [UIImage imageNamed:dic[@"imageName"]];
+    cell.leftImageView.image = [UIImage imageNamed:dic[@"imageName"]];
     cell.titleLabel.text = dic[@"title"];
     [cell.titleLabel sizeToFit];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -171,17 +173,16 @@ static CGFloat const kCellHeight = 37;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.font = [UIFont systemFontOfSize:12];
-        _titleLabel.textColor = SecondWordColor;
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        
+        _leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, (kCellHeight - 20) / 2, 20, 20)];
+        [self.contentView addSubview:_leftImageView];
+        
+        
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_leftImageView.frame) + 15, _leftImageView.frame.origin.y, 0, 0)];
+        _titleLabel.font = [UIFont systemFontOfSize:14];
+        _titleLabel.textColor = [UIColor whiteColor];
         [self.contentView addSubview:_titleLabel];
-        
-        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(self);
-        }];
-        
+        self.contentView.backgroundColor = [UIColor blackColor];
     }
     return self;
 }

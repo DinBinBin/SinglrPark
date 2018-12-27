@@ -97,7 +97,8 @@
             
             [ND setObject:@"" forKey:isLogin];
             [DBAccountInfo sharedInstance].islogin = NO;
-            
+            [DBAccountInfo sharedInstance].isTouris = YES;
+
             SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
             [UIApplication sharedApplication].statusBarHidden = NO;
             ptAppDelegate.window.rootViewController = sgTabBar ;

@@ -34,7 +34,7 @@
 
 - (void)getdata{
     //    NSDictionary *parms = @{@"":@""};
-    NSDictionary *dic = @{@"head":@"4",
+    NSDictionary *dic = @{@"avatar":@"4",
                           @"distance":@"距离----",
                           @"nickName":@"昵称----",
                           @"sex":@"1",
@@ -47,7 +47,7 @@
     [self.dataArr addObject:model];
     
     
-    NSDictionary *dic1 = @{@"head":@"4",
+    NSDictionary *dic1 = @{@"avatar":@"4",
                           @"occupation":@"距离----",
                           @"nickName":@"昵称----",
                           @"sex":@"1",

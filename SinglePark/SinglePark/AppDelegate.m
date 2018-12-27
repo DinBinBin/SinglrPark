@@ -43,8 +43,13 @@
         if([ND objectForKey:isLogin]){
             if ([[ND objectForKey:isLogin] isEqualToString:@""]) {
                 [DBAccountInfo sharedInstance].islogin = NO;
+                [DBAccountInfo sharedInstance].isTouris = YES;
+
             }else{
                 [DBAccountInfo sharedInstance].islogin = YES;
+                [DBAccountInfo sharedInstance].isTouris = NO;
+                [DBAccountInfo sharedInstance].token = [ND objectForKey:isLogin];
+                
             }
             SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
             self.window.rootViewController = sgTabBar;

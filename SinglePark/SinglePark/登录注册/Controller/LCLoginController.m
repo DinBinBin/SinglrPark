@@ -234,9 +234,10 @@
             //保存token
             NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
             [userdef setObject:responseDic[@"data"][@"token"] forKey:isLogin];
-            [DBAccountInfo sharedInstance].model.token = responseDic[@"data"][@"token"];
+            [DBAccountInfo sharedInstance].token = responseDic[@"data"][@"token"];
             [DBAccountInfo sharedInstance].islogin = YES;
-            
+            [DBAccountInfo sharedInstance].isTouris = NO;
+
             //登录跳转
             SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
             [UIApplication sharedApplication].statusBarHidden = NO;

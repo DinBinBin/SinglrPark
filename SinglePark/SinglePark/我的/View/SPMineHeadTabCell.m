@@ -108,6 +108,8 @@
         [self.headimg.layer setCornerRadius:35];
         self.headimg.clipsToBounds = YES;
 
+    }else{
+        self.headimg.image = ImageNamed(@"logo");
     }
 }
 

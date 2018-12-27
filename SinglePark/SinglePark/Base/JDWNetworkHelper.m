@@ -257,8 +257,8 @@
         [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 
         //添加请求授权字段token
-        if ([ND objectForKey:isLogin]) {
-            [manager.requestSerializer setValue:[ND objectForKey:isLogin] forHTTPHeaderField:@"Authorization"];
+        if ([DBAccountInfo sharedInstance].token) {
+            [manager.requestSerializer setValue:[DBAccountInfo sharedInstance].token forHTTPHeaderField:@"Authorization"];
 
         }else {
             NSLog(@"未获取到token字段");

@@ -16,7 +16,7 @@
 @property (nonatomic,assign)BOOL islogin;
 @property (nonatomic,strong)SGBaseController *backControl; //返回的控制器
 @property (nonatomic,strong)SGBaseController *secondControl;  //第二控制器
-//@property (nonatomic,copy)NSString *token;
+@property (nonatomic,copy)NSString *token;
 @property (nonatomic,strong)SPPersonModel *model;
-
+@property (nonatomic,assign)BOOL isTouris; //是否游客登录
 @end

@@ -392,16 +392,22 @@
 #pragma mark - click
 - (void)back {
     [super back];
+    
+    if (self.model == nil) {
+        return;
+    }
+    
     if (self.backRequsetBlock) {
         self.backRequsetBlock();
     }
+    
     
     NSDictionary *parsms = @{
                              @"avatar":self.qiniuToken ?: @"",
                              @"nick_name":self.model.nickName ?: [DBAccountInfo sharedInstance].model.nickName ?: @"未填写",
                              @"sex":@(self.model.sex) ?: @([DBAccountInfo sharedInstance].model.sex) ?: @"未填写",
                              @"birthday":self.model.birthday ?: [DBAccountInfo sharedInstance].model.birthday ?: @"未填写",
-                             @"job":@[self.model.occupation] ?: [DBAccountInfo sharedInstance].model.job ?: @"未填写",
+                             @"job":@[self.model.occupation] ?: [DBAccountInfo sharedInstance].model.job ?: @[@"未填写"],
                              @"province_id":@(self.model.province_id) ?: @([DBAccountInfo sharedInstance].model.province_id) ?: @"",
                              @"city_id":@(self.model.city_id) ?: @([DBAccountInfo sharedInstance].model.city_id) ?: @"",
                              @"district_id":@(self.model.district_id) ?: @([DBAccountInfo sharedInstance].model.district_id) ?: @"",

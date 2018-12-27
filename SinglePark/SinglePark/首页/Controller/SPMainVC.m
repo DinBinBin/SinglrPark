@@ -24,7 +24,7 @@
     [super viewDidLoad];
     [self setNavView];
 
-    if ([DBAccountInfo sharedInstance].islogin) {
+    if (![DBAccountInfo sharedInstance].isTouris) {
         [self refreshToken];
     }
 }
@@ -39,7 +39,7 @@
             NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
             [userdef removeObjectForKey:isLogin];
             [userdef setObject:responseDic[@"data"][@"token"] forKey:isLogin];
-            [DBAccountInfo sharedInstance].model.token = responseDic[@"data"][@"token"];
+            [DBAccountInfo sharedInstance].token = responseDic[@"data"][@"token"];
             [DBAccountInfo sharedInstance].islogin = YES;
         }else{
             [DBAccountInfo sharedInstance].islogin = NO;
@@ -92,12 +92,12 @@
 
 // 弹出筛选条件
 - (void)selectTerm{
-    [JDWPopMenuView showWithItems:@[@{@"title":@"只看女生"},
-                                    @{@"title":@"只看男生"},
-                                    @{@"title":@"查看全部"},
-                                    @{@"title":@"取消"}
+    [JDWPopMenuView showWithItems:@[@{@"title":@"只看女生",@"imageName":@"iconWomen"},
+                                    @{@"title":@"只看男生",@"imageName":@"iconMen"},
+                                    @{@"title":@"查看全部",@"imageName":@"iconAll"},
+                                    @{@"title":@"取消",@"imageName":@"iconCancel"}
                                     ]
-                            width:104
+                            width:125
                  triangleLocation:CGPointMake(kScreenW-40, kNavigationHeight)
                            action:^(NSInteger index) {
                                NSLog(@"点击了第%ld行",index);
