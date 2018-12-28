@@ -19,6 +19,7 @@
 		793D75D221C349A900F93E71 /* SFBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793D75D121C349A900F93E71 /* SFBaseWebViewController.m */; };
 		793D75D521C3A96B00F93E71 /* SPProtectionOptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793D75D421C3A96B00F93E71 /* SPProtectionOptViewController.m */; };
 		793D75D821C3AE6200F93E71 /* MFMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793D75D621C3AE6200F93E71 /* MFMapManager.m */; };
+		7940DAC121D5F46F005F35C9 /* UITabBar+SPTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7940DAC021D5F46F005F35C9 /* UITabBar+SPTabBar.m */; };
 		796D9C9821B7ACB30045F0B4 /* SPConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */; };
 		796D9C9E21B916FE0045F0B4 /* SQPrintJsonLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */; };
 		796D9CA221B91FC70045F0B4 /* SPJobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9CA121B91FC70045F0B4 /* SPJobModel.m */; };
@@ -201,6 +202,8 @@
 		793D75D421C3A96B00F93E71 /* SPProtectionOptViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPProtectionOptViewController.m; sourceTree = "<group>"; };
 		793D75D621C3AE6200F93E71 /* MFMapManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMapManager.m; sourceTree = "<group>"; };
 		793D75D721C3AE6200F93E71 /* MFMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMapManager.h; sourceTree = "<group>"; };
+		7940DABF21D5F46F005F35C9 /* UITabBar+SPTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBar+SPTabBar.h"; sourceTree = "<group>"; };
+		7940DAC021D5F46F005F35C9 /* UITabBar+SPTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+SPTabBar.m"; sourceTree = "<group>"; };
 		796D9C9621B7ACB30045F0B4 /* SPConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConversationViewController.h; sourceTree = "<group>"; };
 		796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConversationViewController.m; sourceTree = "<group>"; };
 		796D9C9C21B916FE0045F0B4 /* SQPrintJsonLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQPrintJsonLog.h; sourceTree = "<group>"; };
@@ -683,6 +686,8 @@
 				8110C5AA2120019E00D013FC /* UITextField+KYExtension.m */,
 				8110C59D2120019C00D013FC /* UIView+ZExtension.h */,
 				8110C5A42120019D00D013FC /* UIView+ZExtension.m */,
+				7940DABF21D5F46F005F35C9 /* UITabBar+SPTabBar.h */,
+				7940DAC021D5F46F005F35C9 /* UITabBar+SPTabBar.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1564,6 +1569,7 @@
 				813CB052217C9A8200E4E67B /* SPCommentTablCell.m in Sources */,
 				811815582181FEA5002069AA /* SPChasingController.m in Sources */,
 				813290B6214A8DD700679CC2 /* SPPerfectController.m in Sources */,
+				7940DAC121D5F46F005F35C9 /* UITabBar+SPTabBar.m in Sources */,
 				81ECE7962135815E004FDDE8 /* SPRegisterController.m in Sources */,
 				E68CBB46219EB4170010C2D6 /* SPCommentTabView.m in Sources */,
 				8110C5B42120019F00D013FC /* MBProgressHUD+MRLC.m in Sources */,

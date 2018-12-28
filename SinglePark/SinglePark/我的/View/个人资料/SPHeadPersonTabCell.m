@@ -99,10 +99,10 @@
 - (void)setModel:(SPPersonModel *)model{
     if (_model != model) {
         _model = model;
-        self.headimg.image = [UIImage imageNamed:_model.avatar];
+        [self.headimg sd_setImageWithURL:[NSURL URLWithString:_model.avatar]  placeholderImage:ImageNamed(@"logo") options:SDWebImageRefreshCached];
         self.nickeLab.text = _model.nickName;
         self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
-        self.occupation.text = _model.occupation;
+        self.occupation.text = _model.job.firstObject;
         [self.headimg.layer setCornerRadius:35];
         self.headimg.clipsToBounds = YES;
 

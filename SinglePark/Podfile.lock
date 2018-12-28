@@ -16,10 +16,10 @@ PODS:
     - AFNetworking/NSURLSession
   - AMap2DMap (5.6.1):
     - AMapFoundation (~> 1.4)
-  - AMapFoundation (1.5.4)
+  - AMapFoundation (1.5.5)
   - AMapLocation (2.6.1):
     - AMapFoundation (~> 1.4)
-  - AMapSearch (6.1.1):
+  - AMapSearch (6.5.0):
     - AMapFoundation (~> 1.4)
   - HappyDNS (0.3.14)
   - Masonry (1.1.0)
@@ -78,9 +78,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   AMap2DMap: cac76bc057de18a1641f34df6b50bf5bc6b23571
-  AMapFoundation: bff8688722e886feda4edd77f1443746ddd7e2e2
+  AMapFoundation: 652bd70ba579f48a98bdf0c74d6e62a89a06ca58
   AMapLocation: cf024b53dc03663efb4ea4bcce27d4cce58bb97a
-  AMapSearch: 3dcbf85c403a2a0fe0eda5318caabc272b31f5e1
+  AMapSearch: c22d8c98e04aad30615834e567781ec1367c4f36
   HappyDNS: dc6a164ee81979093123c241c6353bcf0218add6
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
@@ -95,4 +95,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 42731a0d088ab8298b8524040afcb9e5494fc10d
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.2

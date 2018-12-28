@@ -454,7 +454,7 @@
 @interface AMapTMC : AMapSearchObject
 ///长度（单位：米）
 @property (nonatomic, assign) NSInteger distance; 
-///路况状态描述：0 未知，1 畅通，2 缓行，3 拥堵
+///路况状态描述：0 未知，1 畅通，2 缓行，3 拥堵，4 严重拥堵
 @property (nonatomic, copy)   NSString  *status; 
 ///此路段坐标点串
 @property (nonatomic, copy)   NSString  *polyline;

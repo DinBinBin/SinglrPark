@@ -345,7 +345,8 @@ typedef NS_ENUM(NSInteger, AMapTruckSizeType)
 @property (nonatomic, copy) NSString *plateProvince;
 ///车牌详情,填入除省份及标点之外的字母和数字（需大写）。用于判断是否限行。
 @property (nonatomic, copy) NSString *plateNumber;
-
+///使用轮渡,0使用1不使用,默认为0使用
+@property (nonatomic, assign) NSInteger ferry;
 @end
 
 #pragma mark - AMapWalkingRouteSearchRequest

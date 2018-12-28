@@ -121,6 +121,7 @@
         [ND removeObjectForKey:isLogin];
         //断开融云
         [[RCIM sharedRCIM] disconnect];
+        [[RCIMClient sharedRCIMClient] logout];
 
 
         SGNavigationController *nav = [[SGNavigationController alloc] initWithRootViewController:[[SPWelcomeController alloc] init]];

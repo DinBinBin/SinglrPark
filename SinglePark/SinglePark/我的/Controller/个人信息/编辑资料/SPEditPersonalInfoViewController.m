@@ -80,11 +80,6 @@
             SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
             strongSelf.model = model;
             
-            //职业
-            if (self.model.job.count > 0) {
-                self.model.occupation = self.model.job.firstObject;
-            }
-            
             [strongSelf requestProvinceName];
         }else{
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
@@ -188,9 +183,6 @@
 
 - (void)reloadDataSource {
     
-    //保存用户信息
-    [DBAccountInfo sharedInstance].model=self.model;
-    [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
     
     NSString *sex;
     if (_model.sex == 0) {
@@ -204,7 +196,7 @@
     self.detailArr = [NSMutableArray arrayWithArray:@[
                                                       @[self.model.avatar ?: @"logo",self.model.nickName ?: @"未填写"],
                                                         @[sex,self.model.birthday ?: @"未填写"],
-                                                        @[self.model.occupation?:@"未填写",self.model.unit ?: @"未填写"],
+                                                        @[self.model.job.firstObject?:@"未填写",self.model.unit ?: @"未填写"],
                                                         @[self.model.university ?:@"未填写",self.model.education ?:@"未填写"],
                                                         @[self.model.areaName ?:@"未填写"],
                                                         @[self.model.height ?:@"未填写",self.model.weight ?:@"未填写"],
@@ -231,8 +223,11 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             SPMineHeadCell *headCell = [[[NSBundle mainBundle] loadNibNamed:@"SPMineHeadCell" owner:nil options:nil] firstObject];
-            
-            [headCell.headImageView sd_setImageWithURL:[NSURL URLWithString:self.detailArr[0][0]] placeholderImage:ImageNamed(@"logo")];
+            if (self.img) {
+                headCell.headImageView.image = self.img;
+            }else{
+                [headCell.headImageView sd_setImageWithURL:[NSURL URLWithString:self.detailArr[0][0]] placeholderImage:ImageNamed(@"logo")];
+            }
             return headCell;
         }
     }else if (indexPath.section == 8) {
@@ -303,7 +298,7 @@
             if (indexPath.row == 0) {//修改职业
                 vc.type = SPJobEditType;
                 vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                    strongSelf.model.occupation = str;
+                    strongSelf.model.job = @[str];
                     [strongSelf reloadDataSource];
                 };
             }else{//修改所在单位
@@ -391,15 +386,22 @@
 
 #pragma mark - click
 - (void)back {
-    [super back];
     
+    if (self.img) {
+        [self commitHeadimg:self.img];
+    }else{
+        [self uploadUserInfo];
+    }
+    
+}
+
+- (void)uploadUserInfo {
     if (self.model == nil) {
+        [self goback];
+
         return;
     }
-    
-    if (self.backRequsetBlock) {
-        self.backRequsetBlock();
-    }
+
     
     
     NSDictionary *parsms = @{
@@ -407,7 +409,7 @@
                              @"nick_name":self.model.nickName ?: [DBAccountInfo sharedInstance].model.nickName ?: @"未填写",
                              @"sex":@(self.model.sex) ?: @([DBAccountInfo sharedInstance].model.sex) ?: @"未填写",
                              @"birthday":self.model.birthday ?: [DBAccountInfo sharedInstance].model.birthday ?: @"未填写",
-                             @"job":@[self.model.occupation] ?: [DBAccountInfo sharedInstance].model.job ?: @[@"未填写"],
+                             @"job":self.model.job ?: [DBAccountInfo sharedInstance].model.job ?: @[@"未填写"],
                              @"province_id":@(self.model.province_id) ?: @([DBAccountInfo sharedInstance].model.province_id) ?: @"",
                              @"city_id":@(self.model.city_id) ?: @([DBAccountInfo sharedInstance].model.city_id) ?: @"",
                              @"district_id":@(self.model.district_id) ?: @([DBAccountInfo sharedInstance].model.district_id) ?: @"",
@@ -421,16 +423,39 @@
         [MBProgressHUD hideHUDForView:strongSelf.view];
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-//            [MBProgressHUD showMessage:@"修改成功"];
+            //            [MBProgressHUD showMessage:@"修改成功"];
         }else{
             [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
         }
         
+        [self goback];
+
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUDForView:strongSelf.view];
         [MBProgressHUD showAutoMessage:Networkerror];
+        
+        [self goback];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+
     }];
+    
+    
 }
+
+- (void)goback {
+    
+    //保存用户信息
+    [DBAccountInfo sharedInstance].model=self.model;
+    [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
+    
+    if (self.backRequsetBlock) {
+        self.backRequsetBlock();
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 //上传头像
 - (void)selectCover{
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -533,11 +558,13 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     UIImage  *img = [self scaleToSize:[info objectForKey:@"UIImagePickerControllerEditedImage"] size:CGSizeMake(300, 300)];
     self.img = img;
-    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-    if (indexPath.section == 0) {
-        [self commitHeadimg:self.img];
-
-    }
+//    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+//    SPMineHeadCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [self.tableView reloadData];
+//    if (indexPath.section == 0) {
+//        [self commitHeadimg:self.img];
+//
+//    }
     
 }
 
@@ -556,10 +583,15 @@
         [self gettoken:self.coverPath];
     }else{
         [MBProgressHUD showAutoMessage:@"选取失败"];
+        [self goback];
+
     }
 }
 - (void)gettoken:(NSString *)filePath{
     
+    WEAKSELF
+    STRONGSELF
+    [MBProgressHUD showLoadToView:self.view];
     [JDWNetworkHelper POST:SPQiniuToken parameters:nil success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
@@ -575,17 +607,23 @@
             [upManager putFile:filePath key:nil token:qiniutoken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 NSLog(@"info ===== %@", info);
                 NSLog(@"resp ===== %@", resp);
-                self.model.avatar = SPURL_API_Img(resp[@"key"]);
-                self.qiniuToken = resp[@"key"];
-                [self reloadDataSource];
+                strongSelf.model.avatar = SPURL_API_Img(resp[@"key"]);
+                strongSelf.qiniuToken = resp[@"key"];
+
+                [strongSelf uploadUserInfo];
 
             }
                         option:uploadOption];
         }else{
             [MBProgressHUD showMessage:responseDic[@"messages"]];
         }
+        
+
     } failure:^(NSError *error) {
         [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self goback];
+
     }];
 }
 

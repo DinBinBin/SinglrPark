@@ -101,7 +101,7 @@
 - (void)setModel:(SPPersonModel *)model{
     if (_model != model) {
         _model = model;
-        [self.headimg sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:ImageNamed(@"logo")];
+        [self.headimg sd_setImageWithURL:[NSURL URLWithString:_model.avatar] placeholderImage:ImageNamed(@"logo") options:SDWebImageRefreshCached];
         self.nickeLab.text = _model.nickName;
         self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
         self.occupation.text = _model.job.firstObject;

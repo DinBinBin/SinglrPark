@@ -8,10 +8,11 @@
 
 #import "SGBaseController.h"
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPChasingherController : SGBaseController
-
+@property (nonatomic, strong) SPPersonModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -123,6 +123,12 @@
         self.titleLab.text = _model.nickName;
         self.messageLab.text = _model.messsage;
         self.timeLab.text = _model.time;
+        if (_model.unreadCount == 0) {
+            self.numberLab.hidden = YES;
+        }else{
+            self.numberLab.hidden = NO;
+            self.numberLab.text = [NSString stringWithFormat:@"%d",_model.unreadCount];
+        }
     }
 }
 

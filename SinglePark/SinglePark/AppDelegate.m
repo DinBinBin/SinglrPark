@@ -12,6 +12,7 @@
 #import "SGNavigationController.h"
 #import <RongIMKit/RongIMKit.h>
 
+
 #define  RYUserToken1000 @"AjTYNx3b/+s2xWSS2JY4BKxnGDTFFrRJfvWcZPs7rYutDT/fvqtighn9ixKpJpsl/3FGJyBJltMzzsIKnel3bQ=="
 #define  RYUserToken1001 @"8aDnTVlww4leOYuTEhYX4q2QImwLq/9Snm4W+9UbcP3+iHOGBOqqYcITkmdM4ZQYWMG6hqGz/AnTP0YEtcnShA=="
 @interface AppDelegate ()<RCIMReceiveMessageDelegate>
@@ -65,6 +66,7 @@
     /** 注册融云 */
     [self registRYAPIWith:application];
     
+    
     return YES;
     
 }
@@ -74,6 +76,7 @@
         SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
         self.window.rootViewController = sgTabBar;
 }
+
 
 /** 注册融云相关信息 */
 - (void)registRYAPIWith:(UIApplication *)application{

@@ -9,11 +9,11 @@
 #import "SPCardTabCell.h"
 #import "SPPersonalController.h"
 #import "SPPursuitView.h"
-@interface SPCardTabCell()
+@interface SPCardTabCell()<UIGestureRecognizerDelegate>
 
 
 @property (nonatomic,strong)UIView *backView;
-@property (nonatomic,strong)UIButton *headBtn;
+@property (nonatomic,strong)UIImageView *headImageView;
 @property (nonatomic,strong)UILabel *nickeLab;
 @property (nonatomic,strong)UIImageView *sexImg;
 @property (nonatomic,strong)UILabel *occupation;
@@ -34,7 +34,7 @@
 
 - (void)setUI{
     [self.contentView addSubview:self.backView];
-    [self.backView addSubview:self.headBtn];
+    [self.backView addSubview:self.headImageView];
     [self.backView addSubview:self.nickeLab];
     [self.backView addSubview:self.sexImg];
     [self.backView addSubview:self.occupation];
@@ -49,15 +49,15 @@
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
-    [self.headBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).offset(10);
         make.left.equalTo(self.contentView).offset(20);
         make.width.height.mas_equalTo(60);
     }];
     
     [self.nickeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.headBtn).offset(5);
-        make.left.equalTo(self.headBtn.mas_right).offset(10);
+        make.top.equalTo(self.headImageView).offset(5);
+        make.left.equalTo(self.headImageView.mas_right).offset(10);
     }];
     
     [self.sexImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,7 +67,7 @@
     
     [self.occupation mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.nickeLab);
-        make.bottom.equalTo(self.headBtn.mas_bottom).offset(-5);
+        make.bottom.equalTo(self.headImageView.mas_bottom).offset(-5);
     }];
     
     [self.didian mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,8 +76,8 @@
     }];
     
     [self.singer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.headBtn.mas_bottom).offset(10);
-        make.left.equalTo(self.headBtn);
+        make.top.equalTo(self.headImageView.mas_bottom).offset(10);
+        make.left.equalTo(self.headImageView);
         make.right.equalTo(self.backView.mas_right).offset(-10);
     }];
     
@@ -102,18 +102,24 @@
     return _backView;
 }
 
-- (UIButton *)headBtn{
-    if (_headBtn == nil) {
-        _headBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        WEAKSELF
-        STRONGSELF
-        [_headBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-            SPPersonalController *card = [[SPPersonalController  alloc] init];
-            [[strongSelf viewController].navigationController pushViewController:card animated:YES];
-        }];
+- (UIImageView *)headImageView{
+    if (_headImageView == nil) {
+        _headImageView = [[UIImageView alloc] init];
+        _headImageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tag = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tagClick)];
+        [_headImageView addGestureRecognizer:tag];
+        [_headImageView.layer setCornerRadius:30];
+        _headImageView.clipsToBounds = YES;
     }
-    return _headBtn;
+    return _headImageView;
 }
+
+- (void)tagClick {
+    SPPersonalController *card = [[SPPersonalController  alloc] init];
+    card.model = self.model;
+    [[self viewController].navigationController pushViewController:card animated:YES];
+}
+
 
 - (UILabel *)nickeLab{
     if (_nickeLab == nil) {
@@ -175,13 +181,11 @@
 - (void)setModel:(SPPersonModel *)model{
     if (_model != model) {
         _model = model;
-        [self.headBtn setImage:[UIImage imageNamed:_model.avatar] forState:UIControlStateNormal];
-        [self.headBtn.layer setCornerRadius:30];
-        self.headBtn.clipsToBounds = YES;
+        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_model.avatar] placeholderImage:ImageNamed(@"logo") options:SDWebImageRefreshCached];
 
         self.nickeLab.text = _model.nickName;
         self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
-        self.occupation.text = _model.occupation;
+        self.occupation.text = _model.job.firstObject;
         self.didian.text = _model.didian;
         self.singer.text = _model.singer?_model.singer:nil;
         self.pursuitView.number = _model.number;

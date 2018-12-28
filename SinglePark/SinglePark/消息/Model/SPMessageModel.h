@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,copy)NSString *coverimg;
 @property (nonatomic,copy)NSString *answer;
-
+@property (nonatomic,assign)int unreadCount;
 
 @property (nonatomic,copy)NSString *gooder;
 

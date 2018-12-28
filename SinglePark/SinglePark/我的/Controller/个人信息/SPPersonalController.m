@@ -13,6 +13,7 @@
 @property (nonatomic,strong)UITableView *listTabView;
 @property (nonatomic,copy)NSString *coverStr;
 @property (nonatomic,strong)NSArray *titleArr;
+@property (nonatomic, strong) NSMutableArray *detailArr;
 @property (nonatomic,strong)SPPersonModel *personmodel;
 @end
 
@@ -31,19 +32,19 @@
 
 - (void)getdata{
     self.titleArr = @[@[@""],@[@"性别",@"年龄",@"职业",@"所在单位",@"毕业学校",@"学历",@"引荐人"],@[@"地区",@"身高",@"体重",@"年收入"],@[@"加入黑名单",@"投诉"]];
-    
+    self.detailArr = [NSMutableArray arrayWithCapacity:0];
 
      
-    NSDictionary *dic1 = @{@"avatar":@"4",
-                           @"occupation":@"15115912877",
-                           @"nick_name":@"昵称----",
-                           @"sex":@"1",
-                           @"singer":@"伴着我的歌声是你心碎的幻想，你用你的眼泪抚摸我的寂寞",
-                           @"didian":@"广东深圳",
-                           @"number":@[@"4",@"4",@"4"]
-                           };
-    self.personmodel = [SPPersonModel modelWithJSON:dic1];
-    [self.listTabView reloadData];
+//    NSDictionary *dic1 = @{@"avatar":@"4",
+//                           @"occupation":@"15115912877",
+//                           @"nick_name":@"昵称----",
+//                           @"sex":@"1",
+//                           @"singer":@"伴着我的歌声是你心碎的幻想，你用你的眼泪抚摸我的寂寞",
+//                           @"didian":@"广东深圳",
+//                           @"number":@[@"4",@"4",@"4"]
+//                           };
+//    self.personmodel = [SPPersonModel modelWithJSON:dic1];
+    [self reloadDataSource];
     
 }
 #pragma mark ----UITableViewDataSource
@@ -70,7 +71,7 @@
 
     if (indexPath.section == 0) {
         SPHeadPersonTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr forIndexPath:indexPath];
-        cell.model =  self.personmodel;
+        cell.model =  self.model;
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -80,7 +81,7 @@
         cell.textLabel.font = Font16;
         cell.textLabel.textColor = SecondWordColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        cell.detailTextLabel.text = self.detailArr[0][indexPath.row];
         if (indexPath.row < arr.count-1) {
             return cell;
 
@@ -95,7 +96,7 @@
         cell.textLabel.textColor = SecondWordColor;
         cell.detailTextLabel.textColor = FirstWordColor;
         cell.detailTextLabel.font = Font16;
-    cell.detailTextLabel.text = @"";
+        cell.detailTextLabel.text = self.detailArr[1][indexPath.row];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else {
@@ -128,6 +129,26 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     return [[UIView alloc] init];
+}
+
+- (void)reloadDataSource {
+    
+    
+    NSString *sex;
+    if (_model.sex == 0) {
+        sex = @"未填写";
+    }else if (_model.sex == 1){
+        sex = @"男";
+    }else{
+        sex = @"女";
+    }
+    
+    self.detailArr = [NSMutableArray arrayWithArray:@[
+                                                      @[sex,self.model.birthday ?: @"未填写",self.model.job.firstObject?:@"未填写",self.model.unit ?: @"未填写",self.model.university ?:@"未填写",self.model.education ?:@"未填写",self.model.referrer ?:@"logo"],
+                                                      @[self.model.areaName ?:@"未填写",self.model.height ?:@"未填写",self.model.weight ?:@"未填写",self.model.income ?:@"未填写"],
+                                                      ]
+                      ];
+    [self.listTabView reloadData];
 }
 
 

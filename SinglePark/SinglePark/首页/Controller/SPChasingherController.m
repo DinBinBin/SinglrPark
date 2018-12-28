@@ -132,7 +132,7 @@
 - (UIImageView *)voiceimg{
     if (_voiceimg == nil) {
         _voiceimg = [[UIImageView alloc] init];
-        [_voiceimg setImage:[UIImage imageNamed:@"4"]];
+        [_voiceimg sd_setImageWithURL:[NSURL URLWithString:self.model.avatar] placeholderImage:ImageNamed(@"logo") options:SDWebImageRefreshCached];
 
     }
     return _voiceimg;

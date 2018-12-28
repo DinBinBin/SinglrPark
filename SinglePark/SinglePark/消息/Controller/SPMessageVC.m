@@ -13,11 +13,15 @@
 #import "SPChasingController.h"
 #import "SPChatListViewController.h"
 #import "LCLoginController.h"
+#import <RongIMKit/RongIMKit.h>
+#import "UITabBar+SPTabBar.h"
+
 
 @interface SPMessageVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *messageTabView;
 @property (nonatomic,copy)NSString *messageStr;
 @property (nonatomic,strong)NSMutableArray *fixedarr;
+@property (nonatomic, assign) int unreadSum;
 @end
 
 @implementation SPMessageVC
@@ -27,7 +31,6 @@
     self.title = @"消息";
     [self setUI];
     [self getModel];
-    
     
 }
 
@@ -39,33 +42,47 @@
 }
 - (void)getModel{
     
-    if (![DBAccountInfo sharedInstance].islogin) {
-        LCLoginController *tourist = [[LCLoginController alloc] init];
-        tourist.iswelecome = NO;
-        [self.navigationController pushViewController:tourist animated:YES];
-        return;
-    }
+//    if (![DBAccountInfo sharedInstance].islogin) {
+//        LCLoginController *tourist = [[LCLoginController alloc] init];
+//        tourist.iswelecome = NO;
+//        [self.navigationController pushViewController:tourist animated:YES];
+//        return;
+//    }
     
-        NSDictionary *dic = @{@"head":@"chase",
+    //获取融云未读消息
+    int RCcount = [[RCIMClient sharedRCIMClient] getUnreadCount:@[@(ConversationType_PRIVATE),
+                                                                  @(ConversationType_DISCUSSION),
+                                                                  @(ConversationType_CHATROOM),
+                                                                  @(ConversationType_GROUP),
+                                                                  @(ConversationType_APPSERVICE),
+                                                                  @(ConversationType_SYSTEM)]];
+    
+    NSDictionary *dic = @{@"head":@"chase",
                           @"nickName":@"追讯",
                           @"messsage":@"恭喜您已通过美女认证",
-                              @"time":@"12:00"};
+                              @"time":@"12:00",
+                          @"unreadCount":@"0"
+                          };
     NSDictionary *dic2 = @{@"head":@"good",
                           @"nickName":@"点赞",
                            @"messsage":@"恭喜您已通过美女认证",
-                           @"time":@"14:00"};
+                           @"time":@"14:00",
+                           @"unreadCount":@"6"};
     NSDictionary *dic3 = @{@"head":@"message",
                           @"nickName":@"评论",
                           @"messsage":@"恭喜您已通过美女认证",
-                           @"time":@"12:00"};
+                           @"time":@"12:00",
+                           @"unreadCount":@"7"};
     NSDictionary *dic4 = @{@"head":@"notice",
                           @"nickName":@"单身公园",
                           @"messsage":@"恭喜您已通过美女认证",
-                           @"time":@"12:00"};
+                           @"time":@"12:00",
+                           @"unreadCount":@"8"};
     NSDictionary *dic5 = @{@"head":@"notice",
                            @"nickName":@"聊天窗口",
                            @"messsage":@"好友聊天都在这里哦",
-                           @"time":@"12:00"};
+                           @"time":@"12:00",
+                           @"unreadCount":[NSString stringWithFormat:@"%d",RCcount]};
     SPMessageModel *model = [SPMessageModel modelWithJSON:dic];
     SPMessageModel *model2 = [SPMessageModel modelWithJSON:dic2];
     SPMessageModel *model3 = [SPMessageModel modelWithJSON:dic3];
@@ -74,6 +91,18 @@
 
 
     self.fixedarr  = [NSMutableArray arrayWithObjects:model4,model3,model,model2,model5, nil];
+    
+    int count=0;
+    for (SPMessageModel *modelCount in self.fixedarr) {
+        count = count + modelCount.unreadCount;
+    }
+    
+    
+    
+    
+    self.unreadSum = count + RCcount;
+    [self.tabBarController.tabBar showBadgeOnItemIndex:1 count:self.unreadSum];
+
     [self.messageTabView reloadData];
     
 }
@@ -113,6 +142,14 @@
         SPChatListViewController *chat = [[SPChatListViewController alloc] init];
         [self.navigationController pushViewController:chat animated:YES];
     }
+    
+    
+    SPMessageModel *model = self.fixedarr[indexPath.row];
+    if (model.unreadCount <= self.unreadSum) {
+        self.unreadSum = self.unreadSum - model.unreadCount;
+        [self.tabBarController.tabBar showBadgeOnItemIndex:1 count:self.unreadSum];
+    }
+
 }
 
 

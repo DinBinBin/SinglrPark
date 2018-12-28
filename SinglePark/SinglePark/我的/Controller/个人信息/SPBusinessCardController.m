@@ -10,6 +10,7 @@
 #import "SPCardTabCell.h"
 #import "SPCardVideoTabCell.h"
 #import "SPChasingherController.h"
+#import "LCLoginController.h"
 
 @interface SPBusinessCardController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -29,7 +30,7 @@
     [self.listTabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    [self getdata];
+//    [self getdata];
 }
 
 - (void)getdata{
@@ -73,7 +74,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         SPCardTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr forIndexPath:indexPath];
-        cell.model =  self.personmodel;
+        cell.model =  self.model;
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -135,9 +136,19 @@
         [_hunterBtn setCornerRadius:5];
         _hunterBtn.backgroundColor = ThemeColor;
         [_hunterBtn setTitle:@"追她" forState:UIControlStateNormal];
+        WEAKSELF
+        STRONGSELF
         [_hunterBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+            if (![DBAccountInfo sharedInstance].islogin) {
+                LCLoginController *tourist = [[LCLoginController alloc] init];
+                tourist.iswelecome = NO;
+                [strongSelf.navigationController pushViewController:tourist animated:YES];
+                return;
+            }
+            
             SPChasingherController *chasing = [[SPChasingherController alloc] init];
-            [self.navigationController pushViewController:chasing animated:YES];
+            chasing.model = strongSelf.model;
+            [strongSelf.navigationController pushViewController:chasing animated:YES];
         }];
     }
     return  _hunterBtn;

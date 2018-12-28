@@ -9,6 +9,9 @@
 #import "SPMainVC.h"
 #import "SPCoverListView.h"
 #import "JDWPopMenuView.h"
+#import "UITabBar+SPTabBar.h"
+#import <RongIMKit/RongIMKit.h>
+
 
 @interface SPMainVC ()<UIScrollViewDelegate>
 @property(nonatomic,strong) UISegmentedControl *segmentControl;
@@ -27,6 +30,17 @@
     if (![DBAccountInfo sharedInstance].isTouris) {
         [self refreshToken];
     }
+    
+    [self.tabBarController.tabBar showBadgeOnItemIndex:1 count:99];
+    
+    //获取融云未读消息
+    int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[@(ConversationType_PRIVATE),
+                                                    @(ConversationType_DISCUSSION),
+                                                    @(ConversationType_CHATROOM),
+                                                    @(ConversationType_GROUP),
+                                                    @(ConversationType_APPSERVICE),
+                                                    @(ConversationType_SYSTEM)]];
+    NSLog(@"%d",count);
 }
 
 - (void)refreshToken {

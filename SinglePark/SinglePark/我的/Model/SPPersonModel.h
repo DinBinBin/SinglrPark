@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)int sex;//0:未设置；1:男；2:女
 @property (nonatomic,copy)NSString *birthday; //生日日期
 @property (nonatomic,copy)NSString *age; //年龄
-@property (nonatomic,copy)NSString *occupation; //职业
+//@property (nonatomic,copy)NSString *occupation; //职业
 @property (nonatomic,copy)NSArray *job; //职业数组
 
 @property (nonatomic,copy)NSString *unit; //所在单位
