@@ -7,12 +7,11 @@
 //
 
 #import "SGBaseController.h"
-#import "SPCoverModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPMineCardController : SGBaseController
-@property (nonatomic,strong)SPCoverModel *model;
+@property (nonatomic,strong)SPPersonModel *model;
 
 @end
 

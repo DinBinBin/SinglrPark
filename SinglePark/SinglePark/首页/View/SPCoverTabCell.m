@@ -8,6 +8,7 @@
 
 #import "SPCoverTabCell.h"
 #import "SPBusinessCardController.h"
+#import "MFMapManager.h"
 
 @interface SPCoverTabCell()
 @property (nonatomic,strong)UILabel *titleLab;
@@ -148,9 +149,18 @@
             SPCoverModel *covermodel = [SPCoverModel modelWithDictionary:_model.first_video[0]];
             [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[covermodel.video stringByAppendingString:videoCover]] placeholderImage:[UIImage imageNamed:@""]];
             
+            //计算距离
+            CLLocation *orig=[[CLLocation alloc] initWithLatitude:[DBAccountInfo sharedInstance].model.latitude longitude:[DBAccountInfo sharedInstance].model.longitude];
+            CLLocation* dist=[[CLLocation alloc] initWithLatitude:_model.latitude longitude:_model.longitude];;
+    
+            CLLocationDistance kilometers=[orig distanceFromLocation:dist]/1000;
+            
+            self.titleLab.text = [NSString stringWithFormat:@"%.f公里",kilometers];
         }
     }
 }
+
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

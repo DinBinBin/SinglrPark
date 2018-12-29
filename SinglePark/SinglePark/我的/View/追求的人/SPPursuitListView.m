@@ -135,7 +135,6 @@
         [_listTabView registerClass:[SPPursuitNoneTabCell class] forCellReuseIdentifier:self.pursuitNO];
         _listTabView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _listTabView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigbackground"]];
-
         [self addSubview:_listTabView];
     }
     return _listTabView;

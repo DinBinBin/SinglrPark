@@ -11,6 +11,8 @@
 #import "SGTabBarController.h"
 #import "AppDelegate.h"
 #import "SPTourisController.h"
+#import "SPBusinessCardController.h"
+
 
 @interface LCLoginController ()
 
@@ -275,11 +277,18 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
     else{
-        [self.navigationController popViewControllerAnimated:YES];
-
-        SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
-        [UIApplication sharedApplication].statusBarHidden = NO;
-        ptAppDelegate.window.rootViewController = sgTabBar ;
+        NSInteger count = self.navigationController.childViewControllers.count-1;
+        
+        if ([self.navigationController.childViewControllers[count-1] isKindOfClass:[SPBusinessCardController class]]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self.navigationController popToRootViewControllerAnimated:NO];
+            
+            SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+            [UIApplication sharedApplication].statusBarHidden = NO;
+            ptAppDelegate.window.rootViewController = sgTabBar ;
+        }
+        
     }
 
 }

@@ -9,10 +9,10 @@
 #import "SPAboutController.h"
 #import "SFBaseWebViewController.h"
 
-@interface SPAboutController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SPAboutController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property (nonatomic,strong)UITableView *listTabView;
 @property (nonatomic,strong)NSArray *titleArr;
-
+@property (nonatomic, copy) NSString *version;
 @end
 
 @implementation SPAboutController
@@ -26,6 +26,8 @@
     }];
     
     [self getdata];
+    
+    [self getVersion:NO];
 }
 
 - (void)getdata{
@@ -34,6 +36,68 @@
     [self.listTabView reloadData];
     
 }
+
+- (void)getVersion:(BOOL)isClickCell {
+    
+    NSDictionary *param = @{@"type":@"1"};
+    [JDWNetworkHelper POST:SPVersion parameters:param success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSDictionary *data = responseDic[@"data"];
+            if (![data objectForKey:@"status"]) {
+                NSString *verson = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+                self.version = [NSString stringWithFormat:@"已是最新版本：V%@",verson];
+                
+                if (isClickCell) {
+                    [MBProgressHUD showMessage:@"已是最新版本"];
+                }
+                
+            }else{
+                
+                self.version = [NSString stringWithFormat:@"发现新版本：V%@",responseDic[@"data"][@"version"]];
+                
+                if (isClickCell) {
+                    int status = [responseDic[@"data"][@"status"] intValue];
+                    if (status == 1) { //选更
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"发现新版本" message:responseDic[@"data"][@"intro"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"立即更新", nil];
+                        alertView.tag = 1001;
+                        [alertView show];
+                    }else if (status == 2){//强更
+                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"发现新版本" message:responseDic[@"data"][@"intro"] delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                        alertView.tag = 1002;
+                        [alertView show];
+                    }
+                }
+                
+
+            }
+            
+            [self.listTabView reloadData];
+        
+        }
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+}
+
+#pragma mark - alertView delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 1001) {
+        
+        if (buttonIndex == 1) {
+            
+        }
+        
+    }else if (alertView.tag == 1002) {
+        
+        
+    }
+}
+
 #pragma mark ----UITableViewDataSource
 
 
@@ -61,6 +125,9 @@
     }else if (indexPath.row == 2) {
         return cell;
     }else if (indexPath.row == 3) {
+        
+        cell.detailTextLabel.text = self.version;
+        
         return cell;
 
     }else {
@@ -76,9 +143,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 1) {
-        NSString *url = [SPURL_API_Document stringByAppendingPathComponent:@"1"];
+        NSString *url = [SPURL_API_Document stringByAppendingPathComponent:@"2"];
         SFBaseWebViewController *webViewVC = [SFBaseWebViewController createWebView:url title:@"服务协议"];
         [self.navigationController pushViewController:webViewVC animated:YES];
+    }else if (indexPath.row == 3) {
+        [self getVersion:YES];
     }
     
 }
@@ -90,6 +159,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     return [[UIView alloc] init];
 }
+
 
 
 - (UITableView *)listTabView{

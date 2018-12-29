@@ -15,10 +15,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon5_sel" translatesAutoresizingMaskIntoConstraints="NO" id="d4j-7L-ipW">
-                    <rect key="frame" x="147.5" y="25" width="80" height="100"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="d4j-7L-ipW">
+                    <rect key="frame" x="137.5" y="25" width="100" height="100"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="80" id="gj3-JT-eiJ"/>
+                        <constraint firstAttribute="width" constant="100" id="gj3-JT-eiJ"/>
                         <constraint firstAttribute="height" constant="100" id="vTa-VM-rSh"/>
                     </constraints>
                 </imageView>
@@ -32,6 +32,6 @@
         </view>
     </objects>
     <resources>
-        <image name="icon5_sel" width="22" height="22"/>
+        <image name="logo" width="55" height="55"/>
     </resources>
 </document>

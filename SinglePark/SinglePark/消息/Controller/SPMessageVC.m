@@ -22,6 +22,7 @@
 @property (nonatomic,copy)NSString *messageStr;
 @property (nonatomic,strong)NSMutableArray *fixedarr;
 @property (nonatomic, assign) int unreadSum;
+@property (nonatomic, assign) int RCcount;//融云消息未读数
 @end
 
 @implementation SPMessageVC
@@ -30,8 +31,23 @@
     [super viewDidLoad];
     self.title = @"消息";
     [self setUI];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //获取融云未读消息
+    self.RCcount = [[RCIMClient sharedRCIMClient] getUnreadCount:@[@(ConversationType_PRIVATE),
+                                                                   @(ConversationType_DISCUSSION),
+                                                                   @(ConversationType_CHATROOM),
+                                                                   @(ConversationType_GROUP),
+                                                                   @(ConversationType_APPSERVICE),
+                                                                   @(ConversationType_SYSTEM)]];
+    
     [self getModel];
     
+
 }
 
 - (void)setUI{
@@ -42,20 +58,14 @@
 }
 - (void)getModel{
     
-//    if (![DBAccountInfo sharedInstance].islogin) {
-//        LCLoginController *tourist = [[LCLoginController alloc] init];
-//        tourist.iswelecome = NO;
-//        [self.navigationController pushViewController:tourist animated:YES];
-//        return;
-//    }
+    if (![DBAccountInfo sharedInstance].islogin) {
+        LCLoginController *tourist = [[LCLoginController alloc] init];
+        tourist.iswelecome = NO;
+        [self.navigationController pushViewController:tourist animated:YES];
+        return;
+    }
     
-    //获取融云未读消息
-    int RCcount = [[RCIMClient sharedRCIMClient] getUnreadCount:@[@(ConversationType_PRIVATE),
-                                                                  @(ConversationType_DISCUSSION),
-                                                                  @(ConversationType_CHATROOM),
-                                                                  @(ConversationType_GROUP),
-                                                                  @(ConversationType_APPSERVICE),
-                                                                  @(ConversationType_SYSTEM)]];
+    
     
     NSDictionary *dic = @{@"head":@"chase",
                           @"nickName":@"追讯",
@@ -82,7 +92,7 @@
                            @"nickName":@"聊天窗口",
                            @"messsage":@"好友聊天都在这里哦",
                            @"time":@"12:00",
-                           @"unreadCount":[NSString stringWithFormat:@"%d",RCcount]};
+                           @"unreadCount":[NSString stringWithFormat:@"%d",self.RCcount]};
     SPMessageModel *model = [SPMessageModel modelWithJSON:dic];
     SPMessageModel *model2 = [SPMessageModel modelWithJSON:dic2];
     SPMessageModel *model3 = [SPMessageModel modelWithJSON:dic3];
@@ -97,10 +107,8 @@
         count = count + modelCount.unreadCount;
     }
     
-    
-    
-    
-    self.unreadSum = count + RCcount;
+
+    self.unreadSum = count + self.RCcount;
     [self.tabBarController.tabBar showBadgeOnItemIndex:1 count:self.unreadSum];
 
     [self.messageTabView reloadData];

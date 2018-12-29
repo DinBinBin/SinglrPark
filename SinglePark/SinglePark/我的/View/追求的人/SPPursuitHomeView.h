@@ -34,7 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
 @property (weak, nonatomic) IBOutlet UIView *voiceBgView;
 
-@property (nonatomic,copy) void (^gobackBlcok)(void);
+@property (nonatomic,copy) void (^goVideoBlcok)(void);
+@property (nonatomic,copy) void (^goVoiceBlcok)(void);
+@property (nonatomic,copy) void (^goSuitBlcok)(void);
+@property (nonatomic,copy) void (^goRefuseBlcok)(void);
+
 
 @end
 

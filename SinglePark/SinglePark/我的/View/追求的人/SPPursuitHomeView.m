@@ -80,11 +80,30 @@
     
 }
 
+- (IBAction)voiceClick:(id)sender {
+    if (self.goVoiceBlcok) {
+        self.goVoiceBlcok();
+    }
+}
+
+
+- (IBAction)suitClick:(id)sender {
+    if (self.goSuitBlcok) {
+        self.goSuitBlcok();
+    }
+}
+
+
+- (IBAction)refuseClick:(id)sender {
+    if (self.goRefuseBlcok) {
+        self.goRefuseBlcok();
+    }
+}
 
 - (IBAction)goVideo:(id)sender {
 
-    if (self.gobackBlcok) {
-        self.gobackBlcok();
+    if (self.goVideoBlcok) {
+        self.goVideoBlcok();
     }
 }
 

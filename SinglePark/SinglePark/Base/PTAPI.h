@@ -61,7 +61,8 @@
 //视频评论列表
 #define SPComments [NSString stringWithFormat:@"%@/comments/create",BASE_HttpURL]
 
-
+//版本更新
+#define SPVersion [NSString stringWithFormat:@"%@/version",BASE_HttpURL]
 
 
 

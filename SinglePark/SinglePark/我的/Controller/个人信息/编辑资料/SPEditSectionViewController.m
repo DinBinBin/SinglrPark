@@ -34,7 +34,7 @@
             self.dataSource = [NSMutableArray arrayWithArray:@[@"男",@"女"]];
             break;
         case SPAgeEditType:
-            self.title = @"年龄";
+            self.title = @"生日";
             [self.dataSource removeAllObjects];
             [self.dataSource addObject:@"保密"];
             for (int a = 18; a < 41; a++) {

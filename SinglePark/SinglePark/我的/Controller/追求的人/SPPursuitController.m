@@ -62,11 +62,12 @@
 - (UIScrollView *)pursuitScroll{
     if (_pursuitScroll == nil) {
         _pursuitScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0 , kScreenWidth, kScreenHeight- kNavigationHeight)];
-        _pursuitScroll.contentSize = CGSizeMake(kScreenWidth*2, _pursuitScroll.height);
+        _pursuitScroll.contentSize = CGSizeMake(kScreenWidth*2, 750);
         _pursuitScroll.pagingEnabled = YES;
         _pursuitScroll.delegate = self;
         _pursuitScroll.bounces = NO;
         _pursuitScroll.backgroundColor = [UIColor blackColor];
+        _pursuitScroll.userInteractionEnabled = YES;
     }
     return _pursuitScroll;
 }
@@ -74,7 +75,7 @@
 // 可用
 - (SPPursuitListView *)pursuitMe{
     if (_pursuitMe == nil) {
-        _pursuitMe = [[SPPursuitListView alloc] initWithFrame:self.pursuitScroll.bounds];
+        _pursuitMe = [[SPPursuitListView alloc] initWithFrame:CGRectMake(0,0 , kScreenWidth, kScreenHeight- kNavigationHeight)];
         _pursuitMe.promptArr = @[@"人数",@"人名片中显示",@"如果您关闭此项，您的个人名片中将不再显示您的追求者，默认开启。追我的人："];
         _pursuitMe.isme = YES;
         _pursuitMe.typede = PursuitTypeNone;
@@ -98,13 +99,14 @@
 
 - (SPPursuitHomeView *)mePursuit {
     if (!_mePursuit) {
-        _mePursuit = [[SPPursuitHomeView alloc] initWithFrame:CGRectMake(kScreenW, 0, kScreenW, kScreenH-kNavigationHeight)];
+        _mePursuit = [[SPPursuitHomeView alloc] initWithFrame:CGRectMake(kScreenW, 0, kScreenW, 750)];
         WEAKSELF
         STRONGSELF
-        _mePursuit.gobackBlcok = ^{
+        _mePursuit.goVideoBlcok = ^{
             SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
             [strongSelf.navigationController pushViewController:play animated:YES];
         };
+        
     }
     return _mePursuit;
 }
@@ -112,6 +114,7 @@
 //segment方法
 - (void)chageSCVaule:(UISegmentedControl *)sc{
     [self.pursuitScroll setContentOffset:CGPointMake(sc.selectedSegmentIndex*kScreenWidth, 0) animated:YES];
+
 }
 
 #pragma mark - scrollView  代理
@@ -119,6 +122,7 @@
     self.segmentControl.selectedSegmentIndex = scrollView.contentOffset.x/kScreenWidth;
 
 }
+
 
 
 @end

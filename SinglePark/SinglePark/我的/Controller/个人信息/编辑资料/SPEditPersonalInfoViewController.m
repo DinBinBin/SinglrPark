@@ -401,9 +401,11 @@
 
         return;
     }
+    
+    //保存用户信息
+    [DBAccountInfo sharedInstance].model=self.model;
+    [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
 
-    
-    
     NSDictionary *parsms = @{
                              @"avatar":self.qiniuToken ?: @"",
                              @"nick_name":self.model.nickName ?: [DBAccountInfo sharedInstance].model.nickName ?: @"未填写",
@@ -445,10 +447,6 @@
 }
 
 - (void)goback {
-    
-    //保存用户信息
-    [DBAccountInfo sharedInstance].model=self.model;
-    [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
     
     if (self.backRequsetBlock) {
         self.backRequsetBlock();

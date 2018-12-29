@@ -149,6 +149,7 @@
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
             SPMineCardController *business = [[SPMineCardController alloc] init];
+            business.model = self.model;
             [self.navigationController  pushViewController:business animated:YES];
 
         }else{
