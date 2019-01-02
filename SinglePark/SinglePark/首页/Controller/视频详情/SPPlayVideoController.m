@@ -69,7 +69,7 @@
     if (self.datasource.count) {
         for (SPPersonModel *model in self.datasource) {
             if (model.first_video.count > 0) {
-                model.videoModel = [SPCoverModel modelWithDictionary:model.first_video[0]];
+                model.videoModel = model.first_video[0];
                 [self.videArr addObject:model];
             }
         }
@@ -139,7 +139,7 @@
             if (arr.count) {
                 for (SPPersonModel *model in arr) {
                     if (model.first_video.count > 0) {
-                        model.videoModel = [SPCoverModel modelWithDictionary:model.first_video[0]];
+                        model.videoModel = model.first_video[0];
                         [self.videArr addObject:model];
                     }
                 }
@@ -262,7 +262,7 @@
             if (arr.count) {
                 for (SPPersonModel *model in arr) {
                     if (model.first_video.count > 0) {
-                        model.videoModel = [SPCoverModel modelWithDictionary:model.first_video[0]];
+                        model.videoModel = model.first_video[0];
                         [self.videArr addObject:model];
                     }
                 }

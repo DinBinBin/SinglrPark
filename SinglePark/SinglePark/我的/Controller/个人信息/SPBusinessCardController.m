@@ -64,7 +64,7 @@
 
 #pragma mark ----UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2+self.dataArr.count;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -87,10 +87,13 @@
 
         return cell;
     }else{
+        
         SPCardVideoTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr2 forIndexPath:indexPath];
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        if (self.model.first_video.count) {
+            cell.videoModel = self.model.first_video[0];
+        }
         return cell;
     }
 }
@@ -122,8 +125,8 @@
         [_listTabView registerClass:[SPCardTabCell class] forCellReuseIdentifier:self.coverStr];
         self.coverStr2 = @"coverId2";
         [_listTabView registerClass:[SPCardVideoTabCell class] forCellReuseIdentifier:self.coverStr2];
-
-        _listTabView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"5"]];
+        _listTabView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _listTabView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigbackground2"]];
         [self.view addSubview:_listTabView];
     }
     return _listTabView;

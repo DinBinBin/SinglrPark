@@ -146,7 +146,7 @@
             self.nickeLab.text = _model.nickName;
             self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
             
-            SPCoverModel *covermodel = [SPCoverModel modelWithDictionary:_model.first_video[0]];
+            SPCoverModel *covermodel = _model.first_video[0];
             [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[covermodel.video stringByAppendingString:videoCover]] placeholderImage:[UIImage imageNamed:@""]];
             
             //计算距离
