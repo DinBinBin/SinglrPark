@@ -11,6 +11,8 @@
 #import "SPCardVideoTabCell.h"
 #import "SPChasingherController.h"
 #import "LCLoginController.h"
+#import "SPPlayVideoController.h"
+
 
 @interface SPBusinessCardController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -31,6 +33,7 @@
         make.edges.equalTo(self.view);
     }];
 //    [self getdata];
+    self.hideNavigationLine = YES;
 }
 
 - (void)getdata{
@@ -94,14 +97,22 @@
         if (self.model.first_video.count) {
             cell.videoModel = self.model.first_video[0];
         }
+    
         return cell;
     }
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row>=2) {
-        
+    if (indexPath.section == 2) {
+        if (self.model.first_video.count) {
+            SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
+            play.selectIndex = indexPath.row;
+            play.datasource = @[self.model].mutableCopy;
+            play.choosetype = self.model.sex;
+            play.islocal = NO;
+            [self.navigationController pushViewController:play animated:YES];
+        }
     }
     
 }

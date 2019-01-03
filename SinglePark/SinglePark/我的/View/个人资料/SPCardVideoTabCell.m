@@ -7,6 +7,7 @@
 //
 
 #import "SPCardVideoTabCell.h"
+
 @interface SPCardVideoTabCell()
 
 
@@ -87,7 +88,7 @@
 - (UIImageView *)coverImg{
     if (_coverImg == nil) {
         _coverImg = [[UIImageView alloc] init];
-        _coverImg.image = [UIImage imageNamed:@"video+"];
+        _coverImg.image = ImageNamed(@"默认未上传视频");
     }
     return _coverImg;
 }
@@ -98,6 +99,14 @@
         _promptImg.image = [UIImage imageNamed:@""];
     }
     return _promptImg;
+}
+
+- (void)setVideoModel:(SPCoverModel *)videoModel {
+    if (_videoModel != videoModel) {
+        _videoModel = videoModel;
+        [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_videoModel.video stringByAppendingString:videoCover]]  placeholderImage:ImageNamed(@"默认未上传视频")];
+        
+    }
 }
 
 
