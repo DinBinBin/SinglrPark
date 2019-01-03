@@ -7,19 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef NS_ENUM(NSInteger, SPPursuitType) {
-    SPPursuitTypeNone,                  // 没有要追的人
-    SPPursuitTypeNotStated,             // 未表态
-    SPPursuitTypeOutTime,               // 未表态而且超时了
-    SPPursuitTypeRefuse,                // 拒绝
-    PursuitTypeDetailAccept,            // 接受
-};
-
-typedef NS_ENUM(NSInteger, SPPursuitViewType) {
-    SPPursuitMeViewType,                // 追我的人
-    SPMePursuitViewType                 // 我追的人
-};
+//
+//typedef NS_ENUM(NSInteger, SPPursuitType) {
+//    SPPursuitTypeNone,                  // 没有要追的人
+//    SPPursuitTypeNotStated,             // 未表态
+//    SPPursuitTypeOutTime,               // 未表态而且超时了
+//    SPPursuitTypeRefuse,                // 拒绝
+//    PursuitTypeDetailAccept,            // 接受
+//};
+//
+//typedef NS_ENUM(NSInteger, SPPursuitViewType) {
+//    SPPursuitMeViewType,                // 追我的人
+//    SPMePursuitViewType                 // 我追的人
+//};
 
 NS_ASSUME_NONNULL_BEGIN
 

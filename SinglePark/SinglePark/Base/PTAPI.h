@@ -64,7 +64,10 @@
 #define SPCommentscreate [NSString stringWithFormat:@"%@/comments/create",BASE_HttpURL]
 //视频评论回复
 #define SPAnswer [NSString stringWithFormat:@"%@/replies/create",BASE_HttpURL]
-
+//我的评论列表
+#define SPMineCommentList [NSString stringWithFormat:@"%@/comments/user_list",BASE_HttpURL]
+//点赞列表
+#define SPVideoUpList [NSString stringWithFormat:@"%@/video/up_list",BASE_HttpURL]
 
 
 //版本更新

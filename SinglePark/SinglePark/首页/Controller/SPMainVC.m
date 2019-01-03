@@ -31,7 +31,7 @@
         [self refreshToken];
     }
     
-    [self.tabBarController.tabBar showBadgeOnItemIndex:1 count:99];
+    [self.tabBarController.tabBar showBadgeOnItemIndex:1 count:21];
     
     //获取融云未读消息
     int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[@(ConversationType_PRIVATE),

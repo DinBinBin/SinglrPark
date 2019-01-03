@@ -25,9 +25,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"追讯";
+    self.fixedarr = [NSMutableArray arrayWithCapacity:0];
     
     [self setUI];
-    [self getModel];
+//    [self getModel];
     
     [self requestData];
 }
@@ -78,7 +79,26 @@
         [MBProgressHUD hideHUDForView:self.view];
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSArray *items = responseDic[@"data"][@"items"];
+            if (items.count > 0) {
+                [self.fixedarr removeAllObjects];
+                for (int a=0; a<items.count; a++) {
+                    NSDictionary *item = items[a];
+                    SPPersonModel *fromeUser = [SPPersonModel modelWithJSON:item[@"from_user"]];
+                    
+                    SPMessageModel *model = [[SPMessageModel alloc] init];
+                    model.head = fromeUser.avatar;
+                    model.messsage = @"接受了你";
+                    model.time = fromeUser.updated_at;
+                    model.nickName = fromeUser.nickName;
+                    
+                    [self.fixedarr addObject:model];
+                }
+                
+
+            }
             
+            [self.messageTabView reloadData];
             
         }else{
             if ([responseDic[@"messages"] isKindOfClass: [NSNull class]]) {
