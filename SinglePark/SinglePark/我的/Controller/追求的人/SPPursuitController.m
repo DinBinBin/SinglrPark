@@ -72,26 +72,26 @@
     return _pursuitScroll;
 }
 
-// 可用
+// 追我的人
 - (SPPursuitListView *)pursuitMe{
     if (_pursuitMe == nil) {
         _pursuitMe = [[SPPursuitListView alloc] initWithFrame:CGRectMake(0,0 , kScreenWidth, kScreenHeight- kNavigationHeight)];
         _pursuitMe.promptArr = @[@"人数",@"人名片中显示",@"如果您关闭此项，您的个人名片中将不再显示您的追求者，默认开启。追我的人："];
         _pursuitMe.isme = YES;
-        _pursuitMe.typede = PursuitTypeNone;
-
+        _pursuitMe.typede = SPPursuitTypeNone;
+        _pursuitMe.viewType = SPPursuitMeViewType;
     }
     return _pursuitMe;
 }
 
-// 已用
+// 我追的人
 //- (SPPursuitListView *)mePursuit{
 //    if (_mePursuit == nil) {
 //        _mePursuit = [[SPPursuitListView alloc] initWithFrame:CGRectMake(kScreenWidth, 0, self.pursuitScroll.width, self.pursuitScroll.height)];
 //        _mePursuit.promptArr = @[@"人数",@"珍惜每一个遇见的人。因此，“我追的人”在同一时间段，人数不能超过3人，如果您“追求”的人已经达到3人，出现新人时，请删除旧人（左滑删除）。"];
 //        _mePursuit.isme = YES;
-//        _mePursuit.typede = PursuitTypeNone;
-//
+//        _mePursuit.typede = SPPursuitTypeNone;
+//        _mePursuit.viewType = SPMePursuitViewType;
 //
 //    }
 //    return _mePursuit;
@@ -106,7 +106,7 @@
             SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
             [strongSelf.navigationController pushViewController:play animated:YES];
         };
-        
+
     }
     return _mePursuit;
 }

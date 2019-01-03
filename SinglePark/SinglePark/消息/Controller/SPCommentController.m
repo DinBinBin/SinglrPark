@@ -21,9 +21,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = self.titleStr;
+    self.fixedarr = [NSMutableArray arrayWithCapacity:0];
     
     [self setUI];
-    [self getModel];
+//    [self getModel];
+    if ([self.titleStr isEqualToString:@"评论"]) {
+        [self requestUserCommentList];
+    }else{
+        [self requestVideoCommentList];
+    }
 }
 
 - (void)setUI{
@@ -62,6 +68,96 @@
     self.fixedarr  = [NSMutableArray arrayWithObjects:model4,model3,model,model2, nil];
     [self.messageTabView reloadData];
     
+}
+
+- (void)requestUserCommentList {
+    
+    NSDictionary *parameters = @{@"page":@"1",@"limit":@"10"};
+
+    [MBProgressHUD showLoadToView:self.view];
+    [JDWNetworkHelper POST:SPMineCommentList parameters:parameters success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view];
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSArray *items = responseDic[@"data"][@"items"];
+            if (items.count > 0) {
+                [self.fixedarr removeAllObjects];
+                for (int a=0; a<items.count; a++) {
+                    NSDictionary *item = items[a];
+                    SPPersonModel *fromeUser = [SPPersonModel modelWithJSON:item[@"user"]];
+                    
+                    SPMessageModel *model = [[SPMessageModel alloc] init];
+                    model.head = fromeUser.avatar;
+                    model.messsage = item[@"content"];
+                    model.time = fromeUser.updated_at;
+                    model.nickName = fromeUser.nickName;
+                    model.coverimg = item[@"video"][@"video"];
+                    
+                    [self.fixedarr addObject:model];
+                }
+                
+                
+            }
+            
+            [self.messageTabView reloadData];
+            
+        }else{
+            if ([responseDic[@"messages"] isKindOfClass: [NSNull class]]) {
+                [MBProgressHUD showAutoMessage:@"请求失败"];
+                
+            }else{
+                [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+            }
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+}
+
+- (void)requestVideoCommentList {
+    
+    NSDictionary *parameters = @{@"page":@"1",@"limit":@"10"};
+    
+    [MBProgressHUD showLoadToView:self.view];
+    [JDWNetworkHelper POST:SPVideoUpList parameters:parameters success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view];
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSArray *items = responseDic[@"data"][@"items"];
+            if (items.count > 0) {
+                [self.fixedarr removeAllObjects];
+                for (int a=0; a<items.count; a++) {
+                    NSDictionary *item = items[a];
+                    SPPersonModel *fromeUser = [SPPersonModel modelWithJSON:item[@"user"]];
+                    
+                    SPMessageModel *model = [[SPMessageModel alloc] init];
+                    model.head = fromeUser.avatar;
+                    model.messsage = item[@"content"];
+                    model.time = fromeUser.updated_at;
+                    model.nickName = fromeUser.nickName;
+                    model.coverimg = item[@"video"][@"video"];
+                    
+                    [self.fixedarr addObject:model];
+                }
+                
+                
+            }
+            
+            [self.messageTabView reloadData];
+            
+        }else{
+            if ([responseDic[@"messages"] isKindOfClass: [NSNull class]]) {
+                [MBProgressHUD showAutoMessage:@"请求失败"];
+                
+            }else{
+                [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+            }
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
 }
 
 #pragma mark ----UITableViewDataSource

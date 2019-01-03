@@ -75,7 +75,7 @@
 - (UILabel *)titleLab{
     if (_titleLab == nil) {
         _titleLab = [[UILabel alloc] init];
-        _titleLab.text = @"0公里";
+        _titleLab.text = @"关于我&关于她";
         _titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.font = FONT(15);
         _titleLab.textColor = [UIColor whiteColor];

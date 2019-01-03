@@ -42,7 +42,7 @@
 
     [self.timeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).offset(25);
-        make.width.mas_equalTo(120);
+        make.width.mas_equalTo(200);
         make.centerX.equalTo(self.contentView);
         make.height.mas_equalTo(25);
     }];
@@ -111,10 +111,12 @@
         //        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         //        NSString *dateString       = [formatter stringFromDate: date];
         self.timeLab.text = _newsmodel.time;
-        self.nickeLab.text = @"昵称";
+        self.nickeLab.text = _newsmodel.nickName;
         self.textLab.text = _newsmodel.messsage;
-        [self.headBtn setImage:[UIImage imageNamed:_newsmodel.coverimg] forState:UIControlStateNormal];
-        [self.coverImg setImage:[UIImage imageNamed:_newsmodel.coverimg]];
+//        [self.headBtn setImage:[UIImage imageNamed:_newsmodel.coverimg] forState:UIControlStateNormal];
+        [self.headBtn sd_setImageWithURL:[NSURL URLWithString:_newsmodel.head] forState:UIControlStateNormal];
+//        [self.coverImg setImage:[UIImage imageNamed:_newsmodel.coverimg]];
+        [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_newsmodel.coverimg stringByAppendingString:videoCover]] placeholderImage:ImageNamed(@"默认未上传视频")];
         [self.headBtn setCornerRadius];
     }
 }

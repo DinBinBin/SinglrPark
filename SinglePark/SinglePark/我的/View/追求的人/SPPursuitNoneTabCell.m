@@ -19,6 +19,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setUI];
+        
     }
     return self;
 }
@@ -84,6 +85,17 @@
         _promptImg.image = [UIImage imageNamed:@"icon5_sel"];
     }
     return _promptImg;
+}
+
+- (void)setViewType:(SPPursuitViewType)viewType {
+    _viewType = viewType;
+    if (_viewType == SPMePursuitViewType) {
+        _promptLab.text = @"你当前还没有追求的人哎\n你可以逛逛公园追求他人嘛\n爱是真诚，爱是勇气^_";
+        
+    }else{
+        _promptLab.text = @"当前还没有追求的人追你哎\n你可以逛逛公园追求他人嘛\n爱是真诚，爱是勇气^_";
+        
+    }
 }
 
 @end

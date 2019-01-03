@@ -145,8 +145,9 @@
         //        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         //        NSString *dateString       = [formatter stringFromDate: date];
         self.timeLab.text = _newsmodel.time;
-        self.nickeLab.text = @"昵称";
-        [self.headBtn setImage:[UIImage imageNamed:_newsmodel.coverimg] forState:UIControlStateNormal];
+        self.nickeLab.text = _newsmodel.nickName;
+        //        [self.headBtn setImage:[UIImage imageNamed:_newsmodel.coverimg] forState:UIControlStateNormal];
+        [self.headBtn sd_setImageWithURL:[NSURL URLWithString:_newsmodel.head] forState:UIControlStateNormal];
         [self.seximg setImage:[UIImage imageNamed:@"nv"]];
         self.promptLab.text = _newsmodel.messsage;
 

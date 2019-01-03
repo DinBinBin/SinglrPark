@@ -10,7 +10,7 @@
 #import "SPPursuitHeadTabCell.h"
 #import "SPBusinessCardController.h"
 #import "SPPursuitNoneTabCell.h"
-
+#import "SPCoverTabCell.h"
 
 @interface SPPursuitListView()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -18,8 +18,9 @@
 @property (nonatomic,copy)NSString *pursuitNO;
 
 @property (nonatomic,strong)NSMutableArray *dataArr;
-@property (nonatomic,strong)UIButton *hunterBtn;
-
+@property (nonatomic,strong)UIButton *hunterBtn; //逛逛公园
+@property (nonatomic, strong) UILabel *tipLable; //状态提示
+@property (nonatomic, strong) UIButton *timeBtn; //倒计时
 @end
 
 @implementation SPPursuitListView
@@ -55,7 +56,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (self.typede == PursuitTypeNone) {
+    if (self.typede == SPPursuitTypeNone) {
         return 2;
     }
     return self.promptArr.count + self.dataArr.count;
@@ -63,12 +64,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.typede == PursuitTypeNone) {
+    
+    if (self.typede == SPPursuitTypeNone) {
         if (indexPath.row == 0) {
             SPPursuitNoneTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pursuitNO forIndexPath:indexPath];
             cell.backgroundColor = [UIColor clearColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+            cell.viewType = self.viewType;
             return cell;
         }
         UITableViewCell *cell = [[UITableViewCell alloc] init];
@@ -77,6 +79,46 @@
         [cell.contentView addSubview:self.hunterBtn];
         return cell;
     }
+    /*
+    if (self.viewType == SPPursuitMeViewType) {//追我的人
+        if (self.typede == SPPursuitTypeNotStated) { //未表态
+            if (indexPath.row == 0) {
+                SPCoverTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"videoCell" forIndexPath:indexPath];
+//                cell.model = self.dataArr[indexPath.row];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                return cell;
+            }else if (indexPath.row == 1) {// 提示状态文字
+                UITableViewCell *cell = [[UITableViewCell alloc] init];
+                cell.backgroundColor = [UIColor clearColor];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                [cell.contentView addSubview:self.tipLable];
+                return cell;
+
+            }else if (indexPath.row == 2) { //倒计时按钮
+                UITableViewCell *cell = [[UITableViewCell alloc] init];
+                cell.backgroundColor = [UIColor clearColor];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                [cell.contentView addSubview:self.timeBtn];
+                return cell;
+
+            }else{
+                UITableViewCell *cell = [[UITableViewCell alloc] init];
+                cell.backgroundColor = [UIColor clearColor];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                self.hunterBtn.backgroundColor = [UIColor whiteColor];
+                self.hunterBtn.layer.borderWidth = 1;
+                self.hunterBtn.layer.borderColor = ThemeColor.CGColor;
+                [cell.contentView addSubview:self.hunterBtn];
+                return cell;
+            }
+        }
+        
+        
+    }else {//我追的人
+        
+    }
+    */
+    
     
     
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
@@ -106,6 +148,8 @@
         return cell;
         
     }
+    
+    return nil;
 }
 
 
@@ -178,7 +222,7 @@
 //    return @"删除";
 //}
 
-- (void)setTypede:(PursuitType)typede{
+- (void)setTypede:(SPPursuitType)typede{
     if (_typede !=typede) {
         _typede = typede;
     }
@@ -186,15 +230,39 @@
     return;
 }
 
+#pragma mark - 懒加载
+
 - (UIButton *)hunterBtn{
     if (_hunterBtn == nil) {
         _hunterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _hunterBtn.frame = CGRectMake(10, 0, kScreenWidth-20, 44);
+        _hunterBtn.frame = CGRectMake(10, 0, kScreenWidth-20, 50);
         [_hunterBtn setCornerRadius:5];
         _hunterBtn.backgroundColor = ThemeColor;
         [_hunterBtn setTitle:@"逛逛公园" forState:UIControlStateNormal];
     }
     return  _hunterBtn;
+}
+
+- (UILabel *)tipLable {
+    if (!_tipLable) {
+        _tipLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, kScreenWidth-20, 44)];
+        _tipLable.text = @"请等待对方回应";
+        _tipLable.textColor = SecondWordColor;
+        _tipLable.font = Font16;
+        _tipLable.backgroundColor = [UIColor clearColor];
+    }
+    return _tipLable;
+}
+
+- (UIButton *)timeBtn {
+    if (!_timeBtn) {
+        _timeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _timeBtn.frame = CGRectMake(10, 0, kScreenWidth-20, 50);
+        [_timeBtn setCornerRadius:5];
+        _timeBtn.backgroundColor = ThemeColor;
+        [_timeBtn setTitle:@"11小时59分59秒" forState:UIControlStateNormal];
+    }
+    return _timeBtn;
 }
 
 @end

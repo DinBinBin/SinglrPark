@@ -9,19 +9,23 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-typedef NS_ENUM(NSInteger, PursuitType) {
-    PursuitTypeNone,
-    PursuitTypeDisclosureIndicator,
-    PursuitTypeDetailDisclosure,
-    PursuitTypeCheckmark,
-    PursuitTypeDetailButton
-};
+//typedef NS_ENUM(NSInteger, PursuitType) {
+//    PursuitTypeNone,
+//    PursuitTypeDisclosureIndicator,
+//    PursuitTypeDetailDisclosure,
+//    PursuitTypeCheckmark,
+//    PursuitTypeDetailButton
+//};
+
+
+
 @interface SPPursuitListView : UIView
 
 @property (nonatomic,strong)NSArray *promptArr;
 
 @property (nonatomic,assign)BOOL isme;
-@property (nonatomic,assign)PursuitType typede;
+@property (nonatomic,assign)SPPursuitType typede;
+@property (nonatomic,assign)SPPursuitViewType viewType;
 
 
 @end

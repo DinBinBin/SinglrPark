@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)NSInteger config_notice;//新消息通知 1:开启；2:关闭
 @property (nonatomic,assign)NSInteger config_notice_detail;//新消息详情通知 1:开启；2:关闭
 @property (nonatomic,assign)NSInteger config_privacy;//隐私设置 1:完全公开；2:仅有视频的用户可见；3;我追的人可见；4:追我的人可见；5:仅自己可见
+@property (nonatomic,copy)NSString *created_at;
+@property (nonatomic,copy)NSString *updated_at;
 
 
 @property (nonatomic,copy)NSString *singer;
