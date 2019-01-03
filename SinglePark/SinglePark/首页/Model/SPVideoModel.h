@@ -21,8 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy)NSString *up_nums;
 @property (nonatomic,copy)NSString *video;
 @property (nonatomic,copy)NSString *created_at;
+@property (nonatomic,copy)NSString *user_id;
 @property (nonatomic,copy)NSString *updated_at;
-@property (nonatomic,assign)BOOL *up;
+@property (nonatomic,copy)NSString *comments;
+@property (nonatomic,assign)BOOL up;
+@property (nonatomic,assign)NSString *videoId;
+
+
 @end
 
 

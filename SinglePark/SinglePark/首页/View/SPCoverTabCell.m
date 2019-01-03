@@ -9,6 +9,7 @@
 #import "SPCoverTabCell.h"
 #import "SPBusinessCardController.h"
 #import "MFMapManager.h"
+#import "LCLoginController.h"
 
 @interface SPCoverTabCell()
 @property (nonatomic,strong)UILabel *titleLab;
@@ -95,9 +96,17 @@
         WEAKSELF
         STRONGSELF
         [_headBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-            SPBusinessCardController *card = [[SPBusinessCardController  alloc] init];
-            card.model = strongSelf.model;
-            [[strongSelf viewController].navigationController pushViewController:card animated:YES];
+            if (![DBAccountInfo sharedInstance].isTouris && [DBAccountInfo sharedInstance].islogin) {
+                SPBusinessCardController *card = [[SPBusinessCardController  alloc] init];
+                card.model = strongSelf.model;
+                [[strongSelf viewController].navigationController pushViewController:card animated:YES];
+            }else{
+                //                [UIAlertController showNormalAlert:KEYWINDOW.rootViewController messafe:@"使用平台账号登录才能进入" lefStr:@"取消" rightStr:@"登录" left:^{
+                //                } right:^{
+                LCLoginController *login = [[LCLoginController alloc ] init];
+                [[strongSelf viewController].navigationController pushViewController:login animated:YES];
+                //                } leftColor:FirstWordColor rightColor: ThemeColor];
+            }
         }];
     }
     return _headBtn;
@@ -123,6 +132,7 @@
 - (UIImageView *)coverImg{
     if (_coverImg == nil) {
         _coverImg = [[UIImageView alloc] init];
+        [_coverImg setImage:[UIImage imageNamed:@"视频加载失败"]];
     }
     return _coverImg;
 }
@@ -138,25 +148,25 @@
 - (void)setModel:(SPPersonModel *)model{
     if (_model != model) {
         _model = model;
+        [self.titleLab.layer setCornerRadius:6];
+        self.titleLab.clipsToBounds = YES;
+        [self.headBtn sd_setImageWithURL:[NSURL URLWithString:_model.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"logo"]];
+        self.nickeLab.text = _model.nickName;
+        self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
+        //计算距离
+        CLLocation *orig=[[CLLocation alloc] initWithLatitude:[DBAccountInfo sharedInstance].model.latitude longitude:[DBAccountInfo sharedInstance].model.longitude];
+        CLLocation* dist=[[CLLocation alloc] initWithLatitude:_model.latitude longitude:_model.longitude];;
+        
+        CLLocationDistance kilometers = ([orig distanceFromLocation:dist]/1000.00);
+        self.titleLab.text = [NSString stringWithFormat:@"%.f公里",kilometers];
+        
         if (_model.first_video.count > 0) {
-            //        self.titleLab.text = _model.first_video.distance;
-            [self.titleLab.layer setCornerRadius:6];
-            self.titleLab.clipsToBounds = YES;
-            [self.headBtn sd_setImageWithURL:[NSURL URLWithString:_model.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"logo"]];
-            self.nickeLab.text = _model.nickName;
-            self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
-            
             SPCoverModel *covermodel = _model.first_video[0];
-            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[covermodel.video stringByAppendingString:videoCover]] placeholderImage:[UIImage imageNamed:@""]];
-            
-            //计算距离
-            CLLocation *orig=[[CLLocation alloc] initWithLatitude:[DBAccountInfo sharedInstance].model.latitude longitude:[DBAccountInfo sharedInstance].model.longitude];
-            CLLocation* dist=[[CLLocation alloc] initWithLatitude:_model.latitude longitude:_model.longitude];;
-    
-            CLLocationDistance kilometers=[orig distanceFromLocation:dist]/1000;
-            
-            self.titleLab.text = [NSString stringWithFormat:@"%.f公里",kilometers];
+            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[covermodel.video stringByAppendingString:videoCover]] placeholderImage:[UIImage imageNamed:@"视频加载失败"]];
+        }else{
+            [self.coverImg setImage:[UIImage imageNamed:@"视频加载失败"]];
         }
+
     }
 }
 

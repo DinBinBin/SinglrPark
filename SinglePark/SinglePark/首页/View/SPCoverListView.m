@@ -10,6 +10,7 @@
 #import "SPCoverTabCell.h"
 #import "SPPlayVideoController.h"
 #import "SPPlayVideoController.h"
+#import "LCLoginController.h"
 
 @interface SPCoverListView()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -117,12 +118,21 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
-    play.selectIndex = indexPath.row;
-    play.datasource = self.dataArr;
-    play.choosetype = self.choosetype;
-    play.islocal = self.islocal;
-    [[self viewController].navigationController pushViewController:play animated:YES];
+    if (![DBAccountInfo sharedInstance].isTouris && [DBAccountInfo sharedInstance].islogin) {
+        SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
+        play.selectIndex = indexPath.row;
+        play.datasource = self.dataArr;
+        play.choosetype = self.choosetype;
+        play.islocal = self.islocal;
+        [[self viewController].navigationController pushViewController:play animated:YES];
+
+    }else{
+        //        [UIAlertController showNormalAlert:KEYWINDOW.rootViewController messafe:@"使用平台账号登录才能进入" lefStr:@"取消" rightStr:@"登录" left:^{
+        //        } right:^{
+        LCLoginController *login = [[LCLoginController alloc ] init];
+        [[self viewController].navigationController pushViewController:login animated:YES];
+        //        } leftColor:FirstWordColor rightColor: ThemeColor];
+    }
 }
 
 
@@ -134,6 +144,8 @@
         self.coverStr = @"coverId";
         _listTabView.backgroundColor = PTBackColor;
         [_listTabView registerClass:[SPCoverTabCell class] forCellReuseIdentifier:self.coverStr];
+        _listTabView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _listTabView.tableFooterView = [[UIView alloc] init];
         [self addSubview:_listTabView];
     }
     return _listTabView;
@@ -181,15 +193,19 @@
     
     [JDWNetworkHelper POST:PTURL_API_Index parameters:params success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
+        [self.listTabView.mj_footer endRefreshing ];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
             
            NSArray *arr = [[SPPersonModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
             [self.dataArr addObjectsFromArray:arr];
             [self.listTabView reloadData];
+            if (self.num == [responseDic[@"data"][@"total"] integerValue]) {
+                [self.listTabView.mj_footer endRefreshingWithNoMoreData];
+            }
+            
         }else{
             [MBProgressHUD showMessage:responseDic[@"messages"]];
         }
-        [self.listTabView.mj_footer endRefreshing ];
 
     } failure:^(NSError *error) {
         [MBProgressHUD showMessage:Networkerror];

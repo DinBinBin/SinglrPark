@@ -90,8 +90,8 @@
     if (_goodBtn == nil) {
         _goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _goodBtn.titleLabel.font = Font14;
-        [_goodBtn setImage:[UIImage imageNamed:@"emptylike"] forState:UIControlStateNormal];
-        [_goodBtn setImage:[UIImage imageNamed:@"surelike"] forState:UIControlStateSelected];
+        [_goodBtn setImage:[UIImage imageNamed:@"点赞空心"] forState:UIControlStateNormal];
+        [_goodBtn setImage:[UIImage imageNamed:@"点赞实心"] forState:UIControlStateSelected];
 
 //        WEAKSELF
 //        STRONGSELF
@@ -124,7 +124,7 @@
 //        self.titleLab.clipsToBounds = YES;
         [self.headBtn setImage:[UIImage imageNamed:_model.head] forState:UIControlStateNormal];
         self.textLab.text = _model.messsage;
-        [self.goodBtn setTitle:_model.gooder forState:UIControlStateNormal];
+        [self.goodBtn setTitle:[NSString stringWithFormat:@"  %@",_model.gooder] forState:UIControlStateNormal];
 
 //        self.sexImg.image = [UIImage imageNamed:_model.sex];
 //        self.coverImg.image = [UIImage imageNamed:_model.videoCover];

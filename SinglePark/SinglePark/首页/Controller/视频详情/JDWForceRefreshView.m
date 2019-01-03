@@ -42,7 +42,7 @@
         [self.dataArr addObject:model];
         [self.dataArr addObject:model];
         [self setUI];
-        self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.4];
+        self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.8];
         
     }
     return self;
@@ -113,8 +113,8 @@
 - (UIButton *)sureBtn{
     if (_sureBtn == nil) {
         _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_sureBtn setTitle:@"X" forState:UIControlStateNormal];
-        _sureBtn.backgroundColor = [UIColor redColor];
+        [_sureBtn setImage:[UIImage imageNamed:@"deleteSP"] forState:UIControlStateNormal];
+
         _sureBtn.titleLabel.font = FONT(15);
         WEAKSELF
         STRONGSELF

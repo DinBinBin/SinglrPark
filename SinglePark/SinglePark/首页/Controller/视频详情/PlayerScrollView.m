@@ -10,7 +10,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "TranslucentView.h"
 #import "JDWForceRefreshView.h"
-
+#import "SPBusinessCardController.h"
 
 @interface PlayerScrollView ()<UIScrollViewDelegate,UIGestureRecognizerDelegate,UIActionSheetDelegate>
 
@@ -86,7 +86,10 @@
     self.transview.TranslucentBlock = ^(NSInteger row) {
         STRONGSELF
         if (row == 1) { //头像
-            
+            SPBusinessCardController *card = [[SPBusinessCardController  alloc] init];
+            card.model = strongSelf.infoModelArray[strongSelf.index];
+            [[strongSelf viewController].navigationController pushViewController:card animated:YES];
+
         }else if (row == 2){//点赞/】
             [strongSelf goodluck];
         }else if (row == 3){  // 评论
@@ -378,6 +381,7 @@
     NSDictionary *params = @{@"video_id":self.middleInfoModel.videoModel.videoId};
     [JDWNetworkHelper POST:SPInfoVideo parameters:params success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
+        [SFDealNullTool dealNullData:responseDic];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
             self.transview.model = [SPVideoModel modelWithDictionary:responseDic[@"data"]];
         }else{

@@ -43,4 +43,43 @@
     [rootVC presentViewController:alertController animated:YES completion:nil];
 }
 
++ (void)showNormalAlert:(UIViewController *)rootVC
+                messafe:(NSString *)message
+                 lefStr:(NSString *)leftStr
+               rightStr:(NSString *)rightStr
+                   left:(void (^)(void))leftBlock
+                  right:(void (^)(void)) rightBlock
+              leftColor:(UIColor *)leftColor
+             rightColor:(UIColor *)rightColor{
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    NSMutableAttributedString *alertControllerMessageStr = [[NSMutableAttributedString alloc] initWithString:message];
+    [alertControllerMessageStr addAttribute:NSForegroundColorAttributeName value:FirstWordColor range:NSMakeRange(0, message.length)];
+    //    [alertControllerMessageStr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:14] range:NSMakeRange(0, message.length)];
+    
+    [alertController setValue:alertControllerMessageStr forKey:@"attributedMessage"];
+    
+    
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:leftStr style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        if (leftBlock) {
+            leftBlock();
+        }
+    }];
+    UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
+    
+    [action1 setValue:leftColor forKey:@"_titleTextColor"];
+    
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:rightStr style:actionStyle handler:^(UIAlertAction * _Nonnull action) {
+        if (rightBlock) {
+            rightBlock();
+        }
+    }];
+    [action2 setValue:rightColor forKey:@"_titleTextColor"];
+    [alertController addAction:action1];
+    [alertController addAction:action2];
+    [rootVC presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+
 @end

@@ -9,5 +9,9 @@
 #import "SPVideoModel.h"
 
 @implementation SPVideoModel
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"videoId": @"id",
+             };
+}
 
 @end

@@ -31,16 +31,12 @@
             //此时需要讲之前的播放视频的view 隐藏掉，只显示占位图
             if (index == self.datasource.count - 1 ) {
                 NSLog(@"此处调用加载方法，加载最新的视频信息");
-                //                [weakSelf loadData];
-//                                [weakSelf.scrollView addNewData:weakSelf.datasource];
                 [weakSelf loadMoreData];
             }
             if(index == 0){
-//                [weakSelf.view ar_addAndroidRefreshWithDelegate:self];
-//                weakSelf.view.ar_headerView.refreshOffset = 64.0f;
                 [weakSelf loadData];
             }else{
-//                weakSelf.view.ar_headerView = nil;
+                
             }
         };
         [self.view addSubview:self.scrollView];

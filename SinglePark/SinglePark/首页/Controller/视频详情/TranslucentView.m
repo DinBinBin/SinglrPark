@@ -34,7 +34,7 @@
     }];
     
     [self.commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.goodBtn.mas_bottom).offset(20);
+        make.top.equalTo(self.goodBtn.mas_bottom).offset(25);
         make.width.height.mas_equalTo(40);
         make.centerX.equalTo(self);
 
@@ -47,6 +47,8 @@
 
     }];
     
+    self.headBtn.layer.cornerRadius = 20;
+    self.headBtn.clipsToBounds = YES;
 }
 
 - (UIButton *)headBtn{
@@ -65,6 +67,7 @@
         _goodBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _goodBtn.tag  = 2;
         [_goodBtn setImage:[UIImage imageNamed:@"emptylike"] forState:UIControlStateNormal];
+        [_goodBtn setImage:[UIImage imageNamed:@"surelike"] forState:UIControlStateSelected];
         [_goodBtn addTarget:self action:@selector(clickVideoBtn:) forControlEvents:UIControlEventTouchUpInside];
 
     }
@@ -97,12 +100,13 @@
 
 - (void)setModel:(SPVideoModel *)model{
     if (_model != model) {
-        [self.goodBtn setTitle:@"13" forState:UIControlStateNormal];
-        [self.commentBtn setTitle:@"13" forState:UIControlStateNormal];
+        _model = model;
+        [self.goodBtn setTitle:_model.up_nums forState:UIControlStateNormal];
+        [self.commentBtn setTitle:_model.comments forState:UIControlStateNormal];
 
         //设置图片和文字的间距，这里可自行调整
-        CGFloat margin = 10;
-
+        CGFloat margin = 4;
+        self.goodBtn.selected = _model.up;
         self.goodBtn.imageEdgeInsets = UIEdgeInsetsMake(-self.goodBtn.titleLabel.height-margin, 5, 0, 0);
         self.goodBtn.titleEdgeInsets = UIEdgeInsetsMake(self.goodBtn.imageView.height+margin, -self.goodBtn.imageView.width/2-5-self.goodBtn.titleLabel.width/2, 0, 0);
     

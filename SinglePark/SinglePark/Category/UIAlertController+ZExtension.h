@@ -20,4 +20,13 @@
                     message:(NSString * _Nullable)message
                          ok:(void (^ __nullable)())okHandler;
 
++ (void)showNormalAlert:(UIViewController *)rootVC
+                messafe:(NSString *)message
+                 lefStr:(NSString *)leftStr
+               rightStr:(NSString *)rightStr
+                   left:(void (^)(void))leftBlock
+                  right:(void (^)(void)) rightBlock
+              leftColor:(UIColor *)leftColor
+             rightColor:(UIColor *)rightColor;
+
 @end
