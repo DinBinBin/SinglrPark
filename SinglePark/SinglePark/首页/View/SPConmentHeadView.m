@@ -1,35 +1,36 @@
 //
-//  SPVideoCommentTabCell.m
+//  SPConmentHeadView.m
 //  SinglePark
 //
-//  Created by 斌斌戴 on 2018/11/16.
-//  Copyright © 2018年 DBB. All rights reserved.
+//  Created by 斌斌戴 on 2019/1/3.
+//  Copyright © 2019年 DBB. All rights reserved.
 //
 
-#import "SPVideoCommentTabCell.h"
+#import "SPConmentHeadView.h"
 
-@interface SPVideoCommentTabCell()
+@interface SPConmentHeadView()
 @property (nonatomic,strong)UIButton *headBtn;
 @property (nonatomic,strong)UILabel *nameLab;
 @property (nonatomic,strong)UIButton *goodBtn;
 @property (nonatomic,strong)UILabel *textLab;
 
 @end
-@implementation SPVideoCommentTabCell
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+@implementation SPConmentHeadView
+-(instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
         [self setUI];
+
     }
     return self;
 }
 
 - (void)setUI{
-    [self.contentView addSubview:self.headBtn];
-    [self.contentView addSubview:self.nameLab];
-    [self.contentView addSubview:self.goodBtn];
-    [self.contentView addSubview:self.textLab];
-
+    [self addSubview:self.headBtn];
+    [self addSubview:self.nameLab];
+    [self addSubview:self.goodBtn];
+    [self addSubview:self.textLab];
+    
     
     [self.headBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).offset(10);
@@ -67,13 +68,6 @@
         _headBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_headBtn setImage:[UIImage imageNamed:@"logo"] forState:UIControlStateNormal];
 
-//        WEAKSELF
-//        STRONGSELF
-//
-//        [_headBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-//
-//
-//        }];
     }
     return _headBtn;
 }
@@ -93,13 +87,13 @@
         _goodBtn.titleLabel.font = Font14;
         [_goodBtn setImage:[UIImage imageNamed:@"点赞空心"] forState:UIControlStateNormal];
         [_goodBtn setImage:[UIImage imageNamed:@"点赞实心"] forState:UIControlStateSelected];
-
-//        WEAKSELF
-//        STRONGSELF
-//        [_goodBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-//
-//
-//        }];
+        
+        //        WEAKSELF
+        //        STRONGSELF
+        //        [_goodBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        //
+        //
+        //        }];
     }
     return _goodBtn;
 }
@@ -120,17 +114,15 @@
 - (void)setModel:(SPMessageModel *)model{
     if (_model != model) {
         _model = model;
-//        self.nameLab.text = _model.nickName;
-//        [self.titleLab.layer setCornerRadius:6];
-//        self.titleLab.clipsToBounds = YES;
+//        self.nameLab.text = @"2342423";
+        //        [self.titleLab.layer setCornerRadius:6];
+        //        self.titleLab.clipsToBounds = YES;
 //        [self.headBtn setImage:[UIImage imageNamed:_model.head] forState:UIControlStateNormal];
         self.textLab.text = _model.content;
-        [self.goodBtn setTitle:[NSString stringWithFormat:@"  %@",_model.gooder] forState:UIControlStateNormal];
-
-//        self.sexImg.image = [UIImage imageNamed:_model.sex];
-//        self.coverImg.image = [UIImage imageNamed:_model.videoCover];
+//        [self.goodBtn setTitle:[NSString stringWithFormat:@"  %@",_model.gooder] forState:UIControlStateNormal];
+        
+        //        self.sexImg.image = [UIImage imageNamed:_model.sex];
+        //        self.coverImg.image = [UIImage imageNamed:_model.videoCover];
     }
 }
-
 @end
-    

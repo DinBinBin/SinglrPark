@@ -175,6 +175,7 @@
 		E68CBB49219EB5370010C2D6 /* SPVideoCommentTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB48219EB5370010C2D6 /* SPVideoCommentTabCell.m */; };
 		E68CBB4D219EC1640010C2D6 /* SPChasingTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB4C219EC1640010C2D6 /* SPChasingTabCell.m */; };
 		E68CBB53219EC1BA0010C2D6 /* SPThirdTabwCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB52219EC1BA0010C2D6 /* SPThirdTabwCell.m */; };
+		E6A9F1CC21DDFD2800B9ABF9 /* SPConmentHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = E6A9F1CB21DDFD2800B9ABF9 /* SPConmentHeadView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -480,6 +481,8 @@
 		E68CBB4C219EC1640010C2D6 /* SPChasingTabCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPChasingTabCell.m; sourceTree = "<group>"; };
 		E68CBB51219EC1BA0010C2D6 /* SPThirdTabwCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPThirdTabwCell.h; sourceTree = "<group>"; };
 		E68CBB52219EC1BA0010C2D6 /* SPThirdTabwCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPThirdTabwCell.m; sourceTree = "<group>"; };
+		E6A9F1CA21DDFD2800B9ABF9 /* SPConmentHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConmentHeadView.h; sourceTree = "<group>"; };
+		E6A9F1CB21DDFD2800B9ABF9 /* SPConmentHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConmentHeadView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1063,6 +1066,8 @@
 				81FB4C3F2165F0E30090142A /* SPCoverListView.m */,
 				81FB4C442165F79E0090142A /* SPCoverTabCell.h */,
 				81FB4C452165F79E0090142A /* SPCoverTabCell.m */,
+				E6A9F1CA21DDFD2800B9ABF9 /* SPConmentHeadView.h */,
+				E6A9F1CB21DDFD2800B9ABF9 /* SPConmentHeadView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1562,6 +1567,7 @@
 				81FB4C462165F79E0090142A /* SPCoverTabCell.m in Sources */,
 				8127A6BA21734BBC0033434C /* SPMineHeadTabCell.m in Sources */,
 				81FB4C492165F8B60090142A /* SPPlayVideoController.m in Sources */,
+				E6A9F1CC21DDFD2800B9ABF9 /* SPConmentHeadView.m in Sources */,
 				811DB6D121687B4200204139 /* SPPersonModel.m in Sources */,
 				793D628321BFB2D400589445 /* MFDatePickView.m in Sources */,
 				79CAF65D21BE6E5600B48780 /* SPEditSectionViewController.m in Sources */,

@@ -19,6 +19,7 @@
 @property (nonatomic,strong)NSMutableArray *dataArr;
 @property (nonatomic,strong)InputToolbar *inputToolbar;
 @property (nonatomic,assign)CGFloat inputToolbarY;
+@property (nonatomic,strong)SPMessageModel *answerModel;
 
 @end
 
@@ -27,20 +28,20 @@
 
 - (id)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        SPMessageModel *model = [SPMessageModel modelWithJSON:@{@"head":@"4",
-                                                                @"nickName":@"c昵称",
-                                                                @"messsage":@"我评论了一条信息",
-                                                                @"time":@"12：12",
-                                                                @"gooder":@"34"
-                                                                }];
-        
-        
-        self.dataArr = [NSMutableArray array];
-        [self.dataArr addObject:model];
-        [self.dataArr addObject:model];
-        [self.dataArr addObject:model];
-        [self.dataArr addObject:model];
-        [self.dataArr addObject:model];
+//        SPMessageModel *model = [SPMessageModel modelWithJSON:@{@"head":@"4",
+//                                                                @"nickName":@"c昵称",
+//                                                                @"messsage":@"我评论了一条信息",
+//                                                                @"time":@"12：12",
+//                                                                @"gooder":@"34"
+//                                                                }];
+//
+//
+//        self.dataArr = [NSMutableArray array];
+//        [self.dataArr addObject:model];
+//        [self.dataArr addObject:model];
+//        [self.dataArr addObject:model];
+//        [self.dataArr addObject:model];
+//        [self.dataArr addObject:model];
         [self setUI];
         self.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.8];
         
@@ -103,7 +104,7 @@
     if (_titleLab == nil) {
         _titleLab = [[UILabel alloc] init];
         _titleLab.font = Font14;
-        _titleLab.text = @"344条评论";
+        _titleLab.text = @"0条评论";
         _titleLab.textColor = [UIColor whiteColor];
         _titleLab.textAlignment = NSTextAlignmentCenter;
     }
@@ -131,9 +132,11 @@
 - (SPCommentTabView *)commentTabView{
     if (_commentTabView == nil) {
         _commentTabView = [[SPCommentTabView alloc ] init];
+        WEAKSELF
+        STRONGSELF
         _commentTabView.AnswerComment = ^(SPMessageModel * _Nonnull model) {
-            
-            
+            strongSelf.answerModel = model;
+            strongSelf.inputToolbar.textInput.text = @"回复";
         };
     }
     return _commentTabView;
@@ -146,10 +149,17 @@
         _inputToolbar.width = kScreenWidth;
         _inputToolbar.height = 53;
         _inputToolbar.textViewMaxVisibleLine = 4;
-        _inputToolbar.sendContent = ^(NSObject *content) {  //发送文字
-        };
+        [_inputToolbar resetInputToolbar];
         WEAKSELF
         STRONGSELF
+        _inputToolbar.sendContent = ^(NSObject *content) {  //发送文字
+            if (strongSelf.answerModel) {
+                [strongSelf answer:(NSString *)content];
+            }else{
+                [strongSelf comment:(NSString *)content];
+            }
+            
+        };
         _inputToolbar.inputToolbarFrameChange = ^(CGFloat height, CGFloat orignY) {
             [strongSelf.inputToolbar mas_remakeConstraints:^(MASConstraintMaker *make) {
                 NSLog(@"%f  ==%f",orignY,height);
@@ -165,13 +175,44 @@
 }
 
 
-- (void)answer{
-    
+// 评论回复
+- (void)answer:(NSString *)str{
+    NSDictionary *params =  @{@"comment_id":self.answerModel.messageId,
+                              @"content":str,
+                              };
+    [JDWNetworkHelper POST:SPAnswer parameters:params success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            [self comments];
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+        //        [self.listTabView.mj_header endRefreshing ];
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        //        [self.listTabView.mj_header endRefreshing ];
+        
+    }];
     
 }
 
-- (void)comment{
-    
+//直接评论
+- (void)comment:(NSString *)str{
+    NSDictionary *params =  @{@"video_id":self.infoModel.videoId,
+                              @"content":str,
+                              };
+    [JDWNetworkHelper POST:SPCommentscreate parameters:params success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            [self comments];
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        
+    }];
     
 }
 
@@ -202,17 +243,37 @@
     [JDWNetworkHelper POST:SPComments parameters:params success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-
-
+            self.dataArr = [[SPMessageModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
+            self.commentTabView.dataArr = self.dataArr;
+            self.titleLab.text = [NSString stringWithFormat:@"%ld条评论",self.dataArr.count];
         }else{
             [MBProgressHUD showMessage:responseDic[@"messages"]];
         }
-        
     } failure:^(NSError *error) {
         [MBProgressHUD showMessage:Networkerror];
     }];
     
     
 }
+
+
+//// 获取评论列表
+//- (void)morecomments{
+//    NSDictionary *params = @{@"video_id":self.infoModel.videoId,
+//                             };
+//    [JDWNetworkHelper POST:SPComments parameters:params success:^(id responseObject) {
+//        NSDictionary *responseDic = (NSDictionary *)responseObject;
+//        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+//            self.dataArr = [[SPPersonModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
+//        }else{
+//            [MBProgressHUD showMessage:responseDic[@"messages"]];
+//        }
+//
+//    } failure:^(NSError *error) {
+//        [MBProgressHUD showMessage:Networkerror];
+//    }];
+//
+//
+//}
 
 @end

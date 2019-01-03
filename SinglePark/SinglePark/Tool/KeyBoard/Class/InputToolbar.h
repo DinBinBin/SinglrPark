@@ -54,4 +54,7 @@
  *  重置inputToolbar
  */
 - (void)resetInputToolbar;
+@property (nonatomic,strong)UITextView *textInput;
+@property (nonatomic,strong)UITextView *textUpload;
+
 @end

@@ -24,6 +24,8 @@
 @property (nonatomic,strong)SPPersonModel *topInfoModel,*middleInfoModel, *downInfoModel;
 @property (nonatomic,strong)SPVideoModel *infoVideo;
 @property (nonatomic,strong)TranslucentView *transview;
+@property (nonatomic,strong)UIImageView *pasuImg;
+
 @end
 @implementation PlayerScrollView
 
@@ -79,6 +81,11 @@
 }
 
 - (void)setUI{
+    
+    self.pasuImg.frame = CGRectMake(kScreenWidth/2-25,kScreenHeight*1.5-25, 50, 50);
+    [self addSubview:self.pasuImg];
+    self.pasuImg.hidden = YES;
+    
     self.transview = [[TranslucentView alloc] initWithFrame:CGRectMake(kScreenWidth-70, kScreenHeight*2-300-KsafeTabIPhonex-49, 60, 240)];
  
     [self addSubview:self.transview];
@@ -124,6 +131,9 @@
     //只有当doubleTapGesture识别失败的时候(即识别出这不是双击操作)，singleTapGesture才能开始识别
     [tapRecognize requireGestureRecognizerToFail:doubleTapGesture];
 
+    
+
+
 }
 
 
@@ -163,6 +173,12 @@
     _player.view.backgroundColor = [UIColor clearColor];
  
      [_player prepareToPlay];
+}
+- (UIImageView *)pasuImg{
+    if (_pasuImg == nil) {
+        _pasuImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pasuimg"]];
+    }
+    return _pasuImg;
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
      if (self.infoModelArray.count == 1 ) {
@@ -319,8 +335,11 @@
 {
     if (self.player.playbackState == MPMoviePlaybackStatePaused) {
         [self.player play];
+        self.pasuImg.hidden = YES;
+
     }else{
         [self.player pause];
+        self.pasuImg.hidden = NO;
     }
     NSLog(@"---单击手势-------");
 }
@@ -340,7 +359,7 @@
         [JDWNetworkHelper POST:SPReports parameters:params success:^(id responseObject) {
             NSDictionary *responseDic = (NSDictionary *)responseObject;
             if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-                [self getinfoVideo];
+//                [self getinfoVideo];
                 [MBProgressHUD showAutoMessage:@"已举报"];
             }else{
                 [MBProgressHUD showMessage:responseDic[@"messages"]];
@@ -365,7 +384,6 @@
         }else{
             [MBProgressHUD showMessage:responseDic[@"messages"]];
         }
-        
     } failure:^(NSError *error) {
         [MBProgressHUD showMessage:Networkerror];
     }];

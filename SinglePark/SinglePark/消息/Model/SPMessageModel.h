@@ -28,9 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 // 视频回答
 @property (nonatomic,copy)NSString *content;
 @property (nonatomic,copy)NSString *messageId;
-@property (nonatomic,copy)NSString *video_id;
 @property (nonatomic,copy)NSString *created_at;
-@property (nonatomic,strong)NSArray *replies;
+@property (nonatomic,strong)NSArray <SPMessageModel *>*replies;
 @end
 
 NS_ASSUME_NONNULL_END

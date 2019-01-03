@@ -24,8 +24,6 @@
 @property (nonatomic,assign)BOOL showMoreViewButton; //YES: 显示显示非键盘
 @property (nonatomic,assign)BOOL showVoiceViewButton; //YES: 显示显示非键盘
 
-@property (nonatomic,strong)UITextView *textInput;
-@property (nonatomic,strong)UITextView *textUpload;
 @property (nonatomic,strong)UIButton *sendBtn;
 
 
@@ -86,7 +84,7 @@ static InputToolbar* _instance = nil;
     [UIView commitAnimations];
     _inputToolbarFrameChange(self.height,_keyboardHeight);
     NSLog(@"1111111111111111%f---%f",keyboardFrame.size.height,SCREEN_HEIGHT);
-
+    self.textInput.text = @"";
     self.keyboardIsVisiable = YES;
 }
 

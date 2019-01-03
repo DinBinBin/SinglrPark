@@ -14,4 +14,9 @@
     return @{@"messageId": @"id",
              };
 }
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"first_video" : SPCoverModel.class,
+             };
+}
 @end
