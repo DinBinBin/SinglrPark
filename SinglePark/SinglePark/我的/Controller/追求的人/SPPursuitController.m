@@ -8,14 +8,13 @@
 
 #import "SPPursuitController.h"
 #import "SPPursuitListView.h"
-#import "SPPursuitHomeView.h"
 #import "SPPlayVideoController.h"
 
 @interface SPPursuitController ()<UIScrollViewDelegate>
 @property(nonatomic,strong) UISegmentedControl *segmentControl;
 @property (nonatomic,strong)UIScrollView *pursuitScroll;
 @property (nonatomic,strong)SPPursuitListView *pursuitMe; // 追我的人
-@property (nonatomic, strong) SPPursuitHomeView *mePursuit;// 我追的人
+@property (nonatomic, strong) SPPursuitListView *mePursuit;// 我追的人
 
 @end
 
@@ -26,10 +25,14 @@
     self.navigationItem.titleView = self.segmentControl;
     [self.view addSubview:self.pursuitScroll];
     
-    [self.pursuitScroll addSubview:self.pursuitMe];
-    [self.pursuitScroll addSubview:self.mePursuit];
+    [self requestData];
+
+    
+    
     
     self.hideNavigationLine = YES;
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -40,6 +43,10 @@
 
 - (void)requestData {
     
+    [self.pursuitScroll addSubview:self.pursuitMe];
+    [self.pursuitScroll addSubview:self.mePursuit];
+
+
 }
 
 
@@ -62,7 +69,7 @@
 - (UIScrollView *)pursuitScroll{
     if (_pursuitScroll == nil) {
         _pursuitScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0 , kScreenWidth, kScreenHeight- kNavigationHeight)];
-        _pursuitScroll.contentSize = CGSizeMake(kScreenWidth*2, 750);
+        _pursuitScroll.contentSize = CGSizeMake(kScreenWidth*2, _pursuitScroll.height);
         _pursuitScroll.pagingEnabled = YES;
         _pursuitScroll.delegate = self;
         _pursuitScroll.bounces = NO;
@@ -75,41 +82,34 @@
 // 追我的人
 - (SPPursuitListView *)pursuitMe{
     if (_pursuitMe == nil) {
-        _pursuitMe = [[SPPursuitListView alloc] initWithFrame:CGRectMake(0,0 , kScreenWidth, kScreenHeight- kNavigationHeight)];
-        _pursuitMe.promptArr = @[@"人数",@"人名片中显示",@"如果您关闭此项，您的个人名片中将不再显示您的追求者，默认开启。追我的人："];
-        _pursuitMe.isme = YES;
-        _pursuitMe.typede = SPPursuitTypeNone;
-        _pursuitMe.viewType = SPPursuitMeViewType;
+        _pursuitMe = [[SPPursuitListView alloc] initWithFrame:CGRectMake(0,0 , kScreenWidth, kScreenHeight- kNavigationHeight) viewType:SPPursuitMeViewType];
+        
     }
     return _pursuitMe;
 }
 
 // 我追的人
-//- (SPPursuitListView *)mePursuit{
-//    if (_mePursuit == nil) {
-//        _mePursuit = [[SPPursuitListView alloc] initWithFrame:CGRectMake(kScreenWidth, 0, self.pursuitScroll.width, self.pursuitScroll.height)];
-//        _mePursuit.promptArr = @[@"人数",@"珍惜每一个遇见的人。因此，“我追的人”在同一时间段，人数不能超过3人，如果您“追求”的人已经达到3人，出现新人时，请删除旧人（左滑删除）。"];
-//        _mePursuit.isme = YES;
-//        _mePursuit.typede = SPPursuitTypeNone;
-//        _mePursuit.viewType = SPMePursuitViewType;
+- (SPPursuitListView *)mePursuit{
+    if (_mePursuit == nil) {
+        _mePursuit = [[SPPursuitListView alloc] initWithFrame:CGRectMake(kScreenWidth, 0, self.pursuitScroll.width, self.pursuitScroll.height) viewType:SPMePursuitViewType];
+        
+    }
+    return _mePursuit;
+}
+
+//- (SPPursuitHomeView *)mePursuit {
+//    if (!_mePursuit) {
+//        _mePursuit = [[SPPursuitHomeView alloc] initWithFrame:CGRectMake(kScreenW, 0, kScreenW, 750)];
+//        WEAKSELF
+//        STRONGSELF
+//        _mePursuit.goVideoBlcok = ^{
+//            SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
+//            [strongSelf.navigationController pushViewController:play animated:YES];
+//        };
 //
 //    }
 //    return _mePursuit;
 //}
-
-- (SPPursuitHomeView *)mePursuit {
-    if (!_mePursuit) {
-        _mePursuit = [[SPPursuitHomeView alloc] initWithFrame:CGRectMake(kScreenW, 0, kScreenW, 750)];
-        WEAKSELF
-        STRONGSELF
-        _mePursuit.goVideoBlcok = ^{
-            SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
-            [strongSelf.navigationController pushViewController:play animated:YES];
-        };
-
-    }
-    return _mePursuit;
-}
 
 //segment方法
 - (void)chageSCVaule:(UISegmentedControl *)sc{

@@ -12,5 +12,6 @@
 @interface SPCoverTabCell : UITableViewCell
 
 @property (nonatomic,strong)SPPersonModel *model;
+@property (nonatomic,strong)UILabel *titleLab;
 
 @end

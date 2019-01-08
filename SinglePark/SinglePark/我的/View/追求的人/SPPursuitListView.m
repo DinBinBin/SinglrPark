@@ -11,6 +11,11 @@
 #import "SPBusinessCardController.h"
 #import "SPPursuitNoneTabCell.h"
 #import "SPCoverTabCell.h"
+#import "SPPursuitVoiceCell.h"
+#import "SPPursuitButtonCell.h"
+#import "OYCountDownManager.h"
+
+
 
 @interface SPPursuitListView()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -18,138 +23,305 @@
 @property (nonatomic,copy)NSString *pursuitNO;
 
 @property (nonatomic,strong)NSMutableArray *dataArr;
-@property (nonatomic,strong)UIButton *hunterBtn; //逛逛公园
+//@property (nonatomic,strong)UIButton *hunterBtn; //逛逛公园
 @property (nonatomic, strong) UILabel *tipLable; //状态提示
-@property (nonatomic, strong) UIButton *timeBtn; //倒计时
+@property (nonatomic, strong) SPPursuitButtonCell *timeCell; //倒计时
+@property (nonatomic, strong) SPPursuitVoiceCell *vocieCell; //附加消息
+
+
+@property (nonatomic, strong) dispatch_source_t timer;
+@property (nonatomic, assign) NSInteger currentInt; // 倒计时间
 @end
 
 @implementation SPPursuitListView
 
-- (id)initWithFrame:(CGRect)frame{
+- (id)initWithFrame:(CGRect)frame  viewType:(SPPursuitViewType)type{
     if (self = [super initWithFrame:frame]) {
+        
         [self.listTabView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
+        // 启动倒计时管理
+        [kCountDownManager start];
+        self.viewType = type;
+        
+        if (type == SPPursuitMeViewType) {
+            self.typede = SPPursuitTypeNotStated;
+        }else {
+            self.typede = SPPursuitTypeNotStated;
+
+        }
+        
+        [self.listTabView reloadData];
+        
     }
     return self;
 }
 
-- (void)getdata{
-    self.dataArr = [NSMutableArray array];
-    NSDictionary *dic1 = @{@"head":@"4",
-                           @"occupation":@"距离----",
-                           @"nickName":@"昵称----",
-                           @"sex":@"1",
-                           @"singer":@"伴着我的歌声是你心碎的幻想，你用你的眼泪抚摸我的寂寞",
-                           @"didian":@"广东深圳",
-                           @"number":@[@"4",@"4",@"4"]
-                           };
-    SPPersonModel *model = [SPPersonModel modelWithJSON:dic1];
-    [self.dataArr addObject:model];
-    [self.dataArr addObject:model];
-    [self.dataArr addObject:model];
+- (void)dealloc {
+    // 废除定时器
+    [kCountDownManager invalidate];
+    // 清空时间差
+    [kCountDownManager reload];
+}
 
+
+- (void)reloadData {
     [self.listTabView reloadData];
+}
+
+- (void)setUpCellUIWith:(SPPursuitButtonCell *)upCell downCell:(SPPursuitButtonCell *)downCell {
+    
+    if (self.viewType == SPPursuitMeViewType) {//追我的人
+        
+        switch (self.typede) {
+            case SPPursuitTypeNotStated: //未表态
+            {
+                self.tipLable.text = @"恭喜，有人追你拉，请在倒计时之前处理请求，否则系统会自动拒绝！";
+                
+                self.currentInt = 12*60*60;
+//                [self updateTimer:self.timer];
+//                [self timeOfScrollView];
+                OYModel *model = [[OYModel alloc] init];
+                model.count = self.currentInt;
+                self.vocieCell.model = model;
+                [self.vocieCell setCountDownZero:^(OYModel * timeOutModel) {
+                    if (!timeOutModel.timeOut) {
+                        NSLog(@"SingleTableVC--%@--时间到了", timeOutModel.title);
+                    }
+                    // 标志
+                    timeOutModel.timeOut = YES;
+                }];
+                
+                
+                upCell.mybutton.enabled = NO;
+                [upCell.mybutton setTitle:@"接受" forState:UIControlStateDisabled];
+                [downCell.mybutton setTitle:@"不合适" forState:UIControlStateNormal];
+                
+                break;
+            }
+            case SPPursuitTypeOutTime://未表态而且超时了
+                self.tipLable.text = @"由于您未及时处理，请求已过有效期。到现在为止还未出现新的追求者";
+                upCell.mybutton.enabled = YES;
+                [upCell.mybutton setTitle:@"追她" forState:UIControlStateNormal];
+                [downCell.mybutton setTitle:@"不合适" forState:UIControlStateNormal];
+                
+                break;
+                
+            case SPPursuitTypeRefuse:
+                self.tipLable.text = @"您已拒绝了ta，到现在为止还未出现新的追求者";
+                upCell.mybutton.enabled = YES;
+                [upCell.mybutton setTitle:@"追她" forState:UIControlStateNormal];
+                [downCell.mybutton setTitle:@"不合适" forState:UIControlStateNormal];
+                
+                break;
+            case PursuitTypeDetailAccept:
+                self.tipLable.text = @"您选择了接受，多主动沟通吧";
+                upCell.mybutton.enabled = YES;
+                [upCell.mybutton setTitle:@"发信息" forState:UIControlStateNormal];
+                [downCell.mybutton setTitle:@"不合适" forState:UIControlStateNormal];
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+        
+    }else{//我追的人
+        switch (self.typede) {
+            case SPPursuitTypeNotStated: //未表态
+            {
+                self.tipLable.text = @"请等待对方回应";
+                
+                [upCell.mybutton setEnabled:NO];
+                
+                self.currentInt = 12*60*60;
+//                [self updateTimer:self.timer];
+                
+                OYModel *model = [[OYModel alloc] init];
+                model.count = self.currentInt;
+                self.timeCell.model = model;
+                [self.timeCell setCountDownZero:^(OYModel * timeOutModel) {
+                    if (!timeOutModel.timeOut) {
+                        NSLog(@"SingleTableVC--%@--时间到了", timeOutModel.title);
+                    }
+                    // 标志
+                    timeOutModel.timeOut = YES;
+                }];
+                
+                break;
+            }
+            case SPPursuitTypeOutTime://未表态而且超时了
+                self.tipLable.text = @"超时，系统自动拒绝";
+                [upCell.mybutton setEnabled:YES];
+                [upCell.mybutton setTitle:@"追她" forState:UIControlStateNormal];
+                [downCell.mybutton setTitle:@"不合适" forState:UIControlStateNormal];
+                
+                break;
+                
+            case SPPursuitTypeRefuse:
+                self.tipLable.text = @"对方觉得你俩不合适哎";
+                upCell.mybutton.enabled = YES;
+                [upCell.mybutton setTitle:@"追她" forState:UIControlStateNormal];
+                [downCell.mybutton setTitle:@"不合适" forState:UIControlStateNormal];
+                
+                break;
+            case PursuitTypeDetailAccept:
+                self.tipLable.text = @"对方已接受";
+                upCell.mybutton.enabled = YES;
+                [upCell.mybutton setTitle:@"发信息" forState:UIControlStateNormal];
+                [downCell.mybutton setTitle:@"不合适" forState:UIControlStateNormal];
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+    }
+}
+
+- (void)requestData {
     
 }
+
 #pragma mark ----UITableViewDataSource
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (self.typede == SPPursuitTypeNone) {
         return 2;
     }
-    return self.promptArr.count + self.dataArr.count;
+    
+    if (self.viewType == SPPursuitMeViewType) {//追我的人
+        if (self.typede == SPPursuitTypeNotStated) {
+            return 5;
+        }
+        if (self.typede == PursuitTypeDetailAccept) {
+            return 4;
+        }
+            
+        return 2;
+    }else if (self.viewType == SPMePursuitViewType) {//我追的人
+        return 4;
+    }
+    return 0;
+}
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (self.typede == SPPursuitTypeNone) {
-        if (indexPath.row == 0) {
+    if (self.typede == SPPursuitTypeNone) {//没有状态
+        if (indexPath.section == 0) {
             SPPursuitNoneTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pursuitNO forIndexPath:indexPath];
             cell.backgroundColor = [UIColor clearColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.viewType = self.viewType;
             return cell;
         }
-        UITableViewCell *cell = [[UITableViewCell alloc] init];
-        cell.backgroundColor = [UIColor clearColor];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell.contentView addSubview:self.hunterBtn];
+        SPPursuitButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPPursuitButtonCell" forIndexPath:indexPath];
+        [cell.mybutton setTitle:@"逛逛公园" forState:UIControlStateNormal];
         return cell;
     }
-    /*
+    
     if (self.viewType == SPPursuitMeViewType) {//追我的人
-        if (self.typede == SPPursuitTypeNotStated) { //未表态
-            if (indexPath.row == 0) {
-                SPCoverTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"videoCell" forIndexPath:indexPath];
-//                cell.model = self.dataArr[indexPath.row];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                return cell;
-            }else if (indexPath.row == 1) {// 提示状态文字
-                UITableViewCell *cell = [[UITableViewCell alloc] init];
-                cell.backgroundColor = [UIColor clearColor];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell.contentView addSubview:self.tipLable];
-                return cell;
+        if (indexPath.section == 0) {
+            SPCoverTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"videoCell" forIndexPath:indexPath];
+            cell.model = [DBAccountInfo sharedInstance].model;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.titleLab.hidden = YES;
+            cell.contentView.backgroundColor = [UIColor blackColor];
+            return cell;
+        }else if (indexPath.section == 1) {// 提示状态文字
+            UITableViewCell *cell = [[UITableViewCell alloc] init];
+            cell.backgroundColor = [UIColor clearColor];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.contentView addSubview:self.tipLable];
+            [self setUpCellUIWith:nil downCell:nil];
 
-            }else if (indexPath.row == 2) { //倒计时按钮
-                UITableViewCell *cell = [[UITableViewCell alloc] init];
-                cell.backgroundColor = [UIColor clearColor];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell.contentView addSubview:self.timeBtn];
-                return cell;
+            return cell;
+            
+        }else if (indexPath.section == 2) {//附加消息
+            SPPursuitVoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPPursuitVoiceCell" forIndexPath:indexPath];
+            cell.contentView.backgroundColor = [UIColor clearColor];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            self.vocieCell = cell;
+            return cell;
+            
+        }else if (indexPath.section == 3) { //接受
+            
+            SPPursuitButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPPursuitButtonCell" forIndexPath:indexPath];
+            [cell.mybutton setTitle:@"接受" forState:UIControlStateNormal];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-            }else{
-                UITableViewCell *cell = [[UITableViewCell alloc] init];
-                cell.backgroundColor = [UIColor clearColor];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                self.hunterBtn.backgroundColor = [UIColor whiteColor];
-                self.hunterBtn.layer.borderWidth = 1;
-                self.hunterBtn.layer.borderColor = ThemeColor.CGColor;
-                [cell.contentView addSubview:self.hunterBtn];
-                return cell;
-            }
+            [self setUpCellUIWith:cell downCell:nil];
+
+            return cell;
+            
+        }else{//拒绝
+            
+            SPPursuitButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPPursuitButtonCell" forIndexPath:indexPath];
+            [cell.mybutton setTitle:@"拒绝" forState:UIControlStateNormal];
+            [cell.mybutton setTitleColor:ThemeColor forState:UIControlStateNormal];
+            [cell.mybutton setBackgroundColor:[UIColor whiteColor]];
+            cell.mybutton.layer.borderWidth = 1;
+            cell.mybutton.layer.borderColor = ThemeColor.CGColor;
+            [self setUpCellUIWith:nil downCell:cell];
+            return cell;
         }
-        
         
     }else {//我追的人
         
-    }
-    */
-    
-    
-    
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
-    cell.textLabel.font = FONT(14);
-    cell.textLabel.textColor = FirstWordColor;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (indexPath.row < self.promptArr.count) {
-        cell.textLabel.text = self.promptArr[indexPath.row];
-        cell.textLabel.numberOfLines = 0;
-        if (indexPath.row == 0) {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)self.dataArr.count];
-        }else if (indexPath.row == 1){
-//            NSInteger index = (self.promptArr.count == 3?0:1);
+        if (indexPath.section == 0) {
+            SPCoverTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"videoCell" forIndexPath:indexPath];
+            cell.model = [DBAccountInfo sharedInstance].model;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.titleLab.hidden = YES;
+            cell.contentView.backgroundColor = [UIColor blackColor];
+            return cell;
+        }else if (indexPath.section == 1) {// 提示状态文字
+            UITableViewCell *cell = [[UITableViewCell alloc] init];
+            cell.backgroundColor = [UIColor clearColor];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.contentView addSubview:self.tipLable];
+            [self setUpCellUIWith:nil downCell:nil];
 
+            return cell;
             
-        }else if (indexPath.row == 2){
+        }else if (indexPath.section == 2) { //倒计时按钮
+            SPPursuitButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPPursuitButtonCell" forIndexPath:indexPath];
+            cell.mybutton.enabled = NO;
+            [cell.mybutton setTitle:@"12小时0分0秒" forState:UIControlStateDisabled];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            self.timeCell = cell;
+            [self setUpCellUIWith:cell downCell:nil];
+            return cell;
             
+        }else{//逛逛公园
+            SPPursuitButtonCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPPursuitButtonCell" forIndexPath:indexPath];
+            [cell.mybutton setTitle:@"逛逛公园" forState:UIControlStateNormal];
+            [cell.mybutton setTitleColor:ThemeColor forState:UIControlStateNormal];
+            [cell.mybutton setBackgroundColor:[UIColor whiteColor]];
+            cell.mybutton.layer.borderWidth = 1;
+            cell.mybutton.layer.borderColor = ThemeColor.CGColor;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [self setUpCellUIWith:nil downCell:cell];
+            return cell;
         }
-        
-
-        return cell;
-    }else {
-        SPPursuitHeadTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.pursuitStr forIndexPath:indexPath];
-        cell.model = self.dataArr[indexPath.row - self.promptArr.count];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-        return cell;
-        
     }
     
     return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    return [UIView new];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 20;
 }
 
 
@@ -165,6 +337,7 @@
 
 
 
+#pragma mark - 懒加载
 
 - (UITableView *)listTabView{
     if (_listTabView == nil) {
@@ -177,6 +350,11 @@
         self.pursuitNO = @"pursuitNO";
         [_listTabView registerClass:[SPPursuitHeadTabCell class] forCellReuseIdentifier:self.pursuitStr];
         [_listTabView registerClass:[SPPursuitNoneTabCell class] forCellReuseIdentifier:self.pursuitNO];
+        [_listTabView registerClass:[SPCoverTabCell class] forCellReuseIdentifier:@"videoCell"];
+        [_listTabView registerNib:[UINib nibWithNibName:@"SPPursuitVoiceCell" bundle:nil] forCellReuseIdentifier:@"SPPursuitVoiceCell"];
+        [_listTabView registerNib:[UINib nibWithNibName:@"SPPursuitButtonCell" bundle:nil] forCellReuseIdentifier:@"SPPursuitButtonCell"];
+
+        
         _listTabView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _listTabView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bigbackground"]];
         [self addSubview:_listTabView];
@@ -184,85 +362,25 @@
     return _listTabView;
 }
 
-- (void)setIsme:(BOOL)isme{
-    _isme = isme;
-    [self getdata];
-}
-
-
-////增加删除
-//
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-//    //第二组可以左滑删除
-//    if (indexPath.row >= self.promptArr.count) {
-//        return YES;
-//    }
-//
-//    return NO;
-//}
-//
-//// 定义编辑样式
-//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return UITableViewCellEditingStyleDelete;
-//}
-//
-//// 进入编辑模式，按下出现的编辑按钮后,进行删除操作
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//
-//        if (indexPath.row >= self.promptArr.count) { // 删除
-//            [self.dataArr removeAllObjects];
-//            [self.listTabView reloadData];
-//        }
-//    }
-//}
-//
-//// 修改编辑按钮文字
-//- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return @"删除";
-//}
-
-- (void)setTypede:(SPPursuitType)typede{
-    if (_typede !=typede) {
-        _typede = typede;
-    }
-    [self.listTabView reloadData];
-    return;
-}
-
-#pragma mark - 懒加载
-
-- (UIButton *)hunterBtn{
-    if (_hunterBtn == nil) {
-        _hunterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _hunterBtn.frame = CGRectMake(10, 0, kScreenWidth-20, 50);
-        [_hunterBtn setCornerRadius:5];
-        _hunterBtn.backgroundColor = ThemeColor;
-        [_hunterBtn setTitle:@"逛逛公园" forState:UIControlStateNormal];
-    }
-    return  _hunterBtn;
-}
 
 - (UILabel *)tipLable {
     if (!_tipLable) {
-        _tipLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, kScreenWidth-20, 44)];
+        _tipLable = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, kScreenWidth-20, 44)];
         _tipLable.text = @"请等待对方回应";
         _tipLable.textColor = SecondWordColor;
         _tipLable.font = Font16;
         _tipLable.backgroundColor = [UIColor clearColor];
+        _tipLable.numberOfLines = 0;
     }
     return _tipLable;
 }
 
-- (UIButton *)timeBtn {
-    if (!_timeBtn) {
-        _timeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _timeBtn.frame = CGRectMake(10, 0, kScreenWidth-20, 50);
-        [_timeBtn setCornerRadius:5];
-        _timeBtn.backgroundColor = ThemeColor;
-        [_timeBtn setTitle:@"11小时59分59秒" forState:UIControlStateNormal];
-    }
-    return _timeBtn;
+
+
+#pragma mark - click
+- (void)gohome {
+
 }
+
 
 @end

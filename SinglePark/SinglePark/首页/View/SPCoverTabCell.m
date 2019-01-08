@@ -12,7 +12,6 @@
 #import "LCLoginController.h"
 
 @interface SPCoverTabCell()
-@property (nonatomic,strong)UILabel *titleLab;
 @property (nonatomic,strong)UIButton *headBtn;
 @property (nonatomic,strong)UILabel *nickeLab;
 @property (nonatomic,strong)UIImageView *sexImg;

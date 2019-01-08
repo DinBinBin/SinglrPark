@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7934B6A721C239C8005273A5 /* SPPursuitHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7934B6A621C239C8005273A5 /* SPPursuitHomeView.m */; };
-		7934B6A921C239D1005273A5 /* SPPursuitHomeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7934B6A821C239D1005273A5 /* SPPursuitHomeView.xib */; };
+		793870E521E48DDD00C5E2A2 /* OYCountDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793870E321E48DDD00C5E2A2 /* OYCountDownManager.m */; };
+		793870E821E48F1900C5E2A2 /* OYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 793870E721E48F1900C5E2A2 /* OYModel.m */; };
+		793950A021DF2F580090C222 /* SPPursuitVoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7939509E21DF2F580090C222 /* SPPursuitVoiceCell.m */; };
+		793950A121DF2F580090C222 /* SPPursuitVoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7939509F21DF2F580090C222 /* SPPursuitVoiceCell.xib */; };
+		793950A521DF3D2A0090C222 /* SPPursuitButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 793950A321DF3D2A0090C222 /* SPPursuitButtonCell.m */; };
+		793950A621DF3D2A0090C222 /* SPPursuitButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 793950A421DF3D2A0090C222 /* SPPursuitButtonCell.xib */; };
 		793B5CA921BA0C9000710AD7 /* SPAreaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CA821BA0C9000710AD7 /* SPAreaViewController.m */; };
 		793B5CAC21BA0ED900710AD7 /* SPCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CAB21BA0ED900710AD7 /* SPCityModel.m */; };
 		793B5CB721BA66AF00710AD7 /* SPMineHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 793B5CB521BA66AF00710AD7 /* SPMineHeadCell.m */; };
@@ -181,9 +185,16 @@
 /* Begin PBXFileReference section */
 		18771F1749CBF4B39C200A0C /* Pods_SinglePark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SinglePark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280479056BE1971DEC21CD90 /* Pods-SinglePark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinglePark.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark.release.xcconfig"; sourceTree = "<group>"; };
-		7934B6A521C239C8005273A5 /* SPPursuitHomeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPursuitHomeView.h; sourceTree = "<group>"; };
-		7934B6A621C239C8005273A5 /* SPPursuitHomeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPursuitHomeView.m; sourceTree = "<group>"; };
-		7934B6A821C239D1005273A5 /* SPPursuitHomeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SPPursuitHomeView.xib; sourceTree = "<group>"; };
+		793870E321E48DDD00C5E2A2 /* OYCountDownManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OYCountDownManager.m; sourceTree = "<group>"; };
+		793870E421E48DDD00C5E2A2 /* OYCountDownManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OYCountDownManager.h; sourceTree = "<group>"; };
+		793870E621E48F1900C5E2A2 /* OYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OYModel.h; sourceTree = "<group>"; };
+		793870E721E48F1900C5E2A2 /* OYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OYModel.m; sourceTree = "<group>"; };
+		7939509D21DF2F580090C222 /* SPPursuitVoiceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPursuitVoiceCell.h; sourceTree = "<group>"; };
+		7939509E21DF2F580090C222 /* SPPursuitVoiceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPursuitVoiceCell.m; sourceTree = "<group>"; };
+		7939509F21DF2F580090C222 /* SPPursuitVoiceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SPPursuitVoiceCell.xib; sourceTree = "<group>"; };
+		793950A221DF3D2A0090C222 /* SPPursuitButtonCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPursuitButtonCell.h; sourceTree = "<group>"; };
+		793950A321DF3D2A0090C222 /* SPPursuitButtonCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPursuitButtonCell.m; sourceTree = "<group>"; };
+		793950A421DF3D2A0090C222 /* SPPursuitButtonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SPPursuitButtonCell.xib; sourceTree = "<group>"; };
 		793B5CA721BA0C9000710AD7 /* SPAreaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAreaViewController.h; sourceTree = "<group>"; };
 		793B5CA821BA0C9000710AD7 /* SPAreaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPAreaViewController.m; sourceTree = "<group>"; };
 		793B5CAA21BA0ED900710AD7 /* SPCityModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCityModel.h; sourceTree = "<group>"; };
@@ -527,6 +538,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		793870E221E48DDD00C5E2A2 /* OYCountDownManager */ = {
+			isa = PBXGroup;
+			children = (
+				793870E321E48DDD00C5E2A2 /* OYCountDownManager.m */,
+				793870E421E48DDD00C5E2A2 /* OYCountDownManager.h */,
+			);
+			path = OYCountDownManager;
+			sourceTree = "<group>";
+		};
 		793B68B021C100D900289128 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -584,6 +604,7 @@
 		8110C57B211FFE8E00D013FC /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				793870E221E48DDD00C5E2A2 /* OYCountDownManager */,
 				793B68B021C100D900289128 /* Components */,
 				E64FB1C921C0B97300374D58 /* Class */,
 				E64FB1ED21C0B97300374D58 /* lame */,
@@ -850,9 +871,12 @@
 				81A3D4A621BD2C0200FF0E00 /* SPPursuitNoneTabCell.m */,
 				813CB04A217C736400E4E67B /* SPPursuitHeadTabCell.h */,
 				813CB04B217C736400E4E67B /* SPPursuitHeadTabCell.m */,
-				7934B6A521C239C8005273A5 /* SPPursuitHomeView.h */,
-				7934B6A621C239C8005273A5 /* SPPursuitHomeView.m */,
-				7934B6A821C239D1005273A5 /* SPPursuitHomeView.xib */,
+				7939509D21DF2F580090C222 /* SPPursuitVoiceCell.h */,
+				7939509E21DF2F580090C222 /* SPPursuitVoiceCell.m */,
+				7939509F21DF2F580090C222 /* SPPursuitVoiceCell.xib */,
+				793950A221DF3D2A0090C222 /* SPPursuitButtonCell.h */,
+				793950A321DF3D2A0090C222 /* SPPursuitButtonCell.m */,
+				793950A421DF3D2A0090C222 /* SPPursuitButtonCell.xib */,
 			);
 			path = "追求的人";
 			sourceTree = "<group>";
@@ -1042,6 +1066,8 @@
 				811DB6D021687B4200204139 /* SPPersonModel.m */,
 				81EFA387218DA66F00C8E8B6 /* JDWUserInfoDB.h */,
 				81EFA386218DA66E00C8E8B6 /* JDWUserInfoDB.m */,
+				793870E621E48F1900C5E2A2 /* OYModel.h */,
+				793870E721E48F1900C5E2A2 /* OYModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1365,13 +1391,14 @@
 				8127A6CD21735A580033434C /* README.md in Resources */,
 				8127A6CB21735A580033434C /* LICENSE in Resources */,
 				E64FB1F521C0B97300374D58 /* toast_vol_1@2x.png in Resources */,
+				793950A621DF3D2A0090C222 /* SPPursuitButtonCell.xib in Resources */,
 				E64FB1F721C0B97300374D58 /* toast_vol_3@2x.png in Resources */,
 				E64FB1F921C0B97300374D58 /* toast_vol_5@2x.png in Resources */,
 				793B68AF21C0F4AC00289128 /* SPCurrencyHeaderView.xib in Resources */,
 				818977CA211FE7D600928071 /* Main.storyboard in Resources */,
+				793950A121DF2F580090C222 /* SPPursuitVoiceCell.xib in Resources */,
 				793B5CB821BA66AF00710AD7 /* SPMineHeadCell.xib in Resources */,
 				E64FB1F221C0B97300374D58 /* toast_cancelsend@2x.png in Resources */,
-				7934B6A921C239D1005273A5 /* SPPursuitHomeView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1481,7 +1508,6 @@
 				E64643E421BE57400066E0F3 /* InputToolbar.m in Sources */,
 				8110C5CE212001CE00D013FC /* SGTabBarController.m in Sources */,
 				E64643E121BE57400066E0F3 /* EmojiCollectionViewCell.m in Sources */,
-				7934B6A721C239C8005273A5 /* SPPursuitHomeView.m in Sources */,
 				811DB240216B9D8900ABB889 /* SPHeadPersonTabCell.m in Sources */,
 				793B5CA921BA0C9000710AD7 /* SPAreaViewController.m in Sources */,
 				E64FB20321C1078600374D58 /* MBProgress.m in Sources */,
@@ -1504,6 +1530,7 @@
 				811DB6D421687D2900204139 /* SPPersonalController.m in Sources */,
 				8118156621820EBB002069AA /* JDWNetworkCache.m in Sources */,
 				8110C5D92120026E00D013FC /* SPMessageVC.m in Sources */,
+				793950A521DF3D2A0090C222 /* SPPursuitButtonCell.m in Sources */,
 				E68CBB43219EB32F0010C2D6 /* JDWForceRefreshView.m in Sources */,
 				E64FB1F021C0B97300374D58 /* LGAudioPlayer.m in Sources */,
 				E6463EDE21CA170B0090294F /* SPUploadingController.m in Sources */,
@@ -1570,6 +1597,7 @@
 				E6A9F1CC21DDFD2800B9ABF9 /* SPConmentHeadView.m in Sources */,
 				811DB6D121687B4200204139 /* SPPersonModel.m in Sources */,
 				793D628321BFB2D400589445 /* MFDatePickView.m in Sources */,
+				793950A021DF2F580090C222 /* SPPursuitVoiceCell.m in Sources */,
 				79CAF65D21BE6E5600B48780 /* SPEditSectionViewController.m in Sources */,
 				8110C5BB2120019F00D013FC /* UIScrollView+ZExtension.m in Sources */,
 				813CB052217C9A8200E4E67B /* SPCommentTablCell.m in Sources */,
@@ -1579,6 +1607,7 @@
 				81ECE7962135815E004FDDE8 /* SPRegisterController.m in Sources */,
 				E68CBB46219EB4170010C2D6 /* SPCommentTabView.m in Sources */,
 				8110C5B42120019F00D013FC /* MBProgressHUD+MRLC.m in Sources */,
+				793870E821E48F1900C5E2A2 /* OYModel.m in Sources */,
 				81FB4C402165F0E30090142A /* SPCoverListView.m in Sources */,
 				8110C5DC2120027D00D013FC /* SPFoundVC.m in Sources */,
 				818977C4211FE7D600928071 /* AppDelegate.m in Sources */,
@@ -1589,6 +1618,7 @@
 				E64643E521BE57400066E0F3 /* MoreButtonView.m in Sources */,
 				793D75D221C349A900F93E71 /* SFBaseWebViewController.m in Sources */,
 				E64643DF21BE57400066E0F3 /* CollectionViewFlowLayout.m in Sources */,
+				793870E521E48DDD00C5E2A2 /* OYCountDownManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
