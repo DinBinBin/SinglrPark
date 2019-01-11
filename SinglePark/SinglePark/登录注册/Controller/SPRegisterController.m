@@ -8,6 +8,7 @@
 
 #import "SPRegisterController.h"
 #import "SPPerfectController.h"
+#import <RongIMKit/RongIMKit.h>
 
 @interface SPRegisterController ()
 @property (nonatomic,strong)UIView *fieleView;
@@ -211,12 +212,18 @@
         [MBProgressHUD hideHUDForView:self.view];
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            //保存token
+            NSUserDefaults *userdef = [NSUserDefaults standardUserDefaults];
+            [userdef setObject:responseDic[@"data"][@"token"] forKey:isLogin];
+            [DBAccountInfo sharedInstance].token = responseDic[@"data"][@"token"];
+            [DBAccountInfo sharedInstance].islogin = YES;
+            [DBAccountInfo sharedInstance].isTouris = NO;
 
-            DBAccountInfo *account = [DBAccountInfo sharedInstance];
-            account.model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
-            [JDWUserInfoDB saveUserInfo:account.model];
-            SPPerfectController *perfect = [[SPPerfectController alloc] init];
-            [self.navigationController pushViewController:perfect animated:YES];
+            
+            //请求用户信息
+            [self requestUserInfo];
+            
+
         }else{
             if ([responseDic[@"messages"] isKindOfClass: [NSNull class]]) {
                 [MBProgressHUD showAutoMessage:@"请求失败"];
@@ -230,6 +237,60 @@
         [MBProgressHUD showAutoMessage:Networkerror];
     }];
  
+}
+
+
+
+- (void)requestUserInfo {
+    WEAKSELF
+    STRONGSELF
+    [JDWNetworkHelper POST:PTURL_API_UserGet parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
+            
+            //保存用户信息
+            [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
+            [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
+            
+            SPPerfectController *perfect = [[SPPerfectController alloc] init];
+            [self.navigationController pushViewController:perfect animated:YES];
+            
+            /** 注册融云 */
+            [strongSelf registRYAPI:model.rc_token];
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+}
+
+- (void)registRYAPI:(NSString *)rcToken {
+    [[RCIM sharedRCIM] initWithAppKey:RYAPPKey];
+    
+    // 登陆
+    [[RCIM sharedRCIM] connectWithToken:rcToken success:^(NSString *userId) {
+        JDWLog(@"登陆成功userid＝%@",userId);
+    } error:^(RCConnectErrorCode status) {
+        JDWLog(@"登陆的错误码为:%ld", (long)status);
+    } tokenIncorrect:^{
+        JDWLog(@"token错误");
+    }];
+    
+    // 消息推送
+    if ([[UIApplication sharedApplication]
+         respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings
+                                                settingsForTypes:(UIUserNotificationTypeBadge |
+                                                                  UIUserNotificationTypeSound |
+                                                                  UIUserNotificationTypeAlert)
+                                                categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }
 }
 
 

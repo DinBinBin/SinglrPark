@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)NSInteger config_privacy;//隐私设置 1:完全公开；2:仅有视频的用户可见；3;我追的人可见；4:追我的人可见；5:仅自己可见
 @property (nonatomic,copy)NSString *created_at;
 @property (nonatomic,copy)NSString *updated_at;
-
+@property (nonatomic,copy)NSString *rc_token;
 
 @property (nonatomic,copy)NSString *singer;
 @property (nonatomic,copy)NSString *didian;

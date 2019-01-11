@@ -541,8 +541,8 @@
 		793870E221E48DDD00C5E2A2 /* OYCountDownManager */ = {
 			isa = PBXGroup;
 			children = (
-				793870E321E48DDD00C5E2A2 /* OYCountDownManager.m */,
 				793870E421E48DDD00C5E2A2 /* OYCountDownManager.h */,
+				793870E321E48DDD00C5E2A2 /* OYCountDownManager.m */,
 			);
 			path = OYCountDownManager;
 			sourceTree = "<group>";

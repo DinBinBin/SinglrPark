@@ -11,7 +11,7 @@
 
 
 @interface SPChatListViewController ()<RCIMUserInfoDataSource>
-
+@property (nonatomic,strong)NSArray<RCConversationModel *> *modelArr;
 @end
 
 @implementation SPChatListViewController
@@ -64,7 +64,7 @@
 
 - (NSMutableArray *)willReloadTableData:(NSMutableArray *)dataSource {
     NSLog(@"会话列表:%@",dataSource);
-    
+    self.modelArr = dataSource.copy;
     
     return dataSource;
 }

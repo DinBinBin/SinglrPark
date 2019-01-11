@@ -51,6 +51,8 @@
                 [DBAccountInfo sharedInstance].isTouris = NO;
                 [DBAccountInfo sharedInstance].token = [ND objectForKey:isLogin];
                 
+                //请求用户信息
+                [self requestUserInfo:application];
             }
             SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
             self.window.rootViewController = sgTabBar;
@@ -62,13 +64,36 @@
         }
 
 //    }
-
-    /** 注册融云 */
-    [self registRYAPIWith:application];
     
     
     return YES;
     
+}
+
+- (void)requestUserInfo:(UIApplication *)application {
+    
+    WEAKSELF
+    STRONGSELF
+    [JDWNetworkHelper POST:PTURL_API_UserGet parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
+            
+            //保存用户信息
+            [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
+            [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
+            
+            /** 注册融云 */
+            [strongSelf registRYAPIWith:application rcToken:model.rc_token];
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
 }
 
 
@@ -79,7 +104,7 @@
 
 
 /** 注册融云相关信息 */
-- (void)registRYAPIWith:(UIApplication *)application{
+- (void)registRYAPIWith:(UIApplication *)application rcToken:(NSString *)rcToken{
     
     [[RCIM sharedRCIM] initWithAppKey:RYAPPKey];
     
@@ -87,7 +112,7 @@
     
     
     // 登陆
-    [[RCIM sharedRCIM] connectWithToken:RYUserToken1000 success:^(NSString *userId) {
+    [[RCIM sharedRCIM] connectWithToken:rcToken success:^(NSString *userId) {
         JDWLog(@"登陆成功userid＝%@",userId);
     } error:^(RCConnectErrorCode status) {
         JDWLog(@"登陆的错误码为:%ld", (long)status);
