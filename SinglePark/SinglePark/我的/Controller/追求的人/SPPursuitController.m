@@ -9,6 +9,7 @@
 #import "SPPursuitController.h"
 #import "SPPursuitListView.h"
 #import "SPPlayVideoController.h"
+#import <RongIMKit/RongIMKit.h>
 
 @interface SPPursuitController ()<UIScrollViewDelegate>
 @property(nonatomic,strong) UISegmentedControl *segmentControl;
@@ -32,7 +33,6 @@
     
     self.hideNavigationLine = YES;
     
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -41,11 +41,24 @@
 
 }
 
+- (void)eventBlock {
+    self.pursuitMe.acceptBlock = ^{
+        RCTextMessage *txt = [RCTextMessage messageWithContent:@"hello"];
+        
+        [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:@"8" content:txt pushContent:nil pushData:nil success:^(long messageId) {
+            NSLog(@"messageId:%ld",messageId);
+        } error:^(RCErrorCode nErrorCode, long messageId) {
+            
+        }];
+    };
+}
+
 - (void)requestData {
     
     [self.pursuitScroll addSubview:self.pursuitMe];
     [self.pursuitScroll addSubview:self.mePursuit];
 
+    [self eventBlock];
 
 }
 

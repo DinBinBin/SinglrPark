@@ -12,6 +12,7 @@
 
 @interface SPChatListViewController ()<RCIMUserInfoDataSource>
 @property (nonatomic,strong)NSArray<RCConversationModel *> *modelArr;
+@property (nonatomic, strong) NSMutableArray <SPPersonModel *> *personArr;
 @end
 
 @implementation SPChatListViewController
@@ -36,6 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.personArr = [NSMutableArray arrayWithCapacity:0];
     
     // 替换back按钮
     UIBarButtonItem *backBarButtonItem = [UIBarButtonItem barButtonItemWithImageName:@"back"
@@ -66,6 +69,34 @@
     NSLog(@"会话列表:%@",dataSource);
     self.modelArr = dataSource.copy;
     
+    [self.personArr removeAllObjects];
+    for (RCConversationModel *model in self.modelArr) {
+        WEAKSELF
+        STRONGSELF
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD showLoadToView:self.view];
+        });
+
+        [JDWNetworkHelper POST:SPURL_API_info parameters:@{@"user_id":model.targetId} success:^(id responseObject) {
+            NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+            if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+                SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
+                [self.personArr addObject:model];
+                
+            }else{
+                [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+                
+            }
+            [MBProgressHUD hideHUDForView:strongSelf.view];
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD showMessage:Networkerror];
+            [MBProgressHUD showAutoMessage:Networkerror];
+            [MBProgressHUD hideHUDForView:strongSelf.view];
+            
+        }];
+    }
+    
     return dataSource;
 }
 
@@ -90,16 +121,13 @@
 - (void)getUserInfoWithUserId:(NSString *)userId
                    completion:(void (^)(RCUserInfo *))completion{
     
-    if ([userId isEqualToString:@"1001"]) {
-        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"测试2" portrait:@"http://imgsrc.baidu.com/forum/w=580/sign=5566fdc475094b36db921be593cd7c00/f92ae850352ac65c74f36568f8f2b21192138a60.jpg"];
-        return completion(userInfo);
-    }else if ([userId isEqualToString:@"1000"]){
-        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"我小时候就很美" portrait:@"http://img181.poco.cn/mypoco/myphoto/20110509/19/56595788201105091919176805863526146_007.jpg"];
-        completion(userInfo);
-    }else if ([userId isEqualToString:@"1002"]){
-        RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:@"今晚吃鸡" portrait:@"http://img181.poco.cn/mypoco/myphoto/20110509/19/56595788201105091919176805863526146_007.jpg"];
-        completion(userInfo);
+    for (SPPersonModel *model in self.personArr) {
+        if ([userId isEqualToString:[NSString stringWithFormat:@"%d",model.userId]]) {
+            RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:model.nickName portrait:model.avatar];
+            return completion(userInfo);
+        }
     }
+    
 }
 
 @end

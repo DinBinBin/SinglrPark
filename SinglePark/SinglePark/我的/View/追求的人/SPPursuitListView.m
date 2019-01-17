@@ -52,7 +52,6 @@
 
         }
         
-        [self.listTabView reloadData];
         
     }
     return self;
@@ -65,10 +64,6 @@
     [kCountDownManager reload];
 }
 
-
-- (void)reloadData {
-    [self.listTabView reloadData];
-}
 
 - (void)setUpCellUIWith:(SPPursuitButtonCell *)upCell downCell:(SPPursuitButtonCell *)downCell {
     
@@ -94,9 +89,10 @@
                 }];
                 
                 
-                upCell.mybutton.enabled = NO;
-                [upCell.mybutton setTitle:@"接受" forState:UIControlStateDisabled];
+                [upCell.mybutton setTitle:@"接受" forState:UIControlStateNormal];
                 [downCell.mybutton setTitle:@"不合适" forState:UIControlStateNormal];
+                
+                [upCell.mybutton addTarget:self action:@selector(acceptClick) forControlEvents:UIControlEventTouchUpInside];
                 
                 break;
             }
@@ -335,7 +331,13 @@
     
 }
 
-
+#pragma mark - action
+//接受
+- (void)acceptClick {
+    if (self.acceptBlock) {
+        self.acceptBlock();
+    }
+}
 
 #pragma mark - 懒加载
 

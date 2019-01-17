@@ -32,7 +32,8 @@
 #define SPURL_API_City [NSString stringWithFormat:@"%@/city/list",BASE_HttpURL]
 //城市id换名称
 #define SPURL_API_CityName [NSString stringWithFormat:@"%@/city",BASE_HttpURL]
-
+//他人的用户信息
+#define SPURL_API_info [NSString stringWithFormat:@"%@/info",BASE_HttpURL]
 
 //意见反馈
 #define SPURL_API_Feedback [NSString stringWithFormat:@"%@/feedback/create",BASE_HttpURL]
