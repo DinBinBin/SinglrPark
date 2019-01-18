@@ -12,8 +12,9 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <Photos/Photos.h>
 #import "SPUploadingController.h"
+#import "SPPlayVideoController.h"
 #import "QiniuSDK.h"
-#import "SPVideoModel.h"
+#import "SPCoverModel.h"
 
 @interface SPMineCardController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -23,7 +24,7 @@
 @property (nonatomic,copy)NSString *videopath;
 @property (nonatomic,copy)NSString *coverPath;
 
-@property (nonatomic,strong)SPVideoModel *videoModel;
+@property (nonatomic,strong)SPCoverModel *coverModel;
 
 @property (nonatomic,assign)NSInteger selectrow;
 
@@ -68,8 +69,9 @@
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
             NSArray *arr = responseDic[@"data"][@"items"];
             if (arr.count > 0) {
-                SPVideoModel *model = [SPVideoModel modelWithJSON:responseDic[@"data"][@"items"][0]];
-                self.videoModel = model;
+                SPCoverModel *model = [SPCoverModel modelWithJSON:responseDic[@"data"][@"items"][0]];
+                self.coverModel = model;
+                self.model.first_video = self.coverModel;
                 [self.listTabView reloadData];
 
             }
@@ -111,7 +113,7 @@
         
     }else{
         SPCardVideoTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr2 forIndexPath:indexPath];
-        cell.videoModel = self.videoModel;
+        cell.coverModel = self.coverModel;
         cell.titleLab.text = @"关于我&关于他";
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -123,11 +125,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section>=1) {
-        self.selectrow = indexPath.section;
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"本地视频",@"立即拍摄",nil];
-        //        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-        actionSheet.delegate = self;
-        [actionSheet showInView:self.view];
+        if (self.coverModel) {
+            SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
+            play.selectIndex = indexPath.row;
+            play.datasource = @[self.model].mutableCopy;
+            play.choosetype = self.model.sex;
+            play.islocal = NO;
+            [self.navigationController pushViewController:play animated:YES];
+        }
 
     }
 }

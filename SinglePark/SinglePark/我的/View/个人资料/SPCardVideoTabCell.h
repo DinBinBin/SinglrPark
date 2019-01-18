@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SPVideoModel.h"
+#import "SPCoverModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPCardVideoTabCell : UITableViewCell
 @property (nonatomic,strong)UILabel *titleLab;
 @property (nonatomic,strong)UIImageView *coverImg;
-@property (nonatomic,strong)SPVideoModel *videoModel;
+@property (nonatomic,strong)SPCoverModel *coverModel;
 
 @end
 

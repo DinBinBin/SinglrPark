@@ -377,26 +377,32 @@
 //接受
 - (void)acceptClick {
     [self clearTimer];
-    [[SPFriendDBManger shareInstance] saveFriendToDB:self.model];
-    
-    self.typede = PursuitTypeDetailAccept;
-    
-    RCTextMessage *txt = [RCTextMessage messageWithContent:@"我已经成为你的好友了，咋们开始聊天吧！"];
-    
-    [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:@"8" content:txt pushContent:nil pushData:nil success:^(long messageId) {
-        NSLog(@"messageId:%ld",messageId);
-    } error:^(RCErrorCode nErrorCode, long messageId) {
+    if (self.typede == SPPursuitTypeNotStated) {
+        [[SPFriendDBManger shareInstance] saveFriendToDB:self.model];
         
-    }];
+        self.typede = PursuitTypeDetailAccept;
+        
+        RCTextMessage *txt = [RCTextMessage messageWithContent:@"我已经成为你的好友了，咋们开始聊天吧！"];
+        
+        [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:@"8" content:txt pushContent:nil pushData:nil success:^(long messageId) {
+            NSLog(@"messageId:%ld",messageId);
+        } error:^(RCErrorCode nErrorCode, long messageId) {
+            
+        }];
+        
+        [self.listTabView reloadData];
+    }
     
-    [self.listTabView reloadData];
     
 }
 //发消息
 - (void)sendMessage {
-    if (self.sendMessageBlock) {
-        self.sendMessageBlock(self.model);
+    if (self.typede == PursuitTypeDetailAccept) {
+        if (self.sendMessageBlock) {
+            self.sendMessageBlock(self.model);
+        }
     }
+    
     
 }
 
@@ -404,6 +410,7 @@
 - (void)noAccpet {
     
     [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.model.userId]];
+    [[SPFriendDBManger shareInstance] deleteFriend:self.model.userId];
 }
 
 #pragma mark - 懒加载

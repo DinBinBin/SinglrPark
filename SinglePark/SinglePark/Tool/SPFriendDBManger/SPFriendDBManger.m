@@ -40,6 +40,11 @@
     return model;
 }
 
+- (void)deleteFriend:(int)userId {
+    NSString *where = [NSString stringWithFormat:@"userId = %d", userId];
+    [_globalHelper deleteWithClass:[SPPersonModel class] where:where];
+}
+
 - (void)saveFriendToDB:(SPPersonModel *)model {
     if ([self queryFriend:model.userId]) {
         return;

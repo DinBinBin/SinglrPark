@@ -48,6 +48,7 @@
         make.top.equalTo(self.contentView);
         make.left.equalTo(self.contentView).offset(10);
         make.right.equalTo(self.contentView.mas_right).offset(-10);
+        make.height.mas_equalTo(self.coverImg.mas_width);
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
@@ -101,13 +102,13 @@
     return _promptImg;
 }
 
-- (void)setVideoModel:(SPVideoModel *)videoModel {
-    if (_videoModel != videoModel) {
-        _videoModel = videoModel;
-        if ([_videoModel.thumb isEqualToString:@""] || _videoModel.thumb == nil) {
-            [self requestThumb:_videoModel.thumb_id];
+- (void)setCoverModel:(SPCoverModel *)coverModel {
+    if (_coverModel != coverModel) {
+        _coverModel = coverModel;
+        if ([_coverModel.thumb isEqualToString:@""] || _coverModel.thumb == nil) {
+            [self requestThumb:_coverModel.thumb_id];
         }else{
-            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:_videoModel.thumb]  placeholderImage:ImageNamed(@"默认未上传视频")];
+            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_coverModel.thumb stringByAppendingString:videoCover]]  placeholderImage:ImageNamed(@"默认未上传视频")];
 
         }
 
@@ -125,7 +126,7 @@
             NSArray *arr = responseDic[@"data"][@"items"];
             if (arr.count > 0) {
                 NSString *imgUrl = SPURL_API_Img(responseDic[@"data"][@"items"][0][@"key"]);
-                [strongSelf.coverImg sd_setImageWithURL:[NSURL URLWithString:imgUrl]  placeholderImage:ImageNamed(@"默认未上传视频")];
+                [strongSelf.coverImg sd_setImageWithURL:[NSURL URLWithString:[imgUrl stringByAppendingString:videoCover]]   placeholderImage:ImageNamed(@"默认未上传视频")];
             }
           
         }else{

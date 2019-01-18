@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)saveFriendToDB:(SPPersonModel *)model;
 
+- (void)deleteFriend:(int)userId;
+
 - (NSArray *)searchAllFeiend;
 
 @end

@@ -94,9 +94,7 @@
         SPCardVideoTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr2 forIndexPath:indexPath];
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        if (self.model) {
-//            cell.videoModel = self.model.first_video[0];
-//        }
+        cell.coverModel = self.model.first_video;
     
         return cell;
     }
