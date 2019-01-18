@@ -141,6 +141,9 @@
     [self.infoModelArray addObjectsFromArray:infoModelArray];
     _middleInfoModel   = self.infoModelArray[playIndex];
     [_player setUrl:[NSURL URLWithString:_middleInfoModel.first_video.video]];
+//    [_player setUrl:[NSURL URLWithString:@"http://ksy.fffffive.com/mda-hinp1ik37b0rt1mj/mda-hinp1ik37b0rt1mj.mp4"]];
+
+    
     [_player prepareToPlay];
     _index = playIndex;
     
