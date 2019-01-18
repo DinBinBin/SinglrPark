@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 //    PursuitTypeDetailButton
 //};
 
-typedef void(^SPClickBlock)(void);
+typedef void(^SPSendMessageBlock)(SPPersonModel *);
 
 @interface SPPursuitListView : UIView
 
@@ -27,7 +27,7 @@ typedef void(^SPClickBlock)(void);
 @property (nonatomic,assign)SPPursuitType typede;
 @property (nonatomic,assign)SPPursuitViewType viewType;
 
-@property (nonatomic, copy) SPClickBlock acceptBlock;
+@property (nonatomic, copy) SPSendMessageBlock sendMessageBlock;
 
 
 - (id)initWithFrame:(CGRect)frame viewType:(SPPursuitViewType)type;

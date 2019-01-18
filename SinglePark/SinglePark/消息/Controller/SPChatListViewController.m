@@ -11,8 +11,7 @@
 
 
 @interface SPChatListViewController ()<RCIMUserInfoDataSource>
-@property (nonatomic,strong)NSArray<RCConversationModel *> *modelArr;
-@property (nonatomic, strong) NSMutableArray <SPPersonModel *> *personArr;
+@property (nonatomic, strong)NSArray *friends;
 @end
 
 @implementation SPChatListViewController
@@ -30,7 +29,7 @@
         //设置需要将哪些类型的会话在会话列表中聚合显示
         [self setCollectionConversationType:@[@(ConversationType_DISCUSSION)]];
         
-        
+        self.friends = [[SPFriendDBManger shareInstance] searchAllFeiend];
     }
     return self;
 }
@@ -38,7 +37,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.personArr = [NSMutableArray arrayWithCapacity:0];
     
     // 替换back按钮
     UIBarButtonItem *backBarButtonItem = [UIBarButtonItem barButtonItemWithImageName:@"back"
@@ -65,41 +63,6 @@
     
 }
 
-- (NSMutableArray *)willReloadTableData:(NSMutableArray *)dataSource {
-    NSLog(@"会话列表:%@",dataSource);
-    self.modelArr = dataSource.copy;
-    
-    [self.personArr removeAllObjects];
-    for (RCConversationModel *model in self.modelArr) {
-        WEAKSELF
-        STRONGSELF
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD showLoadToView:self.view];
-        });
-
-        [JDWNetworkHelper POST:SPURL_API_info parameters:@{@"user_id":model.targetId} success:^(id responseObject) {
-            NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
-            if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-                SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
-                [self.personArr addObject:model];
-                
-            }else{
-                [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
-                
-            }
-            [MBProgressHUD hideHUDForView:strongSelf.view];
-            
-        } failure:^(NSError *error) {
-            [MBProgressHUD showMessage:Networkerror];
-            [MBProgressHUD showAutoMessage:Networkerror];
-            [MBProgressHUD hideHUDForView:strongSelf.view];
-            
-        }];
-    }
-    
-    return dataSource;
-}
-
 
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
@@ -113,15 +76,20 @@
     SPConversationViewController *conversationVC = [[SPConversationViewController alloc]init];
     conversationVC.conversationType = model.conversationType;
     conversationVC.targetId = model.targetId;
-    conversationVC.title = @"会话窗口";
+    
+    for (SPPersonModel *friend in self.friends) {
+        if ([model.targetId isEqualToString:[NSString stringWithFormat:@"%d",friend.userId]]) {
+            conversationVC.title = friend.nickName;
+
+        }
+    }
     [self.navigationController pushViewController:conversationVC animated:YES];
 }
 
 #pragma mark - RCIMUserInfoDataSource
 - (void)getUserInfoWithUserId:(NSString *)userId
                    completion:(void (^)(RCUserInfo *))completion{
-    
-    for (SPPersonModel *model in self.personArr) {
+    for (SPPersonModel *model in self.friends) {
         if ([userId isEqualToString:[NSString stringWithFormat:@"%d",model.userId]]) {
             RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:userId name:model.nickName portrait:model.avatar];
             return completion(userInfo);

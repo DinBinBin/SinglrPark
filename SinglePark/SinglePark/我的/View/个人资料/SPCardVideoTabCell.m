@@ -101,12 +101,40 @@
     return _promptImg;
 }
 
-- (void)setVideoModel:(SPCoverModel *)videoModel {
+- (void)setVideoModel:(SPVideoModel *)videoModel {
     if (_videoModel != videoModel) {
         _videoModel = videoModel;
-        [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_videoModel.video stringByAppendingString:videoCover]]  placeholderImage:ImageNamed(@"默认未上传视频")];
+        if ([_videoModel.thumb isEqualToString:@""] || _videoModel.thumb == nil) {
+            [self requestThumb:_videoModel.thumb_id];
+        }else{
+            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:_videoModel.thumb]  placeholderImage:ImageNamed(@"默认未上传视频")];
+
+        }
         
     }
+}
+
+- (void)requestThumb:(NSString *)thumdId {
+    WEAKSELF
+    STRONGSELF
+    
+    [JDWNetworkHelper POST:SPQiuniiuCat parameters:@{@"thumb_id":thumdId} success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            
+            NSString *imgUrl = SPURL_API_Img(responseDic[@"data"][@"items"][0][@"key"]);
+            [strongSelf.coverImg sd_setImageWithURL:[NSURL URLWithString:imgUrl]  placeholderImage:ImageNamed(@"默认未上传视频")];
+            
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
 }
 
 

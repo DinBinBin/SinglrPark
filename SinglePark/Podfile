@@ -30,4 +30,7 @@ pod 'YYModel'
 pod 'RongCloudIM/IMKit', '~> 2.8.3'  #融云
 
 pod 'Qiniu'   #七牛
+
+pod 'LKDBHelper'
+
 end

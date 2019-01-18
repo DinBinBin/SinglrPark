@@ -25,6 +25,7 @@
 #import "UIBarButtonItem+Category.h"
 #import "JDWConst.h"
 #import "JDWUserInfoDB.h"
+#import "SPFriendDBManger.h"
 
 #import "ProjectHelp.h"
 #import "DBAccountInfo.h"

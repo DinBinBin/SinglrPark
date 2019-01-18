@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign)BOOL up;
 @property (nonatomic,assign)NSString *videoId;
 
+@property (nonatomic,copy)NSString *thumb_id;
+@property (nonatomic,copy)NSString *thumb;
+
 
 @end
 

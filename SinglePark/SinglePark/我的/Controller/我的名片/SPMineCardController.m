@@ -13,19 +13,17 @@
 #import <Photos/Photos.h>
 #import "SPUploadingController.h"
 #import "QiniuSDK.h"
-
+#import "SPVideoModel.h"
 
 @interface SPMineCardController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIActionSheetDelegate>
 @property (nonatomic,strong)UITableView *listTabView;
 @property (nonatomic,copy)NSString *coverStr;
 @property (nonatomic,copy)NSString *coverStr2;
-@property (nonatomic,strong)NSMutableArray *dataArr;
-@property (nonatomic,strong)SPPersonModel *personmodel;
-@property (nonatomic,copy)NSString *coverPath;  //  照片路径
-@property (nonatomic,copy)NSString *videopath;  // 视频路径
 
-@property (nonatomic,strong)NSMutableArray *imgarr;
-@property (nonatomic,strong)NSMutableArray *titleArr;
+@property (nonatomic,copy)NSString *videopath;
+@property (nonatomic,copy)NSString *coverPath;
+
+@property (nonatomic,strong)SPVideoModel *videoModel;
 
 @property (nonatomic,assign)NSInteger selectrow;
 
@@ -37,16 +35,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的名片";
-    
-    self.imgarr = [NSMutableArray arrayWithObjects:@"",@"",@"",@"",@"",@"", nil];
-    self.titleArr = [NSMutableArray arrayWithObjects:@"关于我&关于他",@"关于我&关于他",@"",@"", nil];
-
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectCover)];
 
     [self.listTabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    [self getdata];
+    [self requestdata];
     
     self.hideNavigationLine = YES;
 }
@@ -54,35 +48,45 @@
     [super viewDidAppear:animated];
     self.hideNavigationLine = YES;
 }
-- (void)getdata{
-    //    NSDictionary *parms = @{@"":@""};
-    NSDictionary *dic = @{@"avatar":@"4",
-                          @"distance":@"距离----",
-                          @"nickName":@"昵称----",
-                          @"sex":@"1",
-                          @"videoCover":@"5"};
-    SPCoverModel *model = [SPCoverModel modelWithJSON:dic];
-    self.dataArr = [NSMutableArray array];
-    [self.dataArr addObject:model];
+- (void)requestdata{
     
+    WEAKSELF
+    STRONGSELF
     
-    NSDictionary *dic1 = @{@"avatar":@"4",
-                           @"occupation":@"距离----",
-                           @"nickName":@"昵称----",
-                           @"sex":@"1",
-                           @"singer":@"",
-                           @"didian":@"广东深圳",
-                           @"number":@[@"4",@"4",@"4"]
-                           };
-    self.personmodel = [SPPersonModel modelWithJSON:dic1];
+    [MBProgressHUD showLoadToView:self.view];
     
-    [self.listTabView reloadData];
+    [JDWNetworkHelper POST:SPVideoList parameters:@{@"page":@"1",@"limit":@"10"} success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSArray *arr = responseDic[@"data"][@"items"];
+            if (arr.count > 0) {
+                SPVideoModel *model = [SPVideoModel modelWithJSON:responseDic[@"data"][@"items"][0]];
+                self.videoModel = model;
+                [self.listTabView reloadData];
+
+            }
+            
+            
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD showAutoMessage:Networkerror];
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        
+    }];
+    
+  
     
 }
 
 #pragma mark ----UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1+self.dataArr.count;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -99,12 +103,8 @@
         
     }else{
         SPCardVideoTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr2 forIndexPath:indexPath];
-        NSString *strimg = self.imgarr[indexPath.section];
-        if (strimg.length>0) {
-            cell.coverImg.image = [UIImage imageNamed:strimg];
-
-        }
-        cell.titleLab.text = self.titleArr[indexPath.row];
+        cell.videoModel = self.videoModel;
+        cell.titleLab.text = @"关于我&关于他";
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
