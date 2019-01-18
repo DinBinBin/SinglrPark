@@ -100,9 +100,6 @@
 
     }];
     
-    
-    
-    
 }
 
 #pragma mark ----UITableViewDataSource
@@ -120,10 +117,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (![DBAccountInfo sharedInstance].isTouris && [DBAccountInfo sharedInstance].islogin) {
         SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
+        NSMutableArray *arr = [NSMutableArray array];
+        
+        
+//        for (SPPersonModel *model in self.dataArr) {
+//            if (model.first_video.count > 0) {
+//                model.videoModel = model.first_video[0];
+//                [self.videArr addObject:model];
+//            }
+//        }
+
+
         play.selectIndex = indexPath.row;
         play.datasource = self.dataArr;
         play.choosetype = self.choosetype;
         play.islocal = self.islocal;
+        
         [[self viewController].navigationController pushViewController:play animated:YES];
 
     }else{

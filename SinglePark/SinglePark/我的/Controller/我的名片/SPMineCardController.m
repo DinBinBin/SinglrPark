@@ -444,8 +444,6 @@
             [upManager putFile:filePath key:nil token:qiniutoken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
                 NSLog(@"info ===== %@", info);
                 NSLog(@"resp ===== %@", resp);
-                
-
             }
                         option:uploadOption];
         }else{

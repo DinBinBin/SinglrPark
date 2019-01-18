@@ -144,7 +144,7 @@
     [_player prepareToPlay];
     _index = playIndex;
     
-    [self.middleImageView sd_setImageWithURL:[NSURL URLWithString:[_middleInfoModel.videoModel.video stringByAppendingString:videoCover]]];
+    [self.middleImageView sd_setImageWithURL:[NSURL URLWithString:[_middleInfoModel.videoModel.video stringByAppendingString:playervideoCover]]];
      if (self.infoModelArray.count > 1 && _index < self.infoModelArray.count - 1) {
         _downInfoModel =self.infoModelArray[_index+1];
         [self prepareImageView:self.downImageView WithModel:_downInfoModel];
@@ -158,7 +158,7 @@
     [self.infoModelArray addObjectsFromArray:newDataArray];
 }
 - (void)prepareImageView:(UIImageView *)imageView WithModel:(SPPersonModel *)infoModel{
-    [imageView sd_setImageWithURL:[NSURL URLWithString:[infoModel.videoModel.video stringByAppendingString:videoCover]]];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:[infoModel.videoModel.video stringByAppendingString:playervideoCover]]];
 }
 - (void)prepareVideoWithInfoModel:(SPPersonModel *)infoModel{
     //重制播放器，不保留上一个视频的最后一帧https://github.com/ksvc/KSYMediaPlayer_iOS/wiki/oneInstance

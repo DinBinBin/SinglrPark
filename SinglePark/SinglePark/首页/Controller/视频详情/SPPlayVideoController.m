@@ -47,7 +47,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.scrollView registNotification];
-    [self.scrollView.player play];
+//    [self.scrollView.player play];
 //    self.originalDelegate = self.navigationController.delegate;
     self.navigationController.delegate = self;
 }

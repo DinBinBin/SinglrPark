@@ -45,10 +45,12 @@
         make.left.equalTo(self.headBtn.mas_right).offset(20);
     }];
     
-    [self.goodBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.nameLab);
-        make.right.equalTo(self.contentView.mas_right).offset(-20);
-    }];
+    self.goodBtn.frame = CGRectMake(kScreenWidth-42, 10, 22, 22);
+    
+//    [self.goodBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.nameLab);
+//        make.right.equalTo(self.contentView.mas_right).offset(-20);
+//    }];
     
     [self.textLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLab.mas_bottom);
