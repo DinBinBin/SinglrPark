@@ -104,7 +104,7 @@
 - (void)setVideoModel:(SPCoverModel *)videoModel {
     if (_videoModel != videoModel) {
         _videoModel = videoModel;
-        [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_videoModel.video stringByAppendingString:videoCover]]  placeholderImage:ImageNamed(@"默认未上传视频")];
+        [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_videoModel.thumb stringByAppendingString:videoCover]]  placeholderImage:ImageNamed(@"默认未上传视频")];
         
     }
 }

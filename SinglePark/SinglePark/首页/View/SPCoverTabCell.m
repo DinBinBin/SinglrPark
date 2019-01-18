@@ -159,9 +159,8 @@
         CLLocationDistance kilometers = ([orig distanceFromLocation:dist]/1000.00);
         self.titleLab.text = [NSString stringWithFormat:@"%.f公里",kilometers];
         
-        if (_model.first_video.count > 0) {
-            SPCoverModel *covermodel = _model.first_video[0];
-            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[covermodel.video stringByAppendingString:videoCover]] placeholderImage:[UIImage imageNamed:@"视频加载失败"]];
+        if (_model.first_video) {
+            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_model.first_video.thumb stringByAppendingString:videoCover]] placeholderImage:[UIImage imageNamed:@"视频加载失败"]];
         }else{
             [self.coverImg setImage:[UIImage imageNamed:@"视频加载失败"]];
         }

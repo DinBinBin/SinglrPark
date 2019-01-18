@@ -57,9 +57,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 //首页用到的mmodel
-@property (nonatomic,strong)SPCoverModel *videoModel;
+//@property (nonatomic,strong)SPCoverModel *videoModel;
 //@property (nonatomic,strong)NSArray *first_video;
-@property (nonatomic,strong)NSArray <SPCoverModel *>*first_video;
+@property (nonatomic,strong)SPCoverModel *first_video;
 
 @end
 

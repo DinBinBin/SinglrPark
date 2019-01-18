@@ -101,7 +101,7 @@
             [strongSelf goodluck];
         }else if (row == 3){  // 评论
             JDWForceRefreshView *forceview = [[JDWForceRefreshView alloc] initWithFrame:KEYWINDOW.bounds];
-            forceview.infoModel = strongSelf.middleInfoModel.videoModel;
+            forceview.infoModel = strongSelf.middleInfoModel.first_video;
             forceview.ClicKSure = ^{
                 [forceview removeFromSuperview];
             };
@@ -140,11 +140,11 @@
 - (void)setMovePlayerWithInfoModelArray:(NSMutableArray *)infoModelArray withPlayIndex:(NSInteger)playIndex{
     [self.infoModelArray addObjectsFromArray:infoModelArray];
     _middleInfoModel   = self.infoModelArray[playIndex];
-    [_player setUrl:[NSURL URLWithString:_middleInfoModel.videoModel.video]];
+    [_player setUrl:[NSURL URLWithString:_middleInfoModel.first_video.video]];
     [_player prepareToPlay];
     _index = playIndex;
     
-    [self.middleImageView sd_setImageWithURL:[NSURL URLWithString:[_middleInfoModel.videoModel.video stringByAppendingString:videoCover]]];
+    [self.middleImageView sd_setImageWithURL:[NSURL URLWithString:[_middleInfoModel.first_video.thumb stringByAppendingString:videoCover]]];
      if (self.infoModelArray.count > 1 && _index < self.infoModelArray.count - 1) {
         _downInfoModel =self.infoModelArray[_index+1];
         [self prepareImageView:self.downImageView WithModel:_downInfoModel];
@@ -158,13 +158,13 @@
     [self.infoModelArray addObjectsFromArray:newDataArray];
 }
 - (void)prepareImageView:(UIImageView *)imageView WithModel:(SPPersonModel *)infoModel{
-    [imageView sd_setImageWithURL:[NSURL URLWithString:[infoModel.videoModel.video stringByAppendingString:videoCover]]];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:[infoModel.first_video.thumb stringByAppendingString:videoCover]]];
 }
 - (void)prepareVideoWithInfoModel:(SPPersonModel *)infoModel{
     //重制播放器，不保留上一个视频的最后一帧https://github.com/ksvc/KSYMediaPlayer_iOS/wiki/oneInstance
     [_player reset:NO];
     //重新设置链接
-    [_player setUrl:[NSURL URLWithString:infoModel.videoModel.video]];
+    [_player setUrl:[NSURL URLWithString:infoModel.first_video.video]];
     //准备播放视频
     
     [_player setBufferSizeMax:1];
@@ -353,7 +353,7 @@
 #pragma mark-------UIActionSheetDelegate  UIActionSheet 遵循的协议
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) { // 举报
-        NSDictionary *params = @{@"video_id":self.middleInfoModel.videoModel.videoId,
+        NSDictionary *params = @{@"video_id":self.middleInfoModel.first_video.videoId,
                                  @"content":@"一级举报"
                                  };
         [JDWNetworkHelper POST:SPReports parameters:params success:^(id responseObject) {
@@ -375,7 +375,7 @@
 
 - (void)goodluck{
     
-    NSDictionary *params = @{@"video_id":self.middleInfoModel.videoModel.videoId};
+    NSDictionary *params = @{@"video_id":self.middleInfoModel.first_video.videoId};
     [JDWNetworkHelper POST:SPUPVideo parameters:params success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
@@ -396,7 +396,7 @@
 - (void)getinfoVideo{
     
     self.transview.permodel = self.middleInfoModel;
-    NSDictionary *params = @{@"video_id":self.middleInfoModel.videoModel.videoId};
+    NSDictionary *params = @{@"video_id":self.middleInfoModel.first_video.videoId};
     [JDWNetworkHelper POST:SPInfoVideo parameters:params success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         [SFDealNullTool dealNullData:responseDic];

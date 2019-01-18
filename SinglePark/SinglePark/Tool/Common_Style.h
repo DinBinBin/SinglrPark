@@ -35,7 +35,11 @@
 #define Height(h)       h*kScreenHeight/667
 #define Width(w)        w*kScreenWidth/375
 #define isLogin          @"isLogin"
-#define videoCover  @"?vframe/png/offset/1"
+#define videoCover  @"?imageView2/3/w/500/h/500"
+//imageView2/1/w/500/h/500
+//#define videoCover  @"?vframe/png/offset/1?imageView2/1/w/100/h/200"
+
+
 #define klimitNumbers     @"0123456789"
 #define xX          @"xX"
 #define kAlphaNum   @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"

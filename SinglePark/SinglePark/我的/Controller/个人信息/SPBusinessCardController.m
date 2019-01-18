@@ -94,9 +94,9 @@
         SPCardVideoTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr2 forIndexPath:indexPath];
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        if (self.model.first_video.count) {
-            cell.videoModel = self.model.first_video[0];
-        }
+//        if (self.model) {
+//            cell.videoModel = self.model.first_video[0];
+//        }
     
         return cell;
     }
@@ -105,7 +105,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 2) {
-        if (self.model.first_video.count) {
+        if (self.model.first_video) {
             SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
             play.selectIndex = indexPath.row;
             play.datasource = @[self.model].mutableCopy;
