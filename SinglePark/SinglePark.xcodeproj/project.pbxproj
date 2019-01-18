@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7933E4ED21F1618E003A07B1 /* SPFriendDBManger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7933E4EC21F1618E003A07B1 /* SPFriendDBManger.m */; };
 		793870E521E48DDD00C5E2A2 /* OYCountDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793870E321E48DDD00C5E2A2 /* OYCountDownManager.m */; };
 		793870E821E48F1900C5E2A2 /* OYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 793870E721E48F1900C5E2A2 /* OYModel.m */; };
 		793950A021DF2F580090C222 /* SPPursuitVoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7939509E21DF2F580090C222 /* SPPursuitVoiceCell.m */; };
@@ -185,6 +186,8 @@
 /* Begin PBXFileReference section */
 		18771F1749CBF4B39C200A0C /* Pods_SinglePark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SinglePark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		280479056BE1971DEC21CD90 /* Pods-SinglePark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SinglePark.release.xcconfig"; path = "Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark.release.xcconfig"; sourceTree = "<group>"; };
+		7933E4EB21F1618E003A07B1 /* SPFriendDBManger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPFriendDBManger.h; sourceTree = "<group>"; };
+		7933E4EC21F1618E003A07B1 /* SPFriendDBManger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPFriendDBManger.m; sourceTree = "<group>"; };
 		793870E321E48DDD00C5E2A2 /* OYCountDownManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OYCountDownManager.m; sourceTree = "<group>"; };
 		793870E421E48DDD00C5E2A2 /* OYCountDownManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OYCountDownManager.h; sourceTree = "<group>"; };
 		793870E621E48F1900C5E2A2 /* OYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OYModel.h; sourceTree = "<group>"; };
@@ -538,6 +541,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7933E4EA21F1616A003A07B1 /* SPFriendDBManger */ = {
+			isa = PBXGroup;
+			children = (
+				7933E4EB21F1618E003A07B1 /* SPFriendDBManger.h */,
+				7933E4EC21F1618E003A07B1 /* SPFriendDBManger.m */,
+			);
+			path = SPFriendDBManger;
+			sourceTree = "<group>";
+		};
 		793870E221E48DDD00C5E2A2 /* OYCountDownManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +616,7 @@
 		8110C57B211FFE8E00D013FC /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				7933E4EA21F1616A003A07B1 /* SPFriendDBManger */,
 				793870E221E48DDD00C5E2A2 /* OYCountDownManager */,
 				793B68B021C100D900289128 /* Components */,
 				E64FB1C921C0B97300374D58 /* Class */,
@@ -1459,7 +1472,9 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SinglePark/Pods-SinglePark-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
 				"${BUILT_PRODUCTS_DIR}/HappyDNS/HappyDNS.framework",
+				"${BUILT_PRODUCTS_DIR}/LKDBHelper/LKDBHelper.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/MJExtension/MJExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
@@ -1473,7 +1488,9 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HappyDNS.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LKDBHelper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
@@ -1544,6 +1561,7 @@
 				81ECE79321358143004FDDE8 /* SPTourisController.m in Sources */,
 				811DB6C8216873E200204139 /* SPCardTabCell.m in Sources */,
 				E64FB1F121C0B97300374D58 /* LGSoundRecorder.m in Sources */,
+				7933E4ED21F1618E003A07B1 /* SPFriendDBManger.m in Sources */,
 				81EFA38B218DA89800C8E8B6 /* JDWConst.m in Sources */,
 				81EFA388218DA66F00C8E8B6 /* JDWUserInfoDB.m in Sources */,
 				8110C5C12120019F00D013FC /* NSAttributedString+ZExtension.m in Sources */,

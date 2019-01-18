@@ -9,6 +9,7 @@
 #import "SPPursuitController.h"
 #import "SPPursuitListView.h"
 #import "SPPlayVideoController.h"
+#import "SPConversationViewController.h"
 
 @interface SPPursuitController ()<UIScrollViewDelegate>
 @property(nonatomic,strong) UISegmentedControl *segmentControl;
@@ -32,7 +33,6 @@
     
     self.hideNavigationLine = YES;
     
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -41,11 +41,26 @@
 
 }
 
+- (void)eventBlock {
+    WEAKSELF
+    STRONGSELF
+    self.pursuitMe.sendMessageBlock = ^(SPPersonModel * model) {
+        SPConversationViewController *conversationVC = [[SPConversationViewController alloc]init];
+        conversationVC.conversationType = ConversationType_PRIVATE;
+        conversationVC.targetId = [NSString stringWithFormat:@"%d",model.userId];
+        conversationVC.title = model.nickName;
+        
+        [strongSelf.navigationController pushViewController:conversationVC animated:YES];
+    };
+
+}
+
 - (void)requestData {
     
     [self.pursuitScroll addSubview:self.pursuitMe];
     [self.pursuitScroll addSubview:self.mePursuit];
 
+    [self eventBlock];
 
 }
 
@@ -97,19 +112,6 @@
     return _mePursuit;
 }
 
-//- (SPPursuitHomeView *)mePursuit {
-//    if (!_mePursuit) {
-//        _mePursuit = [[SPPursuitHomeView alloc] initWithFrame:CGRectMake(kScreenW, 0, kScreenW, 750)];
-//        WEAKSELF
-//        STRONGSELF
-//        _mePursuit.goVideoBlcok = ^{
-//            SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
-//            [strongSelf.navigationController pushViewController:play animated:YES];
-//        };
-//
-//    }
-//    return _mePursuit;
-//}
 
 //segment方法
 - (void)chageSCVaule:(UISegmentedControl *)sc{

@@ -8,13 +8,13 @@
 
 #import "SPPursuitListView.h"
 #import "SPPursuitHeadTabCell.h"
-#import "SPBusinessCardController.h"
+//#import "SPBusinessCardController.h"
 #import "SPPursuitNoneTabCell.h"
 #import "SPCoverTabCell.h"
 #import "SPPursuitVoiceCell.h"
 #import "SPPursuitButtonCell.h"
 #import "OYCountDownManager.h"
-
+#import <RongIMKit/RongIMKit.h>
 
 
 @interface SPPursuitListView()<UITableViewDelegate,UITableViewDataSource>
@@ -31,6 +31,8 @@
 
 @property (nonatomic, strong) dispatch_source_t timer;
 @property (nonatomic, assign) NSInteger currentInt; // 倒计时间
+
+@property (nonatomic, strong) SPPersonModel *model;
 @end
 
 @implementation SPPursuitListView
@@ -52,23 +54,22 @@
 
         }
         
-        [self.listTabView reloadData];
-        
+        [self requestData];
     }
     return self;
 }
 
 - (void)dealloc {
+    [self clearTimer];
+}
+
+- (void)clearTimer {
     // 废除定时器
     [kCountDownManager invalidate];
     // 清空时间差
     [kCountDownManager reload];
 }
 
-
-- (void)reloadData {
-    [self.listTabView reloadData];
-}
 
 - (void)setUpCellUIWith:(SPPursuitButtonCell *)upCell downCell:(SPPursuitButtonCell *)downCell {
     
@@ -94,9 +95,10 @@
                 }];
                 
                 
-                upCell.mybutton.enabled = NO;
-                [upCell.mybutton setTitle:@"接受" forState:UIControlStateDisabled];
+                [upCell.mybutton setTitle:@"接受" forState:UIControlStateNormal];
                 [downCell.mybutton setTitle:@"不合适" forState:UIControlStateNormal];
+                
+                [upCell.mybutton addTarget:self action:@selector(acceptClick) forControlEvents:UIControlEventTouchUpInside];
                 
                 break;
             }
@@ -121,6 +123,8 @@
                 [upCell.mybutton setTitle:@"发信息" forState:UIControlStateNormal];
                 [downCell.mybutton setTitle:@"不合适" forState:UIControlStateNormal];
                 
+                [upCell.mybutton addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
+                [downCell.mybutton addTarget:self action:@selector(noAccpet) forControlEvents:UIControlEventTouchUpInside];
                 break;
                 
             default:
@@ -183,7 +187,29 @@
 }
 
 - (void)requestData {
-    
+    WEAKSELF
+    STRONGSELF
+
+    [MBProgressHUD showLoadToView:self];
+
+    [JDWNetworkHelper POST:SPURL_API_info parameters:@{@"user_id":@"8"} success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
+            self.model = model;
+            
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        [MBProgressHUD hideHUDForView:strongSelf];
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD showAutoMessage:Networkerror];
+        [MBProgressHUD hideHUDForView:strongSelf];
+        
+    }];
 }
 
 #pragma mark ----UITableViewDataSource
@@ -197,9 +223,9 @@
             return 5;
         }
         if (self.typede == PursuitTypeDetailAccept) {
-            return 4;
+            return 5;
         }
-            
+        
         return 2;
     }else if (self.viewType == SPMePursuitViewType) {//我追的人
         return 4;
@@ -245,6 +271,9 @@
             return cell;
             
         }else if (indexPath.section == 2) {//附加消息
+            if (self.typede == PursuitTypeDetailAccept) {
+                return [UITableViewCell new];
+            }
             SPPursuitVoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPPursuitVoiceCell" forIndexPath:indexPath];
             cell.contentView.backgroundColor = [UIColor clearColor];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -324,6 +353,15 @@
     return 20;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.typede == PursuitTypeDetailAccept) {
+        if (indexPath.section == 2) {
+            return 0.01;
+        }
+    }
+    
+    return UITableViewAutomaticDimension;
+}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -335,7 +373,45 @@
     
 }
 
+#pragma mark - action
+//接受
+- (void)acceptClick {
+    [self clearTimer];
+    if (self.typede == SPPursuitTypeNotStated) {
+        [[SPFriendDBManger shareInstance] saveFriendToDB:self.model];
+        
+        self.typede = PursuitTypeDetailAccept;
+        
+        RCTextMessage *txt = [RCTextMessage messageWithContent:@"我已经成为你的好友了，咋们开始聊天吧！"];
+        
+        [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:@"8" content:txt pushContent:nil pushData:nil success:^(long messageId) {
+            NSLog(@"messageId:%ld",messageId);
+        } error:^(RCErrorCode nErrorCode, long messageId) {
+            
+        }];
+        
+        [self.listTabView reloadData];
+    }
+    
+    
+}
+//发消息
+- (void)sendMessage {
+    if (self.typede == PursuitTypeDetailAccept) {
+        if (self.sendMessageBlock) {
+            self.sendMessageBlock(self.model);
+        }
+    }
+    
+    
+}
 
+//不合适,删除会话列表
+- (void)noAccpet {
+    
+    [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.model.userId]];
+    [[SPFriendDBManger shareInstance] deleteFriend:self.model.userId];
+}
 
 #pragma mark - 懒加载
 

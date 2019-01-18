@@ -275,6 +275,9 @@
     // 登陆
     [[RCIM sharedRCIM] connectWithToken:rcToken success:^(NSString *userId) {
         JDWLog(@"登陆成功userid＝%@",userId);
+        [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:[DBAccountInfo sharedInstance].model.nickName portrait:[DBAccountInfo sharedInstance].model.avatar];
+        // 设置消息体内是否携带用户信息
+        [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
     } error:^(RCConnectErrorCode status) {
         JDWLog(@"登陆的错误码为:%ld", (long)status);
     } tokenIncorrect:^{

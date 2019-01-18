@@ -32,7 +32,8 @@
 #define SPURL_API_City [NSString stringWithFormat:@"%@/city/list",BASE_HttpURL]
 //城市id换名称
 #define SPURL_API_CityName [NSString stringWithFormat:@"%@/city",BASE_HttpURL]
-
+//他人的用户信息
+#define SPURL_API_info [NSString stringWithFormat:@"%@/user/info",BASE_HttpURL]
 
 //意见反馈
 #define SPURL_API_Feedback [NSString stringWithFormat:@"%@/feedback/create",BASE_HttpURL]
@@ -68,7 +69,10 @@
 #define SPMineCommentList [NSString stringWithFormat:@"%@/comments/user_list",BASE_HttpURL]
 //点赞列表
 #define SPVideoUpList [NSString stringWithFormat:@"%@/video/up_list",BASE_HttpURL]
-
+//我发布的视频
+#define SPVideoList [NSString stringWithFormat:@"%@/video/list",BASE_HttpURL]
+//查看处理结果
+#define SPQiuniiuCat [NSString stringWithFormat:@"%@/qiniu_cat",BASE_HttpURL]
 
 //版本更新
 #define SPVersion [NSString stringWithFormat:@"%@/version",BASE_HttpURL]

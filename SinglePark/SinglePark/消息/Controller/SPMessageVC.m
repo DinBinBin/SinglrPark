@@ -23,6 +23,7 @@
 @property (nonatomic,strong)NSMutableArray *fixedarr;
 @property (nonatomic, assign) int unreadSum;
 @property (nonatomic, assign) int RCcount;//融云消息未读数
+
 @end
 
 @implementation SPMessageVC
@@ -31,7 +32,6 @@
     [super viewDidLoad];
     self.title = @"消息";
     [self setUI];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,6 +49,7 @@
     
 
 }
+
 
 - (void)setUI{
     [self.messageTabView mas_makeConstraints:^(MASConstraintMaker *make) {

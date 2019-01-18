@@ -46,9 +46,9 @@
         
     [self.coverImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView);
-        make.left.equalTo(self.contentView).offset(20);
-        make.right.equalTo(self.contentView.mas_right).offset(-20);
-        make.height.mas_equalTo(kScreenWidth-40);
+        make.left.equalTo(self.contentView).offset(10);
+        make.right.equalTo(self.contentView.mas_right).offset(-10);
+        make.height.mas_equalTo(self.coverImg.mas_width);
         make.bottom.equalTo(self.contentView.mas_bottom);
     }];
     
@@ -102,12 +102,43 @@
     return _promptImg;
 }
 
-- (void)setVideoModel:(SPCoverModel *)videoModel {
-    if (_videoModel != videoModel) {
-        _videoModel = videoModel;
-        [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_videoModel.video stringByAppendingString:videoCover]]  placeholderImage:ImageNamed(@"默认未上传视频")];
+- (void)setCoverModel:(SPCoverModel *)coverModel {
+    if (_coverModel != coverModel) {
+        _coverModel = coverModel;
+        if ([_coverModel.thumb isEqualToString:@""] || _coverModel.thumb == nil) {
+            [self requestThumb:_coverModel.thumb_id];
+        }else{
+            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_coverModel.thumb stringByAppendingString:videoCover]]  placeholderImage:ImageNamed(@"默认未上传视频")];
+
+        }
+
         
     }
+}
+
+- (void)requestThumb:(NSString *)thumdId {
+    
+    WEAKSELF
+    STRONGSELF
+    [JDWNetworkHelper POST:SPQiuniiuCat parameters:@{@"thumb_id":thumdId} success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSArray *arr = responseDic[@"data"][@"items"];
+            if (arr.count > 0) {
+                NSString *imgUrl = SPURL_API_Img(responseDic[@"data"][@"items"][0][@"key"]);
+                [strongSelf.coverImg sd_setImageWithURL:[NSURL URLWithString:[imgUrl stringByAppendingString:videoCover]]   placeholderImage:ImageNamed(@"默认未上传视频")];
+            }
+          
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
 }
 
 
