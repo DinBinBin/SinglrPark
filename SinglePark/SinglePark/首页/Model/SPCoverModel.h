@@ -23,6 +23,8 @@
 @property (nonatomic,copy)NSString *updated_at;
 @property (nonatomic,copy)NSString *up_nums;
 @property (nonatomic,copy)NSString *video;
+@property (nonatomic,copy)NSString *thumb_id; //截图ID
+@property (nonatomic,copy)NSString *thumb; //截图
 
 
 @end

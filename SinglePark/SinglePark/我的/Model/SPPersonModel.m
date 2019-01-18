@@ -17,10 +17,10 @@
 }
 
 
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"first_video" : SPCoverModel.class,
-             };
-}
+//+ (NSDictionary *)modelContainerPropertyGenericClass {
+//    return @{@"first_video" : SPCoverModel.class,
+//             };
+//}
 
 
 @end

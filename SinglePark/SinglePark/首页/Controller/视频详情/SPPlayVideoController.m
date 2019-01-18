@@ -64,8 +64,7 @@
     self.videArr = [NSMutableArray array];
     if (self.datasource.count) {
         for (SPPersonModel *model in self.datasource) {
-            if (model.first_video.count > 0) {
-                model.videoModel = model.first_video[0];
+            if (model.first_video) {
                 [self.videArr addObject:model];
             }
         }
@@ -134,8 +133,7 @@
             NSArray *arr = [[SPPersonModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
             if (arr.count) {
                 for (SPPersonModel *model in arr) {
-                    if (model.first_video.count > 0) {
-                        model.videoModel = model.first_video[0];
+                    if (model.first_video) {
                         [self.videArr addObject:model];
                     }
                 }
@@ -257,8 +255,7 @@
             NSArray *arr = [[SPPersonModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
             if (arr.count) {
                 for (SPPersonModel *model in arr) {
-                    if (model.first_video.count > 0) {
-                        model.videoModel = model.first_video[0];
+                    if (model.first_video) {
                         [self.videArr addObject:model];
                     }
                 }

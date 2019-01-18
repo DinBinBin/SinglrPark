@@ -40,14 +40,22 @@
     [self.listTabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    [self requestdata];
     
     self.hideNavigationLine = YES;
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self requestdata];
+
+}
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     self.hideNavigationLine = YES;
 }
+
 - (void)requestdata{
     
     WEAKSELF
