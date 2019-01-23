@@ -26,6 +26,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavView];
+    
+    WEAKSELF
+    STRONGSELF
+    [JDWNetworkHelper startMonitoringNetwork];
+    [JDWNetworkHelper networkStatusWithBlock:^(JDWNetworkStatus status) {
+        switch (status)
+        {
+            case JDWNetworkStatusUnknown:
+                JDWLog(@"未知网络");
+                [strongSelf requestUserInfo];
+                break;
+            case JDWNetworkStatusNotReachable:
+                JDWLog(@"无网络");
+                break;
+            case JDWNetworkStatusReachableViaWWAN:
+                JDWLog(@"手机自带网络");
+                [strongSelf requestUserInfo];
+                break;
+            case JDWNetworkStatusReachableViaWiFi:
+                JDWLog(@"WIFI");
+                [strongSelf requestUserInfo];
+                break;
+        }
+    }];
 
     if (![DBAccountInfo sharedInstance].isTouris) {
         [self refreshToken];
@@ -42,6 +66,60 @@
                                                     @(ConversationType_SYSTEM)]];
     NSLog(@"%d",count);
 }
+
+
+- (void)requestUserInfo {
+    WEAKSELF
+    STRONGSELF
+    [JDWNetworkHelper POST:PTURL_API_UserGet parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            SPPersonModel *model = [SPPersonModel modelWithJSON:responseDic[@"data"]];
+            
+            //保存用户信息
+            [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
+            [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
+            
+            /** 注册融云 */
+            [strongSelf registRYAPI:model.rc_token];
+        }else{
+//            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+}
+
+- (void)registRYAPI:(NSString *)rcToken {
+    [[RCIM sharedRCIM] initWithAppKey:RYAPPKey];
+    
+    // 登陆
+    [[RCIM sharedRCIM] connectWithToken:rcToken success:^(NSString *userId) {
+        JDWLog(@"登陆成功userid＝%@",userId);
+        [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:[DBAccountInfo sharedInstance].model.nickName portrait:[DBAccountInfo sharedInstance].model.avatar];
+        // 设置消息体内是否携带用户信息
+        [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+    } error:^(RCConnectErrorCode status) {
+        JDWLog(@"登陆的错误码为:%ld", (long)status);
+    } tokenIncorrect:^{
+        JDWLog(@"token错误");
+    }];
+    
+    // 消息推送
+    if ([[UIApplication sharedApplication]
+         respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings
+                                                settingsForTypes:(UIUserNotificationTypeBadge |
+                                                                  UIUserNotificationTypeSound |
+                                                                  UIUserNotificationTypeAlert)
+                                                categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }
+}
+
 
 - (void)refreshToken {
     [JDWNetworkHelper POST:SPURL_API_Refresh parameters:nil success:^(id responseObject) {

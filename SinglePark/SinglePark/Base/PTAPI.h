@@ -34,6 +34,10 @@
 #define SPURL_API_CityName [NSString stringWithFormat:@"%@/city",BASE_HttpURL]
 //他人的用户信息
 #define SPURL_API_info [NSString stringWithFormat:@"%@/user/info",BASE_HttpURL]
+//追我的人
+#define SPURL_API_Follow_tos [NSString stringWithFormat:@"%@/follows/tos",BASE_HttpURL]
+//我追的人
+#define SPURL_API_Follow_froms [NSString stringWithFormat:@"%@/follows/froms",BASE_HttpURL]
 
 //意见反馈
 #define SPURL_API_Feedback [NSString stringWithFormat:@"%@/feedback/create",BASE_HttpURL]

@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,copy)NSString *gooder;
 
+@property (nonatomic,strong)SPPersonModel *user;
 
 
 
@@ -30,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy)NSString *messageId;
 @property (nonatomic,copy)NSString *created_at;
 @property (nonatomic,strong)NSArray <SPMessageModel *>*replies;
+
+
+
 @end
 
 NS_ASSUME_NONNULL_END

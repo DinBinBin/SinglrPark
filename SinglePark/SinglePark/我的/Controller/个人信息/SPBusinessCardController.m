@@ -32,38 +32,9 @@
     [self.listTabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-//    [self getdata];
     self.hideNavigationLine = YES;
 }
 
-- (void)getdata{
-    //    NSDictionary *parms = @{@"":@""};
-    NSDictionary *dic = @{@"avatar":@"4",
-                          @"distance":@"距离----",
-                          @"nick_name":@"昵称----",
-                          @"sex":@"1",
-                          @"videoCover":@"5"};
-    SPCoverModel *model = [SPCoverModel modelWithJSON:dic];
-    self.dataArr = [NSMutableArray array];
-    [self.dataArr addObject:model];
-    [self.dataArr addObject:model];
-    [self.dataArr addObject:model];
-    [self.dataArr addObject:model];
-    
-    
-    NSDictionary *dic1 = @{@"avatar":@"4",
-                          @"occupation":@"距离----",
-                          @"nick_name":@"昵称----",
-                          @"sex":@"1",
-                          @"singer":@"伴着我的歌声是你心碎的幻想，你用你的眼泪抚摸我的寂寞",
-                           @"didian":@"广东深圳",
-                           @"number":@[@"4",@"4",@"4"]
-                           };
-    self.personmodel = [SPPersonModel modelWithJSON:dic1];
-
-    [self.listTabView reloadData];
-
-}
 
 #pragma mark ----UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

@@ -115,11 +115,45 @@
         self.textLab.text = _newsmodel.messsage;
 //        [self.headBtn setImage:[UIImage imageNamed:_newsmodel.coverimg] forState:UIControlStateNormal];
         [self.headBtn sd_setImageWithURL:[NSURL URLWithString:_newsmodel.head] forState:UIControlStateNormal];
-//        [self.coverImg setImage:[UIImage imageNamed:_newsmodel.coverimg]];
-        [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_newsmodel.coverimg stringByAppendingString:videoCover]] placeholderImage:ImageNamed(@"默认未上传视频")];
+        
+        
+        if ([_newsmodel.user.first_video.thumb isEqualToString:@""] || _newsmodel.user.first_video.thumb  == nil) {
+            if (_newsmodel.user.first_video.thumb_id) {
+                [self requestThumb:_newsmodel.user.first_video.thumb_id];
+            }
+        }else{
+            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_newsmodel.user.first_video.thumb stringByAppendingString:videoCover]] placeholderImage:ImageNamed(@"默认未上传视频")];
+
+        }
         [self.headBtn setCornerRadius];
     }
 }
+
+- (void)requestThumb:(NSString *)thumdId {
+    
+    WEAKSELF
+    STRONGSELF
+    [JDWNetworkHelper POST:SPQiuniiuCat parameters:@{@"thumb_id":thumdId} success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSArray *arr = responseDic[@"data"][@"items"];
+            if (arr.count > 0) {
+                NSString *imgUrl = SPURL_API_Img(responseDic[@"data"][@"items"][0][@"key"]);
+                [strongSelf.coverImg sd_setImageWithURL:[NSURL URLWithString:[imgUrl stringByAppendingString:videoCover]]   placeholderImage:ImageNamed(@"默认未上传视频")];
+            }
+            
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
+}
+
 
 
 - (UIView *)timeView{
@@ -158,7 +192,7 @@
         STRONGSELF
         [_headBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
             SPBusinessCardController *card = [[SPBusinessCardController  alloc] init];
-//            card.model = strongSelf.newsmodel;
+            card.model = strongSelf.newsmodel.user;
             [[strongSelf viewController].navigationController pushViewController:card animated:YES];
         }];
     }

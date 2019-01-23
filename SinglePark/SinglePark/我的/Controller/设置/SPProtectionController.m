@@ -26,7 +26,12 @@
         make.edges.equalTo(self.view);
     }];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self getdata];
+
 }
 
 - (void)getdata{
@@ -48,16 +53,41 @@
     cell.textLabel.font = Font16;
     cell.textLabel.textColor = FirstWordColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    NSInteger row = [DBAccountInfo sharedInstance].model.config_privacy - 1;
-    if (indexPath.row == row) {
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:ImageNamed(@"chase")];
-        imageView.frame = CGRectMake(0, 0, 20, 20);
-        cell.accessoryView = imageView;
+    
+    if (indexPath.row < 2) {
+        NSInteger row = [DBAccountInfo sharedInstance].model.config_privacy - 1;
+        
+        if (indexPath.row == row) {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:ImageNamed(@"chase")];
+            imageView.frame = CGRectMake(0, 0, 20, 20);
+            cell.accessoryView = imageView;
+            
+        }
+    }
 
+    if (indexPath.row == 2) {
+        
+        NSInteger row = [DBAccountInfo sharedInstance].model.config_privacy;
+        
+        if (row == 3 || row ==4) {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:ImageNamed(@"chase")];
+            imageView.frame = CGRectMake(0, 0, 20, 20);
+            cell.accessoryView = imageView;
+            
+        }else{
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
     }
     
-    if (indexPath.row == 2) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (indexPath.row == 3) {
+        NSInteger row = [DBAccountInfo sharedInstance].model.config_privacy - 2;
+        
+        if (indexPath.row == row) {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:ImageNamed(@"chase")];
+            imageView.frame = CGRectMake(0, 0, 20, 20);
+            cell.accessoryView = imageView;
+            
+        }
     }
     
     return cell;
@@ -67,12 +97,17 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (indexPath.row == 2) {
+    if (indexPath.row == 0) {
+        [DBAccountInfo sharedInstance].model.config_privacy = indexPath.row + 1;
+        [tableView reloadData];
+    }else if (indexPath.row == 1) {
+        [DBAccountInfo sharedInstance].model.config_privacy = indexPath.row + 1;
+        [tableView reloadData];
+    }else if (indexPath.row == 2) {
         SPProtectionOptViewController *vc = [[SPProtectionOptViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }else{
-        [DBAccountInfo sharedInstance].model.config_privacy = indexPath.row + 1;
+        [DBAccountInfo sharedInstance].model.config_privacy = indexPath.row + 2;
         [tableView reloadData];
     }
 

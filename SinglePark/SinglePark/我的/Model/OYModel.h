@@ -10,7 +10,6 @@
 
 @interface OYModel : NSObject
 
-@property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) NSInteger count;
 
 /// 表示时间已经到了

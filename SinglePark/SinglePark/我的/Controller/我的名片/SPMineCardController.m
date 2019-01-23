@@ -132,7 +132,14 @@
             play.choosetype = self.model.sex;
             play.islocal = NO;
             [self.navigationController pushViewController:play animated:YES];
+        }else{
+            self.selectrow = indexPath.section;
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"本地视频",@"立即拍摄",nil];
+            //        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+            actionSheet.delegate = self;
+            [actionSheet showInView:self.view];
         }
+        
 
     }
 }

@@ -32,11 +32,39 @@
     [self.listTabView reloadData];
     
 }
+
+- (void)back {
+    [super back];
+    
+    
+    NSDictionary *parsms = @{
+                             @"config_privacy":@([DBAccountInfo sharedInstance].model.config_privacy),
+                             
+                             };
+    WEAKSELF
+    STRONGSELF
+    [MBProgressHUD showLoadToView:self.view];
+    [JDWNetworkHelper POST:PTURL_API_UserChage parameters:parsms success:^(id responseObject) {
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            //            [MBProgressHUD showMessage:@"修改成功"];
+        }else{
+            [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+    
+    
+}
 #pragma mark ----UITableViewDataSource
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return    self.titleArr.count;
+    return self.titleArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -45,7 +73,7 @@
     cell.textLabel.font = Font16;
     cell.textLabel.textColor = FirstWordColor;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    NSInteger row = [DBAccountInfo sharedInstance].model.config_privacy - 1;
+    NSInteger row = [DBAccountInfo sharedInstance].model.config_privacy - 3;
     if (indexPath.row == row) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:ImageNamed(@"chase")];
         imageView.frame = CGRectMake(0, 0, 20, 20);
@@ -65,12 +93,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == 2) {
-        
-    }else{
-        [DBAccountInfo sharedInstance].model.config_privacy = indexPath.row + 1;
-        [tableView reloadData];
-    }
+    [DBAccountInfo sharedInstance].model.config_privacy = indexPath.row + 3;
+    [tableView reloadData];
     
 }
 

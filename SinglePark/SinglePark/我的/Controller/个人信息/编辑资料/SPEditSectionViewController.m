@@ -65,7 +65,7 @@
         case SPEducationEditType:
             self.title = @"学历";
             [self.dataSource removeAllObjects];
-            self.dataSource = [NSMutableArray arrayWithArray:@[@"小学",@"初中",@"高中",@"专科",@"大学",@"硕士",@"博士",@"博士后"]];
+            self.dataSource = [NSMutableArray arrayWithArray:@[@"保密",@"小学",@"初中",@"高中",@"专科",@"本科",@"硕士",@"博士"]];
             [self.tableView reloadData];
             break;
         case SPAreaEditType:
@@ -95,7 +95,7 @@
         case SPIncomeEditType:
             self.title = @"年收入";
             [self.dataSource removeAllObjects];
-            self.dataSource = [NSMutableArray arrayWithArray:@[@"5万-",@"5万+",@"10万+",@"20万+",@"50万+",@"100万+",@"保密"]];
+            self.dataSource = [NSMutableArray arrayWithArray:@[@"保密",@"10万以上",@"20万以上",@"50万以上",@"100万以上"]];
             break;
             
         default:

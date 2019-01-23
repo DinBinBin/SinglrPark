@@ -28,6 +28,9 @@ typedef void(^SPSendMessageBlock)(SPPersonModel *);
 @property (nonatomic,assign)SPPursuitViewType viewType;
 
 @property (nonatomic, copy) SPSendMessageBlock sendMessageBlock;
+@property (nonatomic, copy) SPCallBackBlock gohomeBlock;
+@property (nonatomic, copy) SPCallBackBlock pursuitBlock;
+
 
 
 - (id)initWithFrame:(CGRect)frame viewType:(SPPursuitViewType)type;

@@ -106,12 +106,13 @@
     if (_coverModel != coverModel) {
         _coverModel = coverModel;
         if ([_coverModel.thumb isEqualToString:@""] || _coverModel.thumb == nil) {
-            [self requestThumb:_coverModel.thumb_id];
+            if (_coverModel.thumb_id) {
+                [self requestThumb:_coverModel.thumb_id];
+            }
         }else{
             [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_coverModel.thumb stringByAppendingString:videoCover]]  placeholderImage:ImageNamed(@"默认未上传视频")];
 
         }
-
         
     }
 }

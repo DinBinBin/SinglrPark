@@ -8,6 +8,7 @@
 
 #import "SPPersonalController.h"
 #import "SPHeadPersonTabCell.h"
+#import "SPCityModel.h"
 
 @interface SPPersonalController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -26,7 +27,9 @@
     [self.listTabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
+    if (!self.model.areaName) {
+        [self requestProvinceName];
+    }
     [self getdata];
 }
 
@@ -47,6 +50,94 @@
     [self reloadDataSource];
     
 }
+
+
+- (void)requestProvinceName {
+    WEAKSELF
+    STRONGSELF
+    NSString *strId = [NSString stringWithFormat:@"%ld",(long)[DBAccountInfo sharedInstance].model.province_id];
+    NSString *url = [SPURL_API_CityName stringByAppendingPathComponent:strId];
+    [MBProgressHUD showLoadToView:self.view];
+    
+    [JDWNetworkHelper POST:url parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            
+            [strongSelf.detailArr removeAllObjects];
+            SPCityModel *model = [SPCityModel modelWithJSON:responseDic[@"data"]];
+            NSString *name = [NSString stringWithFormat:@"%@ %@",strongSelf.model.areaName ?:@"",model.name];
+            strongSelf.model.areaName = name;
+            
+            [strongSelf requestCityName];
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+}
+
+- (void)requestCityName {
+    NSString *strId = [NSString stringWithFormat:@"%ld",(long)[DBAccountInfo sharedInstance].model.city_id];
+    NSString *url = [SPURL_API_CityName stringByAppendingPathComponent:strId];
+    
+    WEAKSELF
+    STRONGSELF
+    [JDWNetworkHelper POST:url parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            
+            [strongSelf.detailArr removeAllObjects];
+            SPCityModel *model = [SPCityModel modelWithJSON:responseDic[@"data"]];
+            NSString *name = [NSString stringWithFormat:@"%@ %@",strongSelf.model.areaName ?:@"",model.name];
+            strongSelf.model.areaName = name;
+            
+            [strongSelf requestDistrictName];
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+    
+}
+- (void)requestDistrictName {
+    NSString *strId = [NSString stringWithFormat:@"%ld",(long)[DBAccountInfo sharedInstance].model.district_id];
+    NSString *url = [SPURL_API_CityName stringByAppendingPathComponent:strId];
+    WEAKSELF
+    STRONGSELF
+    
+    [JDWNetworkHelper POST:url parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            [strongSelf.detailArr removeAllObjects];
+            SPCityModel *model = [SPCityModel modelWithJSON:responseDic[@"data"]];
+            NSString *name = [NSString stringWithFormat:@"%@ %@",strongSelf.model.areaName ?: @"",model.name];
+            strongSelf.model.areaName = name;
+            [strongSelf reloadDataSource];
+            
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD showAutoMessage:Networkerror];
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        
+    }];
+    
+}
+
+
 #pragma mark ----UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.titleArr.count;
@@ -82,6 +173,7 @@
         cell.textLabel.textColor = SecondWordColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.detailTextLabel.text = self.detailArr[0][indexPath.row];
+        cell.detailTextLabel.textColor = FirstWordColor;
         if (indexPath.row < arr.count-1) {
             return cell;
 
@@ -117,6 +209,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row>=2) {
         
     }
@@ -144,8 +237,8 @@
     }
     
     self.detailArr = [NSMutableArray arrayWithArray:@[
-                                                      @[sex,self.model.birthday ?: @"未填写",self.model.job.firstObject?:@"未填写",self.model.unit ?: @"未填写",self.model.university ?:@"未填写",self.model.education ?:@"未填写",self.model.referrer ?:@"logo"],
-                                                      @[self.model.areaName ?:@"未填写",self.model.height ?:@"未填写",self.model.weight ?:@"未填写",self.model.income ?:@"未填写"],
+                                                      @[sex,self.model.birthday ?: @"未填写",self.model.job.firstObject?:@"未填写",self.model.company ?: @"未填写",self.model.college ?:@"未填写",[self jsonEdcation:self.model.education],self.model.referrer ?:@"logo"],
+                                                      @[self.model.areaName ?:@"未填写",[self jsonHeight:self.model.hights],[self jsonWeight:self.model.weights],[self jsonIncomes:self.model.incomes]],
                                                       ]
                       ];
     [self.listTabView reloadData];
@@ -164,6 +257,106 @@
         [self.view addSubview:_listTabView];
     }
     return _listTabView;
+}
+
+
+
+#pragma mark - private
+- (NSString *)jsonSex:(int)sex {
+    NSString *last = @"";
+    if (sex == 0) {
+        last = @"保密";
+    }else if (sex == 1){
+        last = @"男";
+    }else{
+        last = @"女";
+    }
+    return last;
+}
+
+- (NSString *)jsonEdcation:(NSString *)edcation {
+    NSString *last = @"";
+    if ([edcation isEqualToString:@"1"]) {
+        last = @"保密";
+    }else if ([edcation isEqualToString:@"2"]){
+        last = @"小学";
+    }else if ([edcation isEqualToString:@"3"]){
+        last = @"初中";
+    }else if ([edcation isEqualToString:@"4"]){
+        last = @"高中";
+    }else if ([edcation isEqualToString:@"5"]){
+        last = @"专科";
+    }else if ([edcation isEqualToString:@"6"]){
+        last = @"本科";
+    }else if ([edcation isEqualToString:@"7"]){
+        last = @"硕士";
+    }else if ([edcation isEqualToString:@"8"]){
+        last = @"博士";
+    }
+    return last;
+}
+
+
+- (NSString *)jsonHeight:(NSString *)height {
+    NSString *last = @"";
+    if ([height isEqualToString:@""] || height == nil) {
+        last = @"未填写";
+        
+    }else{
+        last = [NSString stringWithFormat:@"%@CM",height];
+        
+    }
+    return last;
+}
+
+- (NSString *)jsonWeight:(NSString *)weight {
+    NSString *last = @"";
+    if ([weight isEqualToString:@""] || weight == nil) {
+        last = @"未填写";
+    }else{
+        last = [NSString stringWithFormat:@"%@KG",weight];
+        
+    }
+    return last;
+}
+
+- (NSString *)jsonIncomes:(NSString *)incoms {
+    NSString *last = @"";
+    if ([incoms isEqualToString:@"1"]) {
+        last = @"保密";
+    }else if ([incoms isEqualToString:@"2"]) {
+        last = @"10万以上";
+    }else if ([incoms isEqualToString:@"3"]) {
+        last = @"20万以上";
+    }else if ([incoms isEqualToString:@"4"]) {
+        last = @"50万以上";
+    }else if ([incoms isEqualToString:@"5"]) {
+        last = @"100万以上";
+    }else{
+        last = @"未填写";
+    }
+    return last;
+}
+
+
+- (NSString *)jsonCompany:(NSString *)company {
+    NSString *last = @"";
+    if ([company isEqualToString:@""] || company == nil) {
+        last = @"未填写";
+    }else{
+        last = company;
+    }
+    return last;
+}
+
+- (NSString *)jsonCollege:(NSString *)college {
+    NSString *last = @"";
+    if ([college isEqualToString:@""] || college == nil) {
+        last = @"未填写";
+    }else{
+        last = college;
+    }
+    return last;
 }
 
 

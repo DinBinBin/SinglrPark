@@ -24,12 +24,9 @@
     self.fixedarr = [NSMutableArray arrayWithCapacity:0];
     
     [self setUI];
-//    [self getModel];
-    if ([self.titleStr isEqualToString:@"评论"]) {
-        [self requestUserCommentList];
-    }else{
-        [self requestVideoCommentList];
-    }
+
+    [self requestUserCommentList];
+
 }
 
 - (void)setUI{
@@ -38,42 +35,17 @@
     }];
     
 }
-- (void)getModel{
-    
-    NSDictionary *dic = @{@"head":@"chase",
-                          @"nickName":@"追讯",
-                          @"messsage":@"哇塞，你好漂亮，我太喜欢你了，美女我们能做朋吗",
-                          @"coverimg":@"4",
-                          @"time":@"12:00"};
-    NSDictionary *dic2 = @{@"head":@"good",
-                           @"nickName":@"点赞",
-                           @"messsage":@"恭喜您已通过美女认证",
-                           @"coverimg":@"4",
-                           @"time":@"14:00"};
-    NSDictionary *dic3 = @{@"head":@"message",
-                           @"nickName":@"评论",
-                           @"messsage":@"恭喜您已通过美女认证",
-                           @"coverimg":@"4",
-                           @"time":@"12:00"};
-    NSDictionary *dic4 = @{@"head":@"notice",
-                           @"nickName":@"单身公园",
-                           @"messsage":@"恭喜您已通过美女认证",
-                           @"coverimg":@"4",
-                           @"time":@"12:00"};
-    SPMessageModel *model = [SPMessageModel modelWithJSON:dic];
-    SPMessageModel *model2 = [SPMessageModel modelWithJSON:dic2];
-    SPMessageModel *model3 = [SPMessageModel modelWithJSON:dic3];
-    SPMessageModel *model4 = [SPMessageModel modelWithJSON:dic4];
-    
-    self.fixedarr  = [NSMutableArray arrayWithObjects:model4,model3,model,model2, nil];
-    [self.messageTabView reloadData];
-    
-}
 
 - (void)requestUserCommentList {
     
     NSDictionary *parameters = @{@"page":@"1",@"limit":@"10"};
 
+    NSString *url = @"";
+    if ([self.titleStr isEqualToString:@"评论"]) {
+        url = SPMineCommentList;
+    }else{
+        url = SPMineCommentList;
+    }
     [MBProgressHUD showLoadToView:self.view];
     [JDWNetworkHelper POST:SPMineCommentList parameters:parameters success:^(id responseObject) {
         [MBProgressHUD hideHUDForView:self.view];
@@ -92,51 +64,12 @@
                     model.time = fromeUser.updated_at;
                     model.nickName = fromeUser.nickName;
                     model.coverimg = item[@"video"][@"video"];
-                    
-                    [self.fixedarr addObject:model];
-                }
-                
-                
-            }
-            
-            [self.messageTabView reloadData];
-            
-        }else{
-            if ([responseDic[@"messages"] isKindOfClass: [NSNull class]]) {
-                [MBProgressHUD showAutoMessage:@"请求失败"];
-                
-            }else{
-                [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
-            }
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view];
-        [MBProgressHUD showAutoMessage:Networkerror];
-    }];
-}
+                    model.user = fromeUser;
+                    model.user.first_video = [SPCoverModel new];
+                    model.user.first_video.thumb = item[@"video"][@"thumb"];
+                    model.user.first_video.thumb_id = item[@"video"][@"thumb_id"];
+                    model.user.first_video.videoId = item[@"video"][@"id"];
 
-- (void)requestVideoCommentList {
-    
-    NSDictionary *parameters = @{@"page":@"1",@"limit":@"10"};
-    
-    [MBProgressHUD showLoadToView:self.view];
-    [JDWNetworkHelper POST:SPVideoUpList parameters:parameters success:^(id responseObject) {
-        [MBProgressHUD hideHUDForView:self.view];
-        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
-        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            NSArray *items = responseDic[@"data"][@"items"];
-            if (items.count > 0) {
-                [self.fixedarr removeAllObjects];
-                for (int a=0; a<items.count; a++) {
-                    NSDictionary *item = items[a];
-                    SPPersonModel *fromeUser = [SPPersonModel modelWithJSON:item[@"user"]];
-                    
-                    SPMessageModel *model = [[SPMessageModel alloc] init];
-                    model.head = fromeUser.avatar;
-                    model.messsage = item[@"content"];
-                    model.time = fromeUser.updated_at;
-                    model.nickName = fromeUser.nickName;
-                    model.coverimg = item[@"video"][@"video"];
                     
                     [self.fixedarr addObject:model];
                 }
@@ -167,11 +100,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SPCommentTablCell *cell = [tableView dequeueReusableCellWithIdentifier:self.messageStr forIndexPath:indexPath];
-    SPMessageModel *moel = self.fixedarr[indexPath.row];
+    SPMessageModel *model = self.fixedarr[indexPath.row];
     if ([self.titleStr isEqualToString:@"赞"]) {
-        moel.messsage = @"赞了你";
+        model.messsage = @"赞了你";
     }
-    cell.newsmodel = moel;
+    cell.newsmodel = model;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.backgroundColor = PTBackColor;
     return cell;

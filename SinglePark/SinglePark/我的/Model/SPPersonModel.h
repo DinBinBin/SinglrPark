@@ -21,16 +21,16 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic,copy)NSString *occupation; //职业
 @property (nonatomic,copy)NSArray *job; //职业数组
 
-@property (nonatomic,copy)NSString *unit; //所在单位
-@property (nonatomic,copy)NSString *university; //毕业学校
+@property (nonatomic,copy)NSString *company; //所在单位
+@property (nonatomic,copy)NSString *college; //毕业学校
 @property (nonatomic,copy)NSString *education; //学历
 @property (nonatomic,assign)NSInteger province_id; //省
 @property (nonatomic,assign)NSInteger city_id; //市
 @property (nonatomic,assign)NSInteger district_id; //区
 @property (nonatomic,copy)NSString *areaName;
-@property (nonatomic,copy)NSString *height; //身高
-@property (nonatomic,copy)NSString *weight; //体重
-@property (nonatomic,copy)NSString *income; //年收入
+@property (nonatomic,copy)NSString *hights; //身高
+@property (nonatomic,copy)NSString *weights; //体重
+@property (nonatomic,copy)NSString *incomes; //年收入
 @property (nonatomic,copy)NSString *signature; //三观签名
 @property (nonatomic,copy)NSString *referrer; //引荐人
 @property (nonatomic,copy)NSString *invitationCode;//邀请码

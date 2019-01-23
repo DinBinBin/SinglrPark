@@ -8,6 +8,8 @@
 
 #import "SPPursuitVoiceCell.h"
 #import "OYCountDownManager.h"
+#import <AVFoundation/AVFoundation.h>
+
 
 @implementation SPPursuitVoiceCell
 
@@ -47,7 +49,7 @@
         return;
     }
     /// 重新赋值
-    self.timeLB.text = [NSString stringWithFormat:@"%02ld小时%02ld分%02ld秒", countDown/3600, (countDown/60)%60, countDown%60];
+    self.timeLB.text = [NSString stringWithFormat:@"%02d小时%02d分%02d秒", countDown/3600, (countDown/60)%60, countDown%60];
 }
 
 ///  重写setter方法
@@ -59,9 +61,78 @@
     [self countDownNotification];
 }
 
+- (void)setVoiceUrl:(NSString *)voiceUrl {
+    if (_voiceUrl != voiceUrl) {
+        _voiceUrl = voiceUrl;
+        NSArray *arr = [voiceUrl componentsSeparatedByString:@"/"];
+        self.voiceBtn.enabled = NO;
+        [self fileName:arr.lastObject];
+    }
+}
+
+- (IBAction)playVoice:(id)sender {
+    
+    if ([[NSFileManager defaultManager]  fileExistsAtPath:self.filePath]) {
+        [[LGAudioPlayer sharePlayer] playAudioWithURLString:self.filePath atIndex:1];
+
+    }
+}
+
+
+// 下载附件
+- (void)fileName:(NSString *)fileName{
+    NSString *str = [kDocumentDirectoryPath stringByAppendingPathComponent:@"SoundFile"];
+    NSString *filestr = [str stringByAppendingPathComponent:fileName];
+    NSString *file = @"";
+    if (![filestr containsString:@".mp3"]) {
+        file = [NSString stringWithFormat:@"%@.mp3",filestr];
+    }else {
+        file = filestr;
+    }
+    if ([[NSFileManager defaultManager]  fileExistsAtPath:file]) {
+        self.voiceBtn.enabled = YES;
+        self.filePath = file;
+        NSLog(@"已经有 %@",file);
+
+    }else{
+        
+        [JDWNetworkHelper wedownloadWithURL:self.voiceUrl fileDir:str progress:^(NSProgress *progress) {
+            
+        } success:^(NSString *filePath) {
+            NSLog(@"下载成功----------%@",filePath);
+            self.filePath = filePath;
+            
+            self.voiceBtn.enabled = YES;
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD showAutoMessage:@"获取语音失败"];
+        }];
+    }
+}
+
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
+
+#pragma mark - LGAudioPlayerDelegate
+
+- (void)audioPlayerStateDidChanged:(LGAudioPlayerState)audioPlayerState forIndex:(NSUInteger)index {
+    switch (audioPlayerState) {
+        case LGAudioPlayerStateNormal:
+            NSLog(@"正常状态");
+            break;
+        case LGAudioPlayerStatePlaying:
+            NSLog(@"正在播放");
+            break;
+        case LGAudioPlayerStateCancel:
+            NSLog(@"播放结束");
+            break;
+        default:
+            break;
+    }
+    
+}
 
 @end

@@ -16,11 +16,16 @@
              };
 }
 
-
-//+ (NSDictionary *)modelContainerPropertyGenericClass {
-//    return @{@"first_video" : SPCoverModel.class,
-//             };
+//- (SPCoverModel *)first_video {
+//
+//    return [SPCoverModel new];
 //}
+
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"first_video" : SPCoverModel.class,
+             };
+}
 
 
 @end

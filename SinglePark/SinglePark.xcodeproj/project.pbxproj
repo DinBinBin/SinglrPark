@@ -25,6 +25,7 @@
 		793D75D521C3A96B00F93E71 /* SPProtectionOptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793D75D421C3A96B00F93E71 /* SPProtectionOptViewController.m */; };
 		793D75D821C3AE6200F93E71 /* MFMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793D75D621C3AE6200F93E71 /* MFMapManager.m */; };
 		7940DAC121D5F46F005F35C9 /* UITabBar+SPTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7940DAC021D5F46F005F35C9 /* UITabBar+SPTabBar.m */; };
+		794A12AB21F570A900EBFB9C /* SPPursuitMeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 794A12AA21F570A900EBFB9C /* SPPursuitMeModel.m */; };
 		796D9C9821B7ACB30045F0B4 /* SPConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */; };
 		796D9C9E21B916FE0045F0B4 /* SQPrintJsonLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9C9D21B916FE0045F0B4 /* SQPrintJsonLog.m */; };
 		796D9CA221B91FC70045F0B4 /* SPJobModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796D9CA121B91FC70045F0B4 /* SPJobModel.m */; };
@@ -219,6 +220,8 @@
 		793D75D721C3AE6200F93E71 /* MFMapManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMapManager.h; sourceTree = "<group>"; };
 		7940DABF21D5F46F005F35C9 /* UITabBar+SPTabBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITabBar+SPTabBar.h"; sourceTree = "<group>"; };
 		7940DAC021D5F46F005F35C9 /* UITabBar+SPTabBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITabBar+SPTabBar.m"; sourceTree = "<group>"; };
+		794A12A921F570A900EBFB9C /* SPPursuitMeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPursuitMeModel.h; sourceTree = "<group>"; };
+		794A12AA21F570A900EBFB9C /* SPPursuitMeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPursuitMeModel.m; sourceTree = "<group>"; };
 		796D9C9621B7ACB30045F0B4 /* SPConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConversationViewController.h; sourceTree = "<group>"; };
 		796D9C9721B7ACB30045F0B4 /* SPConversationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConversationViewController.m; sourceTree = "<group>"; };
 		796D9C9C21B916FE0045F0B4 /* SQPrintJsonLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQPrintJsonLog.h; sourceTree = "<group>"; };
@@ -598,6 +601,15 @@
 				793B5CAD21BA0F8500710AD7 /* SPSelectDelegate.h */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		79BA97DF21F5C9DF00EB6736 /* lame */ = {
+			isa = PBXGroup;
+			children = (
+				79BA97E021F5C9DF00EB6736 /* libmp3lame.a */,
+				79BA97E121F5C9DF00EB6736 /* lame.h */,
+			);
+			path = lame;
 			sourceTree = "<group>";
 		};
 		79CAF65421BE095800B48780 /* 编辑资料 */ = {
@@ -1081,6 +1093,8 @@
 				81EFA386218DA66E00C8E8B6 /* JDWUserInfoDB.m */,
 				793870E621E48F1900C5E2A2 /* OYModel.h */,
 				793870E721E48F1900C5E2A2 /* OYModel.m */,
+				794A12A921F570A900EBFB9C /* SPPursuitMeModel.h */,
+				794A12AA21F570A900EBFB9C /* SPPursuitMeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1583,6 +1597,7 @@
 				E64643E621BE57400066E0F3 /* UITextView+Category.m in Sources */,
 				8110C5BF2120019F00D013FC /* UIImage+YBCExtension.m in Sources */,
 				8110C5D32120024900D013FC /* SPMainVC.m in Sources */,
+				794A12AB21F570A900EBFB9C /* SPPursuitMeModel.m in Sources */,
 				79CAF65721BE095800B48780 /* SPEditPersonalInfoViewController.m in Sources */,
 				8110C5B52120019F00D013FC /* UIBarButtonItem+Category.m in Sources */,
 				8110C58F2120017500D013FC /* DBAccountInfo.m in Sources */,

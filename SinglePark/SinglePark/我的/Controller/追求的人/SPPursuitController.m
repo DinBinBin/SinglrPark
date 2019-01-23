@@ -10,6 +10,8 @@
 #import "SPPursuitListView.h"
 #import "SPPlayVideoController.h"
 #import "SPConversationViewController.h"
+#import "SGTabBarController.h"
+#import "SPChasingherController.h"
 
 @interface SPPursuitController ()<UIScrollViewDelegate>
 @property(nonatomic,strong) UISegmentedControl *segmentControl;
@@ -45,14 +47,38 @@
     WEAKSELF
     STRONGSELF
     self.pursuitMe.sendMessageBlock = ^(SPPersonModel * model) {
-        SPConversationViewController *conversationVC = [[SPConversationViewController alloc]init];
-        conversationVC.conversationType = ConversationType_PRIVATE;
-        conversationVC.targetId = [NSString stringWithFormat:@"%d",model.userId];
-        conversationVC.title = model.nickName;
-        
-        [strongSelf.navigationController pushViewController:conversationVC animated:YES];
+        [strongSelf sendMessageToUser:model];
+    };
+    
+    self.pursuitMe.gohomeBlock = ^{
+        SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+        KEYWINDOW.rootViewController = sgTabBar;
+    };
+    
+    self.mePursuit.gohomeBlock = ^{
+        SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+        KEYWINDOW.rootViewController = sgTabBar;
+    };
+    
+    self.mePursuit.pursuitBlock = ^{
+        SPChasingherController *chasing = [[SPChasingherController alloc] init];
+        chasing.model = [DBAccountInfo sharedInstance].model;
+        [strongSelf.navigationController pushViewController:chasing animated:YES];
+    };
+    
+    self.mePursuit.sendMessageBlock = ^(SPPersonModel * model) {
+        [strongSelf sendMessageToUser:model];
     };
 
+}
+
+- (void)sendMessageToUser:(SPPersonModel *)model {
+    SPConversationViewController *conversationVC = [[SPConversationViewController alloc]init];
+    conversationVC.conversationType = ConversationType_PRIVATE;
+    conversationVC.targetId = [NSString stringWithFormat:@"%d",model.userId];
+    conversationVC.title = model.nickName;
+    
+    [self.navigationController pushViewController:conversationVC animated:YES];
 }
 
 - (void)requestData {

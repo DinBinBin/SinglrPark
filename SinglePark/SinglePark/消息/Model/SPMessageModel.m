@@ -15,8 +15,4 @@
              };
 }
 
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"first_video" : SPCoverModel.class,
-             };
-}
 @end

@@ -96,7 +96,7 @@
 - (void)requestProvinceName {
     WEAKSELF
     STRONGSELF
-    NSString *strId = [NSString stringWithFormat:@"%ld",[DBAccountInfo sharedInstance].model.province_id];
+    NSString *strId = [NSString stringWithFormat:@"%ld",(long)[DBAccountInfo sharedInstance].model.province_id];
     NSString *url = [SPURL_API_CityName stringByAppendingPathComponent:strId];
     [MBProgressHUD showLoadToView:self.view];
 
@@ -122,7 +122,7 @@
 }
 
 - (void)requestCityName {
-    NSString *strId = [NSString stringWithFormat:@"%ld",[DBAccountInfo sharedInstance].model.city_id];
+    NSString *strId = [NSString stringWithFormat:@"%ld",(long)[DBAccountInfo sharedInstance].model.city_id];
     NSString *url = [SPURL_API_CityName stringByAppendingPathComponent:strId];
     
     WEAKSELF
@@ -149,7 +149,7 @@
     
 }
 - (void)requestDistrictName {
-    NSString *strId = [NSString stringWithFormat:@"%ld",[DBAccountInfo sharedInstance].model.district_id];
+    NSString *strId = [NSString stringWithFormat:@"%ld",(long)[DBAccountInfo sharedInstance].model.district_id];
     NSString *url = [SPURL_API_CityName stringByAppendingPathComponent:strId];
     WEAKSELF
     STRONGSELF
@@ -183,29 +183,156 @@
 
 - (void)reloadDataSource {
     
-    
-    NSString *sex;
-    if (_model.sex == 0) {
-        sex = @"未填写";
-    }else if (_model.sex == 1){
-        sex = @"男";
-    }else{
-        sex = @"女";
-    }
-    
     self.detailArr = [NSMutableArray arrayWithArray:@[
                                                       @[self.model.avatar ?: @"logo",self.model.nickName ?: @"未填写"],
-                                                        @[sex,self.model.birthday ?: @"未填写"],
-                                                        @[self.model.job.firstObject?:@"未填写",self.model.unit ?: @"未填写"],
-                                                        @[self.model.university ?:@"未填写",self.model.education ?:@"未填写"],
+                                                        @[[self jsonSex:_model.sex],self.model.birthday ?: @"未填写"],
+                                                        @[self.model.job.firstObject?:@"未填写",[self jsonCompany:self.model.company]],
+                                                        @[[self jsonCollege:self.model.college],[self jsonEdcation:self.model.education]],
                                                         @[self.model.areaName ?:@"未填写"],
-                                                        @[self.model.height ?:@"未填写",self.model.weight ?:@"未填写"],
-                                                        @[self.model.income ?:@"未填写"],
+                                                        @[[self jsonHeight:self.model.hights],[self jsonWeight:self.model.weights]],
+                                                        @[[self jsonIncomes:self.model.incomes]],
                                                         @[self.model.signature ?:@"未填写"],
                                                         @[self.model.referrer ?:@"logo",self.model.invitationCode ?:@"未填写"]
                                                     ]];
     [self.tableView reloadData];
 }
+
+#pragma mark - private
+- (NSString *)jsonSex:(int)sex {
+    NSString *last = @"";
+    if (sex == 0) {
+        last = @"保密";
+    }else if (sex == 1){
+        last = @"男";
+    }else{
+        last = @"女";
+    }
+    return last;
+}
+
+- (NSString *)jsonEdcation:(NSString *)edcation {
+    NSString *last = @"";
+    if ([edcation isEqualToString:@"1"]) {
+        last = @"保密";
+    }else if ([edcation isEqualToString:@"2"]){
+        last = @"小学";
+    }else if ([edcation isEqualToString:@"3"]){
+        last = @"初中";
+    }else if ([edcation isEqualToString:@"4"]){
+        last = @"高中";
+    }else if ([edcation isEqualToString:@"5"]){
+        last = @"专科";
+    }else if ([edcation isEqualToString:@"6"]){
+        last = @"本科";
+    }else if ([edcation isEqualToString:@"7"]){
+        last = @"硕士";
+    }else if ([edcation isEqualToString:@"8"]){
+        last = @"博士";
+    }
+    return last;
+}
+
+- (NSString *)jsonEdcationToStr:(NSString *)edcation {
+    NSString *last = @"";
+    if ([edcation isEqualToString:@"保密"]) {
+        last = @"1";
+    }else if ([edcation isEqualToString:@"小学"]){
+        last = @"2";
+    }else if ([edcation isEqualToString:@"初中"]){
+        last = @"3";
+    }else if ([edcation isEqualToString:@"高中"]){
+        last = @"4";
+    }else if ([edcation isEqualToString:@"专科"]){
+        last = @"5";
+    }else if ([edcation isEqualToString:@"本科"]){
+        last = @"6";
+    }else if ([edcation isEqualToString:@"硕士"]){
+        last = @"7";
+    }else if ([edcation isEqualToString:@"博士"]){
+        last = @"8";
+    }
+    return last;
+}
+
+- (NSString *)jsonHeight:(NSString *)height {
+    NSString *last = @"";
+    if ([height isEqualToString:@""] || height == nil) {
+        last = @"未填写";
+
+    }else{
+        last = [NSString stringWithFormat:@"%@CM",height];
+
+    }
+    return last;
+}
+
+- (NSString *)jsonWeight:(NSString *)weight {
+    NSString *last = @"";
+    if ([weight isEqualToString:@""] || weight == nil) {
+        last = @"未填写";
+    }else{
+        last = [NSString stringWithFormat:@"%@KG",weight];
+
+    }
+    return last;
+}
+
+- (NSString *)jsonIncomes:(NSString *)incoms {
+    NSString *last = @"";
+    if ([incoms isEqualToString:@"1"]) {
+        last = @"保密";
+    }else if ([incoms isEqualToString:@"2"]) {
+        last = @"10万以上";
+    }else if ([incoms isEqualToString:@"3"]) {
+        last = @"20万以上";
+    }else if ([incoms isEqualToString:@"4"]) {
+        last = @"50万以上";
+    }else if ([incoms isEqualToString:@"5"]) {
+        last = @"100万以上";
+    }else{
+        last = @"未填写";
+    }
+    return last;
+}
+
+- (NSString *)jsonIncomesToStr:(NSString *)incoms {
+    NSString *last = @"";
+    if ([incoms isEqualToString:@"保密"]) {
+        last = @"1";
+    }else if ([incoms isEqualToString:@"10万以上"]) {
+        last = @"2";
+    }else if ([incoms isEqualToString:@"20万以上"]) {
+        last = @"3";
+    }else if ([incoms isEqualToString:@"50万以上"]) {
+        last = @"4";
+    }else if ([incoms isEqualToString:@"00万以上"]) {
+        last = @"15";
+    }else{
+        last = @"未填写";
+    }
+    return last;
+}
+
+- (NSString *)jsonCompany:(NSString *)company {
+    NSString *last = @"";
+    if ([company isEqualToString:@""] || company == nil) {
+        last = @"未填写";
+    }else{
+        last = company;
+    }
+    return last;
+}
+
+- (NSString *)jsonCollege:(NSString *)college {
+    NSString *last = @"";
+    if ([college isEqualToString:@""] || college == nil) {
+        last = @"未填写";
+    }else{
+        last = college;
+    }
+    return last;
+}
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -287,6 +414,7 @@
                     }
                     [strongSelf reloadDataSource];
                 };
+                [self.navigationController pushViewController:vc animated:YES];
             }else{//修改生日日期
                 
                 [self.view addSubview:self.fakeTextField];
@@ -301,26 +429,30 @@
                     strongSelf.model.job = @[str];
                     [strongSelf reloadDataSource];
                 };
+                [self.navigationController pushViewController:vc animated:YES];
             }else{//修改所在单位
                 vc.type = SPUnitEditType;
                 vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                    strongSelf.model.unit = str;
+                    strongSelf.model.company = str;
                     [strongSelf reloadDataSource];
                 };
+                [self.navigationController pushViewController:vc animated:YES];
             }
         }else if (indexPath.section == 3) {
             if (indexPath.row == 0) {//毕业学校
                 vc.type = SPUniversityEditType;
                 vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                    strongSelf.model.university = str;
+                    strongSelf.model.college = str;
                     [strongSelf reloadDataSource];
                 };
+                [self.navigationController pushViewController:vc animated:YES];
             }else{//学历
                 vc.type = SPEducationEditType;
                 vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                    strongSelf.model.education = str;
+                    strongSelf.model.education = [self jsonEdcationToStr:str];
                     [strongSelf reloadDataSource];
                 };
+                [self.navigationController pushViewController:vc animated:YES];
             }
         }else if (indexPath.section == 4) {//地区
             SPAreaViewController *area = [[SPAreaViewController alloc] init];
@@ -331,25 +463,28 @@
             if (indexPath.row == 0) {//身高
                 vc.type = SPHeightEditType;
                 vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                    strongSelf.model.height = str;
+                    strongSelf.model.hights = str;
                     [strongSelf reloadDataSource];
                 };
+                [self.navigationController pushViewController:vc animated:YES];
             }else{//体重
                 vc.type = SPWeightEditType;
                 vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                    strongSelf.model.weight = str;
+                    strongSelf.model.weights = str;
                     [strongSelf reloadDataSource];
                 };
+                [self.navigationController pushViewController:vc animated:YES];
             }
         }else if (indexPath.section == 6) {
             vc.type = SPIncomeEditType;
             vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                strongSelf.model.income = str;
+                strongSelf.model.incomes = [self jsonIncomesToStr:str];
                 [strongSelf reloadDataSource];
             };
+            [self.navigationController pushViewController:vc animated:YES];
+
         }
         
-        [self.navigationController pushViewController:vc animated:YES];
 
     }
 
@@ -415,8 +550,14 @@
                              @"province_id":@(self.model.province_id) ?: @([DBAccountInfo sharedInstance].model.province_id) ?: @"",
                              @"city_id":@(self.model.city_id) ?: @([DBAccountInfo sharedInstance].model.city_id) ?: @"",
                              @"district_id":@(self.model.district_id) ?: @([DBAccountInfo sharedInstance].model.district_id) ?: @"",
-                             @"height":self.model.height ?:[DBAccountInfo sharedInstance].model.height ?: @"未填写",
-                             @"weight":self.model.weight ?: [DBAccountInfo sharedInstance].model.weight ?: @"未填写"
+                             @"company":self.model.company ?: [DBAccountInfo sharedInstance].model.company ?: @"未填写",
+                             @"college":self.model.college ?: [DBAccountInfo sharedInstance].model.college ?: @"未填写",
+                             @"education":self.model.education ?: [DBAccountInfo sharedInstance].model.education ?: @"未填写",
+                             @"hights":self.model.hights ?:[DBAccountInfo sharedInstance].model.hights ?: @"未填写",
+                             @"weights":self.model.weights ?: [DBAccountInfo sharedInstance].model.weights ?: @"未填写",
+                             @"incomes":self.model.incomes ?: [DBAccountInfo sharedInstance].model.incomes ?: @"未填写",
+
+
                              };
     WEAKSELF
     STRONGSELF

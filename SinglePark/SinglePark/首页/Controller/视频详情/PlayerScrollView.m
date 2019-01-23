@@ -147,7 +147,9 @@
     [_player prepareToPlay];
     _index = playIndex;
     
+    
     [self.middleImageView sd_setImageWithURL:[NSURL URLWithString:[_middleInfoModel.first_video.thumb stringByAppendingString:videoCover]]];
+    
      if (self.infoModelArray.count > 1 && _index < self.infoModelArray.count - 1) {
         _downInfoModel =self.infoModelArray[_index+1];
         [self prepareImageView:self.downImageView WithModel:_downInfoModel];

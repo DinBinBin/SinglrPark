@@ -156,5 +156,7 @@ dispatch_once(&once,^{__singletion = [[__clazz alloc] init];});\
 return __singletion;\
 }
 
+typedef void(^SPCallBackBlock)(void);
+
 
 #endif /* Common_Style_h */

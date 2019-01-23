@@ -160,13 +160,47 @@
         self.titleLab.text = [NSString stringWithFormat:@"%.f公里",kilometers];
         
         if (_model.first_video) {
-            [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_model.first_video.thumb stringByAppendingString:videoCover]] placeholderImage:[UIImage imageNamed:@"视频加载失败"]];
+            
+            if ([_model.first_video.thumb isEqualToString:@""] || _model.first_video.thumb == nil) {
+                if (_model.first_video.thumb_id) {
+                    [self requestThumb:_model.first_video.thumb_id];
+                }
+            }else{
+                [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_model.first_video.thumb stringByAppendingString:videoCover]] placeholderImage:[UIImage imageNamed:@"视频加载失败"]];
+
+            }
         }else{
             [self.coverImg setImage:[UIImage imageNamed:@"视频加载失败"]];
         }
 
     }
 }
+
+- (void)requestThumb:(NSString *)thumdId {
+    
+    WEAKSELF
+    STRONGSELF
+    [JDWNetworkHelper POST:SPQiuniiuCat parameters:@{@"thumb_id":thumdId} success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSArray *arr = responseDic[@"data"][@"items"];
+            if (arr.count > 0) {
+                NSString *imgUrl = SPURL_API_Img(responseDic[@"data"][@"items"][0][@"key"]);
+                [strongSelf.coverImg sd_setImageWithURL:[NSURL URLWithString:[imgUrl stringByAppendingString:videoCover]]   placeholderImage:ImageNamed(@"默认未上传视频")];
+            }
+            
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
+}
+
 
 
 

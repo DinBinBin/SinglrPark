@@ -86,13 +86,14 @@
             /** 注册融云 */
             [strongSelf registRYAPIWith:application rcToken:model.rc_token];
         }else{
-            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+//            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
             
         }
         
         
     } failure:^(NSError *error) {
         [MBProgressHUD showAutoMessage:Networkerror];
+        
     }];
 }
 
