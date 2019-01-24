@@ -70,16 +70,20 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 44;
+    return UITableViewAutomaticDimension;
+}
+
+-  (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewAutomaticDimension;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
  
     
     SPVideoCommentTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.commentStr forIndexPath:indexPath];
-    cell.model = self.dataArr[indexPath.row];
     cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.model = self.dataArr[indexPath.row];
     return cell;
 }
 
@@ -110,18 +114,15 @@
         }
 
     SPConmentHeadView *head = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"head"];
-    UIControl *control = [[UIControl alloc ] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
-    [control addSubview:head];
     head.model = self.dataArr[section];
-//    control.backgroundColor = [UIColor whiteColor];
     WEAKSELF
     STRONGSELF
-    [control addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+    head.HeadBlock = ^{
         if (strongSelf.AnswerComment) {
             strongSelf.AnswerComment(strongSelf.dataArr[section]);
         }
-    }];
-    return control;
+    };
+    return head;
     
 }
 

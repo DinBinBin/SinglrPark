@@ -8,7 +8,7 @@
 
 #import "SPConmentHeadView.h"
 
-@interface SPConmentHeadView()
+@interface SPConmentHeadView()<UIGestureRecognizerDelegate>
 @property (nonatomic,strong)UIButton *headBtn;
 @property (nonatomic,strong)UILabel *nameLab;
 @property (nonatomic,strong)UIButton *goodBtn;
@@ -19,6 +19,9 @@
 -(instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
+        self.contentView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.9];
+//        self.contentView.backgroundColor = [UIColor clearColor];
+//        self.backgroundColor = [UIColor blackColor];
         [self setUI];
 
     }
@@ -26,10 +29,10 @@
 }
 
 - (void)setUI{
-    [self addSubview:self.headBtn];
-    [self addSubview:self.nameLab];
-    [self addSubview:self.goodBtn];
-    [self addSubview:self.textLab];
+    [self.contentView addSubview:self.headBtn];
+    [self.contentView addSubview:self.nameLab];
+    [self.contentView addSubview:self.goodBtn];
+    [self.contentView addSubview:self.textLab];
     
     
     [self.headBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -55,12 +58,26 @@
     [self.textLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLab.mas_bottom);
         make.left.equalTo(self.nameLab);
+        make.right.equalTo(self.contentView.mas_right).offset(-50);
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
     }];
     
+//    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self);
+//    }];
     
     [self.headBtn.layer setCornerRadius:20];
     self.headBtn.clipsToBounds = YES;
+    
+    
+    //单击的手势
+    UITapGestureRecognizer *tapRecognize = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+    tapRecognize.numberOfTapsRequired = 1;
+    tapRecognize.delegate = self;
+    [tapRecognize setEnabled :YES];
+    [tapRecognize delaysTouchesBegan];
+    [tapRecognize cancelsTouchesInView];
+    [self.contentView addGestureRecognizer:tapRecognize];
 }
 
 
@@ -126,5 +143,13 @@
         //        self.sexImg.image = [UIImage imageNamed:_model.sex];
         //        self.coverImg.image = [UIImage imageNamed:_model.videoCover];
     }
+}
+
+-(void) handleTap:(UITapGestureRecognizer *)recognizer{
+    if (self.HeadBlock) {
+
+        self.HeadBlock();
+    }
+    
 }
 @end

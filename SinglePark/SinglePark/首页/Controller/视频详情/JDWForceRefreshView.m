@@ -77,7 +77,7 @@
     [self.commentTabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.width.equalTo(self.whiteView);
         make.top.equalTo(self.titleLab.mas_bottom).offset(5);
-        make.bottom.equalTo(self.whiteView.mas_bottom).offset(-50);
+        make.bottom.equalTo(self.whiteView.mas_bottom).offset(-54);
     }];
     
     [self.inputToolbar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -168,7 +168,6 @@
                 make.height.mas_equalTo(height);
             }];
         };
-        [_inputToolbar resetInputToolbar];
         
     }
     return _inputToolbar;

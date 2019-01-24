@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SPConmentHeadView : UITableViewHeaderFooterView
 @property (nonatomic,strong)SPMessageModel *model;
 
+@property (nonatomic,copy)void (^HeadBlock)(void);
 @end
 
 NS_ASSUME_NONNULL_END

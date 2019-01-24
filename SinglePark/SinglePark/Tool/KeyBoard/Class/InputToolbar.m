@@ -214,7 +214,7 @@ static InputToolbar* _instance = nil;
     //键盘默认发送键
     if ([text isEqualToString:@"\n"]) {
         if (_sendContent) {
-            _sendContent(self.textUpload.text);
+            _sendContent(self.textInput.text);
             self.y = SCREEN_HEIGHT - _keyboardHeight - InputToolbarHeight;
             _inputToolbarFrameChange(self.height,_keyboardHeight);
         }
@@ -289,7 +289,7 @@ static InputToolbar* _instance = nil;
 //发送
 - (void)sendmessage{
     if (self.textInput.text) {  //是否输入语言
-        _sendContent(self.textUpload.text);
+        _sendContent(self.textInput.text);
         self.textInput.text = nil;
         self.textUpload.text = nil;
         self.textInput.height = 36;

@@ -52,6 +52,7 @@
     [self.textLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameLab.mas_bottom);
         make.left.equalTo(self.nameLab);
+        make.right.equalTo(self.contentView.mas_right).offset(-50);
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
     }];
     
