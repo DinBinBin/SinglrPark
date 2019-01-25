@@ -38,6 +38,8 @@
 #define SPURL_API_Follow_tos [NSString stringWithFormat:@"%@/follows/tos",BASE_HttpURL]
 //我追的人
 #define SPURL_API_Follow_froms [NSString stringWithFormat:@"%@/follows/froms",BASE_HttpURL]
+//追讯更新
+#define SPURL_API_Follow_update [NSString stringWithFormat:@"%@follows/update",BASE_HttpURL]
 
 //意见反馈
 #define SPURL_API_Feedback [NSString stringWithFormat:@"%@/feedback/create",BASE_HttpURL]
@@ -75,6 +77,8 @@
 #define SPVideoUpList [NSString stringWithFormat:@"%@/video/up_list",BASE_HttpURL]
 //我发布的视频
 #define SPVideoList [NSString stringWithFormat:@"%@/video/list",BASE_HttpURL]
+//他人发布的视频
+#define SPOtherVideoList [NSString stringWithFormat:@"%@/video/other_list",BASE_HttpURL]
 //查看处理结果
 #define SPQiuniiuCat [NSString stringWithFormat:@"%@/qiniu_cat",BASE_HttpURL]
 

@@ -433,7 +433,7 @@
 }
 
 - (void)uploadQiniuPath:(NSString *)token {
-    NSDictionary *dic = @{@"tos":@"7",@"voice":token};
+    NSDictionary *dic = @{@"tos":[NSString stringWithFormat:@"%d",self.model.userId],@"voice":token};
     [JDWNetworkHelper POST:SPURL_API_follows_create parameters:dic success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
 

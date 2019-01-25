@@ -170,7 +170,7 @@
 
             }
         }else{
-            [self.coverImg setImage:[UIImage imageNamed:@"视频加载失败"]];
+            [self.coverImg setImage:[UIImage imageNamed:@"默认未上传视频"]];
         }
 
     }
@@ -186,7 +186,7 @@
             NSArray *arr = responseDic[@"data"][@"items"];
             if (arr.count > 0) {
                 NSString *imgUrl = SPURL_API_Img(responseDic[@"data"][@"items"][0][@"key"]);
-                [strongSelf.coverImg sd_setImageWithURL:[NSURL URLWithString:[imgUrl stringByAppendingString:videoCover]]   placeholderImage:ImageNamed(@"默认未上传视频")];
+                [strongSelf.coverImg sd_setImageWithURL:[NSURL URLWithString:[imgUrl stringByAppendingString:videoCover]]   placeholderImage:ImageNamed(@"视频加载失败")];
             }
             
         }else{

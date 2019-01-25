@@ -15,6 +15,7 @@
 #import "SPPursuitButtonCell.h"
 #import "OYCountDownManager.h"
 #import <RongIMKit/RongIMKit.h>
+#import "SPPlayVideoController.h"
 
 NSString *const OYMultipleTableSource1 = @"OYMultipleTableSource1";
 NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
@@ -59,13 +60,6 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
         [kCountDownManager addSourceWithIdentifier:OYMultipleTableSource2];
         self.viewType = type;
         
-        if (type == SPPursuitMeViewType) {
-            self.typede = PursuitTypeDetailAccept;
-        }else {
-            self.typede = PursuitTypeDetailAccept;
-
-        }
-        
         [self requestData];
     }
     return self;
@@ -98,8 +92,8 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
             {
                 self.tipLable.text = @"恭喜，有人追你啦，请在倒计时之前处理请求，否则系统会自动拒绝！";
                 
-                self.currentInt1 = 24*60*60;
-                self.vocieCell.voiceUrl = @"http://images.wuchenge.com/Fi7DXo_EdKon0aNE1dxRbV3a9lNF";
+                self.currentInt1 = 12*60*60;
+                self.vocieCell.voiceUrl = self.pursuitMeModel.voice;
 
                 self.vocieCell.model = self.OYModel1;
                 WEAKSELF
@@ -220,10 +214,55 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
             NSArray *items = responseDic[@"data"][@"items"];
             if (items.count > 0) {
                 NSDictionary *item = items.firstObject;
-                self.pursuitMeModel = [SPPursuitMeModel modelWithJSON:item];
-                self.typede = self.pursuitMeModel.status;
+                if (strongSelf.viewType == SPPursuitMeViewType) {
+                    strongSelf.pursuitMeModel = [SPPursuitMeModel modelWithJSON:item];
+                    strongSelf.typede = strongSelf.pursuitMeModel.status;
+                    [strongSelf requestOtherUserVideo:[NSString stringWithFormat:@"%d",strongSelf.pursuitMeModel.from_user.userId]];
+
+                }else{
+                    strongSelf.mePursuitModel = [SPPursuitMeModel modelWithJSON:item];
+                    strongSelf.typede = strongSelf.mePursuitModel.status;
+                    [strongSelf requestOtherUserVideo:[NSString stringWithFormat:@"%d",strongSelf.mePursuitModel.to_user.userId]];
+                }
+            }else{
+                self.typede = SPPursuitTypeNone;//没有要追的人
             }
             
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        [MBProgressHUD hideHUDForView:strongSelf];
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD hideHUDForView:strongSelf];
+        
+    }];
+}
+
+- (void)requestOtherUserVideo:(NSString *)userId {
+    WEAKSELF
+    STRONGSELF
+    
+    [MBProgressHUD showLoadToView:self];
+    [JDWNetworkHelper POST:SPOtherVideoList parameters:@{@"page":@"1",@"limit":@"10",@"user_id":userId} success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSArray *items = responseDic[@"data"][@"items"];
+            if (items.count > 0) {
+                NSDictionary *item = items.firstObject;
+                SPCoverModel *model = [SPCoverModel modelWithJSON:item];
+                if (strongSelf.viewType == SPPursuitMeViewType) {
+                    self.pursuitMeModel.from_user.first_video = model;
+                    
+                }else{
+                    self.mePursuitModel.to_user.first_video = model;
+
+                }
+            }
+            
+            [strongSelf.listTabView reloadData];
             
         }else{
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
@@ -284,7 +323,7 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
     if (self.viewType == SPPursuitMeViewType) {//追我的人
         if (indexPath.section == 0) {
             SPCoverTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"videoCell" forIndexPath:indexPath];
-            cell.model = [DBAccountInfo sharedInstance].model;
+            cell.model = self.pursuitMeModel.from_user;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.titleLab.hidden = YES;
             cell.contentView.backgroundColor = [UIColor blackColor];
@@ -334,7 +373,7 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
         
         if (indexPath.section == 0) {
             SPCoverTabCell *cell = [tableView dequeueReusableCellWithIdentifier:@"videoCell" forIndexPath:indexPath];
-            cell.model = [DBAccountInfo sharedInstance].model;
+            cell.model = self.mePursuitModel.to_user;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.titleLab.hidden = YES;
             cell.contentView.backgroundColor = [UIColor blackColor];
@@ -399,10 +438,26 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row - self.promptArr.count >= 0) {
-//        SPBusinessCardController *business = [[SPBusinessCardController alloc] init];
-//        business.model = self.dataArr[indexPath.row - self.promptArr.count];
+    if (self.viewType == SPPursuitMeViewType) {//追我的人
+        if (self.pursuitMeModel.from_user.first_video) {
+            SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
+            play.selectIndex = indexPath.row;
+            play.datasource = @[self.pursuitMeModel.from_user].mutableCopy;
+            play.choosetype = self.pursuitMeModel.from_user.sex;
+            play.islocal = NO;
+            [[self viewController].navigationController pushViewController:play animated:YES];
+        }
+    }else {
+        if (self.mePursuitModel.to_user.first_video) {
+            SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
+//            play.selectIndex = indexPath.row;
+            play.datasource = @[self.mePursuitModel.to_user].mutableCopy;
+//            play.choosetype = self.mePursuitModel.to_user.sex;
+//            play.islocal = NO;
+            [[self viewController].navigationController pushViewController:play animated:YES];
+        }
     }
+    
     
 }
 
@@ -412,7 +467,7 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
     if ([sender.titleLabel.text isEqualToString:@"接受"]) {
         [self clearTimer];
         if (self.typede == SPPursuitTypeNotStated) {
-            [[SPFriendDBManger shareInstance] saveFriendToDB:self.pursuitMeModel.fromUser];
+            [[SPFriendDBManger shareInstance] saveFriendToDB:self.pursuitMeModel.from_user];
             
             self.typede = PursuitTypeDetailAccept;
             
@@ -434,9 +489,9 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
     if (self.typede == PursuitTypeDetailAccept) {
         if (self.sendMessageBlock) {
             if (self.viewType == SPPursuitMeViewType) {
-                self.sendMessageBlock(self.pursuitMeModel.fromUser);
+                self.sendMessageBlock(self.pursuitMeModel.from_user);
             }else{
-                self.sendMessageBlock(self.pursuitMeModel.toUser);
+                self.sendMessageBlock(self.pursuitMeModel.to_user);
             }
         }
     }
@@ -459,14 +514,14 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
         if (self.viewType == SPPursuitMeViewType) {
             self.typede = SPPursuitTypeRefuse;
             [self.listTabView reloadData];
-            [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.pursuitMeModel.fromUser.userId]];
-            [[SPFriendDBManger shareInstance] deleteFriend:self.pursuitMeModel.fromUser.userId];
+            [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.pursuitMeModel.from_user.userId]];
+            [[SPFriendDBManger shareInstance] deleteFriend:self.pursuitMeModel.from_user.userId];
         }else{
 #warning 这里需要上传数据接口，告诉服务器拒绝了对方
             self.typede = SPPursuitTypeNone;
             [self.listTabView reloadData];
-            [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.mePursuitModel.toUser.userId]];
-            [[SPFriendDBManger shareInstance] deleteFriend:self.mePursuitModel.toUser.userId];
+            [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.mePursuitModel.to_user.userId]];
+            [[SPFriendDBManger shareInstance] deleteFriend:self.mePursuitModel.to_user.userId];
         }
         
     }

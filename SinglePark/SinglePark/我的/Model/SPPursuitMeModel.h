@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) int status;
 
 @property (nonatomic, copy) NSString *voice;
-@property (nonatomic, strong) SPPersonModel *fromUser;
-@property (nonatomic, strong) SPPersonModel *toUser;
+@property (nonatomic, strong) SPPersonModel *from_user;
+@property (nonatomic, strong) SPPersonModel *to_user;
 
 @property (nonatomic, copy) NSString *created_at;
 @property (nonatomic, copy) NSString *updated_at;

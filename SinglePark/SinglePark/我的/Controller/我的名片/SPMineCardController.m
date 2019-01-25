@@ -85,7 +85,6 @@
         
     } failure:^(NSError *error) {
         [MBProgressHUD showMessage:Networkerror];
-        [MBProgressHUD showAutoMessage:Networkerror];
         [MBProgressHUD hideHUDForView:strongSelf.view];
         
     }];

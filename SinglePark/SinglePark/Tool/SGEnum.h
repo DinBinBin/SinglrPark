@@ -27,9 +27,11 @@ typedef NS_ENUM(NSInteger,FriendType) {
 typedef NS_ENUM(NSInteger, SPPursuitType) {
     SPPursuitTypeNone,                  // 没有要追的人
     SPPursuitTypeNotStated,             // 未表态
-    SPPursuitTypeOutTime,               // 未表态而且超时了
-    SPPursuitTypeRefuse,                // 拒绝
     PursuitTypeDetailAccept,            // 接受
+    SPPursuitTypeRefuse,                // 拒绝
+    SPPursuitTypeOutTime,               // 未表态而且超时了
+    
+    
 };
 
 typedef NS_ENUM(NSInteger, SPPursuitViewType) {

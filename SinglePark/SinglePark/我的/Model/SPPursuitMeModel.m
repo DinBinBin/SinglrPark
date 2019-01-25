@@ -14,8 +14,8 @@
 }
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"fromUser" : SPPersonModel.class,
-             @"toUser" : SPPersonModel.class
+    return @{@"from_user" : SPPersonModel.class,
+             @"to_user" : SPPersonModel.class
              };
 }
 @end

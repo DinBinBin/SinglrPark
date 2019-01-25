@@ -130,7 +130,7 @@
         STRONGSELF
         [_nextStepBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
 
-            if (strongSelf.userNameField.text.length==0) {
+            if (strongSelf.userNameField.text.length==0 || [strongSelf.userNameField.text isEqualToString:@""]) {
                 [MBProgressHUD showMessage:@"请输入昵称"];
                 return ;
             }

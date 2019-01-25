@@ -259,7 +259,7 @@
             /** 注册融云 */
             [strongSelf registRYAPI:model.rc_token];
         }else{
-            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+//            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
             
         }
         
