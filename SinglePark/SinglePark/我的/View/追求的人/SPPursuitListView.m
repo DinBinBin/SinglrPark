@@ -473,7 +473,7 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
             
             RCTextMessage *txt = [RCTextMessage messageWithContent:@"我已经成为你的好友了，咱们开始聊天吧！"];
             
-            [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:@"9" content:txt pushContent:nil pushData:nil success:^(long messageId) {
+            [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.pursuitMeModel.from_user.userId] content:txt pushContent:nil pushData:nil success:^(long messageId) {
                 NSLog(@"messageId:%ld",messageId);
             } error:^(RCErrorCode nErrorCode, long messageId) {
                 
