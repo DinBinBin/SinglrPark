@@ -277,7 +277,30 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
     }];
 }
 
-#pragma mark ----UITableViewDataSource
+- (void)updateFollowInfo:(NSDictionary *)parma success:(HttpRequestSuccess)success{
+    WEAKSELF
+    STRONGSELF
+    
+    [MBProgressHUD showLoadToView:self];
+    [JDWNetworkHelper POST:SPURL_API_Follow_update parameters:parma success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            
+            success(responseObject);
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        [MBProgressHUD hideHUDForView:strongSelf];
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD hideHUDForView:strongSelf];
+        
+    }];
+}
+
+#pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (self.typede == SPPursuitTypeNone) {
         return 2;
@@ -327,6 +350,7 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.titleLab.hidden = YES;
             cell.contentView.backgroundColor = [UIColor blackColor];
+            cell.nickeLab.textColor = [UIColor whiteColor];
             return cell;
         }else if (indexPath.section == 1) {// 提示状态文字
             UITableViewCell *cell = [[UITableViewCell alloc] init];
@@ -466,20 +490,26 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
 - (void)acceptClick:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"接受"]) {
         [self clearTimer];
+        WEAKSELF
+        STRONGSELF
         if (self.typede == SPPursuitTypeNotStated) {
-            [[SPFriendDBManger shareInstance] saveFriendToDB:self.pursuitMeModel.from_user];
-            
-            self.typede = PursuitTypeDetailAccept;
-            
-            RCTextMessage *txt = [RCTextMessage messageWithContent:@"我已经成为你的好友了，咱们开始聊天吧！"];
-            
-            [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.pursuitMeModel.from_user.userId] content:txt pushContent:nil pushData:nil success:^(long messageId) {
-                NSLog(@"messageId:%ld",messageId);
-            } error:^(RCErrorCode nErrorCode, long messageId) {
+            int itmeId = self.pursuitMeModel.itemId?:1;
+            NSDictionary *parma = @{@"id":[NSString stringWithFormat:@"%d",itmeId],
+                                    @"status":@"2"
+                                    };
+            [self updateFollowInfo:parma success:^(id responseObject) {
+                [[SPFriendDBManger shareInstance] saveFriendToDB:self.pursuitMeModel.from_user];
                 
+                RCTextMessage *txt = [RCTextMessage messageWithContent:@"我已经成为你的好友了，咱们开始聊天吧！"];
+                
+                [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.pursuitMeModel.from_user.userId] content:txt pushContent:nil pushData:nil success:^(long messageId) {
+                    NSLog(@"messageId:%ld",messageId);
+                } error:^(RCErrorCode nErrorCode, long messageId) {
+                    
+                }];
+                
+                [strongSelf requestData];
             }];
-            
-            [self.listTabView reloadData];
         }
     }
 }
@@ -511,17 +541,32 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
 //不合适,删除会话列表
 - (void)noAccpet:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"不合适"]) {
+        WEAKSELF
+        STRONGSELF
         if (self.viewType == SPPursuitMeViewType) {
-            self.typede = SPPursuitTypeRefuse;
-            [self.listTabView reloadData];
-            [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.pursuitMeModel.from_user.userId]];
-            [[SPFriendDBManger shareInstance] deleteFriend:self.pursuitMeModel.from_user.userId];
+            int itmeId = self.pursuitMeModel.itemId?:1;
+            NSDictionary *parma = @{@"id":[NSString stringWithFormat:@"%d",itmeId],
+                                    @"status":@"3"
+                                    };
+            [self updateFollowInfo:parma success:^(id responseObject) {
+
+                [strongSelf requestData];
+                [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",strongSelf.pursuitMeModel.from_user.userId]];
+                [[SPFriendDBManger shareInstance] deleteFriend:self.pursuitMeModel.from_user.userId];
+            }];
+            
         }else{
-#warning 这里需要上传数据接口，告诉服务器拒绝了对方
-            self.typede = SPPursuitTypeNone;
-            [self.listTabView reloadData];
-            [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.mePursuitModel.to_user.userId]];
-            [[SPFriendDBManger shareInstance] deleteFriend:self.mePursuitModel.to_user.userId];
+
+            int itmeId = self.mePursuitModel.itemId?:1;
+            NSDictionary *parma = @{@"id":[NSString stringWithFormat:@"%d",itmeId],
+                                    @"status":@"3"
+                                    };
+            [self updateFollowInfo:parma success:^(id responseObject) {
+                [strongSelf requestData];
+                [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",self.mePursuitModel.to_user.userId]];
+                [[SPFriendDBManger shareInstance] deleteFriend:self.mePursuitModel.to_user.userId];
+            }];
+            
         }
         
     }

@@ -13,7 +13,6 @@
 
 @interface SPCoverTabCell()
 @property (nonatomic,strong)UIButton *headBtn;
-@property (nonatomic,strong)UILabel *nickeLab;
 @property (nonatomic,strong)UIImageView *sexImg;
 @property (nonatomic,strong)UIImageView *coverImg;
 @property (nonatomic,strong)UIImageView *promptImg;

@@ -46,8 +46,9 @@
         _number = number;
         self.myHunterLab.text = [NSString stringWithFormat:@"我的追求者(%ld)",number.count];
         for (int i = 0; i<number.count; i++) {
-            UIImageView *headimg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:number[i]]];
+            UIImageView *headimg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
             [self addSubview:headimg];
+            SPPersonModel *model = number[i];
             
             [headimg mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.centerY.equalTo(self.myHunterLab);
@@ -55,6 +56,7 @@
                 make.width.height.mas_equalTo(40);
             }];
             [headimg setCornerRadius];
+            [headimg sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"logo"]];
         }
     }
     

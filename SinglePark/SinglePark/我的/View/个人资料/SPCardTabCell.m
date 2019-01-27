@@ -179,7 +179,7 @@
 
 
 - (void)setModel:(SPPersonModel *)model{
-    if (_model != model) {
+//    if (_model != model) {
         _model = model;
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_model.avatar] placeholderImage:ImageNamed(@"logo") options:SDWebImageRefreshCached];
 
@@ -189,7 +189,7 @@
         self.didian.text = _model.didian;
         self.singer.text = _model.singer?_model.singer:nil;
         self.pursuitView.number = _model.number;
-    }
+//    }
 }
 
 

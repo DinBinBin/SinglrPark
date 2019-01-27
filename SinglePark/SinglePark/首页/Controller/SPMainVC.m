@@ -184,16 +184,40 @@
 
 // 弹出筛选条件
 - (void)selectTerm{
-    [JDWPopMenuView showWithItems:@[@{@"title":@"只看女生",@"imageName":@"iconWomen"},
-                                    @{@"title":@"只看男生",@"imageName":@"iconMen"},
-                                    @{@"title":@"查看全部",@"imageName":@"iconAll"},
-                                    @{@"title":@"取消",@"imageName":@"iconCancel"}
-                                    ]
-                            width:125
-                 triangleLocation:CGPointMake(kScreenW-40, kNavigationHeight)
-                           action:^(NSInteger index) {
-                               NSLog(@"点击了第%ld行",index);
-                           }];
+    int sex = [DBAccountInfo sharedInstance].model.sex;
+    if (sex == 1) {//男
+        [JDWPopMenuView showWithItems:@[@{@"title":@"只看女生",@"imageName":@"iconWomen"},
+                                        @{@"title":@"查看全部",@"imageName":@"iconAll"},
+                                        @{@"title":@"取消",@"imageName":@"iconCancel"}
+                                        ]
+                                width:125
+                     triangleLocation:CGPointMake(kScreenW-40, kNavigationHeight)
+                               action:^(NSInteger index) {
+                                   NSLog(@"点击了第%ld行",index);
+                               }];
+    }else if (sex == 2){
+        [JDWPopMenuView showWithItems:@[@{@"title":@"只看男生",@"imageName":@"iconMen"},
+                                        @{@"title":@"查看全部",@"imageName":@"iconAll"},
+                                        @{@"title":@"取消",@"imageName":@"iconCancel"}
+                                        ]
+                                width:125
+                     triangleLocation:CGPointMake(kScreenW-40, kNavigationHeight)
+                               action:^(NSInteger index) {
+                                   NSLog(@"点击了第%ld行",index);
+                               }];
+    }else{//未设置
+        [JDWPopMenuView showWithItems:@[@{@"title":@"只看女生",@"imageName":@"iconWomen"},
+                                        @{@"title":@"只看男生",@"imageName":@"iconMen"},
+                                        @{@"title":@"查看全部",@"imageName":@"iconAll"},
+                                        @{@"title":@"取消",@"imageName":@"iconCancel"}
+                                        ]
+                                width:125
+                     triangleLocation:CGPointMake(kScreenW-40, kNavigationHeight)
+                               action:^(NSInteger index) {
+                                   NSLog(@"点击了第%ld行",index);
+                               }];
+    }
+    
     
 }
 

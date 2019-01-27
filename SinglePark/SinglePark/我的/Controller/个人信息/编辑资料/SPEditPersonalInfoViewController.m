@@ -376,7 +376,15 @@
     cell.detailTextLabel.font = Font16;
     cell.textLabel.text = self.titleArr[indexPath.section][indexPath.row];
     cell.detailTextLabel.text = self.detailArr[indexPath.section][indexPath.row];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }else{
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
 
     
     return cell;
@@ -404,17 +412,17 @@
         if(indexPath.section == 1){
             
             if (indexPath.row == 0) {//修改性别
-                vc.type = SPSexEditType;
-                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
-                    if ([str isEqualToString:@"男"]) {
-                        strongSelf.model.sex = 1;
-
-                    }else{
-                        strongSelf.model.sex = 2;
-                    }
-                    [strongSelf reloadDataSource];
-                };
-                [self.navigationController pushViewController:vc animated:YES];
+//                vc.type = SPSexEditType;
+//                vc.SPCallBackStringBlock = ^(NSString * _Nonnull str) {
+//                    if ([str isEqualToString:@"男"]) {
+//                        strongSelf.model.sex = 1;
+//
+//                    }else{
+//                        strongSelf.model.sex = 2;
+//                    }
+//                    [strongSelf reloadDataSource];
+//                };
+//                [self.navigationController pushViewController:vc animated:YES];
             }else{//修改生日日期
                 
                 [self.view addSubview:self.fakeTextField];

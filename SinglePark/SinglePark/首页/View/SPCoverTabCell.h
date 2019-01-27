@@ -13,5 +13,6 @@
 
 @property (nonatomic,strong)SPPersonModel *model;
 @property (nonatomic,strong)UILabel *titleLab;
+@property (nonatomic,strong)UILabel *nickeLab;
 
 @end
