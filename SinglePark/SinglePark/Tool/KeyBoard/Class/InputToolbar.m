@@ -108,6 +108,7 @@ static InputToolbar* _instance = nil;
     self.textInput.layer.cornerRadius = 3;
     self.textInput.layer.masksToBounds = YES;
     self.textInput.returnKeyType = UIReturnKeySend;
+//    self.textInput setTextco
     self.textInput.enablesReturnKeyAutomatically = YES;
     self.textInput.delegate = self;
     [self addSubview:self.textInput];
@@ -117,7 +118,7 @@ static InputToolbar* _instance = nil;
     
     self.sendBtn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.textInput.frame) + 15, 9, 45, 30)];
     [self.sendBtn setTitle:@"发送" forState:UIControlStateNormal];
-    self.sendBtn.backgroundColor = HexCOLOR(0x3BBFF6);
+    self.sendBtn.backgroundColor = ThemeColor;
     self.sendBtn.titleLabel.font = FONT(15);
     [self.sendBtn setCornerRadius:5];
     [self.sendBtn addTarget:self action:@selector(sendmessage) forControlEvents:UIControlEventTouchUpInside];
@@ -222,6 +223,7 @@ static InputToolbar* _instance = nil;
         self.textUpload.text = nil;
         self.textInput.height = 36;
         self.height = InputToolbarHeight;
+        [self endEditing:YES];
         return NO;
     }
     NSMutableString *mString = [NSMutableString stringWithString:self.textUpload.text];
@@ -294,7 +296,7 @@ static InputToolbar* _instance = nil;
         self.textUpload.text = nil;
         self.textInput.height = 36;
         self.height = InputToolbarHeight;
-
+        [self endEditing:YES];
     }else{
         [MBProgressHUD showMessage:@"输入不能为空"];
     }

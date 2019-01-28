@@ -126,7 +126,7 @@
 //        self.titleLab.clipsToBounds = YES;
 //        [self.headBtn setImage:[UIImage imageNamed:_model.head] forState:UIControlStateNormal];
         self.textLab.text = _model.content;
-        [self.goodBtn setTitle:[NSString stringWithFormat:@"  %@",_model.gooder] forState:UIControlStateNormal];
+//        [self.goodBtn setTitle:[NSString stringWithFormat:@"  %@",_model.gooder] forState:UIControlStateNormal];
 
 //        self.sexImg.image = [UIImage imageNamed:_model.sex];
 //        self.coverImg.image = [UIImage imageNamed:_model.videoCover];

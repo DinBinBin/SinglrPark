@@ -135,8 +135,13 @@
         WEAKSELF
         STRONGSELF
         _commentTabView.AnswerComment = ^(SPMessageModel * _Nonnull model) {
-            strongSelf.answerModel = model;
-            strongSelf.inputToolbar.textInput.text = @"回复";
+            if ([strongSelf.infoModel.user_id floatValue] == [DBAccountInfo sharedInstance].model.userId) {
+                strongSelf.answerModel = model;
+                strongSelf.inputToolbar.textInput.text = @"回复";
+            }else{
+                [MBProgressHUD showMessage:@"只能视频作者回复"];
+                
+            }
         };
     }
     return _commentTabView;
@@ -255,24 +260,5 @@
     
 }
 
-
-//// 获取评论列表
-//- (void)morecomments{
-//    NSDictionary *params = @{@"video_id":self.infoModel.videoId,
-//                             };
-//    [JDWNetworkHelper POST:SPComments parameters:params success:^(id responseObject) {
-//        NSDictionary *responseDic = (NSDictionary *)responseObject;
-//        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-//            self.dataArr = [[SPPersonModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
-//        }else{
-//            [MBProgressHUD showMessage:responseDic[@"messages"]];
-//        }
-//
-//    } failure:^(NSError *error) {
-//        [MBProgressHUD showMessage:Networkerror];
-//    }];
-//
-//
-//}
 
 @end
