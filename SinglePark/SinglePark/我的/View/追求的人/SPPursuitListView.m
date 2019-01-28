@@ -66,10 +66,8 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
 }
 
 - (void)dealloc {
-    // 废除定时器
+    [kCountDownManager removeAllSource];
     [kCountDownManager invalidate];
-    // 清空时间差
-    [kCountDownManager reload];
 }
 
 - (void)clearTimer {

@@ -119,8 +119,7 @@
     if (sw.on) {
         //判断用户定位服务是否开启
         if ([CLLocationManager locationServicesEnabled]) {
-            MFMapManager *manager = [MFMapManager sharedInstance];
-            [manager start];
+            [self getLocation];
             
         }else {
             //不能定位用户的位置

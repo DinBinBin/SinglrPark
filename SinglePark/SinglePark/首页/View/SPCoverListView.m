@@ -60,31 +60,34 @@
             break;
     }
     
-//    NSDictionary *parms = @{@"":@""};
-    NSDictionary *dic = @{@"head":@"logo",
-                          @"distance":@"距离----",
-                          @"nickName":@"昵称----",
-                          @"sex":@"nv",
-                          @"videoCover":@"5"};
-//    SPCoverModel *model = [SPCoverModel modelWithJSON:dic];
-//    [self.dataArr addObject:model];
-//    [self.dataArr addObject:model];
-//    [self.dataArr addObject:model];
-//    [self.dataArr addObject:model];
-    
+    NSString *sex = @"";
+    int sexNum = [JDWUserInfoDB userInfo].sex;
+    if (sexNum == 1) {
+        sex = @"2";
+    }else if (sexNum == 2) {
+        sex = @"1";
+    }else {
+        sex = @"0";
+    }
+
     self.dataArr = [NSMutableArray array];
 //    获取视频列表
     self.num = 1;
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",self.num],@"page",@"10",@"limit", nil];
-    if (self.islocal) {  //是本地
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   [NSString stringWithFormat:@"%ld",(long)self.num],@"page",
+                                   @"10",@"limit",
+                                   sex,@"sex",
+                                   nil];
+    if (self.islocal) {  //是附近
         [params setObject:[NSString stringWithFormat:@"%f",[DBAccountInfo sharedInstance].model.longitude] forKey:@"longitude"];
         [params setObject:[NSString stringWithFormat:@"%f",[DBAccountInfo sharedInstance].model.latitude] forKey:@"latitude"];
 
     }
     
     
-    
-    [JDWNetworkHelper POST:PTURL_API_Index parameters:params success:^(id responseObject) {
+    NSString *url = self.islocal ? PTURL_API_Nearby : PTURL_API_Index;
+    [JDWNetworkHelper POST:url parameters:params success:^(id responseObject) {
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
            self.dataArr = [[SPPersonModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
@@ -189,18 +192,34 @@
             break;
     }
     
+    NSString *sex = @"";
+    int sexNum = [JDWUserInfoDB userInfo].sex;
+    if (sexNum == 1) {
+        sex = @"2";
+    }else if (sexNum == 2) {
+        sex = @"1";
+    }else {
+        sex = @"0";
+    }
+    
+    self.dataArr = [NSMutableArray array];
     //    获取视频列表
-    self.num++;
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%ld",self.num],@"page",@"10",@"limit", nil];
-    if (self.islocal) {  //是本地
+    self.num = 1;
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   [NSString stringWithFormat:@"%ld",(long)self.num],@"page",
+                                   @"10",@"limit",
+                                   sex,@"sex",
+                                   nil];
+    if (self.islocal) {  //是附近
         [params setObject:[NSString stringWithFormat:@"%f",[DBAccountInfo sharedInstance].model.longitude] forKey:@"longitude"];
         [params setObject:[NSString stringWithFormat:@"%f",[DBAccountInfo sharedInstance].model.latitude] forKey:@"latitude"];
         
     }
     
     
-    
-    [JDWNetworkHelper POST:PTURL_API_Index parameters:params success:^(id responseObject) {
+    NSString *url = self.islocal ? PTURL_API_Nearby : PTURL_API_Index;
+    [JDWNetworkHelper POST:url parameters:params success:^(id responseObject) {
         NSDictionary *responseDic = (NSDictionary *)responseObject;
         [self.listTabView.mj_footer endRefreshing ];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {

@@ -65,6 +65,8 @@
                                                     @(ConversationType_APPSERVICE),
                                                     @(ConversationType_SYSTEM)]];
     NSLog(@"%d",count);
+    
+    [self getLocation];
 }
 
 
@@ -91,6 +93,7 @@
     } failure:^(NSError *error) {
         [MBProgressHUD showAutoMessage:Networkerror];
     }];
+    
 }
 
 - (void)registRYAPI:(NSString *)rcToken {
@@ -146,7 +149,7 @@
 
 - (void)setNavView{
     self.navigationItem.titleView = self.segmentControl;
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectTerm)];
+//    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectTerm)];
     
     [self.view addSubview:self.mainScrollView];
     [self.mainScrollView addSubview:self.leftView];
@@ -184,41 +187,16 @@
 
 // 弹出筛选条件
 - (void)selectTerm{
-    int sex = [DBAccountInfo sharedInstance].model.sex;
-    if (sex == 1) {//男
-        [JDWPopMenuView showWithItems:@[@{@"title":@"只看女生",@"imageName":@"iconWomen"},
-                                        @{@"title":@"查看全部",@"imageName":@"iconAll"},
-                                        @{@"title":@"取消",@"imageName":@"iconCancel"}
-                                        ]
-                                width:125
-                     triangleLocation:CGPointMake(kScreenW-40, kNavigationHeight)
-                               action:^(NSInteger index) {
-                                   NSLog(@"点击了第%ld行",index);
-                               }];
-    }else if (sex == 2){
-        [JDWPopMenuView showWithItems:@[@{@"title":@"只看男生",@"imageName":@"iconMen"},
-                                        @{@"title":@"查看全部",@"imageName":@"iconAll"},
-                                        @{@"title":@"取消",@"imageName":@"iconCancel"}
-                                        ]
-                                width:125
-                     triangleLocation:CGPointMake(kScreenW-40, kNavigationHeight)
-                               action:^(NSInteger index) {
-                                   NSLog(@"点击了第%ld行",index);
-                               }];
-    }else{//未设置
-        [JDWPopMenuView showWithItems:@[@{@"title":@"只看女生",@"imageName":@"iconWomen"},
-                                        @{@"title":@"只看男生",@"imageName":@"iconMen"},
-                                        @{@"title":@"查看全部",@"imageName":@"iconAll"},
-                                        @{@"title":@"取消",@"imageName":@"iconCancel"}
-                                        ]
-                                width:125
-                     triangleLocation:CGPointMake(kScreenW-40, kNavigationHeight)
-                               action:^(NSInteger index) {
-                                   NSLog(@"点击了第%ld行",index);
-                               }];
-    }
-    
-    
+//    [JDWPopMenuView showWithItems:@[@{@"title":@"只看女生",@"imageName":@"iconWomen"},
+//                                    @{@"title":@"只看男生",@"imageName":@"iconMen"},
+//                                    @{@"title":@"查看全部",@"imageName":@"iconAll"},
+//                                    @{@"title":@"取消",@"imageName":@"iconCancel"}
+//                                    ]
+//                            width:125
+//                 triangleLocation:CGPointMake(kScreenW-40, kNavigationHeight)
+//                           action:^(NSInteger index) {
+//                               NSLog(@"点击了第%ld行",index);
+//                           }];
 }
 
 

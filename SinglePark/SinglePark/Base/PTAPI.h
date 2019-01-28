@@ -60,6 +60,8 @@
 #define SPURL_API_Img(img) [@"http://images.wuchenge.com" stringByAppendingPathComponent:img]
 //首页接口
 #define PTURL_API_Index [NSString stringWithFormat:@"%@/home",BASE_HttpURL]
+//首页附近
+#define PTURL_API_Nearby [NSString stringWithFormat:@"%@/nearby",BASE_HttpURL]
 //发布视频接口
 #define SPSendVideo [NSString stringWithFormat:@"%@/video/create",BASE_HttpURL]
 //视频详情

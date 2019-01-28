@@ -153,10 +153,14 @@
         self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
         //计算距离
         CLLocation *orig=[[CLLocation alloc] initWithLatitude:[DBAccountInfo sharedInstance].model.latitude longitude:[DBAccountInfo sharedInstance].model.longitude];
-        CLLocation* dist=[[CLLocation alloc] initWithLatitude:_model.latitude longitude:_model.longitude];;
+        CLLocation* dist=[[CLLocation alloc] initWithLatitude:_model.latitude longitude:_model.longitude];
         
         CLLocationDistance kilometers = ([orig distanceFromLocation:dist]/1000.00);
-        self.titleLab.text = [NSString stringWithFormat:@"%.f公里",kilometers];
+        if (_model.latitude == 0 && _model.longitude == 0) {
+            self.titleLab.text = @"暂无距离";
+        }else{
+            self.titleLab.text = [NSString stringWithFormat:@"%.f公里",kilometers];
+        }
         
         if (_model.first_video) {
             
