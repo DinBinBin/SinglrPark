@@ -112,7 +112,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     SPCoverTabCell *cell = [tableView dequeueReusableCellWithIdentifier:self.coverStr forIndexPath:indexPath];
-    cell.model = self.dataArr[indexPath.row];
+    if (self.dataArr.count > 0) {
+        cell.model = self.dataArr[indexPath.row];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -202,9 +204,8 @@
         sex = @"0";
     }
     
-    self.dataArr = [NSMutableArray array];
     //    获取视频列表
-    self.num = 1;
+    self.num++;
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    [NSString stringWithFormat:@"%ld",(long)self.num],@"page",

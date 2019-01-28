@@ -40,7 +40,9 @@
 - (void)requestFollowTos {
     WEAKSELF
     STRONGSELF
-    
+    if (!self.model.userId) {
+        return;
+    }
     [MBProgressHUD showLoadToView:self.view];
     [JDWNetworkHelper POST:SPURL_API_Follow_otherTos parameters:@{@"page":@"1",@"limit":@"10",@"user_id":[NSString stringWithFormat:@"%d",self.model.userId]} success:^(id responseObject) {
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
@@ -52,8 +54,6 @@
                 strongSelf.model.number = @[model];
                 [strongSelf.listTabView reloadData];
             }
-            
-            [strongSelf.listTabView reloadData];
             
         }else{
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
@@ -80,6 +80,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         SPCardTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr forIndexPath:indexPath];
+        cell.isMine = NO;
         cell.model = self.model;
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;

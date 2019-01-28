@@ -545,9 +545,7 @@
         return;
     }
     
-    //保存用户信息
-    [DBAccountInfo sharedInstance].model=self.model;
-    [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
+    
 
     NSDictionary *parsms = @{
                              @"avatar":self.qiniuToken ?: @"",
@@ -574,7 +572,9 @@
         [MBProgressHUD hideHUDForView:strongSelf.view];
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            //            [MBProgressHUD showMessage:@"修改成功"];
+            //修改成功，保存用户到本地
+            [DBAccountInfo sharedInstance].model=self.model;
+            [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
         }else{
             [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
         }

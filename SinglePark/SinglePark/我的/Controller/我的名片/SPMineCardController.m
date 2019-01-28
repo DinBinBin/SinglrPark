@@ -43,6 +43,9 @@
     }];
     
     self.hideNavigationLine = YES;
+    
+    [self requestFollowTos];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -55,6 +58,35 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     self.hideNavigationLine = YES;
+}
+
+- (void)requestFollowTos {
+    WEAKSELF
+    STRONGSELF
+    
+    [MBProgressHUD showLoadToView:self.view];
+    [JDWNetworkHelper POST:SPURL_API_Follow_otherTos parameters:@{@"page":@"1",@"limit":@"10",@"user_id":[NSString stringWithFormat:@"%d",self.model.userId]} success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            NSArray *items = responseDic[@"data"][@"items"];
+            if (items.count > 0) {
+                NSDictionary *item = items.firstObject;
+                SPPersonModel *model = [SPPersonModel modelWithJSON:item[@"from_user"]];
+                strongSelf.model.number = @[model];
+                [strongSelf.listTabView reloadData];
+            }
+                        
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            
+        }
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD hideHUDForView:strongSelf.view];
+        
+    }];
 }
 
 - (void)requestdata{
@@ -105,6 +137,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         SPCardTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr forIndexPath:indexPath];
+        cell.isMine = YES;
         cell.model =  self.model;
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;

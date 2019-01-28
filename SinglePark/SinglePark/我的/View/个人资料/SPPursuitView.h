@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SPPursuitView : UIView
 
 @property (nonatomic,strong)NSArray *number;
-
+@property (nonatomic,assign)BOOL isMine;
+@property (nonatomic,assign)int sex;
 @end
 
 NS_ASSUME_NONNULL_END

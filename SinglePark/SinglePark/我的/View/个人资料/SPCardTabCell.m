@@ -186,8 +186,11 @@
         self.nickeLab.text = _model.nickName;
         self.sexImg.image = [UIImage imageNamed:[NSString stringWithFormat:@"%d",_model.sex]];
         self.occupation.text = _model.job.firstObject;
+
         self.didian.text = _model.didian;
         self.singer.text = _model.singer?_model.singer:nil;
+        self.pursuitView.isMine = self.isMine;
+        self.pursuitView.sex = _model.sex;
         self.pursuitView.number = _model.number;
 //    }
 }
