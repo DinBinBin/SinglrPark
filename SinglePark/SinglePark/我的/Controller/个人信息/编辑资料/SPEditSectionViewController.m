@@ -163,12 +163,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        cell.textLabel.font = Font14;
-        cell.textLabel.textColor = SecondWordColor;
-    }
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+    cell.textLabel.font = Font14;
+    cell.textLabel.textColor = SecondWordColor;
     
     if (self.type == SPJobEditType || self.type == SPUnitEditType || self.type == SPUniversityEditType) {
         if (indexPath.section == 0) {
@@ -232,6 +230,7 @@
         _tableView.dataSource = self;
         _tableView.backgroundColor = PTBackColor;
         _tableView.tableFooterView = [[UIView alloc] init];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     }
     return _tableView;
 }
