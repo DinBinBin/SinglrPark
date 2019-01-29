@@ -66,8 +66,11 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
 }
 
 - (void)dealloc {
-    [kCountDownManager removeAllSource];
+    [kCountDownManager removeSourceWithIdentifier:OYMultipleTableSource1];
+    [kCountDownManager removeSourceWithIdentifier:OYMultipleTableSource2];
     [kCountDownManager invalidate];
+    // 清空时间差
+    [kCountDownManager reload];
 }
 
 - (void)clearTimer {
@@ -92,6 +95,7 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
                 
                 self.currentInt1 = 12*60*60;
                 self.vocieCell.voiceUrl = self.pursuitMeModel.voice;
+                self.OYModel1.count = self.currentInt1;
 
                 self.vocieCell.model = self.OYModel1;
                 WEAKSELF
@@ -147,6 +151,7 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
                 [upCell.mybutton setEnabled:NO];
                 
                 self.currentInt2 = 12*60*60;
+                self.OYModel2.count = self.currentInt2;
                 upCell.model = self.OYModel2;
                 WEAKSELF
                 STRONGSELF
@@ -461,26 +466,27 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.viewType == SPPursuitMeViewType) {//追我的人
-        if (self.pursuitMeModel.from_user.first_video) {
-            SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
-            play.selectIndex = indexPath.row;
-            play.datasource = @[self.pursuitMeModel.from_user].mutableCopy;
-            play.choosetype = self.pursuitMeModel.from_user.sex;
-            play.islocal = NO;
-            [[self viewController].navigationController pushViewController:play animated:YES];
+        if (indexPath.section == 0) {
+            if (self.pursuitMeModel.from_user.first_video) {
+                SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
+                play.selectIndex = indexPath.row;
+                play.datasource = @[self.pursuitMeModel.from_user].mutableCopy;
+                play.choosetype = self.pursuitMeModel.from_user.sex;
+                play.islocal = NO;
+                [[self viewController].navigationController pushViewController:play animated:YES];
+            }
         }
+        
     }else {
-        if (self.mePursuitModel.to_user.first_video) {
-            SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
-//            play.selectIndex = indexPath.row;
-            play.datasource = @[self.mePursuitModel.to_user].mutableCopy;
-//            play.choosetype = self.mePursuitModel.to_user.sex;
-//            play.islocal = NO;
-            [[self viewController].navigationController pushViewController:play animated:YES];
+        if (indexPath.section == 0) {
+            if (self.mePursuitModel.to_user.first_video) {
+                SPPlayVideoController *play = [[SPPlayVideoController alloc] init];
+                play.datasource = @[self.mePursuitModel.to_user].mutableCopy;
+                [[self viewController].navigationController pushViewController:play animated:YES];
+            }
         }
     }
-    
-    
+
 }
 
 #pragma mark - action
@@ -542,8 +548,10 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
         WEAKSELF
         STRONGSELF
         if (self.viewType == SPPursuitMeViewType) {
-            int itmeId = self.pursuitMeModel.itemId?:1;
-            NSDictionary *parma = @{@"id":[NSString stringWithFormat:@"%d",itmeId],
+            if (!self.pursuitMeModel.itemId) {
+                return;
+            }
+            NSDictionary *parma = @{@"id":[NSString stringWithFormat:@"%d",self.pursuitMeModel.itemId],
                                     @"status":@"3"
                                     };
             [self updateFollowInfo:parma success:^(id responseObject) {
@@ -555,8 +563,10 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
             
         }else{
 
-            int itmeId = self.mePursuitModel.itemId?:1;
-            NSDictionary *parma = @{@"id":[NSString stringWithFormat:@"%d",itmeId],
+            if (!self.mePursuitModel.itemId) {
+                return;
+            }
+            NSDictionary *parma = @{@"id":[NSString stringWithFormat:@"%d",self.mePursuitModel.itemId],
                                     @"status":@"3"
                                     };
             [self updateFollowInfo:parma success:^(id responseObject) {
@@ -578,7 +588,6 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
         }
     }
 }
-
 
 #pragma mark - 懒加载
 
@@ -621,7 +630,6 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
 - (OYModel *)OYModel1 {
     if (!_OYModel1) {
         _OYModel1 = [[OYModel alloc] init];
-        _OYModel1.count = self.currentInt1;
     }
     return _OYModel1;
 }
@@ -629,7 +637,6 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
 - (OYModel *)OYModel2 {
     if (!_OYModel2) {
         _OYModel2 = [[OYModel alloc] init];
-        _OYModel2.count = self.currentInt2;
     }
     return _OYModel2;
 }

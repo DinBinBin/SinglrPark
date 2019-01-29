@@ -78,17 +78,17 @@
                           @"nickName":@"点赞",
                            @"messsage":@"恭喜您已通过美女认证",
                            @"time":@"14:00",
-                           @"unreadCount":@"6"};
+                           @"unreadCount":@"0"};
     NSDictionary *dic3 = @{@"head":@"message",
                           @"nickName":@"评论",
                           @"messsage":@"恭喜您已通过美女认证",
                            @"time":@"12:00",
-                           @"unreadCount":@"7"};
+                           @"unreadCount":@"0"};
     NSDictionary *dic4 = @{@"head":@"notice",
                           @"nickName":@"单身公园",
                           @"messsage":@"恭喜您已通过美女认证",
                            @"time":@"12:00",
-                           @"unreadCount":@"8"};
+                           @"unreadCount":@"0"};
     NSDictionary *dic5 = @{@"head":@"notice",
                            @"nickName":@"聊天窗口",
                            @"messsage":@"好友聊天都在这里哦",

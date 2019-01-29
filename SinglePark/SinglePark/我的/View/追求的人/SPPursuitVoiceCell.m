@@ -49,7 +49,7 @@
         return;
     }
     /// 重新赋值
-    self.timeLB.text = [NSString stringWithFormat:@"%02d小时%02d分%02d秒", countDown/3600, (countDown/60)%60, countDown%60];
+    self.timeLB.text = [NSString stringWithFormat:@"%02ld小时%02ld分%02ld秒", countDown/3600, (countDown/60)%60, countDown%60];
 }
 
 ///  重写setter方法

@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPPursuitButtonCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *mybutton;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftCons;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightCons;
+
 @property (nonatomic, copy) void(^countDownZero)(OYModel *);
 @property (nonatomic, strong) OYModel *model;
 @end

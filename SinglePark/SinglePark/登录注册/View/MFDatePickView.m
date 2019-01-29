@@ -252,7 +252,7 @@
     if (_cancelBtn == nil) {
         _cancelBtn = [[UIButton alloc] init];
         [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [_cancelBtn setTitleColor:RGBCOLOR(67, 201, 123) forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:FirstWordColor forState:UIControlStateNormal];
         [_cancelBtn.titleLabel setFont:FONT(16)];
         [_cancelBtn addTarget:self action:@selector(canelBtnDidClick) forControlEvents:UIControlEventTouchUpInside];
 
@@ -276,7 +276,7 @@
     if (_doneBtn == nil) {
         _doneBtn = [[UIButton alloc] init];
         [_doneBtn setTitle:@"完成" forState:UIControlStateNormal];
-        [_doneBtn setTitleColor:RGBCOLOR(67, 201, 123) forState:UIControlStateNormal];
+        [_doneBtn setTitleColor:FirstWordColor forState:UIControlStateNormal];
         [_doneBtn addTarget:self action:@selector(doneBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [_doneBtn.titleLabel setFont:FONT(16)];
 
