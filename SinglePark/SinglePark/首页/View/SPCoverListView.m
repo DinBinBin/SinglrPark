@@ -137,7 +137,7 @@
         play.datasource = self.dataArr;
         play.choosetype = self.choosetype;
         play.islocal = self.islocal;
-        
+        play.num = self.num;
         [[self viewController].navigationController pushViewController:play animated:YES];
 
     }else{

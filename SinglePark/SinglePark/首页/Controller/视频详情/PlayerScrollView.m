@@ -148,6 +148,8 @@
     _index = playIndex;
     
     
+    [self getinfoVideo];
+
     [self.middleImageView sd_setImageWithURL:[NSURL URLWithString:[_middleInfoModel.first_video.thumb stringByAppendingString:videoCover]]];
     
      if (self.infoModelArray.count > 1 && _index < self.infoModelArray.count - 1) {
@@ -156,8 +158,7 @@
          
     }
     
-//    获取视频详情
-    [self getinfoVideo];
+
 }
 - (void)addNewData:(NSMutableArray *)newDataArray{
     [self.infoModelArray addObjectsFromArray:newDataArray];
@@ -179,6 +180,9 @@
     _player.view.backgroundColor = [UIColor clearColor];
  
      [_player prepareToPlay];
+    
+    //    获取视频详情
+    [self getinfoVideo];
 }
 - (UIImageView *)pasuImg{
     if (_pasuImg == nil) {
@@ -248,7 +252,7 @@
     
     
 //    获取视频详情
-    [self getinfoVideo];
+//    [self getinfoVideo];
 }
 
 - (void)registNotification{
@@ -365,7 +369,6 @@
         [JDWNetworkHelper POST:SPReports parameters:params success:^(id responseObject) {
             NSDictionary *responseDic = (NSDictionary *)responseObject;
             if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-//                [self getinfoVideo];
                 [MBProgressHUD showAutoMessage:@"已举报"];
             }else{
                 [MBProgressHUD showMessage:responseDic[@"messages"]];
@@ -409,7 +412,7 @@
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
             self.transview.model = [SPVideoModel modelWithDictionary:responseDic[@"data"]];
         }else{
-            [MBProgressHUD showMessage:responseDic[@"messages"]];
+//            [MBProgressHUD showMessage:responseDic[@"messages"]];
         }
 
     } failure:^(NSError *error) {

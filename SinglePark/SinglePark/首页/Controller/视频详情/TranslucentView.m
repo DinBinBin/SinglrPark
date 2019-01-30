@@ -55,7 +55,7 @@
     if (_headBtn == nil) {
         _headBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _headBtn.tag = 1;
-        [_headBtn setImage:[UIImage imageNamed:@"4"] forState:UIControlStateNormal];
+        [_headBtn setImage:[UIImage imageNamed:@"logo"] forState:UIControlStateNormal];
         [_headBtn addTarget:self action:@selector(clickVideoBtn:) forControlEvents:UIControlEventTouchUpInside];
         
     }
