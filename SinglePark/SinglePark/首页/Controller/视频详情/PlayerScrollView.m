@@ -198,11 +198,17 @@
     if (_index == 0 && scrollView.contentOffset.y <= kScreenHeight   ) {
         scrollView.contentOffset = CGPointMake(0, kScreenHeight);
         [scrollView setContentOffset:CGPointMake(0, kScreenHeight) animated:NO];
+        if (_passCurrentPlayerIndex) {
+            _passCurrentPlayerIndex(_index);
+        }
         return;
     }
     if (_index > 0 && _index == self.infoModelArray.count-1 && scrollView.contentOffset.y > kScreenHeight) {
 //        scrollView.contentOffset = CGPointMake(0, SCREEN_HIGHT);
         [scrollView setContentOffset:CGPointMake(0, kScreenHeight) animated:NO];
+        if (_passCurrentPlayerIndex) {
+            _passCurrentPlayerIndex(_index);
+        }
         return;
     }
     
