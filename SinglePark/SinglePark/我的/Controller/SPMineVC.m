@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我";
+   
     
     [self.listTabView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);

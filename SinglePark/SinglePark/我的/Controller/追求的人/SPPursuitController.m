@@ -30,9 +30,6 @@
     
     [self requestData];
 
-    
-    
-    
     self.hideNavigationLine = YES;
     
 }

@@ -33,8 +33,8 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
 
 
 @property (nonatomic, strong) dispatch_source_t timer;
-@property (nonatomic, assign) NSInteger currentInt1; // 倒计时间
-@property (nonatomic, assign) NSInteger currentInt2; // 倒计时间
+//@property (nonatomic, assign) NSInteger currentInt1; // 倒计时间
+//@property (nonatomic, assign) NSInteger currentInt2; // 倒计时间
 
 @property (nonatomic, strong) OYModel *OYModel1;
 @property (nonatomic, strong) OYModel *OYModel2;
@@ -53,11 +53,6 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
         [self.listTabView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
-        // 启动倒计时管理
-        [kCountDownManager start];
-        // 增加倒计时源
-        [kCountDownManager addSourceWithIdentifier:OYMultipleTableSource1];
-        [kCountDownManager addSourceWithIdentifier:OYMultipleTableSource2];
         self.viewType = type;
         
         [self requestData];
@@ -93,9 +88,9 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
             {
                 self.tipLable.text = @"恭喜，有人追你啦，请在倒计时之前处理请求，否则系统会自动拒绝！";
                 
-                self.currentInt1 = 12*60*60;
+//                self.currentInt1 = 12*60*60;
                 self.vocieCell.voiceUrl = self.pursuitMeModel.voice;
-                self.OYModel1.count = self.currentInt1;
+                self.OYModel1.count = self.followed;
 
                 self.vocieCell.model = self.OYModel1;
                 WEAKSELF
@@ -150,8 +145,8 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
                 
                 [upCell.mybutton setEnabled:NO];
                 
-                self.currentInt2 = 12*60*60;
-                self.OYModel2.count = self.currentInt2;
+//                self.follow = 12*60*60;
+                self.OYModel2.count = self.follow;
                 upCell.model = self.OYModel2;
                 WEAKSELF
                 STRONGSELF
@@ -221,12 +216,22 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
                     strongSelf.pursuitMeModel = [SPPursuitMeModel modelWithJSON:item];
                     strongSelf.typede = strongSelf.pursuitMeModel.status;
                     [strongSelf requestOtherUserVideo:[NSString stringWithFormat:@"%d",strongSelf.pursuitMeModel.from_user.userId]];
-
+                    self.followed = [ProjectHelp transTotimeSp:item[@"created_at"]];
                 }else{
                     strongSelf.mePursuitModel = [SPPursuitMeModel modelWithJSON:item];
                     strongSelf.typede = strongSelf.mePursuitModel.status;
                     [strongSelf requestOtherUserVideo:[NSString stringWithFormat:@"%d",strongSelf.mePursuitModel.to_user.userId]];
+                    self.follow = [ProjectHelp transTotimeSp:item[@"created_at"]];
+
                 }
+                
+                
+                // 启动倒计时管理
+                [kCountDownManager start];
+                // 增加倒计时源
+                [kCountDownManager addSourceWithIdentifier:OYMultipleTableSource1];
+                [kCountDownManager addSourceWithIdentifier:OYMultipleTableSource2];
+
             }else{
                 self.typede = SPPursuitTypeNone;//没有要追的人
             }

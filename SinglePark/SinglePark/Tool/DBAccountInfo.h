@@ -19,4 +19,9 @@
 @property (nonatomic,copy)NSString *token;
 @property (nonatomic,strong)SPPersonModel *model;
 @property (nonatomic,assign)BOOL isTouris; //是否游客登录
+
+
+
+@property (nonatomic,assign)NSInteger getmaxTime; //获得配置时间
+
 @end

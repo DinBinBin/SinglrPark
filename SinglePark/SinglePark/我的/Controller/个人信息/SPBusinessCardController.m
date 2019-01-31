@@ -43,7 +43,12 @@
     }];
     self.hideNavigationLine = YES;
     
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self requestFollowTos];
+
 }
 
 - (void)dealloc {
@@ -65,13 +70,12 @@
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
             NSArray *items = responseDic[@"data"][@"items"];
             if (items.count > 0) {
-                self.currentInt = 12*60*60;
-                
+//                self.currentInt = 12*60*60;
                 // 启动倒计时管理
+                NSDictionary *item = items.firstObject;
+                self.currentInt = [ProjectHelp transTotimeSp:item[@"created_at"]];
                 [kCountDownManager start];
                 
-                
-                NSDictionary *item = items.firstObject;
                 SPPersonModel *model = [SPPersonModel modelWithJSON:item[@"from_user"]];
                 strongSelf.model.number = @[model];
                 [strongSelf.listTabView reloadData];
@@ -172,6 +176,12 @@
             play.choosetype = self.model.sex;
             play.islocal = NO;
             [self.navigationController pushViewController:play animated:YES];
+        }
+    }else if(indexPath.section == 1){
+        if (!self.model.number) {
+            SPChasingherController *chasing = [[SPChasingherController alloc] init];
+            chasing.model = self.model;
+            [self.navigationController pushViewController:chasing animated:YES];
         }
     }
     

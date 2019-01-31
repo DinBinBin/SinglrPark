@@ -26,6 +26,7 @@
 + (CGFloat )expireInterestDay:(CGFloat )money rate:(CGFloat )rate time:(CGFloat )time; //到期还本付息 天
 + (NSArray *)cdi_imagesWithGif:(NSString *)gifNameInBoundle;
 
++(NSInteger )transTotimeSp:(NSString *)time;
 
 
 @end
