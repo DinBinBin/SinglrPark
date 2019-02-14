@@ -95,7 +95,8 @@
 //登录接口
 #define SPURL_API_Login [NSString stringWithFormat:@"%@/login",BASE_HttpURL]
 
-
+//版时间接口
+#define SPTimeEr [NSString stringWithFormat:@"%@/config/info",BASE_HttpURL]
 
 #endif /* PTAPI_h */
 

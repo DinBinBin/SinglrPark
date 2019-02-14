@@ -94,6 +94,23 @@
         [MBProgressHUD showAutoMessage:Networkerror];
     }];
     
+    
+    //    倒计时
+    [JDWNetworkHelper POST:SPTimeEr parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            //follow我追的人
+            NSString *follow = responseDic[@"data"][@"follow"] ;
+            [DBAccountInfo sharedInstance].getmaxTime = [follow integerValue];
+        }else{
+            [MBProgressHUD showMessage:responseDic[@"messages"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        
+    }];
+    
 }
 
 - (void)registRYAPI:(NSString *)rcToken {

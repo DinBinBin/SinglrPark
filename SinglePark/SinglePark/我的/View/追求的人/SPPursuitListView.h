@@ -37,6 +37,9 @@ typedef void(^SPPursuitBlock)(SPPersonModel *);
 
 - (id)initWithFrame:(CGRect)frame viewType:(SPPursuitViewType)type;
 
+@property (nonatomic, assign) NSInteger follow;
+@property (nonatomic, assign) NSInteger followed; //追我的
+- (void)requestData;
 @end
 
 NS_ASSUME_NONNULL_END

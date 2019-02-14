@@ -214,6 +214,23 @@
     return frames;
 }
 
+
++(NSInteger )transTotimeSp:(NSString *)time{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone localTimeZone]]; //设置本地时区
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *date = [dateFormatter dateFromString:time];
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[date timeIntervalSince1970]];//时间戳
+    
+    
+    NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+    
+    NSString *now = [NSString stringWithFormat:@"%ld", (long)[dat timeIntervalSince1970]];
+    
+    NSInteger lastTime = ([DBAccountInfo sharedInstance].getmaxTime - [now integerValue] + [timeSp integerValue]);
+    
+    return lastTime;
+}
 @end
 
 
