@@ -537,7 +537,7 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
 - (void)pursuitClick:(UIButton *)sender {
     if ([sender.titleLabel.text isEqualToString:@"追她"]) {
         if (self.pursuitBlock) {
-            self.pursuitBlock();
+            self.pursuitBlock(self.mePursuitModel.to_user);
         }
     }
 }

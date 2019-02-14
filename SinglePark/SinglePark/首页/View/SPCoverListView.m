@@ -97,6 +97,7 @@
             [MBProgressHUD showMessage:responseDic[@"messages"]];
         }
         [self.listTabView.mj_header endRefreshing ];
+        [self.listTabView.mj_footer endRefreshing];
     } failure:^(NSError *error) {
         [MBProgressHUD showMessage:Networkerror];
         [self.listTabView.mj_header endRefreshing ];
@@ -227,11 +228,11 @@
             
            NSArray *arr = [[SPPersonModel modelArrayWithJSON:responseDic[@"data"][@"items"]] mutableCopy];
             [self.dataArr addObjectsFromArray:arr];
-            [self.listTabView reloadData];
             if (self.num == [responseDic[@"data"][@"total"] integerValue]) {
                 [self.listTabView.mj_footer endRefreshingWithNoMoreData];
             }
-            
+            [self.listTabView reloadData];
+
         }else{
             [MBProgressHUD showMessage:responseDic[@"messages"]];
         }

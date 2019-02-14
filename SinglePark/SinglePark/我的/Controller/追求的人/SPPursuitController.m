@@ -60,9 +60,9 @@
         KEYWINDOW.rootViewController = sgTabBar;
     };
     
-    self.mePursuit.pursuitBlock = ^{
+    self.mePursuit.pursuitBlock = ^(SPPersonModel * model) {
         SPChasingherController *chasing = [[SPChasingherController alloc] init];
-        chasing.model = [DBAccountInfo sharedInstance].model;
+        chasing.model = model;
         [strongSelf.navigationController pushViewController:chasing animated:YES];
     };
     

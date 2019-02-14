@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 //};
 
 typedef void(^SPSendMessageBlock)(SPPersonModel *);
+typedef void(^SPPursuitBlock)(SPPersonModel *);
+
 
 @interface SPPursuitListView : UIView
 
@@ -29,7 +31,7 @@ typedef void(^SPSendMessageBlock)(SPPersonModel *);
 
 @property (nonatomic, copy) SPSendMessageBlock sendMessageBlock;
 @property (nonatomic, copy) SPCallBackBlock gohomeBlock;
-@property (nonatomic, copy) SPCallBackBlock pursuitBlock;
+@property (nonatomic, copy) SPPursuitBlock pursuitBlock;
 
 
 
