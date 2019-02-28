@@ -45,12 +45,12 @@
     if (_number != number && number.count) {
         _number = number;
         if (self.isMine) {
-            self.myHunterLab.text = [NSString stringWithFormat:@"我的追求者(%ld)",number.count];
+            self.myHunterLab.text = [NSString stringWithFormat:@"我的确认者(%ld)",number.count];
         }else {
             if (self.sex == 1) {
-                self.myHunterLab.text = [NSString stringWithFormat:@"他的追求者(%ld)",number.count];
+                self.myHunterLab.text = [NSString stringWithFormat:@"他的确认者(%ld)",number.count];
             }else{
-                self.myHunterLab.text = [NSString stringWithFormat:@"她的追求者(%ld)",number.count];
+                self.myHunterLab.text = [NSString stringWithFormat:@"她的确认者(%ld)",number.count];
             }
         }
         for (int i = 0; i<number.count; i++) {
@@ -71,13 +71,13 @@
         _number = number;
         if (number.count == 0) {
             if (self.isMine) {
-                self.myHunterLab.text = @"我的追求者(暂无)";
+                self.myHunterLab.text = @"我的确认者(暂无)";
             }else {
                 if (self.sex == 1) {
-                    self.myHunterLab.text = @"他的追求者(暂无)";
+                    self.myHunterLab.text = @"他的确认者(暂无)";
                     
                 }else{
-                    self.myHunterLab.text = @"她的追求者(暂无)";
+                    self.myHunterLab.text = @"她的确认者(暂无)";
                 }
             }
         }

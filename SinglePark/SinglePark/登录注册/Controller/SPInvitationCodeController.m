@@ -86,8 +86,8 @@
 
 - (UILabel *)negotiateLab{
     if (_negotiateLab == nil) {
-        _negotiateLab = [[UILabel alloc] initWithFrame:CGRectMake(20,self.nextBtn.bottom+50, kScreenWidth-40, 100)];
-        _negotiateLab.text = @"【说明】\n1.注册时必须有邀请码方可注册。\n2.邀请码来自“单身公园”官方，如需邀请码的朋友请关注单身公园微信公众号“单身公园APP”（ID：YeahotAPP）";
+        _negotiateLab = [[UILabel alloc] initWithFrame:CGRectMake(20,self.nextBtn.bottom+50, kScreenWidth-40, 200)];
+        _negotiateLab.text = @"【主持说明】\n1.单身公园坚守“真诚和靠谱”的核心价值，在当前阶段，仅对熟悉的人开放，所以需要邀请码才能注册，敬请没有邀请码的朋友多多担待！\n2.还没有获得邀请码的朋友可以上新浪微博关注“单身公园APP”（https://weibo.com/SingleParkApp）或者上豆瓣申请加入“单身公园”小组（http://www.douban.com/group/singlepark），我们会根据实际情况不定期发放一些邀请码给和我们价值理念相符的朋友。";
         _negotiateLab.numberOfLines = 0;
         _negotiateLab.textColor = TextMianColor;
         _negotiateLab.font =  FONT(Width(14));

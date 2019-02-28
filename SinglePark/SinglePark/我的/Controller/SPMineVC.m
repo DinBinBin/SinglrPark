@@ -35,7 +35,7 @@
         make.edges.equalTo(self.view);
     }];
     
-    self.titleArr = @[@[@""],@[@"我的名片",@"追求的人"],@[@"设置"]];
+    self.titleArr = @[@[@""],@[@"我的名片",@"确认的人"],@[@"设置"]];
     self.imgArr = @[@[@""],@[@"u2988",@"u2986"],@[@"u2984"]];
     
     [self requestData];

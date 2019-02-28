@@ -44,7 +44,7 @@
     img.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
     [self.view addSubview:img];
 
-    self.title = @"追她";
+    self.title = @"追TA";
     [self.view addSubview:self.backview];
     [self.backview addSubview:self.promptImg];
     [self.backview addSubview:self.promptLab];

@@ -16,7 +16,7 @@
 @interface SPWelcomeController ()<UINavigationControllerDelegate>
 
 @property (nonatomic,strong)UIImageView *backImgView;
-@property (nonatomic,strong)UIButton *touristBtn;
+//@property (nonatomic,strong)UIButton *touristBtn;
 @property (nonatomic,strong)UIButton *registerBtn;
 @property (nonatomic,strong)UIButton *loginBtn;
 
@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.backImgView];
-    [self.backImgView addSubview:self.touristBtn];
+//    [self.backImgView addSubview:self.touristBtn];
     [self.backImgView addSubview:self.registerBtn];
     [self.backImgView addSubview:self.loginBtn];
     self.navigationController.delegate = self;
@@ -39,15 +39,15 @@
 
     }];
     
-    [self.touristBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.backImgView.mas_bottom).offset(-Height(25)-KsafeTabIPhonex);
-        make.left.mas_equalTo(25);
-        make.right.equalTo(self.backImgView.mas_right).offset(-Height(25));
-        make.height.mas_equalTo(44);
-    }];
+//    [self.touristBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(self.backImgView.mas_bottom).offset(-Height(25)-KsafeTabIPhonex);
+//        make.left.mas_equalTo(25);
+//        make.right.equalTo(self.backImgView.mas_right).offset(-Height(25));
+//        make.height.mas_equalTo(44);
+//    }];
     
     [self.registerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.touristBtn.mas_top).offset(-Height(25));
+        make.bottom.equalTo(self.backImgView.mas_bottom).offset(-Height(25)-Height(25)-KsafeTabIPhonex);
         make.left.mas_equalTo(25);
         make.right.equalTo(self.backImgView.mas_right).offset(-Height(25));
         make.height.mas_equalTo(44);
@@ -63,21 +63,21 @@
 
 - (UIImageView *)backImgView{
     if (_backImgView == nil) {
-        _backImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"welcome"]];
+        _backImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"欢迎页new"]];
         _backImgView.userInteractionEnabled = YES;
     }
     return _backImgView;
 }
 
-- (UIButton *)touristBtn{
-    if (_touristBtn == nil) {
-        _touristBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        _touristBtn.backgroundColor = [UIColor whiteColor];
-        [_touristBtn setTitle:@"游客进入" forState:UIControlStateNormal];
-        [_touristBtn addTarget:self action:@selector(touristClick) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _touristBtn;
-}
+//- (UIButton *)touristBtn{
+//    if (_touristBtn == nil) {
+//        _touristBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+////        _touristBtn.backgroundColor = [UIColor whiteColor];
+//        [_touristBtn setTitle:@"游客进入" forState:UIControlStateNormal];
+//        [_touristBtn addTarget:self action:@selector(touristClick) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _touristBtn;
+//}
 
 - (UIButton *)registerBtn{
     if (_registerBtn == nil) {

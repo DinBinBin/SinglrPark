@@ -113,12 +113,12 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
                 break;
             }
             case SPPursuitTypeOutTime://未表态而且超时了
-                self.tipLable.text = @"由于您未及时处理，请求已过有效期。到现在为止还未出现新的追求者";
+                self.tipLable.text = @"由于您未及时处理，请求已过有效期。到现在为止还未出现新的确认者";
 
                 break;
                 
             case SPPursuitTypeRefuse:
-                self.tipLable.text = @"您已拒绝了ta，到现在为止还未出现新的追求者";
+                self.tipLable.text = @"您已拒绝了ta，到现在为止还未出现新的确认者";
 
                 
                 break;

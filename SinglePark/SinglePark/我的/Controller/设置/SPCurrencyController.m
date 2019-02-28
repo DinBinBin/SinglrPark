@@ -33,7 +33,7 @@
 
 - (void)getdata{
     
-    self.titleArr = @[@[@"追求功能"],
+    self.titleArr = @[@[@"确认功能"],
                       @[@"清除缓存",@"清除聊天记录"]];
     
     [self.listTabView reloadData];
@@ -123,7 +123,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (section == 1) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, kScreenW, 50)];
-        label.text = @"如果您关闭了“追求”功能，您将无法得知别人是否喜欢你；";
+        label.text = @"如果您关闭了“确认”功能，您将无法得知别人是否喜欢你；";
         label.font = Font14;
         label.textColor = SecondWordColor;
         

@@ -69,7 +69,7 @@
     
     
     NSDictionary *dic = @{@"head":@"chase",
-                          @"nickName":@"追讯",
+                          @"nickName":@"确认音讯",
                           @"messsage":@"恭喜您已通过美女认证",
                               @"time":@"12:00",
                           @"unreadCount":@"0"

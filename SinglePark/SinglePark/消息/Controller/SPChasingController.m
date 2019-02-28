@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"追讯";
+    self.title = @"确认音讯";
     self.fixedarr = [NSMutableArray arrayWithCapacity:0];
     
     [self setUI];
@@ -42,7 +42,7 @@
 - (void)getModel{
     
     NSDictionary *dic = @{@"head":@"chase",
-                          @"nickName":@"追讯",
+                          @"nickName":@"确认音讯",
                           @"messsage":@"拒绝了你",
                           @"coverimg":@"4",
                           @"time":@"12:00"};

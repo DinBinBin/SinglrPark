@@ -90,7 +90,7 @@
 
 - (UISegmentedControl *)segmentControl{
     if(_segmentControl == nil){
-        _segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"追我的人",@"我追的人"]];
+        _segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"确认我的人",@"我确认的人"]];
         _segmentControl.frame = CGRectMake((kScreenWidth-110)/2, 8, 220, 44-16);
         _segmentControl.selectedSegmentIndex = 0;
         _segmentControl.layer.masksToBounds = YES;
