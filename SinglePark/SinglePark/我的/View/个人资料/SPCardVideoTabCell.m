@@ -103,9 +103,8 @@
 }
 
 - (void)setCoverModel:(SPCoverModel *)coverModel {
-    if (_coverModel != coverModel) {
         _coverModel = coverModel;
-        if ([_coverModel.thumb isEqualToString:@""] || _coverModel.thumb == nil) {
+        if (([_coverModel.thumb isEqualToString:@""] || _coverModel.thumb) && nil && _coverModel) {
             if (_coverModel.thumb_id) {
                 [self requestThumb:_coverModel.thumb_id];
             }
@@ -114,7 +113,6 @@
 
         }
         
-    }
 }
 
 - (void)requestThumb:(NSString *)thumdId {

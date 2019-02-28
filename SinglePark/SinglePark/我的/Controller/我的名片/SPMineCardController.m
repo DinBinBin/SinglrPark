@@ -104,10 +104,13 @@
                 SPCoverModel *model = [SPCoverModel modelWithJSON:responseDic[@"data"][@"items"][0]];
                 self.coverModel = model;
                 self.model.first_video = self.coverModel;
-                [self.listTabView reloadData];
+
+            }else{
+                self.coverModel = nil;
+                self.model.first_video = nil;
 
             }
-            
+            [self.listTabView reloadData];
             
         }else{
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];

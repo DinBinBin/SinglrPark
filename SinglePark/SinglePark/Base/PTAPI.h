@@ -70,6 +70,8 @@
 #define SPUPVideo [NSString stringWithFormat:@"%@/video/up",BASE_HttpURL]
 //视频举报
 #define SPReports [NSString stringWithFormat:@"%@/reports/create",BASE_HttpURL]
+//视频删除
+#define SPDelete [NSString stringWithFormat:@"%@/video/delete",BASE_HttpURL]
 //视频评论列表
 #define SPComments [NSString stringWithFormat:@"%@/comments/list",BASE_HttpURL]
 //视频评论

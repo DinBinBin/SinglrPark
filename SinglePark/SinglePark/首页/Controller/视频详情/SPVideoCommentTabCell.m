@@ -121,10 +121,11 @@
 - (void)setModel:(SPMessageModel *)model{
     if (_model != model) {
         _model = model;
-//        self.nameLab.text = _model.nickName;
+//        self.nameLab.text = _model.user.nickName?:@"";
+        self.nameLab.text = @"作者回复";
 //        [self.titleLab.layer setCornerRadius:6];
 //        self.titleLab.clipsToBounds = YES;
-//        [self.headBtn setImage:[UIImage imageNamed:_model.head] forState:UIControlStateNormal];
+        [self.headBtn sd_setImageWithURL:[NSURL URLWithString:_model.user.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"logo"]];
         self.textLab.text = _model.content;
 //        [self.goodBtn setTitle:[NSString stringWithFormat:@"  %@",_model.gooder] forState:UIControlStateNormal];
 

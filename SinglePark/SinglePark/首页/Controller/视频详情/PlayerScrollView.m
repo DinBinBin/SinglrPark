@@ -108,10 +108,17 @@
             [KEYWINDOW addSubview:forceview];
 
         }else if (row == 4){ //举报
+            if (strongSelf.middleInfoModel.userId == [DBAccountInfo sharedInstance].model.userId ) {
+                UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:strongSelf cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"删除", nil];
+                //        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+                actionSheet.delegate = strongSelf;
+                [actionSheet showInView:strongSelf];
+            }else{
             UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:strongSelf cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"举报", nil];
             //        actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
             actionSheet.delegate = strongSelf;
             [actionSheet showInView:strongSelf];
+            }
         }
     };
     
@@ -369,21 +376,38 @@
 #pragma mark-------UIActionSheetDelegate  UIActionSheet 遵循的协议
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) { // 举报
-        NSDictionary *params = @{@"video_id":self.middleInfoModel.first_video.videoId,
-                                 @"content":@"一级举报"
-                                 };
-        [JDWNetworkHelper POST:SPReports parameters:params success:^(id responseObject) {
-            NSDictionary *responseDic = (NSDictionary *)responseObject;
-            if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-                [MBProgressHUD showAutoMessage:@"已举报"];
-            }else{
-                [MBProgressHUD showMessage:responseDic[@"messages"]];
-            }
-            
-        } failure:^(NSError *error) {
-            [MBProgressHUD showMessage:Networkerror];
-        }];
-        
+        if (self.middleInfoModel.userId == [DBAccountInfo sharedInstance].model.userId ) {
+            NSDictionary *params = @{@"id":self.middleInfoModel.first_video.videoId,
+                                     };
+            [JDWNetworkHelper POST:SPDelete parameters:params success:^(id responseObject) {
+                NSDictionary *responseDic = (NSDictionary *)responseObject;
+                if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+                    [MBProgressHUD showAutoMessage:@"已删除"];
+                    [[self viewController].navigationController popViewControllerAnimated:YES];
+                }else{
+                    [MBProgressHUD showMessage:responseDic[@"messages"]];
+                }
+                
+            } failure:^(NSError *error) {
+                [MBProgressHUD showMessage:Networkerror];
+            }];
+       
+        }else{
+            NSDictionary *params = @{@"video_id":self.middleInfoModel.first_video.videoId,
+                                     @"content":@"一级举报"
+                                     };
+            [JDWNetworkHelper POST:SPReports parameters:params success:^(id responseObject) {
+                NSDictionary *responseDic = (NSDictionary *)responseObject;
+                if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+                    [MBProgressHUD showAutoMessage:@"已举报"];
+                }else{
+                    [MBProgressHUD showMessage:responseDic[@"messages"]];
+                }
+                
+            } failure:^(NSError *error) {
+                [MBProgressHUD showMessage:Networkerror];
+            }];
+        }
     }
 }
 
