@@ -603,15 +603,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		79BA97DF21F5C9DF00EB6736 /* lame */ = {
-			isa = PBXGroup;
-			children = (
-				79BA97E021F5C9DF00EB6736 /* libmp3lame.a */,
-				79BA97E121F5C9DF00EB6736 /* lame.h */,
-			);
-			path = lame;
-			sourceTree = "<group>";
-		};
 		79CAF65421BE095800B48780 /* 编辑资料 */ = {
 			isa = PBXGroup;
 			children = (

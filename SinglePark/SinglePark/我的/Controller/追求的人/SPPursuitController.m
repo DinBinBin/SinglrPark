@@ -13,7 +13,7 @@
 #import "SGTabBarController.h"
 #import "SPChasingherController.h"
 
-@interface SPPursuitController ()<UIScrollViewDelegate>
+@interface SPPursuitController ()<UIScrollViewDelegate,UIActionSheetDelegate>
 @property(nonatomic,strong) UISegmentedControl *segmentControl;
 @property (nonatomic,strong)UIScrollView *pursuitScroll;
 @property (nonatomic,strong)SPPursuitListView *pursuitMe; // 追我的人
@@ -139,7 +139,31 @@
 //segment方法
 - (void)chageSCVaule:(UISegmentedControl *)sc{
     [self.pursuitScroll setContentOffset:CGPointMake(sc.selectedSegmentIndex*kScreenWidth, 0) animated:YES];
+    if (sc.selectedSegmentIndex == 0) {
+        if (self.pursuitMe.typede == PursuitTypeDetailAccept) {
+            self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectCover)];
+        }else{
+            self.navigationItem.rightBarButtonItem = nil;
+        }
+    }
+}
 
+- (void)selectCover {
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction * nolike = [UIAlertAction actionWithTitle:@"不合适" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//        [self openPhotoWithType:1];
+    }];
+    
+    [nolike setValue:TextMianColor forKey:@"_titleTextColor"];
+    
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style: UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    
+    [alertController addAction:nolike];
+    [alertController addAction:cancel];
+    [self showDetailViewController:alertController sender:nil];
 }
 
 #pragma mark - scrollView  代理

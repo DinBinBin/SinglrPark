@@ -517,6 +517,8 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
                     
                 }];
                 
+                [self viewController].navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectCover)];
+                
                 [strongSelf requestData];
             }];
         }

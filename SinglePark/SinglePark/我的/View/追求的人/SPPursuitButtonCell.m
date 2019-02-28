@@ -59,6 +59,7 @@
     [self countDownNotification];
 }
 
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
