@@ -145,7 +145,7 @@
             if (!timeOutModel.timeOut) {
                 NSLog(@"SingleTableVC---时间到了");
                 [weakCell.mybutton setEnabled:YES];
-                [weakCell.mybutton setTitle:@"追她" forState:UIControlStateNormal];
+                [weakCell.mybutton setTitle:@"确认一下眼神" forState:UIControlStateNormal];
 
             }
             // 标志

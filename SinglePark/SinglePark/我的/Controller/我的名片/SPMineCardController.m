@@ -149,7 +149,7 @@
     }else{
         SPCardVideoTabCell *cell  = [tableView dequeueReusableCellWithIdentifier:self.coverStr2 forIndexPath:indexPath];
         cell.coverModel = self.coverModel;
-        cell.titleLab.text = @"关于我&关于他";
+        cell.titleLab.text = @"关于我&关于TA";
         cell.backgroundColor = [UIColor clearColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         

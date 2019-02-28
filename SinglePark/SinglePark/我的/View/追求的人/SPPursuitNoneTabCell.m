@@ -70,7 +70,7 @@
 - (UILabel *)promptLab{
     if (_promptLab == nil) {
         _promptLab = [[UILabel alloc] init];
-        _promptLab.text = @"你当前还没有追求的人哎\n你可以逛逛公园追求他人嘛\n爱是真诚，爱是勇气^_";
+        _promptLab.text = @"你当前还没有确认的人哎\n你可以逛逛公园确认他人嘛\n确认是真诚，确认是勇气^_";
         _promptLab.font = FONT(16);
         _promptLab.textColor = FirstWordColor;
         _promptLab.numberOfLines = 0;
@@ -90,10 +90,10 @@
 - (void)setViewType:(SPPursuitViewType)viewType {
     _viewType = viewType;
     if (_viewType == SPMePursuitViewType) {
-        _promptLab.text = @"你当前还没有追求的人哎\n你可以逛逛公园追求他人嘛\n爱是真诚，爱是勇气^_";
+        _promptLab.text = @"你当前还没有确认的人哎\n你可以逛逛公园确认他人嘛\n确认是真诚，确认是勇气^_";
         
     }else{
-        _promptLab.text = @"当前还没有追求的人追你哎\n你可以逛逛公园追求他人嘛\n爱是真诚，爱是勇气^_";
+        _promptLab.text = @"当前还没有确认的人追你哎\n你可以逛逛公园确认他人嘛\n确认是真诚，确认是勇气^_";
         
     }
 }
