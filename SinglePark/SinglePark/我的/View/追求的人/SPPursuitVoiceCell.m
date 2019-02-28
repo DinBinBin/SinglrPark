@@ -100,7 +100,7 @@
             
         } success:^(NSString *filePath) {
             NSLog(@"下载成功----------%@",filePath);
-            self.filePath = filePath;
+            self.filePath = [filePath substringFromIndex:6];//去掉file://
             
             self.voiceBtn.enabled = YES;
             

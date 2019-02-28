@@ -55,6 +55,8 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
         }];
         self.viewType = type;
         
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(noAccept) name:@"noacceptClick" object:nil];
+        
         [self requestData];
     }
     return self;
@@ -66,6 +68,8 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
     [kCountDownManager invalidate];
     // 清空时间差
     [kCountDownManager reload];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"noacceptClick" object:self];
 }
 
 - (void)clearTimer {
@@ -130,6 +134,8 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
                 
                 [upCell.mybutton addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
                 [downCell.mybutton addTarget:self action:@selector(noAccpet:) forControlEvents:UIControlEventTouchUpInside];
+                
+                [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"acceptClick" object:nil userInfo:nil]];
                 break;
                 
             default:
@@ -319,7 +325,7 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
             return 5;
         }
         if (self.typede == PursuitTypeDetailAccept) {
-            return 5;
+            return 4;
         }
         
         return 2;
@@ -517,7 +523,7 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
                     
                 }];
                 
-                [self viewController].navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectCover)];
+                [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"acceptClick" object:nil userInfo:nil]];
                 
                 [strongSelf requestData];
             }];
@@ -586,6 +592,26 @@ NSString *const OYMultipleTableSource2 = @"OYMultipleTableSource2";
         
     }
     
+}
+
+//接收通知拒绝
+- (void)noAccept {
+    if (!self.pursuitMeModel.itemId) {
+        return;
+    }
+    NSDictionary *parma = @{@"id":[NSString stringWithFormat:@"%d",self.pursuitMeModel.itemId],
+                            @"status":@"3"
+                            };
+    WEAKSELF
+    STRONGSELF
+    [self updateFollowInfo:parma success:^(id responseObject) {
+        
+        [strongSelf requestData];
+        [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_PRIVATE targetId:[NSString stringWithFormat:@"%d",strongSelf.pursuitMeModel.from_user.userId]];
+        [[SPFriendDBManger shareInstance] deleteFriend:self.pursuitMeModel.from_user.userId];
+    }];
+
+    [self viewController].navigationItem.rightBarButtonItem = nil;
 }
 
 - (void)gohome:(UIButton *)sender {

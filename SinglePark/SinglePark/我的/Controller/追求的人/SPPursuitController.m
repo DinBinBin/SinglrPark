@@ -32,12 +32,18 @@
 
     self.hideNavigationLine = YES;
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addRightItem) name:@"acceptClick" object:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
 
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"acceptClick" object:self];
 }
 
 - (void)eventBlock {
@@ -141,18 +147,25 @@
     [self.pursuitScroll setContentOffset:CGPointMake(sc.selectedSegmentIndex*kScreenWidth, 0) animated:YES];
     if (sc.selectedSegmentIndex == 0) {
         if (self.pursuitMe.typede == PursuitTypeDetailAccept) {
-            self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectCover)];
+            [self addRightItem];
         }else{
             self.navigationItem.rightBarButtonItem = nil;
         }
+    }else{
+        self.navigationItem.rightBarButtonItem = nil;
     }
+}
+
+- (void)addRightItem {
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem barButtonLeftItemWithImageName:@"more" target:self action:@selector(selectCover)];
+
 }
 
 - (void)selectCover {
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction * nolike = [UIAlertAction actionWithTitle:@"不合适" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//        [self openPhotoWithType:1];
+        [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"noacceptClick" object:nil userInfo:nil]];
     }];
     
     [nolike setValue:TextMianColor forKey:@"_titleTextColor"];
