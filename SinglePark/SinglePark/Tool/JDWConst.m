@@ -63,3 +63,6 @@ NSString * const HWNetworkingReachabilityDidChangeNotification = @"HWNetworkingR
 
 /** 融云appkey */
 NSString * const RYAPPKey = @"sfci50a7s36wi";
+//生产环境
+//NSString * const RYAPPKey = @"y745wfm8yqo3v";
+
