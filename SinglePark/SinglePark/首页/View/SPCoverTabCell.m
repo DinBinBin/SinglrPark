@@ -70,7 +70,9 @@
 
     [self.promptImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.coverImg);
+        make.width.height.mas_equalTo(50);
     }];
+    self.promptImg.hidden = YES;
     [self.headBtn.layer setCornerRadius:25];
     self.headBtn.clipsToBounds = YES;
 }
@@ -138,7 +140,7 @@
 - (UIImageView *)promptImg{
     if (_promptImg == nil) {
         _promptImg = [[UIImageView alloc] init];
-        _promptImg.image = [UIImage imageNamed:@""];
+        _promptImg.image = [UIImage imageNamed:@"pasuimg"];
     }
     return _promptImg;
 }
@@ -170,10 +172,13 @@
                 }
             }else{
                 [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_model.first_video.thumb stringByAppendingString:videoCover]] placeholderImage:[UIImage imageNamed:@"视频加载失败"]];
+                self.promptImg.hidden = NO;
 
             }
         }else{
             [self.coverImg setImage:[UIImage imageNamed:@"默认未上传视频"]];
+            self.promptImg.hidden = YES;
+
         }
 
     }

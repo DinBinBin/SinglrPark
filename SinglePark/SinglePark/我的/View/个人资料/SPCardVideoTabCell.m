@@ -58,11 +58,12 @@
     
         [self.promptImg mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.coverImg);
+            make.width.height.mas_equalTo(50);
         }];
     
     [self.coverImg.layer setCornerRadius:8];
     self.coverImg.clipsToBounds = YES;
-
+    self.promptImg.hidden = YES;
 }
 
 // 懒加载
@@ -97,7 +98,7 @@
 - (UIImageView *)promptImg{
     if (_promptImg == nil) {
         _promptImg = [[UIImageView alloc] init];
-        _promptImg.image = [UIImage imageNamed:@""];
+        _promptImg.image = [UIImage imageNamed:@"pasuimg"];
     }
     return _promptImg;
 }
@@ -108,10 +109,19 @@
             if (_coverModel.thumb_id) {
                 [self requestThumb:_coverModel.thumb_id];
             }
+
         }else{
             [self.coverImg sd_setImageWithURL:[NSURL URLWithString:[_coverModel.thumb stringByAppendingString:videoCover]]  placeholderImage:ImageNamed(@"视频加载失败")];
-
         }
+    
+    if (_coverModel) {
+        self.promptImg.hidden = NO;
+        
+    }else{
+        self.promptImg.hidden = YES;
+        
+    }
+
         
 }
 
@@ -126,6 +136,8 @@
             if (arr.count > 0) {
                 NSString *imgUrl = SPURL_API_Img(responseDic[@"data"][@"items"][0][@"key"]);
                 [strongSelf.coverImg sd_setImageWithURL:[NSURL URLWithString:[imgUrl stringByAppendingString:videoCover]]   placeholderImage:ImageNamed(@"视频加载失败")];
+                self.promptImg.hidden = NO;
+
             }
           
         }else{

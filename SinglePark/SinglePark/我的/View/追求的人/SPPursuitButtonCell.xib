@@ -24,7 +24,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="0iR-C6-P9r"/>
                         </constraints>
-                        <state key="normal" title="追她">
+                        <state key="normal" title="确认一下眼神">
                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </state>
                         <userDefinedRuntimeAttributes>
