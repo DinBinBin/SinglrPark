@@ -191,11 +191,17 @@
     [JDWNetworkHelper POST:SPQiuniiuCat parameters:@{@"thumb_id":thumdId} success:^(id responseObject) {
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            NSArray *arr = responseDic[@"data"][@"items"];
-            if (arr.count > 0) {
-                NSString *imgUrl = SPURL_API_Img(responseDic[@"data"][@"items"][0][@"key"]);
+            NSArray *arr1 = responseDic[@"data"];//取出第一个数组
+            for (NSDictionary *dic in arr1) {    //取出第一个数组
+                NSArray *arr = dic[@"items"];  //第一个数组n里面的item
+                NSDictionary  *dic2  = arr [0];
+                if (arr.count > 0) {
+                NSString *imgUrl = SPURL_API_Img(dic2[@"key"]);
                 [strongSelf.coverImg sd_setImageWithURL:[NSURL URLWithString:[imgUrl stringByAppendingString:videoCover]]   placeholderImage:ImageNamed(@"视频加载失败")];
+                }
+
             }
+            
             
         }else{
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
@@ -203,7 +209,7 @@
         }
         
     } failure:^(NSError *error) {
-        
+    
         
     }];
     

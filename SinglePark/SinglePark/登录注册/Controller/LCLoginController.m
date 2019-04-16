@@ -13,6 +13,7 @@
 #import "SPTourisController.h"
 #import "SPBusinessCardController.h"
 #import <RongIMKit/RongIMKit.h>
+#import "SFBaseWebViewController.h"
 
 
 @interface LCLoginController ()
@@ -362,7 +363,8 @@
 
 - (void)rednegotiate{
     
-    
+    SFBaseWebViewController *webViewVC = [SFBaseWebViewController createWebView:@"http://singlepark.cn/UserAgreement.html" title:@"服务协议"];
+    [self.navigationController pushViewController:webViewVC animated:YES];
 }
 
 - (void)getcode{

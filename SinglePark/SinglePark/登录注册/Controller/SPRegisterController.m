@@ -9,6 +9,7 @@
 #import "SPRegisterController.h"
 #import "SPPerfectController.h"
 #import <RongIMKit/RongIMKit.h>
+#import "SFBaseWebViewController.h"
 
 @interface SPRegisterController ()
 @property (nonatomic,strong)UIView *fieleView;
@@ -197,7 +198,8 @@
 }
 
 - (void)rednegotiate{
-    
+    SFBaseWebViewController *webViewVC = [SFBaseWebViewController createWebView:@"http://singlepark.cn/UserAgreement.html" title:@"服务协议"];
+    [self.navigationController pushViewController:webViewVC animated:YES];
 }
 
 - (void)registerclick{

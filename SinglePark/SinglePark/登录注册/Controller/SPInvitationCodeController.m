@@ -8,6 +8,7 @@
 
 #import "SPInvitationCodeController.h"
 #import "SPRegisterController.h"
+#import "SFBaseWebViewController.h"
 
 @interface SPInvitationCodeController ()
 @property (nonatomic,strong)UIView *invitationView;
@@ -149,7 +150,8 @@
 
 
 - (void)rednegotiate{
-
+    SFBaseWebViewController *webViewVC = [SFBaseWebViewController createWebView:@"http://singlepark.cn/UserAgreement.html" title:@"服务协议"];
+    [self.navigationController pushViewController:webViewVC animated:YES];
 }
 
 @end

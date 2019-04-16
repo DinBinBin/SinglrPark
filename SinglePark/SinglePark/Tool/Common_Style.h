@@ -66,8 +66,8 @@
 
 #define ptAppDelegate        ((AppDelegate*)[[UIApplication sharedApplication]delegate])
 
-#define BASE_HttpURL      @"http://singlepark.cn/api/v1"  //base 地址 生产
-//#define BASE_HttpURL      @"http://jiu.wuchenge.com/api/v1"  //base 地址
+//#define BASE_HttpURL      @"http://singlepark.cn/api/v1"  //base 地址 生产
+#define BASE_HttpURL      @"http://jiu.wuchenge.com/api/v1"  //base 地址
 
 #define FONT(a)          [UIFont systemFontOfSize:(a)]
 
