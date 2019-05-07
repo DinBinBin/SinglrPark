@@ -13,6 +13,8 @@
 //http://jiu.wuchenge.com/api/doc/index.html
 
 
+//用户协议
+ #define SPURL_protocol @"http://jiu.wuchenge.com/protocol"
 
 //刷新token
 #define SPURL_API_Refresh [NSString stringWithFormat:@"%@/refresh",BASE_HttpURL]

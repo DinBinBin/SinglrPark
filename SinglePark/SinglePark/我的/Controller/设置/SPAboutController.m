@@ -31,7 +31,7 @@
 }
 
 - (void)getdata{
-    self.titleArr = @[@"去评分",@"服务协议",@"关于/联系我们",@"当前版本"];
+    self.titleArr = @[@"去评分",@"用户协议",@"关于/联系我们",@"当前版本"];
 
     [self.listTabView reloadData];
     
@@ -144,7 +144,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 1) {
         NSString *url = [SPURL_API_Document stringByAppendingPathComponent:@"2"];
-        SFBaseWebViewController *webViewVC = [SFBaseWebViewController createWebView:@"http://singlepark.cn/UserAgreement.html" title:@"服务协议"];
+        SFBaseWebViewController *webViewVC = [SFBaseWebViewController createWebView:SPURL_protocol title:@"用户协议"];
         [self.navigationController pushViewController:webViewVC animated:YES];
     }else if (indexPath.row == 3) {
         [self getVersion:YES];

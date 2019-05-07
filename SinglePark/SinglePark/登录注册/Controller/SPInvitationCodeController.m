@@ -110,7 +110,7 @@
     if (_readBtn == nil) {
         _readBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _readBtn.frame = CGRectMake(self.readPrompt.right-5, self.readPrompt.top,100, 25);
-        [_readBtn setTitle:@"《服务协议》" forState:UIControlStateNormal];
+        [_readBtn setTitle:@"《用户协议》" forState:UIControlStateNormal];
         [_readBtn setTitleColor:MyWordRed forState:UIControlStateNormal];
         _readBtn.clipsToBounds = YES;
         _readBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -150,7 +150,7 @@
 
 
 - (void)rednegotiate{
-    SFBaseWebViewController *webViewVC = [SFBaseWebViewController createWebView:@"http://singlepark.cn/UserAgreement.html" title:@"服务协议"];
+    SFBaseWebViewController *webViewVC = [SFBaseWebViewController createWebView:SPURL_protocol title:@"用户协议"];
     [self.navigationController pushViewController:webViewVC animated:YES];
 }
 

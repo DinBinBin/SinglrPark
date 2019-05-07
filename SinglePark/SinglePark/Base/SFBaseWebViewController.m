@@ -26,27 +26,29 @@
 - (void)requestData {
 
 
-    [MBProgressHUD showLoadToView:self.view];
-    [JDWNetworkHelper POST:self.deatilURL parameters:nil success:^(id responseObject) {
-        [MBProgressHUD hideHUDForView:self.view];
-        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
-        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            
-            [self.webView loadHTMLString:self.htmlStr baseURL:nil];
-
-        
-        }else{
-            if ([responseDic[@"messages"] isKindOfClass: [NSNull class]]) {
-                [MBProgressHUD showAutoMessage:@"请求失败"];
-                
-            }else{
-                [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
-            }
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view];
-        [MBProgressHUD showAutoMessage:Networkerror];
-    }];
+//    [MBProgressHUD showLoadToView:self.view];
+//    [JDWNetworkHelper POST:self.deatilURL parameters:nil success:^(id responseObject) {
+//        [MBProgressHUD hideHUDForView:self.view];
+//        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+//        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+//
+//            [self.webView loadHTMLString:self.htmlStr baseURL:nil];
+//
+//
+//        }else{
+//            if ([responseDic[@"messages"] isKindOfClass: [NSNull class]]) {
+//                [MBProgressHUD showAutoMessage:@"请求失败"];
+//
+//            }else{
+//                [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+//            }
+//        }
+//    } failure:^(NSError *error) {
+//        [MBProgressHUD hideHUDForView:self.view];
+//        [MBProgressHUD showAutoMessage:Networkerror];
+//    }];
+    NSURLRequest *quest = [NSURLRequest requestWithURL:[NSURL URLWithString:self.deatilURL]];
+   [ self.webView loadRequest:quest];
 }
 
 - (void)viewDidLoad {
