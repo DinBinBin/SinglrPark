@@ -9,6 +9,7 @@
 #import "SPPersonalController.h"
 #import "SPHeadPersonTabCell.h"
 #import "SPCityModel.h"
+#import "SPComplaintPeopleController.h"
 
 @interface SPPersonalController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong)UITableView *listTabView;
@@ -16,6 +17,8 @@
 @property (nonatomic,strong)NSArray *titleArr;
 @property (nonatomic, strong) NSMutableArray *detailArr;
 @property (nonatomic,strong)SPPersonModel *personmodel;
+
+@property (nonatomic,strong)UISwitch *switchblack;
 @end
 
 @implementation SPPersonalController
@@ -198,8 +201,11 @@
         cell.textLabel.textColor = SecondWordColor;
 
         if (indexPath.row == 0) {
-            UISwitch *switchblack = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-            
+            self.switchblack = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+            [cell.contentView addSubview:self.switchblack];
+            [self.switchblack addTarget:self action:@selector(pullblack:) forControlEvents:UIControlEventValueChanged];
+        }else{
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         return cell;
 
@@ -360,4 +366,47 @@
 }
 
 
+- (UISwitch *)switchblack{
+    
+    return _switchblack;
+}
+
+- (void)pullblack:(UISwitch *)witch{
+    witch.selected = witch.selected;
+    if(witch.selected){  //拉黑
+        [self selectCover];
+    }else{  // 取消
+        
+        
+    }
+}
+
+
+- (void)selectCover{
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction * photo = [UIAlertAction actionWithTitle:@"加入黑名单，你将不再收到对方的消息" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+
+    }];
+    
+    [photo setValue:TextMianColor forKey:@"_titleTextColor"];
+    
+    UIAlertAction * choice = [UIAlertAction actionWithTitle:@"确定" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//        去拉黑
+
+    }];
+    [choice setValue:TextMianColor forKey:@"_titleTextColor"];
+    
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style: UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        SPComplaintPeopleController *complaint = [[SPComplaintPeopleController alloc] init];
+        complaint.model = self.model;
+        [self.navigationController pushViewController:complaint animated:YES];
+    }];
+    
+    [alertController addAction:choice];
+    [alertController addAction:cancel];
+    [self showDetailViewController:alertController sender:nil];
+}
+
+//- (void)
 @end

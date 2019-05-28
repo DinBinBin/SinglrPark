@@ -176,6 +176,7 @@
 		E64FB20321C1078600374D58 /* MBProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E64FB20221C1078600374D58 /* MBProgress.m */; };
 		E65429F821D2108B00B45107 /* SPCoverModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E65429F621D2108A00B45107 /* SPCoverModel.m */; };
 		E654A9A4219D7B0300447D12 /* SPVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E654A9A3219D7B0300447D12 /* SPVideoModel.m */; };
+		E65AD5A5229CBF1100E0D420 /* SPComplaintPeopleController.m in Sources */ = {isa = PBXBuildFile; fileRef = E65AD5A4229CBF1100E0D420 /* SPComplaintPeopleController.m */; };
 		E68CBB43219EB32F0010C2D6 /* JDWForceRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB42219EB32F0010C2D6 /* JDWForceRefreshView.m */; };
 		E68CBB46219EB4170010C2D6 /* SPCommentTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB45219EB4170010C2D6 /* SPCommentTabView.m */; };
 		E68CBB49219EB5370010C2D6 /* SPVideoCommentTabCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E68CBB48219EB5370010C2D6 /* SPVideoCommentTabCell.m */; };
@@ -488,6 +489,8 @@
 		E65429F721D2108A00B45107 /* SPCoverModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCoverModel.h; sourceTree = "<group>"; };
 		E654A9A2219D7B0300447D12 /* SPVideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPVideoModel.h; sourceTree = "<group>"; };
 		E654A9A3219D7B0300447D12 /* SPVideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPVideoModel.m; sourceTree = "<group>"; };
+		E65AD5A3229CBF1100E0D420 /* SPComplaintPeopleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPComplaintPeopleController.h; sourceTree = "<group>"; };
+		E65AD5A4229CBF1100E0D420 /* SPComplaintPeopleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPComplaintPeopleController.m; sourceTree = "<group>"; };
 		E68CBB41219EB32F0010C2D6 /* JDWForceRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDWForceRefreshView.h; sourceTree = "<group>"; };
 		E68CBB42219EB32F0010C2D6 /* JDWForceRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDWForceRefreshView.m; sourceTree = "<group>"; };
 		E68CBB44219EB4170010C2D6 /* SPCommentTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPCommentTabView.h; sourceTree = "<group>"; };
@@ -612,6 +615,8 @@
 				79CAF65921BE44D700B48780 /* SPEditNickNameViewController.m */,
 				79CAF65B21BE6E5600B48780 /* SPEditSectionViewController.h */,
 				79CAF65C21BE6E5600B48780 /* SPEditSectionViewController.m */,
+				E65AD5A3229CBF1100E0D420 /* SPComplaintPeopleController.h */,
+				E65AD5A4229CBF1100E0D420 /* SPComplaintPeopleController.m */,
 			);
 			path = "编辑资料";
 			sourceTree = "<group>";
@@ -1521,6 +1526,7 @@
 				E654A9A4219D7B0300447D12 /* SPVideoModel.m in Sources */,
 				8127A6BB217354760033434C /* SPPersonalController.h in Sources */,
 				E68CBB4D219EC1640010C2D6 /* SPChasingTabCell.m in Sources */,
+				E65AD5A5229CBF1100E0D420 /* SPComplaintPeopleController.m in Sources */,
 				811DB6CE21687A9D00204139 /* UIView+JDW.m in Sources */,
 				8127A6C1217355E40033434C /* SPSetController.m in Sources */,
 				811DB243216CE11900ABB889 /* SPMessageModel.m in Sources */,
