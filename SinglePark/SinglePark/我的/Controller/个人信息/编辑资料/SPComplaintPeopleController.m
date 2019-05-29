@@ -240,20 +240,23 @@
 // 提交
 -(void)finishClick{
     if (!self.textView.text) {
-        [MBProgressHUD showMessage:@"请输入您要反馈的意见"];
+        [MBProgressHUD showMessage:@"请输入您投诉的理由"];
         return;
     }
     
+    
+    
     NSDictionary *parameters = @{@"content" : self.textView.text,
-                                 @"images" : @[self.avatar ?:@""]
+                                 @"pics" : @[self.avatar ?:@""],
+                                 @"t_uid":[NSString stringWithFormat:@"%d",self.model.userId]
                                  };
     
     WEAKSELF
-    [JDWNetworkHelper POST:SPURL_API_Feedback parameters:parameters success:^(id responseObject) {
+    [JDWNetworkHelper POST:SPURL_API_Complaint parameters:parameters success:^(id responseObject) {
         STRONGSELF
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            [MBProgressHUD showMessage:@"您的意见已反馈成功，感谢你的宝贵意见！"];
+            [MBProgressHUD showMessage:@"您已投诉成功，我们正在加紧处理，他已不会出现在您的视野中！"];
         }else{
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
             

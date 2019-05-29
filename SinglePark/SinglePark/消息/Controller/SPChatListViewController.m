@@ -83,7 +83,30 @@
 
         }
     }
-    [self.navigationController pushViewController:conversationVC animated:YES];
+    
+    NSDictionary *parameters = @{
+                                 @"t_uid":model.targetId
+                                 };
+    WEAKSELF
+    [JDWNetworkHelper POST:SPURL_API_Black parameters:parameters success:^(id responseObject) {
+        STRONGSELF
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil && responseDic[@"data"][@"is_black"]) {
+            BOOL is_black = responseDic[@"data"][@"is_black"];
+            if (is_black) {
+                [MBProgressHUD showAutoMessage:@"你们已互为黑名单"];
+            }
+        }else{
+            [self.navigationController pushViewController:conversationVC animated:YES];
+        }
+        
+
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        JDWLog(@"%@",error.localizedDescription);
+        [self.navigationController pushViewController:conversationVC animated:YES];
+    }];
+    
 }
 
 #pragma mark - RCIMUserInfoDataSource

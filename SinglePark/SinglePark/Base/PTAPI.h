@@ -51,6 +51,16 @@
 //协议文档
 #define SPURL_API_Document [NSString stringWithFormat:@"%@/document/detail/",BASE_HttpURL]
 
+//拉黑
+#define SPURL_API_Pullblack [NSString stringWithFormat:@"%@/user/black",BASE_HttpURL]
+//拉黑列表
+#define SPURL_API_PullblackList [NSString stringWithFormat:@"%@/user/blacks",BASE_HttpURL]
+//投诉
+#define SPURL_API_Complaint [NSString stringWithFormat:@"%@/user/complaint",BASE_HttpURL]
+//是否存在拉黑关系
+#define SPURL_API_Black [NSString stringWithFormat:@"%@/user/is_black",BASE_HttpURL]
+
+
 //追她
 #define SPURL_API_follows_create [NSString stringWithFormat:@"%@/follows/create",BASE_HttpURL]
 //追讯

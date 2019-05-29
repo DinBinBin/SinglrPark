@@ -199,11 +199,15 @@
         cell.textLabel.text = arr[indexPath.row];
         cell.textLabel.font = Font16;
         cell.textLabel.textColor = SecondWordColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         if (indexPath.row == 0) {
             self.switchblack = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-            [cell.contentView addSubview:self.switchblack];
+            self.switchblack.on = NO;
             [self.switchblack addTarget:self action:@selector(pullblack:) forControlEvents:UIControlEventValueChanged];
+            self.switchblack.onTintColor = ThemeColor;
+            cell.accessoryView = self.switchblack;
+
         }else{
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
@@ -220,6 +224,12 @@
         
     }
     
+// 进入投诉
+    if (indexPath.section == 3 && indexPath.row == 1) {
+        SPComplaintPeopleController *complaint = [[SPComplaintPeopleController alloc] init];
+        complaint.model = self.model;
+        [self.navigationController pushViewController:complaint animated:YES];
+    }
 }
 
 - (CGFloat )tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -372,41 +382,59 @@
 }
 
 - (void)pullblack:(UISwitch *)witch{
-    witch.selected = witch.selected;
-    if(witch.selected){  //拉黑
+//    witch.on = !witch.on;
+    if(witch.on){  //拉黑
         [self selectCover];
     }else{  // 取消
-        
-        
+        //        [];
+        witch.on = YES;
+//        [MBProgressHUD showAutoMessage:@"赞无拉黑取消功能"];
     }
 }
 
 
 - (void)selectCover{
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"加入黑名单，你将不再收到对方的消息" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction * photo = [UIAlertAction actionWithTitle:@"加入黑名单，你将不再收到对方的消息" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-
-    }];
-    
-    [photo setValue:TextMianColor forKey:@"_titleTextColor"];
+//    UIAlertAction * photo = [UIAlertAction actionWithTitle:@"加入黑名单，你将不再收到对方的消息" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//
+//    }];
+//
+//    [photo setValue:TextMianColor forKey:@"_titleTextColor"];
     
     UIAlertAction * choice = [UIAlertAction actionWithTitle:@"确定" style: UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 //        去拉黑
-
+        [self pullbaclk];
     }];
     [choice setValue:TextMianColor forKey:@"_titleTextColor"];
     
     UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style: UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        SPComplaintPeopleController *complaint = [[SPComplaintPeopleController alloc] init];
-        complaint.model = self.model;
-        [self.navigationController pushViewController:complaint animated:YES];
+        self.switchblack.on = NO;
     }];
     
+//    [alertController addAction:photo];
     [alertController addAction:choice];
     [alertController addAction:cancel];
     [self showDetailViewController:alertController sender:nil];
 }
 
-//- (void)
+- (void)pullbaclk{
+    NSDictionary *parms = @{@"t_uid":[NSString stringWithFormat:@"%d",self.model.userId]};
+    WEAKSELF
+    STRONGSELF
+    [JDWNetworkHelper POST:SPURL_API_Pullblack parameters:parms success:^(id responseObject) {
+        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) { //拉黑成功
+            [MBProgressHUD showAutoMessage:@"拉黑成功"];
+            strongSelf.switchblack.on = YES;
+        }else{
+            [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
+            strongSelf.switchblack.on = NO;
+
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showMessage:Networkerror];
+        [MBProgressHUD showAutoMessage:Networkerror];
+    }];
+}
 @end

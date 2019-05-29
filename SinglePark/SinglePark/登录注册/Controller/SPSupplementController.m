@@ -383,36 +383,41 @@
 
 #pragma mark - click
 - (void)finishClick {
-    NSDictionary *parsms = @{
-                             @"avatar":self.avatar ?: @"",
-                             @"nick_name":self.nickName,
-                             @"sex":@(self.sex),
-                             @"birthday":self.ageField.text,
-                             @"job":@[self.occupationField.text],
-                             @"province_id":@([DBAccountInfo sharedInstance].model.province_id),
-                             @"city_id":@([DBAccountInfo sharedInstance].model.city_id),
-                             @"district_id":@([DBAccountInfo sharedInstance].model.district_id),
-
-                             };
-    WEAKSELF
-    STRONGSELF
-    [MBProgressHUD showLoadToView:self.view];
-    [JDWNetworkHelper POST:PTURL_API_UserChage parameters:parsms success:^(id responseObject) {
-        [MBProgressHUD hideHUDForView:strongSelf.view];
-        NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
-        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            //登录跳转
-            SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
-            [UIApplication sharedApplication].statusBarHidden = NO;
-            ptAppDelegate.window.rootViewController = sgTabBar ;
-        }else{
-            [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
-        }
+    if (self.ageField.text.length) {
+        NSDictionary *parsms = @{
+                                 @"avatar":self.avatar ?: @"",
+                                 @"nick_name":self.nickName,
+                                 @"sex":@(self.sex),
+                                 @"birthday":self.ageField.text,
+                                 @"job":@[self.occupationField.text],
+                                 @"province_id":@([DBAccountInfo sharedInstance].model.province_id),
+                                 @"city_id":@([DBAccountInfo sharedInstance].model.city_id),
+                                 @"district_id":@([DBAccountInfo sharedInstance].model.district_id),
+                                 
+                                 };
+        WEAKSELF
+        STRONGSELF
+        [MBProgressHUD showLoadToView:self.view];
+        [JDWNetworkHelper POST:PTURL_API_UserChage parameters:parsms success:^(id responseObject) {
+            [MBProgressHUD hideHUDForView:strongSelf.view];
+            NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
+            if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+                //登录跳转
+                SGTabBarController *sgTabBar = [[SGTabBarController alloc] init];
+                [UIApplication sharedApplication].statusBarHidden = NO;
+                ptAppDelegate.window.rootViewController = sgTabBar ;
+            }else{
+                [MBProgressHUD showAutoMessage:responseDic[@"messages"]];
+            }
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUDForView:strongSelf.view];
+            [MBProgressHUD showAutoMessage:Networkerror];
+        }];
+    }else{
         
-    } failure:^(NSError *error) {
-        [MBProgressHUD hideHUDForView:strongSelf.view];
-        [MBProgressHUD showAutoMessage:Networkerror];
-    }];
+        [MBProgressHUD showAutoMessage:@"生日为必填项"];
+    }
 }
 
 - (void)rednegotiate{

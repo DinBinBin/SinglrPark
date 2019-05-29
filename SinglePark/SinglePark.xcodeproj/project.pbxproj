@@ -1792,7 +1792,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 72P6E4X594;
+				DEVELOPMENT_TEAM = XZ8SPS8RK3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SinglePark/首页/Controller/视频详情/KSYMediaPlayer_iOS/framework/live",
@@ -1811,7 +1811,7 @@
 					"$(PROJECT_DIR)/SinglePark/Tool/Class/Vendor/AMR/lib",
 					"$(PROJECT_DIR)/SinglePark/Tool/lame",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = SinglePark.APPcom;
+				PRODUCT_BUNDLE_IDENTIFIER = SinglePark.AP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1826,7 +1826,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 72P6E4X594;
+				DEVELOPMENT_TEAM = XZ8SPS8RK3;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SinglePark/首页/Controller/视频详情/KSYMediaPlayer_iOS/framework/live",
@@ -1925,7 +1925,7 @@
 					"-framework",
 					"\"YYCategories\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = SinglePark.APPcom;
+				PRODUCT_BUNDLE_IDENTIFIER = SinglePark.AP;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
