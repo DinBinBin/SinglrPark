@@ -247,7 +247,7 @@
     
     
     NSDictionary *parameters = @{@"content" : self.textView.text,
-                                 @"pics" : @[self.avatar ?:@""],
+                                 @"pics" : self.avatar ?:@"",
                                  @"t_uid":[NSString stringWithFormat:@"%d",self.model.userId]
                                  };
     
@@ -256,7 +256,7 @@
         STRONGSELF
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
         if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
-            [MBProgressHUD showMessage:@"您已投诉成功，我们正在加紧处理，他已不会出现在您的视野中！"];
+            [MBProgressHUD showMessage:@"您已投诉成功，我们正在加紧处理！"];
         }else{
             [MBProgressHUD showMessage:[responseDic objectForKey:@"messages"]];
             
