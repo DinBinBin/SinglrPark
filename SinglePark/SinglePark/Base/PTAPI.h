@@ -22,6 +22,8 @@
 #define PTURL_API_SENDMSG [NSString stringWithFormat:@"%@/captcha",BASE_HttpURL]
 //注册/邀请码
 #define PTURLinvitation [NSString stringWithFormat:@"%@/code",BASE_HttpURL]
+//注册/邀请码开关
+#define PTURLinvitationOffer [NSString stringWithFormat:@"%@/is_register_on",BASE_HttpURL]
 //注册接口
 #define PTURL_API_LOGINREGIST [NSString stringWithFormat:@"%@/register",BASE_HttpURL]
 //用户信息修改

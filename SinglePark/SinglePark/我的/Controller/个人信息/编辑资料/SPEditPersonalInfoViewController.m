@@ -425,8 +425,8 @@
 //                [self.navigationController pushViewController:vc animated:YES];
             }else{//修改生日日期
                 
-                [self.view addSubview:self.fakeTextField];
-                [self.fakeTextField becomeFirstResponder];
+//                [self.view addSubview:self.fakeTextField];
+//                [self.fakeTextField becomeFirstResponder];
                 return;
             }
             

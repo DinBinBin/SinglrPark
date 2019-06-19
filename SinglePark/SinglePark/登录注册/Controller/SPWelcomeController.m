@@ -10,6 +10,7 @@
 #import "LCLoginController.h"
 #import "SPTourisController.h"
 #import "SPInvitationCodeController.h"
+#import "SPRegisterController.h"
 
 
 
@@ -106,10 +107,27 @@
     [self.navigationController pushViewController:tourist animated:YES];
 }
 
+// 跳转到注册页面
 - (void)registerClick{
-    SPInvitationCodeController *registerc = [[SPInvitationCodeController alloc] init];
-    [self.navigationController pushViewController:registerc animated:YES];
-
+    [JDWNetworkHelper POST:PTURLinvitationOffer parameters:nil success:^(id responseObject) {
+        NSDictionary *responseDic = (NSDictionary *)responseObject;
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil) {
+            if ([responseDic[@"data"][@"is_register_on"] isEqualToString:@"on"]) {
+                SPInvitationCodeController *registerc = [[SPInvitationCodeController alloc] init];
+                [self.navigationController pushViewController:registerc animated:YES];
+            }else{
+                SPRegisterController *registerc = [[SPRegisterController alloc] init];
+                [self.navigationController pushViewController:registerc animated:YES];
+            }
+        }else{
+            SPRegisterController *registerc = [[SPRegisterController alloc] init];
+            [self.navigationController pushViewController:registerc animated:YES];
+        }
+        
+    } failure:^(NSError *error) {
+        SPRegisterController *registerc = [[SPRegisterController alloc] init];
+        [self.navigationController pushViewController:registerc animated:YES];
+    }];
 }
 
 - (void)loginClick{
