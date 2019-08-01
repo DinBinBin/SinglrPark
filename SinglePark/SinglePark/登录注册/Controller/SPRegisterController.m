@@ -254,7 +254,7 @@
             //保存用户信息
             [[DBAccountInfo sharedInstance].model yy_modelSetWithJSON:responseDic[@"data"]];
             [JDWUserInfoDB saveUserInfo:[DBAccountInfo sharedInstance].model];
-            
+            [MBProgressHUD showAutoMessage:@"注册成功"];
             SPPerfectController *perfect = [[SPPerfectController alloc] init];
             [self.navigationController pushViewController:perfect animated:YES];
             

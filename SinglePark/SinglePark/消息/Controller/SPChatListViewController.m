@@ -91,8 +91,8 @@
     [JDWNetworkHelper POST:SPURL_API_Black parameters:parameters success:^(id responseObject) {
         STRONGSELF
         NSDictionary *responseDic = [SFDealNullTool dealNullData:responseObject];
-        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil && responseDic[@"data"][@"is_black"]) {
-            BOOL is_black = responseDic[@"data"][@"is_black"];
+        if ([responseDic[@"error_code"] intValue] == 0 && responseDic != nil && [responseDic[@"data"][@"is_black"] boolValue]) {
+            BOOL is_black = [responseDic[@"data"][@"is_black"]  boolValue];
             if (is_black) {
                 [MBProgressHUD showAutoMessage:@"你们已互为黑名单"];
             }
